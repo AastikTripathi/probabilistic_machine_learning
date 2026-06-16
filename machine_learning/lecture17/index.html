@@ -1,0 +1,2925 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture17-2/">
+      
+      
+        <link rel="next" href="../lecture17_1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture17 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture17
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-15-discrete-support-manifolds-one-hot-representations-and-constrained-categorical-mle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 15: Discrete Support Manifolds, One-Hot Representations, and Constrained Categorical MLE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 15: Discrete Support Manifolds, One-Hot Representations, and Constrained Categorical MLE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-the-strategic-transition-continuous-vs-discrete-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.1 The Strategic Transition: Continuous vs. Discrete Support
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15.1 The Strategic Transition: Continuous vs. Discrete Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deconstructing-a-common-misconception-multinoulli-vs-multinomial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deconstructing a Common Misconception: Multinoulli vs. Multinomial
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-the-problem-setup-the-general-discrete-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.2 The Problem Setup: The General Discrete Case
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-the-one-hot-representation-mapping-the-algebraic-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.3 The One-Hot Representation Mapping (The Algebraic Hook)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15.3 The One-Hot Representation Mapping (The Algebraic Hook)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-operational-example-a-6-sided-die-roll" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Operational Example: A 6-Sided Die Roll
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-the-unified-differentiable-pmf-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.4 The Unified Differentiable PMF Formula
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15.4 The Unified Differentiable PMF Formula">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-this-product-trick-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Product Trick Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155-formulating-the-empirical-log-likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.5 Formulating the Empirical Log-Likelihood
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#156-constrained-optimization-via-the-lagrangian-manifold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.6 Constrained Optimization via the Lagrangian Manifold
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#157-closed-form-derivation-of-the-empirical-frequency-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.7 Closed-Form Derivation of the Empirical Frequency Solution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15.7 Closed-Form Derivation of the Empirical Frequency Solution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-final-realization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Final Realization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-15-discrete-support-manifolds-one-hot-representations-and-constrained-categorical-mle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 15: Discrete Support Manifolds, One-Hot Representations, and Constrained Categorical MLE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 15: Discrete Support Manifolds, One-Hot Representations, and Constrained Categorical MLE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-the-strategic-transition-continuous-vs-discrete-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.1 The Strategic Transition: Continuous vs. Discrete Support
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15.1 The Strategic Transition: Continuous vs. Discrete Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deconstructing-a-common-misconception-multinoulli-vs-multinomial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deconstructing a Common Misconception: Multinoulli vs. Multinomial
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-the-problem-setup-the-general-discrete-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.2 The Problem Setup: The General Discrete Case
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-the-one-hot-representation-mapping-the-algebraic-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.3 The One-Hot Representation Mapping (The Algebraic Hook)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15.3 The One-Hot Representation Mapping (The Algebraic Hook)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-operational-example-a-6-sided-die-roll" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Operational Example: A 6-Sided Die Roll
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-the-unified-differentiable-pmf-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.4 The Unified Differentiable PMF Formula
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15.4 The Unified Differentiable PMF Formula">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-this-product-trick-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Product Trick Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155-formulating-the-empirical-log-likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.5 Formulating the Empirical Log-Likelihood
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#156-constrained-optimization-via-the-lagrangian-manifold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.6 Constrained Optimization via the Lagrangian Manifold
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#157-closed-form-derivation-of-the-empirical-frequency-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15.7 Closed-Form Derivation of the Empirical Frequency Solution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15.7 Closed-Form Derivation of the Empirical Frequency Solution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-final-realization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Final Realization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-15-discrete-support-manifolds-one-hot-representations-and-constrained-categorical-mle">Chapter 15: Discrete Support Manifolds, One-Hot Representations, and Constrained Categorical MLE</h2>
+<hr />
+<h3 id="151-the-strategic-transition-continuous-vs-discrete-support">15.1 The Strategic Transition: Continuous vs. Discrete Support</h3>
+<p>In the previous chapter, we derived the Maximum Likelihood Estimation (MLE) protocol for a continuous Multivariate Gaussian distribution. We proved that calculating a standard vector mean average is the mathematically exact method for minimizing the Kullback-Leibler (KL) divergence to nature when your data noise follows a smooth bell curve.</p>
+<p>Now, we shift our focus to <strong>Discrete Support Manifolds</strong>.</p>
+<p>When dealing with categorical attributes—such as rolling a multi-sided die, identifying a distinct word token from a vocabulary list, or sorting an image into discrete diagnostic bins—the data coordinates do not sit on a continuous line. They exist as isolated, non-numeric categorical states.</p>
+<h4 id="deconstructing-a-common-misconception-multinoulli-vs-multinomial">Deconstructing a Common Misconception: Multinoulli vs. Multinomial</h4>
+<p>The professor halts the lecture to clear up a major piece of terminology that often trips up practitioners:</p>
+<blockquote>
+<p><strong>The Categorical Rule:</strong> &gt; Do not call a single multi-outcome trial a "Binomial" or "Multinomial" distribution.
+* A <strong>Binomial</strong> or <strong>Multinomial</strong> distribution tracks the accumulated <em>counts</em> of outcomes gathered across multiple independent trials.
+* A single trial with exactly two outcomes is a <strong>Bernoulli</strong> distribution.
+* A single trial with <span class="arithmatex">\(M\)</span> distinct categorical outcomes (<span class="arithmatex">\(M &gt; 2\)</span>) is a <strong>Multinoulli</strong> (or <strong>Categorical</strong>) distribution.</p>
+</blockquote>
+<p>Because our dataset <span class="arithmatex">\(D\)</span> is composed of <span class="arithmatex">\(N\)</span> independent, single-observation trials, we are running parametric density estimation over a <strong>Categorical Space</strong>.</p>
+<hr />
+<h3 id="152-the-problem-setup-the-general-discrete-case">15.2 The Problem Setup: The General Discrete Case</h3>
+<p>We are given an empirical dataset <span class="arithmatex">\(D\)</span> containing <span class="arithmatex">\(N\)</span> independent and identically distributed (<strong>i.i.d.</strong>) scalar observations:</p>
+<div class="arithmatex">\[D = \{v_1, v_2, \dots, v_N\} \sim \text{i.i.d. } p_{\text{true}}(v)\]</div>
+<p>The underlying random variable <span class="arithmatex">\(V\)</span> can realize into exactly one of <span class="arithmatex">\(M\)</span> distinct, non-numeric categorical states from a fixed support alphabet <span class="arithmatex">\(\mathcal{A}\)</span>:</p>
+<div class="arithmatex">\[\mathcal{A} = \{a_1, a_2, \dots, a_M\}\]</div>
+<p>Each distinct state <span class="arithmatex">\(a_j\)</span> is governed by a true, hidden background probability parameter <span class="arithmatex">\(p_j\)</span>:</p>
+<div class="arithmatex">\[P(V = a_j) = p_j\]</div>
+<p>Our optimization parameter vector <span class="arithmatex">\(\vec{\theta}\)</span> compiles these individual class probabilities into a single column array:</p>
+<div class="arithmatex">\[\vec{\theta} = [p_1, p_2, \dots, p_M]^T\]</div>
+<p>Because the total probability mass of any valid system must conserve volume, these parameters are bound by a strict sum-to-one structural constraint:</p>
+<div class="arithmatex">\[\sum_{j=1}^{M} p_j = 1\]</div>
+<p>Due to this structural constraint, the parameter vector does not have <span class="arithmatex">\(M\)</span> complete degrees of freedom; it possesses exactly <span class="arithmatex">\(M - 1\)</span> independent variables. If you know the values of the first <span class="arithmatex">\(M-1\)</span> parameters, the final parameter is deterministically locked: <span class="arithmatex">\(p_M = 1 - \sum_{j=1}^{M-1} p_j\)</span>.</p>
+<hr />
+<h3 id="153-the-one-hot-representation-mapping-the-algebraic-hook">15.3 The One-Hot Representation Mapping (The Algebraic Hook)</h3>
+<p>To run maximum likelihood estimation, we must compute partial derivatives across our model parameters. However, you cannot run calculus transitions or compute algebraic derivatives over raw, non-numeric categories like <span class="arithmatex">\(\mathcal{A} = \{\text{"Heads"}, \text{"Tails"}\}\)</span> or <span class="arithmatex">\(\mathcal{A} = \{\text{"Cough"}, \text{"Fever"}, \text{"Rash"}\}\)</span>.</p>
+<p>To create a clean algebraic hook for calculus, we map each scalar discrete observation <span class="arithmatex">\(v_i\)</span> into an auxiliary, <span class="arithmatex">\(M\)</span>-dimensional binary coordinate vector <span class="arithmatex">\(\vec{z}_i\)</span>:</p>
+<div class="arithmatex">\[\vec{z}_i = [z_{i,1}, z_{i,2}, \dots, z_{i,M}]^T \in \{0, 1\}^M\]</div>
+<p>This transformation is governed by a strict structural conditional switch:</p>
+<div class="arithmatex">\[z_{i,j} = \mathbb{I}(v_i = a_j) = \begin{cases} 1 &amp; \text{if } v_i = a_j \\ 0 &amp; \text{if } v_i \neq a_j \end{cases}\]</div>
+<h4 id="the-operational-example-a-6-sided-die-roll">The Operational Example: A 6-Sided Die Roll</h4>
+<p>Let our support alphabet represent a standard 6-sided die: <span class="arithmatex">\(\mathcal{A} = \{1, 2, 3, 4, 5, 6\}\)</span>, meaning <span class="arithmatex">\(M = 6\)</span>. Suppose we roll the die <span class="arithmatex">\(N = 4\)</span> times and harvest a tiny raw scalar dataset:</p>
+<div class="arithmatex">\[D_{\text{raw}} = \{3, \,\, 1, \,\, 4, \,\, 3\}\]</div>
+<p>We pull each scalar coordinate through our indicator switch to construct our new one-hot encoded dataset ledger:</p>
+<div class="arithmatex">\[\vec{z}_1 = \text{OneHot}(3) = [0, \,\, 0, \,\, 1, \,\, 0, \,\, 0, \,\, 0]^T\]</div>
+<div class="arithmatex">\[\vec{z}_2 = \text{OneHot}(1) = [1, \,\, 0, \,\, 0, \,\, 0, \,\, 0, \,\, 0]^T\]</div>
+<div class="arithmatex">\[\vec{z}_3 = \text{OneHot}(4) = [0, \,\, 0, \,\, 0, \,\, 1, \,\, 0, \,\, 0]^T\]</div>
+<div class="arithmatex">\[\vec{z}_4 = \text{OneHot}(3) = [0, \,\, 0, \,\, 1, \,\, 0, \,\, 0, \,\, 0]^T\]</div>
+<p>Every individual data vector <span class="arithmatex">\(\vec{z}_i\)</span> acts as a spatial pointer containing exactly one "hot" index (<span class="arithmatex">\(1\)</span>) representing the active realization, while the remaining <span class="arithmatex">\(M-1\)</span> positions are "cold" (<span class="arithmatex">\(0\)</span>). This guarantees that the sum of the elements within any single data row is always exactly <span class="arithmatex">\(1\)</span>:</p>
+<div class="arithmatex">\[\sum_{j=1}^{M} z_{i,j} = 1 \quad \forall \,\, i\]</div>
+<hr />
+<h3 id="154-the-unified-differentiable-pmf-formula">15.4 The Unified Differentiable PMF Formula</h3>
+<p>Now that our dataset has been transformed into binary vectors, we can write down a single, unified Probability Mass Function (PMF) that encapsulates the entire categorical support space in a single line.</p>
+<p>Using our one-hot coordinate components as exponents, the density profile for a single observation is written as:</p>
+<div class="arithmatex">\[p_{\vec{\theta}}(\vec{z}_i) = \prod_{j=1}^{M} p_j^{z_{i,j}} = p_1^{z_{i,1}} \cdot p_2^{z_{i,2}} \cdots p_M^{z_{i,M}}\]</div>
+<h4 id="why-this-product-trick-works">Why This Product Trick Works</h4>
+<p>This formula functions as an elegant mathematical choice selector.</p>
+<p>Suppose an individual patient's observation vector corresponds to the second category (<span class="arithmatex">\(v_i = a_2\)</span>). Its one-hot coordinates evaluate to <span class="arithmatex">\(z_{i,2} = 1\)</span>, and <span class="arithmatex">\(z_{i,j} = 0\)</span> for all <span class="arithmatex">\(j \neq 2\)</span>. Let us plug these components directly into our product formula:</p>
+<div class="arithmatex">\[p_{\vec{\theta}}(\vec{z}_i) = p_1^{0} \cdot p_2^{1} \cdot p_3^{0} \cdots p_M^{0}\]</div>
+<p>Because any non-zero real number raised to the power of <span class="arithmatex">\(0\)</span> equals <span class="arithmatex">\(1\)</span>, every inactive parameter in the product collapses to unity, leaving the active parameter completely untouched:</p>
+<div class="arithmatex">\[p_{\vec{\theta}}(\vec{z}_i) = 1 \cdot p_2 \cdot 1 \cdots 1 = p_2\]</div>
+<p>The product of powers formulation allows us to write a continuous, fully differentiable algebraic function that perfectly tracks discrete categorical selections.</p>
+<hr />
+<h3 id="155-formulating-the-empirical-log-likelihood">15.5 Formulating the Empirical Log-Likelihood</h3>
+<p>Using our universal i.i.d. conversion engine, the global log-likelihood across our entire training ledger of <span class="arithmatex">\(N\)</span> one-hot encoded rows is the summation of individual log-densities:</p>
+<div class="arithmatex">\[\mathcal{L}(\vec{\theta}) = \frac{1}{N} \sum_{i=1}^{N} \ln p_{\vec{\theta}}(\vec{z}_i)\]</div>
+<p>Substituting our unified product PMF formula into this ledger yields:</p>
+<div class="arithmatex">\[\mathcal{L}(\vec{\theta}) = \frac{1}{N} \sum_{i=1}^{N} \ln \left[ \prod_{j=1}^{M} p_j^{z_{i,j}} \right]\]</div>
+<p>Using the foundational operational properties of logarithms (<span class="arithmatex">\(\ln(\prod a_j) = \sum \ln a_j\)</span>), we bring the vector exponent <span class="arithmatex">\(z_{i,j}\)</span> down to the front, transforming the nested product into a clean double-summation matrix calculation:</p>
+<div class="arithmatex">\[\mathcal{L}(\vec{\theta}) = \frac{1}{N} \sum_{i=1}^{N} \sum_{j=1}^{M} z_{i,j} \ln p_j\]</div>
+<hr />
+<h3 id="156-constrained-optimization-via-the-lagrangian-manifold">15.6 Constrained Optimization via the Lagrangian Manifold</h3>
+<p>The professor poses an essential question: <em>Can we take the partial derivative of this log-likelihood function with respect to <span class="arithmatex">\(p_j\)</span>, set it to zero, and extract our parameters directly?</em></p>
+<blockquote>
+<p><strong>The Constraint Rule:</strong>
+<strong>No.</strong> If you run an unconstrained optimization algorithm over this log-likelihood equation, the calculus will break. Because the log function grows monotonically, an unconstrained algorithm will attempt to maximize the score by driving every probability parameter <span class="arithmatex">\(p_j\)</span> toward positive infinity (<span class="arithmatex">\(\infty\)</span>).</p>
+</blockquote>
+<p>To force the parameters to remain valid probabilities, we must convert our problem into a <strong>Constrained Optimization Problem</strong>. We bound our landscape using our structural sum-to-one constraint:</p>
+<div class="arithmatex">\[\text{Maximize } \mathcal{L}(\vec{\theta}) = \frac{1}{N} \sum_{i=1}^{N} \sum_{j=1}^{M} z_{i,j} \ln p_j \quad \text{Subject to } \sum_{j=1}^{M} p_j = 1\]</div>
+<p>To solve this smoothly, we invoke the method of <strong>Lagrange Multipliers</strong>. We construct an unconstrained surrogate function—the <strong>Lagrangian (<span class="arithmatex">\(\mathcal{L}_{\text{Lag}}\)</span>)</strong>—by subtracting our constraint boundary scaled by a new optimization variable, the Lagrange multiplier <span class="arithmatex">\(\lambda\)</span>:</p>
+<div class="arithmatex">\[\mathcal{L}_{\text{Lag}}(\vec{\theta}, \lambda) = \frac{1}{N} \sum_{i=1}^{N} \sum_{j=1}^{M} z_{i,j} \ln p_j - \lambda \left( \sum_{j=1}^{M} p_j - 1 \right)\]</div>
+<p><em>(Note: The full derivation includes additional inequality constraints to keep <span class="arithmatex">\(0 \leq p_j \leq 1\)</span>. However, because the logarithmic boundaries naturally prevent <span class="arithmatex">\(p_j\)</span> from hitting zero, these boundary constraints do not bind, allowing us to focus entirely on the primary equality multiplier <span class="arithmatex">\(\lambda\)</span>).</em></p>
+<hr />
+<h3 id="157-closed-form-derivation-of-the-empirical-frequency-solution">15.7 Closed-Form Derivation of the Empirical Frequency Solution</h3>
+<p>Because the Lagrangian function is an unconstrained landscape, we can locate its optimal peak by computing the partial derivative with respect to an individual class parameter <span class="arithmatex">\(p_j\)</span> and setting the vector result to zero:</p>
+<div class="arithmatex">\[\frac{\partial \mathcal{L}_{\text{Lag}}}{\partial p_j} = \frac{\partial}{\partial p_j} \left[ \frac{1}{N} \sum_{i=1}^{N} z_{i,j} \ln p_j \right] - \frac{\partial}{\partial p_j} \left[ \lambda \sum_{j=1}^{M} p_j \right] = 0\]</div>
+<p>Using standard scalar derivative calculus (<span class="arithmatex">\(\frac{d}{dx} \ln x = \frac{1}{x}\)</span>), this evaluates to:</p>
+<div class="arithmatex">\[\frac{1}{N \cdot p_j} \sum_{i=1}^{N} z_{i,j} - \lambda = 0\]</div>
+<p>Let us isolate the parameter <span class="arithmatex">\(p_j\)</span> in terms of our uncalculated multiplier <span class="arithmatex">\(\lambda\)</span>:</p>
+<div class="arithmatex">\[\frac{1}{N \cdot p_j} \sum_{i=1}^{N} z_{i,j} = \lambda \implies p_j = \frac{1}{\lambda \cdot N} \sum_{i=1}^{N} z_{i,j}\]</div>
+<p>To solve for the value of <span class="arithmatex">\(\lambda\)</span>, we sum this entire equation across all <span class="arithmatex">\(M\)</span> categories simultaneously:</p>
+<div class="arithmatex">\[\sum_{j=1}^{M} p_j = \sum_{j=1}^{M} \left[ \frac{1}{\lambda \cdot N} \sum_{i=1}^{N} z_{i,j} \right]\]</div>
+<p>Invoking our structural sum-to-one constraint (<span class="arithmatex">\(\sum_{j=1}^M p_j = 1\)</span>), we rewrite the left side of the equation:</p>
+<div class="arithmatex">\[1 = \frac{1}{\lambda \cdot N} \sum_{i=1}^{N} \left[ \sum_{j=1}^{M} z_{i,j} \right]\]</div>
+<p>As established in Section 3, because every data row <span class="arithmatex">\(\vec{z}_i\)</span> is a valid one-hot vector, the internal summation over <span class="arithmatex">\(j\)</span> is always exactly <span class="arithmatex">\(1\)</span>:</p>
+<div class="arithmatex">\[1 = \frac{1}{\lambda \cdot N} \sum_{i=1}^{N} [1]\]</div>
+<p>Summing the constant scalar <span class="arithmatex">\(1\)</span> across all <span class="arithmatex">\(N\)</span> data rows simply returns <span class="arithmatex">\(N\)</span>:</p>
+<div class="arithmatex">\[1 = \frac{1}{\lambda \cdot N} \cdot N \implies 1 = \frac{1}{\lambda} \implies \lambda = 1\]</div>
+<p>We have successfully resolved the Lagrange multiplier (<span class="arithmatex">\(\lambda = 1\)</span>). We substitute this value back into our parameter equation to extract our final, closed-form Maximum Likelihood Estimator:</p>
+<div class="arithmatex">\[p_j^* = \frac{1}{1 \cdot N} \sum_{i=1}^{N} z_{i,j} \implies p_j^* = \frac{\sum_{i=1}^{N} z_{i,j}}{N}\]</div>
+<h4 id="the-final-realization">The Final Realization</h4>
+<p>Look at that final equation. The numerator <span class="arithmatex">\(\sum_{i=1}^N z_{i,j}\)</span> simply counts the total number of times the category <span class="arithmatex">\(a_j\)</span> appeared in your training dataset folder. The denominator <span class="arithmatex">\(N\)</span> is the total number of samples collected.</p>
+<p>This completes the derivation. Calculating a simple relative empirical frequency is the mathematically exact method for minimizing the Kullback-Leibler divergence over a discrete Multinoulli support manifold.</p>
+<hr />
+<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
+<blockquote>
+<p><strong>The Generalist's Mathematical Blueprint:</strong>
+1. <strong>The One-Hot Vector Transformation (<span class="arithmatex">\(\vec{z}_i\)</span>)</strong> converts non-numeric categorical data into structural binary coordinates, providing a clean algebraic framework for matrix calculus.
+2. <strong>The Exponent Product Trick (<span class="arithmatex">\(\prod p_j^{z_{i,j}}\)</span>)</strong> acts as an elegant mathematical switch to express discrete categorical densities in a single differentiable line.
+3. <strong>The Constrained Landscape Requirement:</strong> When maximizing probability parameters, unconstrained derivatives fail. We must use Lagrange Multipliers to build a bounded Lagrangian manifold (<span class="arithmatex">\(\mathcal{L}_{\text{Lag}}\)</span>) ensuring the total volume conserves to exactly <span class="arithmatex">\(1.0\)</span>.</p>
+</blockquote>
+<p>The professor closes the lecture by pointing out a crucial detail. We now know how to calculate closed-form maximum likelihood solutions for single continuous populations (Multivariate Gaussians) and single discrete populations (Multinoulli Categoricals).</p>
+<p>However, in real-world machine learning deployments, data landscapes contain multiple, overlapping sub-populations mixed together. This means our log-likelihood equations lose their neat, convex properties, making them impossible to solve with simple closed-form derivatives.</p>
+<p>In the upcoming lectures, we will officially introduce advanced <strong>Estimation Theory</strong>, exploring how to fit complex, multi-peaked data distributions by running the iterative <strong>Expectation-Maximization (EM) Algorithm</strong>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

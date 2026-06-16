@@ -1,0 +1,2998 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture28/">
+      
+      
+        <link rel="next" href="../lecture30/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture29 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture29
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-24-empirical-risk-minimization-for-classification-non-linear-link-functions-and-first-order-numerical-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 24: Empirical Risk Minimization for Classification, Non-Linear Link Functions, and First-Order Numerical Optimization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 24: Empirical Risk Minimization for Classification, Non-Linear Link Functions, and First-Order Numerical Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-the-range-space-mismatch-in-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.1 The Range Space Mismatch in Classification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-binary-classification-and-the-sigmoid-link-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.2 Binary Classification and the Sigmoid Link Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243-multi-class-classification-and-the-softmax-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.3 Multi-Class Classification and the Softmax Operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244-the-analytical-breakdown-why-we-need-numerical-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.4 The Analytical Breakdown: Why We Need Numerical Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245-first-order-optimization-the-mechanics-of-gradient-descent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.5 First-Order Optimization: The Mechanics of Gradient Descent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="24.5 First-Order Optimization: The Mechanics of Gradient Descent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-justification-the-taylor-series-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Justification: The Taylor Series Link
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#246-categorical-cross-entropy-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.6 Categorical Cross-Entropy Loss
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="24.6 Categorical Cross-Entropy Loss">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixing-the-logarithmic-edge-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixing the Logarithmic Edge Case
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Study Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-identify-the-distribution-of-a-one-hot-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Identify the Distribution of a One-Hot Target
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-inject-the-softmax-hypothesis-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Inject the Softmax Hypothesis Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-run-maximum-likelihood-estimation-mle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Run Maximum Likelihood Estimation (MLE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-the-convergence-onto-categorical-cross-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: The Convergence onto Categorical Cross-Entropy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-rosetta-stone-of-aligned-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Rosetta Stone of Aligned Frameworks
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-24-empirical-risk-minimization-for-classification-non-linear-link-functions-and-first-order-numerical-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 24: Empirical Risk Minimization for Classification, Non-Linear Link Functions, and First-Order Numerical Optimization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 24: Empirical Risk Minimization for Classification, Non-Linear Link Functions, and First-Order Numerical Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-the-range-space-mismatch-in-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.1 The Range Space Mismatch in Classification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-binary-classification-and-the-sigmoid-link-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.2 Binary Classification and the Sigmoid Link Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243-multi-class-classification-and-the-softmax-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.3 Multi-Class Classification and the Softmax Operator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244-the-analytical-breakdown-why-we-need-numerical-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.4 The Analytical Breakdown: Why We Need Numerical Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245-first-order-optimization-the-mechanics-of-gradient-descent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.5 First-Order Optimization: The Mechanics of Gradient Descent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="24.5 First-Order Optimization: The Mechanics of Gradient Descent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-justification-the-taylor-series-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Justification: The Taylor Series Link
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#246-categorical-cross-entropy-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.6 Categorical Cross-Entropy Loss
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="24.6 Categorical Cross-Entropy Loss">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixing-the-logarithmic-edge-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixing the Logarithmic Edge Case
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Study Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-identify-the-distribution-of-a-one-hot-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Identify the Distribution of a One-Hot Target
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-inject-the-softmax-hypothesis-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Inject the Softmax Hypothesis Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-run-maximum-likelihood-estimation-mle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Run Maximum Likelihood Estimation (MLE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-the-convergence-onto-categorical-cross-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: The Convergence onto Categorical Cross-Entropy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-rosetta-stone-of-aligned-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Rosetta Stone of Aligned Frameworks
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-24-empirical-risk-minimization-for-classification-non-linear-link-functions-and-first-order-numerical-optimization">Chapter 24: Empirical Risk Minimization for Classification, Non-Linear Link Functions, and First-Order Numerical Optimization</h2>
+<hr />
+<h3 id="241-the-range-space-mismatch-in-classification">24.1 The Range Space Mismatch in Classification</h3>
+<p>In the previous chapter, we established the core optimization solution for Ordinary Least Squares (OLS) regression. We mapped an augmented feature vector <span class="arithmatex">\(\vec{x} \in \mathbb{R}^{D+1}\)</span> to a continuous target scalar <span class="arithmatex">\(y \in \mathbb{R}^1\)</span> using a simple parameter inner product:</p>
+<div class="arithmatex">\[h_{\vec{\theta}}(\vec{x}) = \vec{\theta}^T \vec{x}\]</div>
+<p>While this linear mapping functions perfectly for regression problems, it hits a hard structural wall the moment we transition to <strong>Classification</strong>. In a binary classification problem, our target space is strictly discrete and categorical:</p>
+<div class="arithmatex">\[\mathcal{Y} = \{0, \,\, 1\}\]</div>
+<p>If you attempt to use a raw linear hypothesis function <span class="arithmatex">\(h_{\vec{\theta}}(\vec{x}) = \vec{\theta}^T \vec{x}\)</span> for classification, you trigger a fundamental <strong>Range Space Mismatch</strong>. The range of a linear inner product is completely unbounded, spanning the entire real continuum: <span class="arithmatex">\((-\infty, \infty)\)</span>.</p>
+<p>If your model processes an extreme input vector, it might calculate an output score of <span class="arithmatex">\(+5,000\)</span> or <span class="arithmatex">\(-342\)</span>. These values are structurally meaningless when trying to assign a discrete binary classification label. To resolve this, we must modify our hypothesis architecture. We require a mathematical mechanism that compresses the infinite real line down into a safe, bounded probability domain.</p>
+<hr />
+<h3 id="242-binary-classification-and-the-sigmoid-link-function">24.2 Binary Classification and the Sigmoid Link Function</h3>
+<p>To align our unbounded linear calculations with a discrete binary target space, we perform a functional composition. We pass our inner product <span class="arithmatex">\(\vec{\theta}^T \vec{x}\)</span> through a non-linear activation envelope known as a <strong>Link Function</strong>. For binary classification, we choose the standard <strong>Logistic Sigmoid Function</strong>, denoted as <span class="arithmatex">\(\sigma(t)\)</span>:</p>
+<div class="arithmatex">\[\sigma(t) \triangleq \frac{1}{1 + e^{-t}}\]</div>
+<blockquote>
+<p><strong>Direct Technical Correction:</strong>
+During the lecture, the professor made a quick slip of the tongue, stating that the sigmoid curve approaches <span class="arithmatex">\(0\)</span> when <span class="arithmatex">\(t = 0\)</span>. Let's correct that real quick: evaluating the formula at <span class="arithmatex">\(t=0\)</span> yields exactly <span class="arithmatex">\(\frac{1}{1+1} = 0.5\)</span>. The function asymptotically approaches <span class="arithmatex">\(0\)</span> as <span class="arithmatex">\(t \to -\infty\)</span>, and approaches <span class="arithmatex">\(1\)</span> as <span class="arithmatex">\(t \to \infty\)</span>. This property makes it perfect for modeling probabilities.</p>
+</blockquote>
+<p>By composing our linear model with this sigmoid link function, we build the complete architecture for <strong>Logistic Regression</strong>:</p>
+<div class="arithmatex">\[h_{\vec{\theta}}(\vec{x}) = \sigma\left( \vec{\theta}^T \vec{x} \right) = \frac{1}{1 + e^{-\vec{\theta}^T \vec{x}}}\]</div>
+<p>Because the range of this function is strictly bounded on the open interval <span class="arithmatex">\((0, 1)\)</span>, its output value can be interpreted directly as a conditional probability mass: <span class="arithmatex">\(h_{\vec{\theta}}(\vec{x}) \equiv P(Y = 1 \mid \vec{x})\)</span>.</p>
+<p>To convert this continuous probability score into a final, discrete binary decision, we apply a threshold rule using a decision hyperparameter <span class="arithmatex">\(\tau\)</span>:</p>
+<div class="arithmatex">\[\text{Final Classifier Assignment: } \hat{y} = \begin{cases} 1 &amp; \text{if } h_{\vec{\theta}}(\vec{x}) \geq \tau \\ 0 &amp; \text{otherwise} \end{cases}\]</div>
+<p>The choice of the threshold parameter <span class="arithmatex">\(\tau\)</span> determines your model's real-world performance. By adjusting <span class="arithmatex">\(\tau\)</span>, you slide your model along its <strong>Receiver Operating Characteristic (ROC) curve</strong>, allowing you to tune the balance between False Positives and False Negatives to match your application's safety requirements.</p>
+<hr />
+<h3 id="243-multi-class-classification-and-the-softmax-operator">24.3 Multi-Class Classification and the Softmax Operator</h3>
+<p>When our environment scales from a binary choice to an <span class="arithmatex">\(M\)</span>-class categorical sorting problem (<span class="arithmatex">\(Y \in \{1, 2, \dots, M\}\)</span>), a single scalar equation can no longer track the boundaries. We must track an entire vector of scores simultaneously.</p>
+<p>First, we represent our discrete category labels using a <strong>One-Hot Encoding</strong> layout. If we are sorting data across <span class="arithmatex">\(M = 3\)</span> target classes, the labels are mapped to orthogonal basis vectors:</p>
+<div class="arithmatex">\[\text{Class 1} \to \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \quad \text{Class 2} \to \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}, \quad \text{Class 3} \to \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}\]</div>
+<p>To predict these multi-axis targets, we replace our single parameter column with a global <strong>Parameter Matrix</strong>, denoted as <span class="arithmatex">\(\mathbf{\Theta} \in \mathbb{R}^{M \times D}\)</span>. Multiplying this matrix by our feature vector <span class="arithmatex">\(\vec{x} \in \mathbb{R}^D\)</span> outputs an <span class="arithmatex">\(M\)</span>-dimensional vector of raw, unconstrained real numbers known as <strong>Logits</strong> (<span class="arithmatex">\(\vec{v}\)</span>):</p>
+<div class="arithmatex">\[\vec{v} = \mathbf{\Theta}\vec{x} \in \mathbb{R}^M\]</div>
+<p>To map this vector of unconstrained scores into a valid probability distribution, we deploy a multi-dimensional generalization of the sigmoid function known as the <strong>Softmax Operator</strong>.</p>
+<blockquote>
+<p><strong>Definition 24.1 (The Softmax Transformation).</strong> Let <span class="arithmatex">\(\vec{v} \in \mathbb{R}^M\)</span> represent a vector of raw logit scores. The Softmax operator maps <span class="arithmatex">\(\vec{v}\)</span> to a probability vector <span class="arithmatex">\(\vec{z}\)</span> by calculating the relative exponential mass of each individual coordinate index <span class="arithmatex">\(j\)</span>:
+$<span class="arithmatex">\(\text{softmax}(\vec{v})_j \triangleq \frac{e^{v_j}}{\sum_{m=1}^{M} e^{v_m}}\)</span>$</p>
+</blockquote>
+<p>By combining our parameter matrix multiplication with this multi-class link operator, we formulate the complete architecture for <strong>Multi-Class Logistic Regression</strong> (also known as <em>Softmax Regression</em>):</p>
+<div class="arithmatex">\[h_{\mathbf{\Theta}}(\vec{x}) = \text{softmax}\left( \mathbf{\Theta}\vec{x} \right)\]</div>
+<div class="arithmatex">\[\text{Where: } \quad \left(h_{\mathbf{\Theta}}(\vec{x})\right)_j = \frac{e^{\vec{\theta}_j^T \vec{x}}}{\sum_{m=1}^{M} e^{\vec{\theta}_m^T \vec{x}}}\]</div>
+<p>Every individual coordinate index <span class="arithmatex">\(j\)</span> in the output vector is strictly bounded between 0 and 1, and the entire collection sums to exactly <span class="arithmatex">\(1.0\)</span>. This output acts as a valid probability distribution over our multi-class target simplex.</p>
+<hr />
+<h3 id="244-the-analytical-breakdown-why-we-need-numerical-optimization">24.4 The Analytical Breakdown: Why We Need Numerical Optimization</h3>
+<p>Now that our classification architectures are formalized, we can set up our Empirical Risk Minimization (ERM) problem using a standard vector difference metric over <span class="arithmatex">\(N\)</span> training samples:</p>
+<div class="arithmatex">\[\mathbf{\Theta}^* = \arg\min_{\mathbf{\Theta}} \frac{1}{N} \sum_{i=1}^{N} \left\| \text{softmax}\left(\mathbf{\Theta}\vec{x}_i\right) - \vec{y}_i \right\|_2^2\]</div>
+<p>This brings us to the core problem of classification optimization: <strong>this equation cannot be solved analytically.</strong></p>
+<p>In Chapter 18, we solved linear regression instantly because its loss function was purely quadratic, creating a smooth, symmetric bowl with a single vector derivative that decoupled cleanly.</p>
+<p>However, when we introduce non-linear link functions like the Sigmoid or Softmax operators, <strong>the parameter weights become trapped inside non-linear transcendental functions.</strong> If you take the derivative of this objective function with respect to <span class="arithmatex">\(\mathbf{\Theta}\)</span> and set it to zero, the parameters cannot be separated or isolated using standard matrix algebra. There is no closed-form pseudo-inverse matrix equation for logistic or softmax regression. We must abandon analytical shortcuts and transition to <strong>Numerical Optimization</strong>.</p>
+<hr />
+<h3 id="245-first-order-optimization-the-mechanics-of-gradient-descent">24.5 First-Order Optimization: The Mechanics of Gradient Descent</h3>
+<p>To solve these intractable parameter landscapes, machine learning algorithms rely on <strong>Gradient Descent</strong>.</p>
+<p>Instead of computing the global minimum in a single step, we seed our parameters with a random initial guess (<span class="arithmatex">\(\vec{\theta}^{(0)}\)</span>) and iteratively update our coordinates by taking small steps down the local slope of the error surface.</p>
+<blockquote>
+<p><strong>The Gradient Descent Protocol:</strong>
+Let <span class="arithmatex">\(\hat{R}(\vec{\theta})\)</span> represent our empirical risk cost landscape. For optimization time steps <span class="arithmatex">\(t = 0, 1, 2, \dots\)</span>, we update our parameter vector using the following recursive formula:
+$<span class="arithmatex">\(\vec{\theta}^{(t+1)} = \vec{\theta}^{(t)} - \alpha \nabla_{\vec{\theta}} \hat{R}\left(\vec{\theta}^{(t)}\right)\)</span>$</p>
+<p>Where <span class="arithmatex">\(\alpha \in \mathbb{R}^1_{&gt;0}\)</span> is a scalar hyperparameter known as the <strong>Learning Rate</strong>.</p>
+</blockquote>
+<h4 id="the-core-justification-the-taylor-series-link">The Core Justification: The Taylor Series Link</h4>
+<p>The professor notes that this iterative formula is not just an intuitive heuristic; it is derived directly from the mathematics of a <strong>Taylor Series Expansion</strong>.</p>
+<p>Let <span class="arithmatex">\(\hat{R}(\vec{\theta})\)</span> be a smooth, continuous cost function. If we perturb our parameter coordinates by a small directional step vector <span class="arithmatex">\(\Delta \vec{\theta}\)</span>, we can approximate the new cost value by evaluating its first-order multi-variable Taylor series expansion around our active coordinate location:</p>
+<div class="arithmatex">\[\hat{R}\left(\vec{\theta} + \Delta \vec{\theta}\right) \approx \hat{R}(\vec{\theta}) + \left( \nabla_{\vec{\theta}} \hat{R}(\vec{\theta}) \right)^T \Delta \vec{\theta}\]</div>
+<p>To minimize our risk (<span class="arithmatex">\(\hat{R}\left(\vec{\theta} + \Delta \vec{\theta}\right) &lt; \hat{R}(\vec{\theta})\)</span>), we need the change term to be as negative as possible. We want to maximize the downward drop:</p>
+<div class="arithmatex">\[\min_{\Delta \vec{\theta}} \left( \nabla_{\vec{\theta}} \hat{R}(\vec{\theta}) \right)^T \Delta \vec{\theta}\]</div>
+<p>By Cauchy-Schwarz geometry, the inner product between two vectors reaches its absolute minimum when the vectors point in diametrically opposite directions. Therefore, to achieve the steepest local descent, our directional step vector <span class="arithmatex">\(\Delta \vec{\theta}\)</span> must be oriented directly opposite to the local gradient vector:</p>
+<div class="arithmatex">\[\Delta \vec{\theta} = -\alpha \nabla_{\vec{\theta}} \hat{R}(\vec{\theta})\]</div>
+<p>Substituting this step back into our parameter update equation (<span class="arithmatex">\(\vec{\theta}^{(t+1)} = \vec{\theta}^{(t)} + \Delta \vec{\theta}\)</span>) yields the exact mathematical formula for Gradient Descent.</p>
+<hr />
+<h3 id="246-categorical-cross-entropy-loss">24.6 Categorical Cross-Entropy Loss</h3>
+<p>The professor concludes the lecture by highlighting that a squared error loss metric (<span class="arithmatex">\(L_2\)</span>) is rarely used for classification tasks. Instead, we evaluate our estimation errors using the <strong>Categorical Cross-Entropy Loss Function</strong>.</p>
+<p>Let <span class="arithmatex">\(\vec{y}\)</span> represent our true, one-hot encoded target vector of length <span class="arithmatex">\(M\)</span>. Let <span class="arithmatex">\(\vec{h} = h_{\mathbf{\Theta}}(\vec{x})\)</span> represent the predicted probability distribution output by our softmax layer. The cross-entropy penalty is defined mathematically as:</p>
+<div class="arithmatex">\[L_{\text{CE}}(\vec{y}, \,\, \vec{h}) \triangleq -\sum_{k=1}^{M} y_k \ln(h_k)\]</div>
+<h4 id="fixing-the-logarithmic-edge-case">Fixing the Logarithmic Edge Case</h4>
+<p>The student at the end of the lecture notes caught a critical formatting error on the boards. The professor originally wrote the log target index flipped (<span class="arithmatex">\(h_k \ln y_k\)</span>).</p>
+<p>Let’s ensure this is written with complete precision: <strong>The log operator must wrap the model's prediction (<span class="arithmatex">\(h_k\)</span>), not the true label (<span class="arithmatex">\(y_k\)</span>).</strong> Because the true target vector <span class="arithmatex">\(\vec{y}\)</span> is one-hot encoded, it contains absolute zeros for all non-active categories. If the logarithm wrapped the target, calculating <span class="arithmatex">\(\ln(0)\)</span> would evaluate to negative infinity (<span class="arithmatex">\(-\infty\)</span>), causing your software program to crash instantly.</p>
+<p>By wrapping the prediction instead, the one-hot target vector acts as a clean selector mask. Because <span class="arithmatex">\(y_k = 0\)</span> for all incorrect classes, those terms drop out of the summation entirely. The function isolates the single index <span class="arithmatex">\(c\)</span> where the true label is active (<span class="arithmatex">\(y_c = 1\)</span>), reducing the multi-class cross-entropy loss down to a single logarithmic evaluation:</p>
+<div class="arithmatex">\[L_{\text{CE}}(\vec{y}, \,\, \vec{h}) = -1 \cdot \ln(h_c)\]</div>
+<p>This loss function penalizes errors heavily. If the model confidently predicts a low probability for the true class (<span class="arithmatex">\(h_c \to 0\)</span>), the natural log evaluates to a massive negative value, and the leading negative sign flips it into a huge loss penalty that drives your gradient descent step forward.</p>
+<hr />
+<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
+<blockquote>
+<p><strong>The Generalist's Mathematical Blueprint:</strong>
+1. <strong>The Link Function Correction:</strong> Linear regressions cannot perform classification directly due to a range space mismatch. We deploy non-linear link functions—the <strong>Sigmoid</strong> for binary targets and the <strong>Softmax</strong> for multi-class targets—to compress unbounded real inner products down to valid probability spaces.
+2. <strong>The Transcendental Optimization Trap:</strong> Introducing non-linear link functions breaks our ability to use closed-form matrix inversions. We must use numerical optimization routines like <strong>First-Order Gradient Descent</strong> to solve the parameter weights iteratively.
+3. <strong>The Cross-Entropy Selection Rule:</strong> For multi-class tasks, we swap out squared error metrics for <strong>Categorical Cross-Entropy Loss</strong> (<span class="arithmatex">\(-\sum y_k \ln h_k\)</span>). This loss uses our one-hot target vectors as a clean selector mask to evaluate and optimize our model's predictive accuracy.</p>
+</blockquote>
+<p>This is the absolute peak of the course's grand duality theme. The reason the cross-entropy selection rule works—and the exact way it connects to everything we have built so far—comes down to a single mathematical rule: <strong>Every time you pick a deterministic loss function in the Empirical Risk Minimization (ERM) world, you are secretly choosing a probability distribution in the Maximum Likelihood Estimation (MLE) world.</strong></p>
+<p>In Chapter 18, we proved that minimizing <strong>Squared Error Loss</strong> (<span class="arithmatex">\(L_2\)</span>) is the mathematically exact equivalent of assuming your target data follows a continuous <strong>Gaussian Distribution</strong>.</p>
+<p>The cross-entropy selection rule is simply the multi-class categorical twin of that exact same trick. Let's derive it step-by-step from first principles to see exactly how it comes about.</p>
+<hr />
+<h3 id="step-1-identify-the-distribution-of-a-one-hot-target">Step 1: Identify the Distribution of a One-Hot Target</h3>
+<p>In a multi-class classification problem with <span class="arithmatex">\(M\)</span> classes, our label <span class="arithmatex">\(\vec{y}\)</span> is a discrete, one-hot encoded vector. If an instance belongs to class <span class="arithmatex">\(c\)</span>, then the <span class="arithmatex">\(c\)</span>-th element of the vector is <span class="arithmatex">\(1\)</span>, and all other <span class="arithmatex">\(M - 1\)</span> elements are strictly <span class="arithmatex">\(0\)</span>.</p>
+<p>The standard statistical distribution that governs a single trial of a multi-class discrete variable is the <strong>Categorical (or Multinoulli) Distribution</strong>.</p>
+<p>Let <span class="arithmatex">\(\vec{\pi} = [\pi_1, \pi_2, \dots, \pi_M]^T\)</span> be a vector tracking the true, hidden probabilities of landing on each of the <span class="arithmatex">\(M\)</span> classes (where <span class="arithmatex">\(\sum \pi_k = 1\)</span>). The formal Probability Mass Function (PMF) for a single observed one-hot vector <span class="arithmatex">\(\vec{y}\)</span> is written compactly as a product string:</p>
+<div class="arithmatex">\[p(\vec{y} \mid \vec{\pi}) = \prod_{k=1}^{M} \pi_k^{y_k}\]</div>
+<blockquote>
+<p><strong>Why this notation trick works:</strong>
+If our data point belongs to Class 2, then <span class="arithmatex">\(\vec{y} = [0, 1, 0]^T\)</span>. Plugs this directly into the product string:
+$<span class="arithmatex">\(p(\vec{y} \mid \vec{\pi}) = \pi_1^0 \cdot \pi_2^1 \cdot \pi_3^0 = 1 \cdot \pi_2 \cdot 1 = \pi_2\)</span>$</p>
+<p>The exponents act as perfect binary on/off switches, automatically isolating the probability of the active class while ignoring the rest.</p>
+</blockquote>
+<hr />
+<h3 id="step-2-inject-the-softmax-hypothesis-architecture">Step 2: Inject the Softmax Hypothesis Architecture</h3>
+<p>In our machine learning model, we don't know the true probability parameters <span class="arithmatex">\(\vec{\pi}\)</span>. Instead, we use our network's <strong>Softmax Output Layer</strong> (<span class="arithmatex">\(h_{\mathbf{\Theta}}(\vec{x})\)</span>) to estimate them.</p>
+<p>The model declares that the predicted probability for the <span class="arithmatex">\(k\)</span>-th class is:</p>
+<div class="arithmatex">\[\pi_k \approx h_k = \left( h_{\mathbf{\Theta}}(\vec{x}) \right)_k\]</div>
+<p>Substituting our model's predictions directly into the Categorical PMF gives us the explicit <strong>Conditional Likelihood</strong> for a single data point:</p>
+<div class="arithmatex">\[p_{\mathbf{\Theta}}(\vec{y} \mid \vec{x}) = \prod_{k=1}^{M} (h_k)^{y_k}\]</div>
+<hr />
+<h3 id="step-3-run-maximum-likelihood-estimation-mle">Step 3: Run Maximum Likelihood Estimation (MLE)</h3>
+<p>Now, let us scale this to evaluate an entire dataset of <span class="arithmatex">\(N\)</span> independent, identically distributed (<strong>i.i.d.</strong>) sample rows. To find the optimal parameters <span class="arithmatex">\(\mathbf{\Theta}^*\)</span>, we invoke our standard MLE ledger, multiplying the individual likelihoods together:</p>
+<div class="arithmatex">\[P(\mathbf{Y} \mid \mathbf{X}; \,\, \mathbf{\Theta}) = \prod_{i=1}^{N} \prod_{k=1}^{M} (h_{i,k})^{y_{i,k}}\]</div>
+<p>To break the product chain down into a manageable addition field, we take the natural logarithm of both sides:</p>
+<div class="arithmatex">\[\ln P(\mathbf{Y} \mid \mathbf{X}; \,\, \mathbf{\Theta}) = \ln \left( \prod_{i=1}^{N} \prod_{k=1}^{M} (h_{i,k})^{y_{i,k}} \right)\]</div>
+<p>Using standard logarithmic properties (<span class="arithmatex">\(\ln(a \cdot b) = \ln a + \ln b\)</span> and <span class="arithmatex">\(\ln a^b = b \ln a\)</span>), the logarithm passes directly through the product operators, transforming them into summations and pulling the exponents down:</p>
+<div class="arithmatex">\[\ln P(\mathbf{Y} \mid \mathbf{X}; \,\, \mathbf{\Theta}) = \sum_{i=1}^{N} \sum_{k=1}^{M} y_{i,k} \ln(h_{i,k})\]</div>
+<hr />
+<h3 id="step-4-the-convergence-onto-categorical-cross-entropy">Step 4: The Convergence onto Categorical Cross-Entropy</h3>
+<p>To convert this probabilistic maximization target into a standard ERM minimization problem, we multiply the entire equation by the negative scaling factor <span class="arithmatex">\(-\frac{1}{N}\)</span>:</p>
+<div class="arithmatex">\[\text{Cost}(\mathbf{\Theta}) = \frac{1}{N} \sum_{i=1}^{N} \left( -\sum_{k=1}^{M} y_{i,k} \ln(h_{i,k}) \right)\]</div>
+<p>Look at the formula trapped inside the large parenthesis. It is the exact mathematical definition of <strong>Categorical Cross-Entropy Loss</strong> (<span class="arithmatex">\(L_{\text{CE}}\)</span>) for an individual data instance:</p>
+<div class="arithmatex">\[L_{\text{CE}}(\vec{y}, \,\, \vec{h}) = -\sum_{k=1}^{M} y_k \ln(h_k)\]</div>
+<p>The riddle is solved. Cross-entropy loss was not pulled out of thin air by software engineers. It is the inescapable mathematical byproduct of running Maximum Likelihood Estimation under the assumption that your target labels follow a discrete Categorical distribution.</p>
+<hr />
+<h2 id="the-rosetta-stone-of-aligned-frameworks">The Rosetta Stone of Aligned Frameworks</h2>
+<p>To see how these concepts operate together in perfect symmetry, look at how the entire course path splits down the line between these two dual vocabularies:</p>
+<table>
+<thead>
+<tr>
+<th>Target Variable Landscape</th>
+<th>The Probabilistic Guess (MLE View)</th>
+<th>The Loss Function Wrapper (ERM View)</th>
+<th>The Optimization Topology</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Continuous Real Continuum</strong> (<span class="arithmatex">\(y \in \mathbb{R}^1\)</span>)</td>
+<td>Homoscedastic <strong>Gaussian Distribution</strong> assumption.</td>
+<td><strong>Squared Error Loss</strong> (<span class="arithmatex">\(L_2\)</span> Norm / OLS).</td>
+<td>Smooth, quadratic convex bowl; solvable via closed-form matrix inversion.</td>
+</tr>
+<tr>
+<td><strong>Discrete Categorical Simplex</strong> (<span class="arithmatex">\(y \in \{1, \dots, M\}\)</span>)</td>
+<td>Discrete <strong>Categorical Distribution</strong> assumption.</td>
+<td><strong>Categorical Cross-Entropy Loss</strong>.</td>
+<td>Transcendental non-linear surface; requires iterative first-order <strong>Gradient Descent</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p>When you choose cross-entropy, you are aligning your loss engine with the exact discrete physics of your categorical data space.</p>
+<p>Now that you can see how cross-entropy is derived directly from the categorical distribution's switch-based exponents, does visualizing the true one-hot label as a binary mask help clarify why the model completely ignores its predictions for the wrong classes and only computes a gradient step based on the probability it assigned to the single correct category?</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

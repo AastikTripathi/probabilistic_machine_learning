@@ -1,0 +1,2913 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture26/">
+      
+      
+        <link rel="next" href="../lecture28/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture27 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture27
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-18-the-empirical-risk-minimization-paradigm-and-the-foundations-of-linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 18: The Empirical Risk Minimization Paradigm and the Foundations of Linear Regression
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#181-the-grand-duality-erm-vs-density-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.1 The Grand Duality: ERM vs. Density Estimation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.1 The Grand Duality: ERM vs. Density Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-probabilistic-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Probabilistic Formulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-functional-risk-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Functional Risk Formulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#182-the-continuous-gaussian-duality-case-study" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.2 The Continuous Gaussian Duality Case Study
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#183-the-geometry-of-the-linear-family-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.3 The Geometry of the Linear Family Model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.3 The Geometry of the Linear Family Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-input-augmentation-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Input Augmentation Trick
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#184-mathematical-derivation-of-ordinary-least-squares-ols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.4 Mathematical Derivation of Ordinary Least Squares (OLS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.4 Mathematical Derivation of Ordinary Least Squares (OLS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-construct-the-global-design-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Construct the Global Design Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-formulate-the-matrix-loss-functional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Formulate the Matrix Loss Functional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-compute-the-vector-gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Compute the Vector Gradient
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-isolate-the-closed-form-normal-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Isolate the Closed-Form Normal Equations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#185-summary-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.5 Summary Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.5 Summary Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-unifying-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Unifying Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-18-the-empirical-risk-minimization-paradigm-and-the-foundations-of-linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 18: The Empirical Risk Minimization Paradigm and the Foundations of Linear Regression
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#181-the-grand-duality-erm-vs-density-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.1 The Grand Duality: ERM vs. Density Estimation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.1 The Grand Duality: ERM vs. Density Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-probabilistic-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Probabilistic Formulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-functional-risk-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Functional Risk Formulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#182-the-continuous-gaussian-duality-case-study" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.2 The Continuous Gaussian Duality Case Study
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#183-the-geometry-of-the-linear-family-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.3 The Geometry of the Linear Family Model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.3 The Geometry of the Linear Family Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-input-augmentation-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Input Augmentation Trick
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#184-mathematical-derivation-of-ordinary-least-squares-ols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.4 Mathematical Derivation of Ordinary Least Squares (OLS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.4 Mathematical Derivation of Ordinary Least Squares (OLS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-construct-the-global-design-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Construct the Global Design Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-formulate-the-matrix-loss-functional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Formulate the Matrix Loss Functional
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-compute-the-vector-gradient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Compute the Vector Gradient
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-isolate-the-closed-form-normal-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Isolate the Closed-Form Normal Equations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#185-summary-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18.5 Summary Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18.5 Summary Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-unifying-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Unifying Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-18-the-empirical-risk-minimization-paradigm-and-the-foundations-of-linear-regression">Chapter 18: The Empirical Risk Minimization Paradigm and the Foundations of Linear Regression</h2>
+<hr />
+<h2 id="181-the-grand-duality-erm-vs-density-estimation">18.1 The Grand Duality: ERM vs. Density Estimation</h2>
+<p>Machine learning architecture can be approached from two distinct perspectives: the <strong>Probabilistic Paradigm</strong> and the <strong>Risk Minimization Framework</strong>. While separate engineering sub-communities often work exclusively within one viewpoint, they are fundamentally solving the exact same underlying optimization problems under different mathematical names.</p>
+<pre><code>  [ The Distribution Estimation Approach ]                 [ The Empirical Risk Minimization Approach ]
+  - Objective: Estimate a density landscape.               - Objective: Approximate an functional mapping engine.
+  - Optimization: Minimize KL Divergence / Maximize MLE.   - Optimization: Minimize average loss over a sample ledger.
+  - Target Parameter: Density weights (θ).                 - Target Parameter: Hypothesis coefficients (θ).
+
+</code></pre>
+<h3 id="1-the-probabilistic-formulation">1. The Probabilistic Formulation</h3>
+<p>Given an empirical data folder <span class="arithmatex">\(D\)</span>, we treat our observations as realizations of random variables. The core task is to model the background probability density functions by finding a parameter vector <span class="arithmatex">\(\theta^*\)</span> that minimizes the Kullback-Leibler divergence between the true natural distribution <span class="arithmatex">\(p_{\text{true}}\)</span> and our parametric model distribution <span class="arithmatex">\(p_\theta\)</span>:</p>
+<div class="arithmatex">\[\theta^* = \arg\min_{\theta \in \Theta} D_{\text{KL}}\left(p_{\text{true}} \parallel p_\theta\right) \equiv \arg\max_{\theta \in \Theta} \frac{1}{N} \sum_{i=1}^{N} \ln p_\theta(\vec{v}_i)\]</div>
+<h3 id="2-the-functional-risk-formulation">2. The Functional Risk Formulation</h3>
+<p>Given the exact same data folder <span class="arithmatex">\(D\)</span>, we step out of density language and cast the problem as learning a deterministic function <span class="arithmatex">\(h: \mathcal{X} \rightarrow \mathcal{Y}\)</span>. This mapping engine belongs to a targeted <strong>Hypothesis Class</strong> (<span class="arithmatex">\(\mathcal{H}\)</span>). We define a non-negative <strong>Loss Function</strong> (<span class="arithmatex">\(L\)</span>) to grade individual estimation errors, and we find our optimal function <span class="arithmatex">\(\hat{h}^*\)</span> by minimizing the arithmetic sample average of those penalties—a framework known as <strong>Empirical Risk Minimization (ERM)</strong>:</p>
+<div class="arithmatex">\[\hat{h}^* = \arg\min_{h \in \mathcal{H}} \hat{R}_N(h) \equiv \arg\min_{h \in \mathcal{H}} \frac{1}{N} \sum_{i=1}^{N} L\left(h(\vec{x}_i), \,\, y_i\right)\]</div>
+<hr />
+<h2 id="182-the-continuous-gaussian-duality-case-study">18.2 The Continuous Gaussian Duality Case Study</h2>
+<p>To see this underlying connection clearly, let us analyze a supervised regression scenario where our features span a multi-axis continuum <span class="arithmatex">\(\vec{x} \in \mathbb{R}^D\)</span> and our label is a continuous real scalar <span class="arithmatex">\(y \in \mathbb{R}^1\)</span>.</p>
+<p>Suppose we tackle this from a probabilistic perspective and state that the true conditional posterior distribution <span class="arithmatex">\(p(y \mid \vec{x})\)</span> follows a homoscedastic continuous <strong>Gaussian Distribution</strong> whose moving mean center (<span class="arithmatex">\(\mu\)</span>) is driven by a hypothesis function <span class="arithmatex">\(h_\theta(\vec{x})\)</span>, while its variance is locked to identity (<span class="arithmatex">\(\sigma^2 = \mathbf{I}\)</span>):</p>
+<div class="arithmatex">\[p_\theta(y \mid \vec{x}) = \mathcal{N}\left(y; \,\, \mu = h_\theta(\vec{x}), \,\, \sigma^2 = 1\right)\]</div>
+<p>If we expand the continuous probability density function for this normal distribution and isolate our target variable, our maximum likelihood optimization problem becomes:</p>
+<div class="arithmatex">\[\theta^* = \arg\max_{\theta} \sum_{i=1}^{N} \ln \left[ \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{1}{2}\left(y_i - h_\theta(\vec{x}_i)\right)^2\right) \right]\]</div>
+<p>Applying basic logarithmic expansion rules simplifies this equation cleanly:</p>
+<div class="arithmatex">\[\theta^* = \arg\max_{\theta} \left[ N \ln\left(\frac{1}{\sqrt{2\pi}}\right) - \frac{1}{2}\sum_{i=1}^{N} \left(y_i - h_\theta(\vec{x}_i)\right)^2 \right]\]</div>
+<p>Dropping the static normalization constant and inverting the sign to convert the maximization goal into a minimization routine isolates the final optimization requirement:</p>
+<div class="arithmatex">\[\theta^* = \arg\min_{\theta} \sum_{i=1}^{N} \left(y_i - h_\theta(\vec{x}_i)\right)^2\]</div>
+<p>This derivation yields a definitive relationship: <strong>Running Empirical Risk Minimization with a Squared Error Loss function is the mathematically exact equivalent of maximizing the likelihood of a conditional Gaussian distribution.</strong></p>
+<blockquote>
+<p><strong>Deconstructing the "Noise" Conception:</strong>
+In deterministic textbooks, this relationship is frequently introduced using a generative noise formula:
+$<span class="arithmatex">\(y = h_\theta(\vec{x}) + \epsilon, \quad \text{where } \epsilon \sim \mathcal{N}(0, 1)\)</span>$</p>
+<p>The professor points out that using the word "noise" adds unnecessary confusion. This formula is simply a roundabout way of stating that the spatial conditional density of the target variable is a standard Gaussian distribution centered directly on the output of your hypothesis function. Shifting a zero-mean normal curve by a deterministic value <span class="arithmatex">\(h_\theta(\vec{x})\)</span> shifts the distribution's mean center while preserving its geometric shape.</p>
+</blockquote>
+<hr />
+<h2 id="183-the-geometry-of-the-linear-family-model">18.3 The Geometry of the Linear Family Model</h2>
+<p>Now that our optimization frameworks are aligned, we introduce the most fundamental family of functional mapping engines: <strong>Linear Models</strong>.</p>
+<p>Let our input features exist as a multi-axis continuous column vector <span class="arithmatex">\(\vec{x} \in \mathbb{R}^D\)</span>. A linear hypothesis model approximates the continuous target value <span class="arithmatex">\(y\)</span> by computing a weighted combination of each individual feature dimension, shifted by a baseline intercept constant (<span class="arithmatex">\(\theta_0\)</span>, known as the <strong>Bias Term</strong>):</p>
+<div class="arithmatex">\[h(\vec{x}) = \theta_1 x_1 + \theta_2 x_2 + \dots + \theta_D x_D + \theta_0\]</div>
+<p>From a learning perspective, each parameter coefficient acts as a scaling dial. It isolates and calculates the specific predictive contribution that an individual feature measurement adds to the final system decision.</p>
+<h3 id="the-input-augmentation-trick">The Input Augmentation Trick</h3>
+<p>To simplify our matrix equations, we get rid of the separate bias parameter <span class="arithmatex">\(\theta_0\)</span> by applying a standard geometric transformation. We append a structural constant value of <span class="arithmatex">\(1\)</span> directly to the front of our feature coordinates to build an augmented vector space:</p>
+<div class="arithmatex">\[\vec{x}_{\text{augmented}} = [1, \,\, x_1, \,\, x_2, \dots, x_D]^T \in \mathbb{R}^{D+1}\]</div>
+<div class="arithmatex">\[\vec{\theta}_{\text{augmented}} = [\theta_0, \,\, \theta_1, \,\, \theta_2, \dots, \theta_D]^T \in \mathbb{R}^{D+1}\]</div>
+<p>By augmenting our vector space, the entire affine linear equation compresses into a single <strong>vector inner product</strong> (dot product):</p>
+<div class="arithmatex">\[h_{\vec{\theta}}(\vec{x}) = \vec{\theta}^T \vec{x}\]</div>
+<p>For the remainder of this chapter, we use this augmented convention implicitly, tracking our variables inside a clean <span class="arithmatex">\((D+1)\)</span>-dimensional real vector space.</p>
+<hr />
+<h2 id="184-mathematical-derivation-of-ordinary-least-squares-ols">18.4 Mathematical Derivation of Ordinary Least Squares (OLS)</h2>
+<p>We now combine our augmented linear hypothesis class (<span class="arithmatex">\(h_{\vec{\theta}}(\vec{x}) = \vec{\theta}^T \vec{x}\)</span>) with our empirical squared error risk function to formulate our global optimization problem:</p>
+<div class="arithmatex">\[\vec{\theta}^* = \arg\min_{\vec{\theta}} \frac{1}{N} \sum_{i=1}^{N} \left( \vec{\theta}^T \vec{x}_i - y_i \right)^2\]</div>
+<p>To solve this efficiently using linear algebra, we stack our independent data observations and targets into unified matrices.</p>
+<h3 id="step-1-construct-the-global-design-matrix">Step 1: Construct the Global Design Matrix</h3>
+<p>Let <span class="arithmatex">\(\mathbf{X}\)</span> represent our global <strong>Design Matrix</strong>. We stack our <span class="arithmatex">\(N\)</span> augmented row vectors horizontally to build an <span class="arithmatex">\(N \times (D+1)\)</span> rectangular coordinate array. Let <span class="arithmatex">\(\vec{Y}\)</span> represent our target column vector of length <span class="arithmatex">\(N\)</span>:</p>
+<div class="arithmatex">\[\mathbf{X} = \begin{bmatrix} (\vec{x}_1)^T \\ (\vec{x}_2)^T \\ \vdots \\ (\vec{x}_N)^T \end{bmatrix} = \begin{bmatrix} 1 &amp; x_{1,1} &amp; \dots &amp; x_{1,D} \\ 1 &amp; x_{2,1} &amp; \dots &amp; x_{2,D} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 1 &amp; x_{N,1} &amp; \dots &amp; x_{N,D} \end{bmatrix} \in \mathbb{R}^{N \times (D+1)}, \quad \vec{Y} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_N \end{bmatrix} \in \mathbb{R}^N\]</div>
+<h3 id="step-2-formulate-the-matrix-loss-functional">Step 2: Formulate the Matrix Loss Functional</h3>
+<p>Using these stacked linear algebra structures, our summation of squared errors converts into a single squared Euclidean vector norm:</p>
+<div class="arithmatex">\[J(\vec{\theta}) = \frac{1}{N} \|\mathbf{X}\vec{\theta} - \vec{Y}\|_2^2\]</div>
+<p>We expand this squared norm into its explicit transpose vector multiplication format, ignoring the constant scalar multiplier <span class="arithmatex">\(\frac{1}{N}\)</span> since it does not shift the coordinates of the global minimum:</p>
+<div class="arithmatex">\[J(\vec{\theta}) = (\mathbf{X}\vec{\theta} - \vec{Y})^T (\mathbf{X}\vec{\theta} - \vec{Y})\]</div>
+<p>Distributing the transpose matrix operator across the internal components yields:</p>
+<div class="arithmatex">\[J(\vec{\theta}) = \left( (\mathbf{X}\vec{\theta})^T - \vec{Y}^T \right) (\mathbf{X}\vec{\theta} - \vec{Y})\]</div>
+<div class="arithmatex">\[J(\vec{\theta}) = \vec{\theta}^T \mathbf{X}^T \mathbf{X} \vec{\theta} - \vec{\theta}^T \mathbf{X}^T \vec{Y} - \vec{Y}^T \mathbf{X} \vec{\theta} + \vec{Y}^T \vec{Y}\]</div>
+<p>Because the internal vector products evaluate to scalar real constants, the middle terms are equivalents (<span class="arithmatex">\(\vec{\theta}^T \mathbf{X}^T \vec{Y} \equiv \vec{Y}^T \mathbf{X} \vec{\theta}\)</span>), allowing us to merge them cleanly:</p>
+<div class="arithmatex">\[J(\vec{\theta}) = \vec{\theta}^T \mathbf{X}^T \mathbf{X} \vec{\theta} - 2\vec{\theta}^T \mathbf{X}^T \vec{Y} + \vec{Y}^T \vec{Y}\]</div>
+<hr />
+<h3 id="step-3-compute-the-vector-gradient">Step 3: Compute the Vector Gradient</h3>
+<p>Because our global cost function <span class="arithmatex">\(J(\vec{\theta})\)</span> is a smooth, convex, scalar-valued function curving over a vector parameter domain, we can compute its exact multi-axis derivative vector (the <strong>Gradient</strong>). We apply standard matrix calculus identities to calculate the gradient with respect to our parameter column <span class="arithmatex">\(\vec{\theta}\)</span>:</p>
+<div class="arithmatex">\[\nabla_{\vec{\theta}} J(\vec{\theta}) = \frac{\partial}{\partial \vec{\theta}} \left[ \vec{\theta}^T \mathbf{X}^T \mathbf{X} \vec{\theta} \right] - \frac{\partial}{\partial \vec{\theta}} \left[ 2\vec{\theta}^T \mathbf{X}^T \vec{Y} \right] + \frac{\partial}{\partial \vec{\theta}} \left[ \vec{Y}^T \vec{Y} \right]\]</div>
+<div class="arithmatex">\[\nabla_{\vec{\theta}} J(\vec{\theta}) = 2\mathbf{X}^T \mathbf{X} \vec{\theta} - 2\mathbf{X}^T \vec{Y}\]</div>
+<hr />
+<h3 id="step-4-isolate-the-closed-form-normal-equations">Step 4: Isolate the Closed-Form Normal Equations</h3>
+<p>To locate the absolute minimum valley of this quadratic bowl, we set our multi-axis gradient vector equal to the zero vector (<span class="arithmatex">\(\vec{0}\)</span>):</p>
+<div class="arithmatex">\[2\mathbf{X}^T \mathbf{X} \vec{\theta}^* - 2\mathbf{X}^T \vec{Y} = \vec{0}\]</div>
+<p>Dividing by <span class="arithmatex">\(2\)</span> and moving the data targets to the right-hand side isolates the system of <strong>Normal Equations</strong>:</p>
+<div class="arithmatex">\[\mathbf{X}^T \mathbf{X} \vec{\theta}^* = \mathbf{X}^T \vec{Y}\]</div>
+<p>Assuming the square matrix product <span class="arithmatex">\(\mathbf{X}^T \mathbf{X}\)</span> is non-singular and has full column rank, we invert the operator to the left side, extracting our definitive closed-form solution:</p>
+<div class="arithmatex">\[\vec{\theta}^* = \left( \mathbf{X}^T \mathbf{X} \right)^{-1} \mathbf{X}^T \vec{Y}\]</div>
+<p>This completes the derivation. The matrix combination <span class="arithmatex">\(\left( \mathbf{X}^T \mathbf{X} \right)^{-1} \mathbf{X}^T\)</span> is known as the <strong>Moore-Penrose Pseudo-Inverse</strong> of our design matrix. Geometrically, this equation projects our target vector <span class="arithmatex">\(\vec{Y}\)</span> orthogonally directly onto the linear column space spanned by our feature coordinates, finding the unique optimal parameter configuration that minimizes our squared error risk.</p>
+<hr />
+<h2 id="185-summary-reference-sheet">18.5 Summary Reference Sheet</h2>
+<h3 id="the-core-unifying-principles">The Core Unifying Principles</h3>
+<ol>
+<li><strong>The Core Equivalence:</strong> Optimizing an empirical risk function over an observed dataset matrix is identical to running maximum likelihood estimation across an aligned probability distribution family.</li>
+<li><strong>The Structural Bias Rule:</strong> When you run a linear regression model using squared error loss, you are making a foundational assumption that your real-world data noise follows a continuous Gaussian distribution centered on a linear hyperplane.</li>
+<li><strong>The Algebraic Loophole:</strong> Because the OLS matrix objective is perfectly smooth and convex, we do not need slow, iterative optimization loops. We calculate the exact vector gradient, set it to zero, and evaluate the optimal parameters instantly via the Moore-Penrose pseudo-inverse matrix equation.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

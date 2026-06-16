@@ -1,0 +1,2971 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture56/">
+      
+      
+        <link rel="next" href="../lecture58/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture57 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture57
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-47-adaptive-boosting-adaboost-exponential-coordinate-loss-multipliers-and-coordinate-optimization-over-functional-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 47: Adaptive Boosting (AdaBoost), Exponential Coordinate Loss Multipliers, and Coordinate Optimization Over Functional Spaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 47: Adaptive Boosting (AdaBoost), Exponential Coordinate Loss Multipliers, and Coordinate Optimization Over Functional Spaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#471-the-chronological-continuum-adaboost-and-functional-gradient-foundations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.1 The Chronological Continuum: AdaBoost and Functional Gradient Foundations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#472-the-applied-adaboost-algorithmic-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.2 The Applied AdaBoost Algorithmic Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.2 The Applied AdaBoost Algorithmic Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-initializing-the-data-distribution-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Initializing the Data Distribution Window
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precise-subscriptsuperscript-notation-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Subscript/Superscript Notation Rule:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-training-the-weak-learner-under-sample-modulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Training the Weak Learner Under Sample Modulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-computing-the-weighted-error-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Computing the Weighted Error Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-learning-the-optimal-component-voting-allocation-alpha_m" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Learning the Optimal Component Voting Allocation (\(\alpha_m\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-the-exponential-weight-update-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: The Exponential Weight Update Rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#473-first-principles-proof-of-adaboost-as-gradient-boosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.3 First-Principles Proof of AdaBoost as Gradient Boosting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#474-recursive-rigor-recovering-the-multiplicative-update-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.4 Recursive Rigor: Recovering the Multiplicative Update Step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#475-coordinate-separation-minimizing-the-weighted-classification-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.5 Coordinate Separation: Minimizing the Weighted Classification Error
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#476-deriving-the-closed-form-global-voting-allocation-alpha_m" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.6 Deriving the Closed-Form Global Voting Allocation (\(\alpha_m\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-master-formula-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Master Formula Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Master Formula Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-canonical-adaboost-optimization-routine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Canonical AdaBoost Optimization Routine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-functional-convergence-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Functional Convergence Identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-47-adaptive-boosting-adaboost-exponential-coordinate-loss-multipliers-and-coordinate-optimization-over-functional-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 47: Adaptive Boosting (AdaBoost), Exponential Coordinate Loss Multipliers, and Coordinate Optimization Over Functional Spaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 47: Adaptive Boosting (AdaBoost), Exponential Coordinate Loss Multipliers, and Coordinate Optimization Over Functional Spaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#471-the-chronological-continuum-adaboost-and-functional-gradient-foundations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.1 The Chronological Continuum: AdaBoost and Functional Gradient Foundations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#472-the-applied-adaboost-algorithmic-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.2 The Applied AdaBoost Algorithmic Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.2 The Applied AdaBoost Algorithmic Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-initializing-the-data-distribution-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Initializing the Data Distribution Window
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precise-subscriptsuperscript-notation-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Subscript/Superscript Notation Rule:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-training-the-weak-learner-under-sample-modulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Training the Weak Learner Under Sample Modulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-computing-the-weighted-error-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Computing the Weighted Error Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-learning-the-optimal-component-voting-allocation-alpha_m" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Learning the Optimal Component Voting Allocation (\(\alpha_m\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-the-exponential-weight-update-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: The Exponential Weight Update Rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#473-first-principles-proof-of-adaboost-as-gradient-boosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.3 First-Principles Proof of AdaBoost as Gradient Boosting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#474-recursive-rigor-recovering-the-multiplicative-update-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.4 Recursive Rigor: Recovering the Multiplicative Update Step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#475-coordinate-separation-minimizing-the-weighted-classification-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.5 Coordinate Separation: Minimizing the Weighted Classification Error
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#476-deriving-the-closed-form-global-voting-allocation-alpha_m" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.6 Deriving the Closed-Form Global Voting Allocation (\(\alpha_m\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-master-formula-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Master Formula Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Master Formula Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-canonical-adaboost-optimization-routine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Canonical AdaBoost Optimization Routine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-functional-convergence-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Functional Convergence Identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-47-adaptive-boosting-adaboost-exponential-coordinate-loss-multipliers-and-coordinate-optimization-over-functional-spaces">Chapter 47: Adaptive Boosting (AdaBoost), Exponential Coordinate Loss Multipliers, and Coordinate Optimization Over Functional Spaces</h2>
+<hr />
+<h3 id="471-the-chronological-continuum-adaboost-and-functional-gradient-foundations">47.1 The Chronological Continuum: AdaBoost and Functional Gradient Foundations</h3>
+<p>In Chapter 46, we unrolled the comprehensive mathematical framework of <strong>Functional Gradient Boosting</strong>, proving that sequential ensemble assembly can be formalized as first-order gradient descent stepping across an infinite-dimensional hypothesis space (<span class="arithmatex">\(\mathcal{H}\)</span>). We proved that by optimizing each new weak learner to fit the negative directional derivatives—the <em>pseudo-residuals</em>—of an arbitrary loss function, the network systematically reduces empirical bias layer-by-layer.</p>
+<p>We now turn our attention to one of the most historically significant and mathematically elegant realizations of this sequential paradigm: <strong>Adaptive Boosting (AdaBoost)</strong>. Developed by Yoav Freund and Robert Schapire in 1995, AdaBoost was originally proposed as an algorithmic technique for constructing a robust committee of classifiers by dynamically shifting a focus window over data samples.</p>
+<p>While AdaBoost was designed independently of gradient boosting, subsequent statistical learning theory exposed a beautiful unifying identity: <strong>AdaBoost is a mathematically exact special case of Functional Gradient Boosting optimized over a localized Exponential Loss Function.</strong></p>
+<p>We will first unroll the practical algorithmic implementation of AdaBoost from an engineering perspective, tracking exactly how its data-weighting engine operates. Following this, we will use first principles to derive its exact equations straight from our functional gradient ledger, proving the underlying mathematical equivalence.</p>
+<hr />
+<h3 id="472-the-applied-adaboost-algorithmic-protocol">47.2 The Applied AdaBoost Algorithmic Protocol</h3>
+<p>Let us map our environment down to a strict binary classification task. We are given a dataset <span class="arithmatex">\(D\)</span> tracking <span class="arithmatex">\(n\)</span> independent, identically distributed (i.i.d.) coordinates. For this algebraic formulation, we map our ground-truth targets to a balanced step range:</p>
+<div class="arithmatex">\[\mathcal{D} = \left\{ (\vec{x}_1, \,\, y_1), \,\, (\vec{x}_2, \,\, y_2), \,\, \dots, \,\, (\vec{x}_n, \,\, y_n) \right\} \quad \text{where} \quad \vec{x}_i \in \mathbb{R}^D \quad \text{and} \quad y_i \in \{-1, \,\, 1\}\]</div>
+<p>The choice of <span class="arithmatex">\(\{-1, \,\, 1\}\)</span> over standard binary tokens <span class="arithmatex">\(\{0, \,\, 1\}\)</span> is an intentional algebraic regularizer. It ensures that the product <span class="arithmatex">\(y_i \cdot h(\vec{x}_i)\)</span> evaluates to <span class="arithmatex">\(+1.0\)</span> if the prediction is completely correct, and flips to <span class="arithmatex">\(-1.0\)</span> if the prediction results in a misclassification.</p>
+<h4 id="step-1-initializing-the-data-distribution-window">Step 1: Initializing the Data Distribution Window</h4>
+<p>Before executing our first training loop, we assign an explicit importance coefficient—a <strong>Data Weight (<span class="arithmatex">\(w_{i}\)</span>)</strong>—to every single observation row in our dataset. At the initial macro-iteration state (<span class="arithmatex">\(m=1\)</span>), we distribute these tracking coefficients perfectly uniformly across our <span class="arithmatex">\(n\)</span> samples:</p>
+<div class="arithmatex">\[w_{i}^{(1)} = \frac{1}{n} \quad \forall \quad i \in \{1, \,\, 2, \,\, \dots, \,\, n\}\]</div>
+<h4 id="precise-subscriptsuperscript-notation-rule">Precise Subscript/Superscript Notation Rule:</h4>
+<ul>
+<li><strong>The Subscript (<span class="arithmatex">\(i\)</span>):</strong> Tracks the direct data row index matching the observation coordinate (<span class="arithmatex">\(1 \leq i \leq n\)</span>).</li>
+<li><strong>The Superscript (<span class="arithmatex">\(m\)</span>):</strong> Tracks the active macro-iteration step of our sequential ensemble assembly line (<span class="arithmatex">\(1 \leq m \leq M\)</span>).</li>
+</ul>
+<h4 id="step-2-training-the-weak-learner-under-sample-modulation">Step 2: Training the Weak Learner Under Sample Modulation</h4>
+<p>We enter the sequential assembly pipeline, looping across macro-steps <span class="arithmatex">\(m = 1 \dots M\)</span>. At each step, we train a new weak learner <span class="arithmatex">\(h_m(\vec{x}) \in \mathcal{H}\)</span> (typically configured as a <em>decision stump</em>—an axis-parallel decision tree restricted to a maximum depth of exactly <span class="arithmatex">\(1\)</span>).</p>
+<p>Crucially, <strong>the weak learner must be trained in a way that respects the active data weight distribution <span class="arithmatex">\(\vec{w}^{(m)}\)</span>.</strong></p>
+<p>An engineer can implement this distribution tracking inside their software framework using two distinct strategies:</p>
+<ol>
+<li><strong>Resampling with Replacement (The Sampling Hack):</strong> Instead of processing the raw dataset uniformly, the data loader constructs a synthetic batch by running a bootstrap draw where the probability of plucking row <span class="arithmatex">\(i\)</span> is driven directly by its normalized weight coefficient <span class="arithmatex">\(w_i^{(m)}\)</span>. High-weight coordinates are duplicated repeatedly within the batch, while low-weight coordinates are dropped entirely.</li>
+<li><strong>Weighted Split Optimization:</strong> If our base models are decision trees, we preserve the global data layout and modify the internal impurity equations directly. When evaluating the probability proportion <span class="arithmatex">\(P_k\)</span> to compute a Gini or Entropy split, we swap out raw sample counts and sum the localized data weights instead:</li>
+</ol>
+<div class="arithmatex">\[P_k = \frac{\sum_{\vec{x}_i \in R_m} w_i^{(m)} \mathbb{I}(y_i = k)}{\sum_{\vec{x}_i \in R_m} w_i^{(m)}}\]</div>
+<h4 id="step-3-computing-the-weighted-error-ledger">Step 3: Computing the Weighted Error Ledger</h4>
+<p>Once <span class="arithmatex">\(h_m(\vec{x})\)</span> is trained, we evaluate its localized misclassification footprint by computing the <strong>Weighted Error Fraction (<span class="arithmatex">\(\epsilon_m\)</span>)</strong>:</p>
+<div class="arithmatex">\[\epsilon_m = \frac{\sum_{i=1}^{n} w_i^{(m)} \mathbb{I}\big(y_i \neq h_m(\vec{x}_i)\Big)}{\sum_{i=1}^{n} w_i^{(m)}}\]</div>
+<p>This metric tracks the total normalized weight of the specific sample points that our active weak learner failed to classify correctly.</p>
+<h4 id="step-4-learning-the-optimal-component-voting-allocation-alpha_m">Step 4: Learning the Optimal Component Voting Allocation (<span class="arithmatex">\(\alpha_m\)</span>)</h4>
+<p>Using this weighted error fraction, we calculate the explicit voting weight—or step-size allocation—assigned permanently to our new model head within the global committee graph:</p>
+<div class="arithmatex">\[\alpha_m = \frac{1}{2} \ln\left( \frac{1 - \epsilon_m}{\epsilon_m} \right)\]</div>
+<p>Look at the mathematical behavior of this logarithmic curve:</p>
+<ul>
+<li>If our weak learner is highly accurate (<span class="arithmatex">\(\epsilon_m \to 0\)</span>), the ratio explodes toward infinity, assigning a massive voting weight (<span class="arithmatex">\(\alpha_m \gg 1\)</span>) to the new model head.</li>
+<li>If the weak learner's performance drops down to a coin-flip chance (<span class="arithmatex">\(\epsilon_m = 0.5\)</span>), the log ratio collapses to <span class="arithmatex">\(\ln(1) = 0\)</span>, completely neutralizing the head's voting power within the committee.</li>
+</ul>
+<h4 id="step-5-the-exponential-weight-update-rule">Step 5: The Exponential Weight Update Rule</h4>
+<p>To prepare our data window for the next sequential layer, we update our sample weights, running an exponential multiplicative transformation over all <span class="arithmatex">\(n\)</span> coordinates:</p>
+<div class="arithmatex">\[w_i^{(m+1)} = w_i^{(m)} \cdot \exp\Big( -\alpha_m y_i h_m(\vec{x}_i) \Big)\]</div>
+<p>Let us analyze how this update equation behaves based on classification accuracy:</p>
+<ul>
+<li><strong>Correctly Classified Points (<span class="arithmatex">\(y_i \cdot h_m = +1\)</span>):</strong> The exponent turns negative (<span class="arithmatex">\(e^{-\alpha_m}\)</span>), scaling down the sample weight. The ensemble has solved this coordinate, so the next layer can safely deprioritize it.</li>
+<li><strong>Misclassified Points (<span class="arithmatex">\(y_i \cdot h_m = -1\)</span>):</strong> The double negative cancels out, turning the exponent positive (<span class="arithmatex">\(e^{+\alpha_m}\)</span>) and multiplying the sample weight upward.</li>
+</ul>
+<p>This mechanism shifts the focus of the optimization loop. By amplifying the weights of misclassified records, the next sequential weak learner is forced to focus its attention on the hardest coordinates in the dataset, systematically correcting the structural mistakes left behind by the preceding layers.</p>
+<hr />
+<h3 id="473-first-principles-proof-of-adaboost-as-gradient-boosting">47.3 First-Principles Proof of AdaBoost as Gradient Boosting</h3>
+<p>We now unroll the formal mathematical proof establishing how this entire algorithmic cascade is derived directly from our functional gradient ledger.</p>
+<p>Let us define our global objective wrapper. We seek to optimize our forward stagewise additive ensemble update rule using an unconstrained <strong>Exponential Loss Function</strong>:</p>
+<div class="arithmatex">\[L(y, \,\, H(\vec{x})) = \exp\Big( -y \cdot H(\vec{x}) \Big)\]</div>
+<p>We write out our global empirical risk minimization problem at macro-iteration step <span class="arithmatex">\(m\)</span>:</p>
+<div class="arithmatex">\[\arg\min_{h \in \mathcal{H}, \,\, \alpha \in \mathbb{R}} \sum_{i=1}^{n} \exp\Big( -y_i \big( H_{m-1}(\vec{x}_i) + \alpha h(\vec{x}_i) \big) \Big)\]</div>
+<p>We isolate the active candidate variables by using standard exponent laws to split our summation into a product of distinct exponential layers:</p>
+<div class="arithmatex">\[\sum_{i=1}^{n} \exp\Big( -y_i H_{m-1}(\vec{x}_i) - y_i \alpha h(\vec{x}_i) \Big) = \sum_{i=1}^{n} \underbrace{\exp\Big( -y_i H_{m-1}(\vec{x}_i) \Big)}_{\text{Independent of } h, \,\, \alpha} \cdot \exp\Big( -y_i \alpha h(\vec{x}_i) \Big)\]</div>
+<p>Look closely at the first term inside this split product. This exponential component depends entirely on the historical ensemble state <span class="arithmatex">\(H_{m-1}(\vec{x}_i)\)</span> computed in previous loops. Because we are optimizing variables at step <span class="arithmatex">\(m\)</span>, these historical states are frozen, unalterable constants. We can cache this entire term as an unnormalized scalar parameter—which matches our exact definition of a <strong>Data Weight (<span class="arithmatex">\(w_i^{(m)}\)</span>)</strong>:</p>
+<div class="arithmatex">\[w_i^{(m)} \triangleq \exp\Big( -y_i H_{m-1}(\vec{x}_i) \Big)\]</div>
+<p>Substituting this data weight variable directly back into our global summation isolates a clean, weighted risk ledger:</p>
+<div class="arithmatex">\[\hat{R}_m(h, \,\, \alpha) = \sum_{i=1}^{n} w_i^{(m)} \exp\Big( -y_i \alpha h(\vec{x}_i) \Big)\]</div>
+<hr />
+<h3 id="474-recursive-rigor-recovering-the-multiplicative-update-step">47.4 Recursive Rigor: Recovering the Multiplicative Update Step</h3>
+<p>Before solving for our active optimization targets (<span class="arithmatex">\(h\)</span> and <span class="arithmatex">\(\alpha\)</span>), let us mathematically prove that this data weight definition satisfies AdaBoost's exponential weight update rule. We unroll the definition for the subsequent macro-iteration step <span class="arithmatex">\(m+1\)</span>:</p>
+<div class="arithmatex">\[w_i^{(m+1)} = \exp\Big( -y_i H_m(\vec{x}_i) \Big)\]</div>
+<p>We substitute our forward stagewise expansion rule (<span class="arithmatex">\(H_m = H_{m-1} + \alpha_m h_m\)</span>) straight into the exponent:</p>
+<div class="arithmatex">\[w_i^{(m+1)} = \exp\Big( -y_i \big( H_{m-1}(\vec{x}_i) + \alpha_m h_m(\vec{x}_i) \big) \Big) = \exp\Big( -y_i H_{m-1}(\vec{x}_i) - y_i \alpha_m h_m(\vec{x}_i) \Big)\]</div>
+<p>We apply exponent split laws to isolate our historical variables:</p>
+<div class="arithmatex">\[w_i^{(m+1)} = \underbrace{\exp\Big( -y_i H_{m-1}(\vec{x}_i) \Big)}_{w_i^{(m)}} \cdot \exp\Big( -\alpha_m y_i h_m(\vec{x}_i) \Big)\]</div>
+<div class="arithmatex">\[w_i^{(m+1)} = w_i^{(m)} \cdot \exp\Big( -\alpha_m y_i h_m(\vec{x}_i) \Big)\]</div>
+<p>This completes the recursive proof. The exponential update rule is not an empirical hack; it is a direct mathematical consequence of splitting our exponential loss function across sequential steps.</p>
+<hr />
+<h3 id="475-coordinate-separation-minimizing-the-weighted-classification-error">47.5 Coordinate Separation: Minimizing the Weighted Classification Error</h3>
+<p>We return to our active optimization step, seeking the optimal weak learner <span class="arithmatex">\(h_m(\vec{x})\)</span> that minimizes our weighted risk ledger:</p>
+<div class="arithmatex">\[\arg\min_{h \in \mathcal{H}} \sum_{i=1}^{n} w_i^{(m)} \exp\Big( -y_i \alpha h(\vec{x}_i) \Big)\]</div>
+<p>Because this is a binary classification task where <span class="arithmatex">\(y_i \in \{-1, \,\, 1\}\)</span> and <span class="arithmatex">\(h_m(\vec{x}_i) \in \{-1, \,\, 1\}\)</span>, the cross-product <span class="arithmatex">\(y_i \cdot h_m(\vec{x}_i)\)</span> can only yield two possible outcomes: <span class="arithmatex">\(+1.0\)</span> if the prediction matches the label, and <span class="arithmatex">\(-1.0\)</span> if it results in a misclassification.</p>
+<p>This binary output allows us to split our global summation into two separate, mutually exclusive regional blocks:</p>
+<div class="arithmatex">\[\sum_{i=1}^{n} w_i^{(m)} \exp\Big( -y_i \alpha h(\vec{x}_i) \Big) = \sum_{y_i = h_m(\vec{x}_i)} w_i^{(m)} e^{-\alpha} + \sum_{y_i \neq h_m(\vec{x}_i)} w_i^{(m)} e^{+\alpha}\]</div>
+<p>Let us analyze how we can minimize this expression with respect to our function shape <span class="arithmatex">\(h\)</span>. Because the positive scalar exponent <span class="arithmatex">\(e^{+\alpha}\)</span> scales up significantly relative to the decaying exponent <span class="arithmatex">\(e^{-\alpha}\)</span> (assuming <span class="arithmatex">\(\alpha &gt; 0\)</span>), our primary optimization path is to minimize the coefficient driving that dominant second term.</p>
+<p>This means that to minimize the global loss, <strong>the optimal weak learner <span class="arithmatex">\(h_m(\vec{x})\)</span> must minimize the sum of weights over the misclassified points.</strong></p>
+<div class="arithmatex">\[h_m^*(\vec{x}) = \arg\min_{h \in \mathcal{H}} \sum_{i=1}^{n} w_i^{(m)} \mathbb{I}\big( y_i \neq h(\vec{x}_i) \Big)\]</div>
+<p>This step completes our second connection. It proves that AdaBoost's core requirement—forcing each subsequent layer to prioritize high-weight, misclassified coordinates—is the direct mathematical solution to optimizing our functional exponential loss ledger.</p>
+<hr />
+<h3 id="476-deriving-the-closed-form-global-voting-allocation-alpha_m">47.6 Deriving the Closed-Form Global Voting Allocation (<span class="arithmatex">\(\alpha_m\)</span>)</h3>
+<p>We have successfully derived our optimal weak learner function shape <span class="arithmatex">\(h_m^*(\vec{x})\)</span>. We now execute our final calculus step: <strong>solving for the exact closed-form solution for the voting allocation coefficient <span class="arithmatex">\(\alpha_m\)</span>.</strong></p>
+<p>Let us define a permanent global variable <span class="arithmatex">\(W\)</span> that tracks the total unnormalized sum of all data weights operating inside our active step:</p>
+<div class="arithmatex">\[W = \sum_{i=1}^{n} w_i^{(m)}\]</div>
+<p>By substituting our definition of the normalized weighted error fraction (<span class="arithmatex">\(\epsilon_m = \frac{1}{W} \sum_{y_i \neq h_m} w_i^{(m)}\)</span>), we can rewrite our regional data-weight sums using clean, fraction-based expressions:</p>
+<div class="arithmatex">\[\text{Incorrect Weights sum: } \quad \sum_{y_i \neq h_m} w_i^{(m)} = W \epsilon_m\]</div>
+<div class="arithmatex">\[\text{Correct Weights sum: } \quad \sum_{y_i = h_m} w_i^{(m)} = W (1 - \epsilon_m)\]</div>
+<p>We substitute both fraction-based expressions back into our split exponential risk equation:</p>
+<div class="arithmatex">\[\hat{R}_m(\alpha) = W (1 - \epsilon_m) e^{-\alpha} + W \epsilon_m e^{+\alpha}\]</div>
+<p>To find the absolute mathematical minimum of this curve with respect to our voting weight <span class="arithmatex">\(\alpha\)</span>, we take its derivative, apply standard calculus rules, and set the final expression to absolute zero:</p>
+<div class="arithmatex">\[\frac{\partial \hat{R}_m(\alpha)}{\partial \alpha} = -W (1 - \epsilon_m) e^{-\alpha} + W \epsilon_m e^{+\alpha} = 0\]</div>
+<p>We eliminate the non-zero global scalar constant <span class="arithmatex">\(W\)</span> by dividing it out of both sides:</p>
+<div class="arithmatex">\[-(1 - \epsilon_m) e^{-\alpha} + \epsilon_m e^{+\alpha} = 0 \quad \implies \quad \epsilon_m e^{+\alpha} = (1 - \epsilon_m) e^{-\alpha}\]</div>
+<p>To isolate our active variable <span class="arithmatex">\(\alpha\)</span>, we multiply both sides of the inequality by the exponential multiplier <span class="arithmatex">\(e^{+\alpha}\)</span>:</p>
+<div class="arithmatex">\[\epsilon_m e^{2\alpha} = 1 - \epsilon_m \quad \implies \quad e^{2\alpha} = \frac{1 - \epsilon_m}{\epsilon_m}\]</div>
+<p>Finally, we apply the natural logarithm (<span class="arithmatex">\(\ln\)</span>) to both sides and divide by our scalar coefficient to isolate our voting weight:</p>
+<div class="arithmatex">\[2\alpha = \ln\left( \frac{1 - \epsilon_m}{\epsilon_m} \right) \quad \implies \quad \alpha_m^* = \frac{1}{2} \ln\left( \frac{1 - \epsilon_m}{\epsilon_m} \right)\]</div>
+<p>This completes our full derivation. Every single step of the historic AdaBoost algorithm—from its multiplicative data-weight tracking to its closed-form component voting updates—has been recovered straight from first-principles functional optimization. This proof unifies AdaBoost with our global gradient boosting ledger, completing our comprehensive study of non-parametric ensemble theory.</p>
+<hr />
+<h2 id="textbook-notes-master-formula-reference-sheet">Textbook Notes Master Formula Reference Sheet</h2>
+<h3 id="the-canonical-adaboost-optimization-routine">The Canonical AdaBoost Optimization Routine</h3>
+<div class="arithmatex">\[\text{Weighted Error Fraction: } \quad \epsilon_m = \frac{\sum_{i=1}^{n} w_i^{(m)} \mathbb{I}\big(y_i \neq h_m(\vec{x}_i)\Big)}{\sum_{i=1}^{n} w_i^{(m)}}\]</div>
+<div class="arithmatex">\[\text{Component Voting Weight: } \quad \alpha_m^* = \frac{1}{2} \ln\left( \frac{1 - \epsilon_m}{\epsilon_m} \right)\]</div>
+<div class="arithmatex">\[\text{Exponential Weight Update: } \quad w_i^{(m+1)} = w_i^{(m)} \cdot \exp\Big( -\alpha_m y_i h_m(\vec{x}_i) \Big)\]</div>
+<hr />
+<h3 id="the-functional-convergence-identity">The Functional Convergence Identity</h3>
+<div class="arithmatex">\[\text{The Structural Target Identity: } \quad \min_{h, \alpha} \sum_{i=1}^{n} \exp\Big( -y_i H_m(\vec{x}_i) \Big) \equiv \text{AdaBoost Step Execution}\]</div>
+<div class="arithmatex">\[\text{Global Committee Aggregate Function: } \quad H_M(\vec{x}) = \text{sign}\left( \sum_{m=1}^{M} \alpha_m h_m(\vec{x}) \right)\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

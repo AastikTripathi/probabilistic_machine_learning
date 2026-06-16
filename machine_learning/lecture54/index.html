@@ -1,0 +1,3253 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture53/">
+      
+      
+        <link rel="next" href="../lecture55/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture54 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture54
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-43-regression-trees-continuous-threshold-search-heuristics-and-the-mechanics-of-variance-reduction-ensembles-bagging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 43: Regression Trees, Continuous Threshold Search Heuristics, and the Mechanics of Variance-Reduction Ensembles (Bagging)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 43: Regression Trees, Continuous Threshold Search Heuristics, and the Mechanics of Variance-Reduction Ensembles (Bagging)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#431-the-transition-to-continuous-target-metrics-regression-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.1 The Transition to Continuous Target Metrics: Regression Trees
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="43.1 The Transition to Continuous Target Metrics: Regression Trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-continuous-probability-horizon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Continuous Probability Horizon
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#432-the-continuous-variance-impurity-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.2 The Continuous Variance Impurity Metric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#433-algorithmic-unrolling-of-continuous-threshold-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.3 Algorithmic Unrolling of Continuous Threshold Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="43.3 Algorithmic Unrolling of Continuous Threshold Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-midpoint-search-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Midpoint Search Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-algorithmic-complexity-gap-mathcalon2-vs-mathcalon-log-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Algorithmic Complexity Gap: \(\mathcal{O}(N^2)\) vs. \(\mathcal{O}(N \log N)\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#industrial-acceleration-the-histogram-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Industrial Acceleration: The Histogram Method
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#434-regularization-frameworks-pruning-rules-and-stopping-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.4 Regularization Frameworks: Pruning Rules and Stopping Criteria
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="43.4 Regularization Frameworks: Pruning Rules and Stopping Criteria">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-maximum-depth-limit-d_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Maximum Depth Limit (\(D_{\max}\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-minimum-spatial-headcount-n_min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Minimum Spatial Headcount (\(N_{\min}\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-minimum-child-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Minimum Child Allocation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-minimum-impurity-improvement-epsilon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Minimum Impurity Improvement (\(\epsilon\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#435-native-categorical-axis-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.5 Native Categorical Axis Processing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="43.5 Native Categorical Axis Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Definition:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#436-ensemble-theory-combining-weak-learners-to-compress-global-variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.6 Ensemble Theory: Combining Weak Learners to Compress Global Variance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="43.6 Ensemble Theory: Combining Weak Learners to Compress Global Variance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-theoretical-ideal-the-ensemble-average" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Theoretical Ideal: The Ensemble Average
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#437-bootstrap-aggregation-bagging-over-correlated-manifolds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.7 Bootstrap Aggregation (Bagging) over Correlated Manifolds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="43.7 Bootstrap Aggregation (Bagging) over Correlated Manifolds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-cost-of-data-redundancy-the-correlation-penalty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Cost of Data Redundancy: The Correlation Penalty
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precise-coordinate-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Coordinate Variables:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#438-random-forests-deep-decorrelation-through-feature-subsampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.8 Random Forests: Deep Decorrelation through Feature Subsampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-master-formula-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Master Formula Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Master Formula Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#universal-continuous-regression-metric-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Universal Continuous Regression Metric Suite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-correlated-ensemble-variance-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Correlated Ensemble Variance Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-43-regression-trees-continuous-threshold-search-heuristics-and-the-mechanics-of-variance-reduction-ensembles-bagging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 43: Regression Trees, Continuous Threshold Search Heuristics, and the Mechanics of Variance-Reduction Ensembles (Bagging)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 43: Regression Trees, Continuous Threshold Search Heuristics, and the Mechanics of Variance-Reduction Ensembles (Bagging)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#431-the-transition-to-continuous-target-metrics-regression-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.1 The Transition to Continuous Target Metrics: Regression Trees
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="43.1 The Transition to Continuous Target Metrics: Regression Trees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-continuous-probability-horizon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Continuous Probability Horizon
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#432-the-continuous-variance-impurity-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.2 The Continuous Variance Impurity Metric
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#433-algorithmic-unrolling-of-continuous-threshold-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.3 Algorithmic Unrolling of Continuous Threshold Selection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="43.3 Algorithmic Unrolling of Continuous Threshold Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-midpoint-search-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Midpoint Search Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-algorithmic-complexity-gap-mathcalon2-vs-mathcalon-log-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Algorithmic Complexity Gap: \(\mathcal{O}(N^2)\) vs. \(\mathcal{O}(N \log N)\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#industrial-acceleration-the-histogram-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Industrial Acceleration: The Histogram Method
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#434-regularization-frameworks-pruning-rules-and-stopping-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.4 Regularization Frameworks: Pruning Rules and Stopping Criteria
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="43.4 Regularization Frameworks: Pruning Rules and Stopping Criteria">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-maximum-depth-limit-d_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Maximum Depth Limit (\(D_{\max}\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-minimum-spatial-headcount-n_min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Minimum Spatial Headcount (\(N_{\min}\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-minimum-child-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Minimum Child Allocation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-minimum-impurity-improvement-epsilon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Minimum Impurity Improvement (\(\epsilon\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#435-native-categorical-axis-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.5 Native Categorical Axis Processing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="43.5 Native Categorical Axis Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Definition:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#436-ensemble-theory-combining-weak-learners-to-compress-global-variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.6 Ensemble Theory: Combining Weak Learners to Compress Global Variance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="43.6 Ensemble Theory: Combining Weak Learners to Compress Global Variance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-theoretical-ideal-the-ensemble-average" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Theoretical Ideal: The Ensemble Average
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#437-bootstrap-aggregation-bagging-over-correlated-manifolds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.7 Bootstrap Aggregation (Bagging) over Correlated Manifolds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="43.7 Bootstrap Aggregation (Bagging) over Correlated Manifolds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-cost-of-data-redundancy-the-correlation-penalty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Cost of Data Redundancy: The Correlation Penalty
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precise-coordinate-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Coordinate Variables:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#438-random-forests-deep-decorrelation-through-feature-subsampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.8 Random Forests: Deep Decorrelation through Feature Subsampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-master-formula-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Master Formula Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Master Formula Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#universal-continuous-regression-metric-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Universal Continuous Regression Metric Suite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-correlated-ensemble-variance-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Correlated Ensemble Variance Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-43-regression-trees-continuous-threshold-search-heuristics-and-the-mechanics-of-variance-reduction-ensembles-bagging">Chapter 43: Regression Trees, Continuous Threshold Search Heuristics, and the Mechanics of Variance-Reduction Ensembles (Bagging)</h2>
+<hr />
+<h3 id="431-the-transition-to-continuous-target-metrics-regression-trees">43.1 The Transition to Continuous Target Metrics: Regression Trees</h3>
+<p>In Chapter 42, we unrolled the mathematical formulation of Classification and Regression Trees (CART), focusing on greedy recursive partitioning over high-dimensional discrete probability distributions. Under that classification blueprint, regional purity was evaluated using information-theoretic metrics—such as Shannon Entropy or Gini Impurity—that required counting class frequencies.</p>
+<p>We now transition to the secondary task family of non-parametric architectures: <strong>Regression Trees</strong>. When the global target variable <span class="arithmatex">\(Y\)</span> tracks a continuous scalar space (<span class="arithmatex">\(Y \in \mathbb{R}\)</span>), discrete probability frequency metrics collapse completely. We cannot calculate the entropy of a continuous, infinite real-valued manifold using discrete counters.</p>
+<p>To resolve this metric deficit, we must alter the operational assignment rules running inside our partitioned regions. Suppose our top-down greedy search splits an active parent node <span class="arithmatex">\(m\)</span> into a regional boundary block denoted as <span class="arithmatex">\(R_m\)</span>. This sub-manifold currently encompasses a subset of <span class="arithmatex">\(N_m\)</span> training observations.</p>
+<p>Because we can no longer assign a categorical majority label to this zone, we regularize our regional prediction by calculating a flat, localized summary value. We define the continuous target prediction for any input coordinate landing within the spatial domain of region <span class="arithmatex">\(R_m\)</span> as the <strong>Maximum Likelihood Arithmetic Mean (<span class="arithmatex">\(\hat{y}_m\)</span>)</strong> of all target labels currently trapped within that zone:</p>
+<div class="arithmatex">\[\hat{y}_m = \frac{1}{N_m} \sum_{\vec{x}_i \in R_m} y_i\]</div>
+<p>During downstream inference, when an unseen testing sample vector <span class="arithmatex">\(\vec{x}_{\text{test}}\)</span> executes its deterministic traversal pass down the tree graph, it travels through axis-parallel gates until it lands in a terminal <strong>Leaf Node</strong>. The model ignores the individual variations of the testing coordinate and assigns it a single, flat prediction value matching the pre-calculated arithmetic mean <span class="arithmatex">\(\hat{y}_{\text{leaf}}\)</span> of that terminal region.</p>
+<h4 id="the-continuous-probability-horizon">The Continuous Probability Horizon</h4>
+<p>A student noted an elegant architectural parallel: <em>just as a classification leaf node outputs a highly skewed probability distribution over discrete slots, a properly optimized regression leaf node outputs a tightly clustered distribution over the continuous real numbers.</em> When a tree is grown correctly, each sequential split maximizes localized density concentration. Rather than generating flat, uniform chaos across the target line, the recursive cuts isolate uniform clusters, forcing the targets trapped in a leaf zone to gather closely around their regional mean.</p>
+<hr />
+<h3 id="432-the-continuous-variance-impurity-metric">43.2 The Continuous Variance Impurity Metric</h3>
+<p>To guide our top-down greedy splitting optimizer when target labels are continuous, we must swap out our information-theoretic impurity functions for a metric calibrated to real-valued distributions. We model the impurity of a continuous region <span class="arithmatex">\(R_m\)</span> by evaluating its <strong>Internal Structural Variance (Mean Squared Error)</strong>:</p>
+<div class="arithmatex">\[I(R_m) = \frac{1}{N_m} \sum_{\vec{x}_i \in R_m} \left( y_i - \hat{y}_m \right)^2\]</div>
+<p>This formulation acts as a direct evaluation of splitting quality. If a split forces a wide variety of wildly differing target numbers to crowd together into a single region, the arithmetic mean <span class="arithmatex">\(\hat{y}_m\)</span> will function as a poor summary vector. The squared differences will expand, flagging the region as highly impure.</p>
+<p>To execute a split at node <span class="arithmatex">\(m\)</span>, our greedy optimization engine evaluates a candidate feature index <span class="arithmatex">\(j\)</span> and a continuous axis threshold <span class="arithmatex">\(\tau\)</span>, minimizing the combined weighted variance of the resulting left child (<span class="arithmatex">\(R_L\)</span>) and right child (<span class="arithmatex">\(R_R\)</span>) sub-regions:</p>
+<div class="arithmatex">\[\mathcal{L}(j, \,\, \tau) = \frac{N_L}{N_m} \left[ \frac{1}{N_L} \sum_{\vec{x}_i \in R_L} (y_i - \hat{y}_L)^2 \right] + \frac{N_R}{N_m} \left[ \frac{1}{N_R} \sum_{\vec{x}_i \in R_R} (y_i - \hat{y}_R)^2 \right]\]</div>
+<p>Canceling out the fractional headcounts unrolls a clean, total sum-of-squares objective function:</p>
+<div class="arithmatex">\[\mathcal{L}(j, \,\, \tau) = \frac{1}{N_m} \left[ \sum_{\vec{x}_i \in R_L(j, \tau)} (y_i - \hat{y}_L)^2 + \sum_{\vec{x}_i \in R_R(j, \tau)} (y_i - \hat{y}_R)^2 \right]\]</div>
+<p>The optimizer's core objective is to discover a splitting boundary that maximizes the statistical distance between the means of the child nodes (<span class="arithmatex">\(\hat{y}_L\)</span> and <span class="arithmatex">\(\hat{y}_R\)</span>). By segregating smaller numbers to the left and larger numbers to the right, the internal variance within each child node drops to a minimum, generating tight, highly pure localized prediction blocks.</p>
+<hr />
+<h3 id="433-algorithmic-unrolling-of-continuous-threshold-selection">43.3 Algorithmic Unrolling of Continuous Threshold Selection</h3>
+<p>When a chosen feature dimension <span class="arithmatex">\(X_j\)</span> is a continuous variable mapping to an infinite set of real numbers (<span class="arithmatex">\(\mathbb{R}\)</span>), an engineer faces a massive practical hurdle: <em>how can a software script scan an infinite number of candidate thresholds <span class="arithmatex">\(\tau\)</span> to find the mathematical minimum of our variance ledger?</em> To implement this on real digital hardware, we convert the infinite continuous space into a discrete set of candidate boundaries using a rigorous <strong>Rank-Ordering Midpoint Heuristic</strong>.</p>
+<h4 id="the-midpoint-search-protocol">The Midpoint Search Protocol</h4>
+<p>Suppose an active node <span class="arithmatex">\(m\)</span> contains <span class="arithmatex">\(N_m\)</span> training samples. To calculate all valid thresholds for a specific continuous feature axis <span class="arithmatex">\(X_j\)</span>, the execution engine runs the following algorithmic pipeline:</p>
+<ol>
+<li><strong>Feature Extraction:</strong> Extract the <span class="arithmatex">\(N_m\)</span> scalar coefficients for feature <span class="arithmatex">\(X_j\)</span> from all training observations trapped within the active node domain.</li>
+<li><strong>Sort and De-duplicate:</strong> Run a sorting pass over these scalar entries, strip out any duplicate values, and arrange the remaining unique numbers into a strictly increasing, rank-ordered chronological sequence:</li>
+</ol>
+<div class="arithmatex">\[U_1 &lt; U_2 &lt; U_3 &lt; \dots &lt; U_P \quad \text{where} \quad P \leq N_m\]</div>
+<ol>
+<li><strong>Midpoint Generation:</strong> Define the finite set of candidate splitting thresholds <span class="arithmatex">\(\tau_k\)</span> by calculating the exact arithmetic midpoints between adjacent rank-ordered values:</li>
+</ol>
+<div class="arithmatex">\[\tau_k = \frac{U_k + U_{k+1}}{2} \quad \forall \quad k \in \{1, \,\, 2, \,\, \dots, \,\, P-1\}\]</div>
+<h4 id="the-algorithmic-complexity-gap-mathcalon2-vs-mathcalon-log-n">The Algorithmic Complexity Gap: <span class="arithmatex">\(\mathcal{O}(N^2)\)</span> vs. <span class="arithmatex">\(\mathcal{O}(N \log N)\)</span></h4>
+<p>The professor notes a vital computational bottleneck. If you implement this search naively—sorting the array, picking a threshold, and then running a full data scan over all <span class="arithmatex">\(N_m\)</span> rows to compute the child means and variance losses for each candidate midpoint—the algorithmic complexity scales quadratically as <strong><span class="arithmatex">\(\mathcal{O}(N_m^2)\)</span></strong> per feature. When processing millions of samples, this quadratic scaling paralyzes the training engine.</p>
+<p>To accelerate this step, modern optimization frameworks optimize the execution complexity down to <strong><span class="arithmatex">\(\mathcal{O}(N_m \log N_m)\)</span></strong> using a <strong>Single-Pass Running Sum Scan</strong>.</p>
+<p>Instead of recalculating the child averages (<span class="arithmatex">\(\hat{y}_L, \hat{y}_R\)</span>) from scratch at each candidate midpoint, the engine initializes a global tracking buffer that computes the total sum and squared sum of all target variables in the parent node.</p>
+<p>Because the feature values are pre-sorted, stepping from threshold <span class="arithmatex">\(\tau_k\)</span> to <span class="arithmatex">\(\tau_{k+1}\)</span> shifts exactly one data observation from the right child node into the left child node. The engine dynamically updates the child sum statistics using basic, constant-time scalar arithmetic:</p>
+<div class="arithmatex">\[\text{Sum}(R_L)^{\text{new}} = \text{Sum}(R_L)^{\text{old}} + y_{\text{shifted}}\]</div>
+<div class="arithmatex">\[\text{Sum}(R_R)^{\text{new}} = \text{Sum}(R_R)^{\text{old}} - y_{\text{shifted}}\]</div>
+<p>By tracking running sums, the child means and variance criteria are evaluated in a single linear pass (<span class="arithmatex">\(\mathcal{O}(N_m)\)</span>) after the initial sorting step (<span class="arithmatex">\(\mathcal{O}(N_m \log N_m)\)</span>), dropping total layer compute down to an efficient <span class="arithmatex">\(\mathcal{O}(N \log N)\)</span> footprint.</p>
+<h4 id="industrial-acceleration-the-histogram-method">Industrial Acceleration: The Histogram Method</h4>
+<p>In modern, high-velocity tree implementations (such as LightGBM or XGBoost Sketched engines), sorting raw floating-point numbers is completely abandoned.</p>
+<p>The algorithm passes the continuous feature values into a discrete <strong>1D Histogram Filter</strong>, grouping the inputs into a fixed number of bins (e.g., 256 bins). The system discards the raw coordinates entirely, using the hard physical edges of the histogram bins as its sole candidate thresholds. This quantization step drops training memory overhead and converts the threshold search into a blindingly fast linear calculation.</p>
+<hr />
+<h3 id="434-regularization-frameworks-pruning-rules-and-stopping-criteria">43.4 Regularization Frameworks: Pruning Rules and Stopping Criteria</h3>
+<p>If we run our recursive greedy splitting algorithm without constraints, the tree graph will continue growing until it maps every single unique training sample into its own dedicated leaf node.</p>
+<p>In this unconstrained state, the network transforms into a rigid <strong>Memory Lookup Table</strong>. It achieves absolute zero training error (<span class="arithmatex">\(\hat{R} = 0\)</span>), but its spatial regions shrink to microscopic volumes.</p>
+<p>This condition represents the ultimate manifestation of <strong>High Variance / Low Bias Overfitting</strong>. The tree perfectly memorizes the background noise of the training coordinates, but fails completely when evaluated on unseen validation data. To control this variance and force the model into a stable, low-variance regime, we must deploy strict <strong>Architectural Regularizers</strong> to stop tree growth.</p>
+<pre><code>  [ Unregularized Deep Tree ]               [ Regularized Shallow Tree ]
+  - Region Volume: Near Zero (Microscopic)  - Region Volume: Large Hyper-Rectangles
+  - Variance: Extremely High (Overfit)      - Variance: Suppressed and Controlled
+  - Bias: Absolute Zero                     - Bias: Higher (Structured Smoothness)
+  - Profile: Explicit Lookup Table          - Profile: Generalized Continuous Predictor
+
+</code></pre>
+<p>We constrain the tree's hypothesis class by enforcing four classical hyperparameter constraints:</p>
+<h4 id="1-maximum-depth-limit-d_max">1. Maximum Depth Limit (<span class="arithmatex">\(D_{\max}\)</span>)</h4>
+<p>We define a hard ceiling on the maximum depth of the tree graph. If an active node sits at a depth coordinate equal to <span class="arithmatex">\(D_{\max}\)</span>, the optimization engine freezes the node instantly, blocking any further cuts. This parameter enforces a minimum geometric volume threshold on the partitioned hyper-rectangles.</p>
+<h4 id="2-minimum-spatial-headcount-n_min">2. Minimum Spatial Headcount (<span class="arithmatex">\(N_{\min}\)</span>)</h4>
+<p>The engine checks the total headcount of observations trapped inside an active node domain (<span class="arithmatex">\(N_m\)</span>). If <span class="arithmatex">\(N_m\)</span> falls below a pre-selected integer threshold <span class="arithmatex">\(N_{\min}\)</span>, the node is declared a terminal leaf, and splitting halts. This parameter operates exactly like the window constraints utilized in non-parametric density estimation frameworks.</p>
+<h4 id="3-minimum-child-allocation">3. Minimum Child Allocation</h4>
+<p>A split is physically blocked if the proposed boundary threshold <span class="arithmatex">\(\tau\)</span> routes a tiny cluster of samples into either child node (<span class="arithmatex">\(N_L &lt; N_{\text{leaf\_min}}\)</span> or <span class="arithmatex">\(N_R &lt; N_{\text{leaf\_min}}\)</span>). This prevents the optimizer from carving off isolated outliers to cheat the variance ledger.</p>
+<h4 id="4-minimum-impurity-improvement-epsilon">4. Minimum Impurity Improvement (<span class="arithmatex">\(\epsilon\)</span>)</h4>
+<p>The engine calculates the net reduction in impurity achieved by a candidate cut:</p>
+<div class="arithmatex">\[\Delta I = I(R_m) - \left[ \frac{N_L}{N_m}I(R_L) + \frac{N_R}{N_m}I(R_R) \right]\]</div>
+<p>The split is executed only if this gain exceeds a positive hyperparameter threshold (<span class="arithmatex">\(\Delta I \geq \epsilon\)</span>). If the variance reduction is near-zero, the cut is discarded as statistically insignificant noise, protecting the layer from over-partitioning.</p>
+<hr />
+<h3 id="435-native-categorical-axis-processing">43.5 Native Categorical Axis Processing</h3>
+<p>A massive operational advantage of tree-based models over parametric neural networks is their ability to process <strong>Categorical Features</strong> natively, without requiring any preprocessing transformations like one-hot encoding.</p>
+<p>Suppose a data dimension tracking feature <span class="arithmatex">\(X_j\)</span> represents discrete, descriptive color categories: <span class="arithmatex">\(X_j \in \{\text{Red}, \,\, \text{Green}, \,\, \text{Blue}\}\)</span>. If you feed this categorical field into a neural network, you must convert it into a one-hot matrix representation (<span class="arithmatex">\([1,0,0], [0,1,0]\)</span>).</p>
+<p>This conversion scales up the input dimensionality, creating sparse matrices that dilute the gradient signals during backpropagation.</p>
+<p>Decision trees bypass this matrix degradation completely by altering the mathematical nature of their splitting predicates. Instead of running continuous directional inequalities (<span class="arithmatex">\(X_j \leq \tau\)</span>), a categorical tree node executes an explicit <strong>Set Membership Predicate</strong>:</p>
+<div class="arithmatex">\[\vec{x} \in R_L \quad \text{if} \quad x_j \in \mathcal{S}\]</div>
+<div class="arithmatex">\[\vec{x} \in R_R \quad \text{if} \quad x_j \notin \mathcal{S}\]</div>
+<h4 id="literal-variable-definition">Literal Variable Definition:</h4>
+<ul>
+<li><span class="arithmatex">\(\mathcal{S}\)</span>: A discrete subset of categories carved out from the feature's total global pool.</li>
+</ul>
+<p>To optimize a categorical split, the greedy engine scans across different combinations of category groupings to find the specific partition subset <span class="arithmatex">\(\mathcal{S}\)</span> that minimizes our standard weighted impurity ledger.</p>
+<p>Because the questions evaluate category membership directly (<span class="arithmatex">\(X_j \in \{\text{Red}, \text{Blue}\}\)</span>), the system avoids numeric conversions entirely, preserving the structural integrity of discrete descriptive variables.</p>
+<hr />
+<h3 id="436-ensemble-theory-combining-weak-learners-to-compress-global-variance">43.6 Ensemble Theory: Combining Weak Learners to Compress Global Variance</h3>
+<p>While regularizing single decision trees using depth limits or sample thresholds prevents extreme overfitting, it introduces a severe trade-off: <strong>highly regularized, shallow trees are weak function approximators.</strong> They possess high bias and lack the expressive capacity to model intricate, non-linear system boundaries effectively.</p>
+<p>This limitation led to the development of <strong>Ensemble Learning</strong>. Instead of searching for a single, perfect master hypothesis, ensemble frameworks combine a large committee of easily learnable, low-capacity models—formally known as <strong>Weak Learners</strong>—to build a highly robust global predictor.</p>
+<p>To see why this approach works, let us look back at our foundational true risk decomposition:</p>
+<div class="arithmatex">\[\text{True Risk Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Noise}\]</div>
+<p>Recall that the statistical variance component measures how violently our chosen hypothesis function swings across parameter space when it is trained on entirely different mini-batches of data pulled from the global distribution <span class="arithmatex">\(P(X,Y)\)</span>:</p>
+<div class="arithmatex">\[\text{Variance} = \mathbb{E}_D \left[ \left( h_D(\vec{x}) - \bar{h}(\vec{x}) \right)^2 \right]\]</div>
+<h4 id="the-theoretical-ideal-the-ensemble-average">The Theoretical Ideal: The Ensemble Average</h4>
+<p>Suppose we have access to a magical reservoir of <span class="arithmatex">\(B\)</span> completely independent datasets pulled from the environment. We train a separate decision tree <span class="arithmatex">\(h_{D_b}(\vec{x})\)</span> on each independent dataset. If we construct a global ensemble predictor <span class="arithmatex">\(h_{\text{ens}}(\vec{x})\)</span> by averaging the predictions of all these independent trees, the true mathematical mean remains anchored:</p>
+<div class="arithmatex">\[\bar{h}(\vec{x}) = \mathbb{E}_D\big[h_D(\vec{x})\Big]\]</div>
+<p>Let us evaluate the variance profile of this averaged ensemble model:</p>
+<div class="arithmatex">\[\text{Var}\left( h_{\text{ens}}(\vec{x}) \right) = \text{Var}\left( \frac{1}{B}\sum_{b=1}^{B} h_{D_b}(\vec{x}) \right)\]</div>
+<p>Because each dataset was sampled completely independently, the individual models are entirely uncorrelated. From probability theory, the variance of the sum of independent random variables scales inversely with the number of samples:</p>
+<div class="arithmatex">\[\text{Var}\left( h_{\text{ens}}(\vec{x}) \right) = \frac{1}{B^2} \sum_{b=1}^{B} \text{Var}\left( h_{D_b}(\vec{x}) \right) = \frac{1}{B^2} \cdot B \cdot \sigma_{\text{single}}^2 = \frac{\sigma_{\text{single}}^2}{B}\]</div>
+<p>Look at the power of this algebraic result: as the number of independent estimators <span class="arithmatex">\(B\)</span> scales up, <strong>the global variance of the ensemble decays toward absolute zero.</strong> This means you can configure each individual tree to be deeply partitioned and highly complex (low bias, high variance), and then eliminate that variance entirely simply by averaging them together, clearing a direct path to minimizing true risk.</p>
+<hr />
+<h3 id="437-bootstrap-aggregation-bagging-over-correlated-manifolds">43.7 Bootstrap Aggregation (Bagging) over Correlated Manifolds</h3>
+<p>In practical machine learning applications, the ideal ensemble scenario faces a major real-world hurdle: <strong>we do not possess an infinite reservoir of independent datasets.</strong> We have exactly <em>one single dataset</em> <span class="arithmatex">\(D\)</span> containing a finite number of observations.</p>
+<p>If you train multiple deep decision trees on this exact same dataset, they will optimize into identical configurations. Their predictions will be perfectly correlated, completely neutralizing the variance-reduction benefits of averaging.</p>
+<p>To bypass this data constraint, we deploy an empirical sampling technique known as <strong>Bootstrap Aggregation</strong>, or <strong>Bagging</strong>.</p>
+<pre><code>                       ┌──&gt; Resample with Replacement (Batch 1) ───&gt; Train Tree 1 ──┐
+                       │                                                            ▼
+  [ Global Dataset D ] ─┼──&gt; Resample with Replacement (Batch 2) ───&gt; Train Tree 2 ──┼─&gt; [ Average Prediction ]
+                       │                                                            ▲
+                       └──&gt; Resample with Replacement (Batch B) ───&gt; Train Tree B ──┘
+
+</code></pre>
+<p>Instead of independent datasets, we generate <span class="arithmatex">\(B\)</span> synthetic datasets by running a <strong>Random Bootstrap Sampling pass with Replacement</strong> over our single dataset <span class="arithmatex">\(D\)</span>.</p>
+<p>For each individual model head <span class="arithmatex">\(b\)</span>, we randomly pluck a sample from <span class="arithmatex">\(D\)</span>, record its coordinates, and drop it straight back into the global pool. We repeat this selection step exactly <span class="arithmatex">\(N\)</span> times. Because samples are replaced after each pick, a single observation can be selected multiple times within a single bootstrap batch, while other observations are missed entirely.</p>
+<h4 id="the-cost-of-data-redundancy-the-correlation-penalty">The Cost of Data Redundancy: The Correlation Penalty</h4>
+<p>Because these bootstrap batches are pulled from the same underlying dataset <span class="arithmatex">\(D\)</span>, they violate our ideal independence assumption. The individual models are inherently <strong>correlated</strong>.</p>
+<p>Let us re-derive the variance profile of an ensemble average when its estimators share a positive correlation coefficient <span class="arithmatex">\(\rho\)</span>:</p>
+<div class="arithmatex">\[\text{Var}\left( h_{\text{bag}}(\vec{x}) \right) = \rho \cdot \sigma^2 + \frac{1 - \rho}{B} \cdot \sigma^2\]</div>
+<h4 id="precise-coordinate-variables">Precise Coordinate Variables:</h4>
+<ul>
+<li><span class="arithmatex">\(\sigma^2\)</span>: The native structural variance of a single unregularized decision tree.</li>
+<li><span class="arithmatex">\(B\)</span>: The total number of bagged tree estimators stacked inside the ensemble.</li>
+<li><span class="arithmatex">\(\rho\)</span>: The positive correlation coefficient measuring the dependency link between individual trees.</li>
+</ul>
+<p>Look closely at this formula as the ensemble size <span class="arithmatex">\(B\)</span> scales toward infinity:</p>
+<div class="arithmatex">\[\lim_{B \to \infty} \text{Var}\left( h_{\text{bag}}(\vec{x}) \right) = \rho \cdot \sigma^2\]</div>
+<p>The second term drops to zero, but the first term remains completely unaffected by the ensemble size. This reveals a strict mathematical ceiling: <strong>the variance reduction achieved by standard bagging is bottlenecked by the correlation coefficient <span class="arithmatex">\(\rho\)</span> of its trees.</strong> If the trees are highly correlated, stacking more models adds no value. To drive the global variance down further, we must find an architectural trick to explicitly <strong>decorrelate</strong> the trees.</p>
+<hr />
+<h3 id="438-random-forests-deep-decorrelation-through-feature-subsampling">43.8 Random Forests: Deep Decorrelation through Feature Subsampling</h3>
+<p>This mathematical bottleneck brings us directly to one of the most powerful and widely used algorithms in machine learning: <strong>The Random Forest</strong>.</p>
+<p>Developed by Leo Breiman, a Random Forest is an advanced bootstrap aggregation ensemble that forces deep decorrelation across its constituent decision trees by adding an intentional restriction: <strong>Random Feature Subsampling</strong>.</p>
+<p>When building a standard bagged ensemble, each tree evaluates all <span class="arithmatex">\(D\)</span> available feature dimensions at every single node split. Because dominant features (like a massive, high-variance target driver) will win the greedy cost optimization across almost all bootstrap batches, the resulting trees still look highly similar, locking the correlation coefficient <span class="arithmatex">\(\rho\)</span> at a high level.</p>
+<p>A Random Forest breaks this correlation by changing the rules of the greedy search. As each individual tree grows, <strong>the algorithm explicitly blocks the node from scanning all <span class="arithmatex">\(D\)</span> features.</strong> At every single node split, the engine randomly subsamples a tiny, isolated subset of <span class="arithmatex">\(m\)</span> features (where an industry standard default is <span class="arithmatex">\(m \approx \sqrt{D}\)</span>):</p>
+<pre><code>  Step 1: Bootstrap Resampling
+  Generate B synthetic data batches from D via random selection with replacement.
+
+  Step 2: Randomized Node-Level Feature Subsampling
+  At each individual node split, lock out all features except a random subset of size m = √D.
+
+  Step 3: Axis-Parallel Split Optimization
+  Optimize the threshold exclusively over this restricted feature pool to minimize variance.
+
+  Step 4: Continuous Multi-Tree Aggregation
+  Compile the final ensemble prediction by taking the uniform average of all B tree heads.
+
+</code></pre>
+<p>By forcing each node split to select from a highly restricted, randomly altered feature pool, the algorithm deliberately prevents dominant features from hijacking the tree structures. A feature that would normally dominate the optimization pass is locked out of most nodes, forcing the tree to discover alternative, hidden geometric structures across the manifold.</p>
+<p>This structural restriction drives down the correlation coefficient <span class="arithmatex">\(\rho\)</span> between the trees. Returning to our limiting ensemble equation:</p>
+<div class="arithmatex">\[\text{Variance Limit} = \rho \cdot \sigma^2\]</div>
+<p>By reducing the correlation penalty <span class="arithmatex">\(\rho\)</span>, Random Forests unlock the full mathematical power of ensemble averaging. They allow engineers to grow hundreds of deeply partitioned, low-bias decision trees in parallel, while using bootstrap aggregation and feature randomization to eliminate global variance, clearing a direct path to minimizing true risk on complex datasets.</p>
+<hr />
+<h2 id="textbook-notes-master-formula-reference-sheet">Textbook Notes Master Formula Reference Sheet</h2>
+<h3 id="universal-continuous-regression-metric-suite">Universal Continuous Regression Metric Suite</h3>
+<div class="arithmatex">\[\text{Maximum Likelihood Regional Mean: } \quad \hat{y}_m = \frac{1}{N_m} \sum_{\vec{x}_i \in R_m} y_i\]</div>
+<div class="arithmatex">\[\text{Internal Variance Impurity Function: } \quad I(R_m) = \frac{1}{N_m} \sum_{\vec{x}_i \in R_m} \left( y_i - \hat{y}_m \right)^2\]</div>
+<div class="arithmatex">\[\text{Greedy Sum-of-Squares Cost: } \quad \mathcal{L}(j, \,\, \tau) = \frac{1}{N_m} \left[ \sum_{\vec{x}_i \in R_L} (y_i - \hat{y}_L)^2 + \sum_{\vec{x}_i \in R_R} (y_i - \hat{y}_R)^2 \right]\]</div>
+<hr />
+<h3 id="the-correlated-ensemble-variance-ledger">The Correlated Ensemble Variance Ledger</h3>
+<div class="arithmatex">\[\text{Correlated Aggregation Expansion: } \quad \text{Var}\left( \frac{1}{B}\sum_{b=1}^{B} h_b(\vec{x}) \right) = \rho \sigma^2 + \frac{1 - \rho}{B}\sigma^2\]</div>
+<div class="arithmatex">\[\text{Random Forest Node Constraint Width: } \quad m = \lfloor \sqrt{D} \rfloor \in \mathbb{N}\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

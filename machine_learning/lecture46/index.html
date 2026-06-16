@@ -1,0 +1,2989 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture45/">
+      
+      
+        <link rel="next" href="../lecture47/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture46 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture46
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-39-additive-state-updates-gated-mechanics-and-the-unified-theory-of-coordinate-highway-invariance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 39: Additive State Updates, Gated Mechanics, and the Unified Theory of Coordinate Highway Invariance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 39: Additive State Updates, Gated Mechanics, and the Unified Theory of Coordinate Highway Invariance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#391-the-abstract-recurrent-operator-and-its-canonical-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39.1 The Abstract Recurrent Operator and its Canonical Failure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#392-the-structural-blueprint-of-gated-modulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39.2 The Structural Blueprint of Gated Modulation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="39.2 The Structural Blueprint of Gated Modulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dimensional-analysis-structural-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dimensional Analysis &amp; Structural Definitions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#393-the-evolutionary-taxonomy-of-gated-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39.3 The Evolutionary Taxonomy of Gated Architectures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="39.3 The Evolutionary Taxonomy of Gated Architectures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#family-1-highway-networks-vecbeta_t-equiv-vec1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Family 1: Highway Networks (\(\vec{\beta}_t \equiv \vec{1}\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#family-2-gated-recurrent-units-gru-vecbeta_t-equiv-vec1-vecalpha_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Family 2: Gated Recurrent Units (GRU) (\(\vec{\beta}_t \equiv \vec{1} - \vec{\alpha}_t\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#family-3-long-short-term-memory-networks-lstm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Family 3: Long Short-Term Memory Networks (LSTM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#394-rigorous-proof-of-gradient-invariance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39.4 Rigorous Proof of Gradient Invariance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="39.4 Rigorous Proof of Gradient Invariance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-properties-of-the-residual-matrix-mathbfe_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Properties of the Residual Matrix (\(\mathbf{E}_t\)):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#395-the-unified-space-time-identity-continuum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39.5 The Unified Space-Time Identity Continuum
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="39.5 The Unified Space-Time Identity Continuum">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-spatial-identity-highways-the-resnet-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Spatial Identity Highways: The ResNet Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-temporal-identity-highways-the-gated-recurrent-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Temporal Identity Highways: The Gated Recurrent Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-master-summary-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Master Summary Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Master Summary Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#foundational-structural-update-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundational Structural Update Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-conceptual-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Conceptual Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-39-additive-state-updates-gated-mechanics-and-the-unified-theory-of-coordinate-highway-invariance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 39: Additive State Updates, Gated Mechanics, and the Unified Theory of Coordinate Highway Invariance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 39: Additive State Updates, Gated Mechanics, and the Unified Theory of Coordinate Highway Invariance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#391-the-abstract-recurrent-operator-and-its-canonical-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39.1 The Abstract Recurrent Operator and its Canonical Failure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#392-the-structural-blueprint-of-gated-modulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39.2 The Structural Blueprint of Gated Modulation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="39.2 The Structural Blueprint of Gated Modulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dimensional-analysis-structural-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dimensional Analysis &amp; Structural Definitions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#393-the-evolutionary-taxonomy-of-gated-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39.3 The Evolutionary Taxonomy of Gated Architectures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="39.3 The Evolutionary Taxonomy of Gated Architectures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#family-1-highway-networks-vecbeta_t-equiv-vec1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Family 1: Highway Networks (\(\vec{\beta}_t \equiv \vec{1}\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#family-2-gated-recurrent-units-gru-vecbeta_t-equiv-vec1-vecalpha_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Family 2: Gated Recurrent Units (GRU) (\(\vec{\beta}_t \equiv \vec{1} - \vec{\alpha}_t\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#family-3-long-short-term-memory-networks-lstm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Family 3: Long Short-Term Memory Networks (LSTM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#394-rigorous-proof-of-gradient-invariance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39.4 Rigorous Proof of Gradient Invariance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="39.4 Rigorous Proof of Gradient Invariance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-properties-of-the-residual-matrix-mathbfe_t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Properties of the Residual Matrix (\(\mathbf{E}_t\)):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#395-the-unified-space-time-identity-continuum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39.5 The Unified Space-Time Identity Continuum
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="39.5 The Unified Space-Time Identity Continuum">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-spatial-identity-highways-the-resnet-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Spatial Identity Highways: The ResNet Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-temporal-identity-highways-the-gated-recurrent-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Temporal Identity Highways: The Gated Recurrent Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-master-summary-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Master Summary Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Master Summary Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#foundational-structural-update-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundational Structural Update Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-conceptual-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Conceptual Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-39-additive-state-updates-gated-mechanics-and-the-unified-theory-of-coordinate-highway-invariance">Chapter 39: Additive State Updates, Gated Mechanics, and the Unified Theory of Coordinate Highway Invariance</h2>
+<hr />
+<h3 id="391-the-abstract-recurrent-operator-and-its-canonical-failure">39.1 The Abstract Recurrent Operator and its Canonical Failure</h3>
+<p>In Chapter 38, we derived a strict mathematical proof establishing how a vanilla Recurrent Neural Network (RNN) encounters an exponential boundary during Backpropagation Through Time (BPTT). We proved that if the largest singular value (<span class="arithmatex">\(\lambda_{\max}\)</span>) of our shared transition matrix is even slightly less than unity, long-term historical gradients decay exponentially to absolute zero (<span class="arithmatex">\((\lambda_{\max})^{T-t} \to 0\)</span>), leaving the network blind to distant temporal dependencies.</p>
+<p>To systematically eliminate this mathematical discontinuity, we formulate a generalized architectural framework. Let us define a canonical recurrent system abstractly, compressing all intermediate linear projections and saturating activation operations inside a single vector-valued composition function <span class="arithmatex">\(f\)</span>:</p>
+<div class="arithmatex">\[\vec{h}_t = f\left(\vec{h}_{t-1}, \,\, \vec{x}_t; \,\, \vec{\theta}\right)\]</div>
+<p>Under this notation, tracking historical context over a temporal gap requires calculating a sequential product of intermediate multi-variable Jacobian matrices:</p>
+<div class="arithmatex">\[\frac{\partial \vec{h}_T}{\partial \vec{h}_t} = \prod_{k=t}^{T-1} \frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k}\]</div>
+<p>In a vanilla RNN, the step-by-step transition Jacobian maps directly onto a highly constrained multiplicative form:</p>
+<div class="arithmatex">\[\frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k} = \text{diag}\left( \sigma'(\vec{z}_{k+1}) \right) \cdot \mathbf{W}_1\]</div>
+<p>Because this transition is strictly <strong>multiplicative</strong> with respect to the transition weights <span class="arithmatex">\(\mathbf{W}_1\)</span>, running backpropagation over long sequences forces the gradient to continuously scale by this matrix coefficient. To solve this problem fundamentally, we must alter the physics of our forward updates, transforming the underlying recurrent relationship from a multiplicative graph into an <strong>additive graph</strong>.</p>
+<hr />
+<h3 id="392-the-structural-blueprint-of-gated-modulation">39.2 The Structural Blueprint of Gated Modulation</h3>
+<p>We introduce a generalized additive update strategy to ensure the single-step hidden Jacobian can achieve an unconstrained path. We define the current state vector <span class="arithmatex">\(\vec{h}_t\)</span> not as a direct non-linear projection of the past, but as an <strong>element-wise linear blending</strong> of the historical state and a newly generated candidate state:</p>
+<div class="arithmatex">\[\vec{h}_t = \vec{\alpha}_t \odot \vec{h}_{t-1} + \vec{\beta}_t \odot \tilde{\vec{h}}_t\]</div>
+<h4 id="dimensional-analysis-structural-definitions">Dimensional Analysis &amp; Structural Definitions:</h4>
+<ul>
+<li><span class="arithmatex">\(\vec{h}_t, \,\, \vec{h}_{t-1} \in \mathbb{R}^{M \times 1}\)</span>: The current and preceding persistent hidden memory vectors.</li>
+<li><span class="arithmatex">\(\odot\)</span>: The Hadamard product operator, executing strict element-wise vector multiplication.</li>
+<li><span class="arithmatex">\(\vec{\alpha}_t \in \mathbb{R}^{M \times 1}\)</span>: The <strong>Retention Modulator Vector</strong> (commonly called the <em>Forget Gate</em>), controlling exactly what fraction of historical memory is preserved at coordinate <span class="arithmatex">\(j\)</span>.</li>
+<li><span class="arithmatex">\(\vec{\beta}_t \in \mathbb{R}^{M \times 1}\)</span>: The <strong>Innovation Modulator Vector</strong> (commonly called the <em>Input Gate</em>), controlling exactly how much new information is injected into coordinate <span class="arithmatex">\(j\)</span>.</li>
+<li><span class="arithmatex">\(\tilde{\vec{h}}_t \in \mathbb{R}^{M \times 1}\)</span>: The <strong>Candidate State Vector</strong>, representing a fresh, non-linear feature proposal calculated from the present token input and past context:</li>
+</ul>
+<div class="arithmatex">\[\tilde{\vec{h}}_t = \sigma\left( \mathbf{W}_1 \vec{x}_t + \mathbf{W}_2 \vec{h}_{t-1} + \vec{b} \right)\]</div>
+<p>By structuring our forward pass this way, we introduce a parallel, additive pathway. The preceding hidden memory vector <span class="arithmatex">\(\vec{h}_{t-1}\)</span> no longer has to squeeze entirely through a non-linear matrix multiplication block to reach the next step; it can travel directly forward along an uninhibited conveyor belt, modulated element-by-element by our retention vector <span class="arithmatex">\(\vec{\alpha}_t\)</span>.</p>
+<hr />
+<h3 id="393-the-evolutionary-taxonomy-of-gated-architectures">39.3 The Evolutionary Taxonomy of Gated Architectures</h3>
+<p>By adjusting the structural constraints on our modulator vectors (<span class="arithmatex">\(\vec{\alpha}_t, \vec{\beta}_t\)</span>), this abstract formula can be configured into three classical families of sequential architectures.</p>
+<h4 id="family-1-highway-networks-vecbeta_t-equiv-vec1">Family 1: Highway Networks (<span class="arithmatex">\(\vec{\beta}_t \equiv \vec{1}\)</span>)</h4>
+<p>If we lock the innovation modulator to a static vector of ones, the update rule collapses to:</p>
+<div class="arithmatex">\[\vec{h}_t = \vec{\alpha}_t \odot \vec{h}_{t-1} + \tilde{\vec{h}}_t\]</div>
+<p>This configuration creates a high-velocity information highway that injects fresh feature proposals directly into historical memories without scaling them down.</p>
+<h4 id="family-2-gated-recurrent-units-gru-vecbeta_t-equiv-vec1-vecalpha_t">Family 2: Gated Recurrent Units (GRU) (<span class="arithmatex">\(\vec{\beta}_t \equiv \vec{1} - \vec{\alpha}_t\)</span>)</h4>
+<p>If we couple the modulators such that they sum to unity, we enforce a strict conservation of information:</p>
+<div class="arithmatex">\[\vec{h}_t = \vec{\alpha}_t \odot \vec{h}_{t-1} + (\vec{1} - \vec{\alpha}_t) \odot \tilde{\vec{h}}_t\]</div>
+<p>This structure forms a lean, parameter-efficient state balancer. If a coordinate's retention gate opens wide (<span class="arithmatex">\(\alpha_j \to 1\)</span>), it completely preserves its historical memory while blocking out any incoming noise from the candidate state (<span class="arithmatex">\(\beta_j \to 0\)</span>).</p>
+<h4 id="family-3-long-short-term-memory-networks-lstm">Family 3: Long Short-Term Memory Networks (LSTM)</h4>
+<p>If we uncouple the parameters completely, allowing both <span class="arithmatex">\(\vec{\alpha}_t\)</span> and <span class="arithmatex">\(\vec{\beta}_t\)</span> to optimize as completely independent, learnable vector fields driven by distinct weight blocks, our abstract framework maps onto the classical LSTM architecture.</p>
+<p>In an LSTM, the persistent additive conveyor belt is decoupled from the output channel entirely and tracked as the <strong>Cell State (<span class="arithmatex">\(\vec{c}_t\)</span>)</strong>, while the traditional hidden state (<span class="arithmatex">\(\vec{h}_t\)</span>) functions as a short-term gateway:</p>
+<div class="arithmatex">\[\vec{c}_t = \vec{f}_t \odot \vec{c}_{t-1} + \vec{i}_t \odot \tilde{\vec{c}}_t \quad \text{(The Long-Term Additive Highway)}\]</div>
+<div class="arithmatex">\[\vec{h}_t = \vec{o}_t \odot \tanh(\vec{c}_t) \quad \text{(The Short-Term Gated Output)}\]</div>
+<hr />
+<h3 id="394-rigorous-proof-of-gradient-invariance">39.4 Rigorous Proof of Gradient Invariance</h3>
+<p>To prove that this abstract additive layout eliminates the vanishing gradient problem, we compute the single-step hidden-to-hidden Jacobian matrix (<span class="arithmatex">\(\frac{\partial \vec{h}_t}{\partial \vec{h}_{t-1}}\)</span>) across our generalized formulation:</p>
+<div class="arithmatex">\[\vec{h}_t = \vec{\alpha}_t \odot \vec{h}_{t-1} + \vec{\beta}_t \odot \tilde{\vec{h}}_t\]</div>
+<p>We take the partial derivative with respect to <span class="arithmatex">\(\vec{h}_{t-1}\)</span>. Because the hidden state interacts with our modulators through element-wise vector products, we must deploy the multi-variable <strong>Product Rule</strong>:</p>
+<div class="arithmatex">\[\frac{\partial \vec{h}_t}{\partial \vec{h}_{t-1}} = \frac{\partial \left(\vec{\alpha}_t \odot \vec{h}_{t-1}\right)}{\partial \vec{h}_{t-1}} + \frac{\partial \left(\vec{\beta}_t \odot \tilde{\vec{h}}_t\right)}{\partial \vec{h}_{t-1}}\]</div>
+<p>Evaluating the first term isolates a static diagonal matrix housing our retention coefficients. We group the remaining complex derivatives generated by the product rule and candidate cross-terms into a single composite residual placeholder matrix denoted as <span class="arithmatex">\(\mathbf{E}_t\)</span>:</p>
+<div class="arithmatex">\[\frac{\partial \vec{h}_t}{\partial \vec{h}_{t-1}} = \text{diag}\left(\vec{\alpha}_t\right) + \mathbf{E}_t\]</div>
+<h4 id="the-properties-of-the-residual-matrix-mathbfe_t">The Properties of the Residual Matrix (<span class="arithmatex">\(\mathbf{E}_t\)</span>):</h4>
+<p>The matrix <span class="arithmatex">\(\mathbf{E}_t\)</span> collects every fanned-out derivative track passing through our non-linear weights (<span class="arithmatex">\(\mathbf{W}_1, \mathbf{W}_2\)</span>), meaning it remains highly vulnerable to standard vanishing or exploding decay paths.</p>
+<p>Now, let us substitute this entire additive Jacobian expression back into our global BPTT chain, which tracks gradient flow from our terminal loss step <span class="arithmatex">\(T\)</span> down to an early time step <span class="arithmatex">\(t\)</span>:</p>
+<div class="arithmatex">\[\frac{\partial L_T}{\partial \vec{h}_t} = \frac{\partial L_T}{\partial \vec{h}_T} \cdot \prod_{k=t}^{T-1} \left[ \text{diag}\left(\vec{\alpha}_{k+1}\right) + \mathbf{E}_{k+1} \right]\]</div>
+<p>We evaluate the mathematical norm of this expanded product by applying the triangle inequality:</p>
+<div class="arithmatex">\[\left\| \frac{\partial L_T}{\partial \vec{h}_t} \right\| \approx \left\| \frac{\partial L_T}{\partial \vec{h}_T} \cdot \prod_{k=t}^{T-1} \text{diag}\left(\vec{\alpha}_{k+1}\right) \right\| + \text{Residual Terms Dependent on } \mathbf{E}\]</div>
+<p>Look closely at the first term of this split. The matrix multiplications involving our transition weights have been completely uncoupled from the primary gradient flow. If the network encounters a long sequence and needs to preserve a vital piece of early historical context, <strong>the optimization loop can configure the learnable parameters of the retention gate to lock at unity (<span class="arithmatex">\(\vec{\alpha} \to \vec{1}\)</span>).</strong> When <span class="arithmatex">\(\vec{\alpha} \to \vec{1}\)</span>, the diagonal matrix simplifies into a perfect Identity Matrix (<span class="arithmatex">\(\mathbf{I}\)</span>). Substituting this into our product chain completely halts gradient decay:</p>
+<div class="arithmatex">\[\prod_{k=t}^{T-1} \text{diag}\left(\vec{\alpha}_{k+1}\right) = \prod_{k=t}^{T-1} \mathbf{I} = \mathbf{I}\]</div>
+<div class="arithmatex">\[\left\| \frac{\partial L_T}{\partial \vec{h}_t} \right\| \approx \left\| \frac{\partial L_T}{\partial \vec{h}_T} \cdot \mathbf{I} \right\| = \left\| \frac{\partial L_T}{\partial \vec{h}_T} \right\|\]</div>
+<p>The gradient signal can now travel backward across thousands of steps without losing strength, flowing directly along the uninhibited identity conveyor belt.</p>
+<hr />
+<h3 id="395-the-unified-space-time-identity-continuum">39.5 The Unified Space-Time Identity Continuum</h3>
+<p>The professor concludes the module by delivering a beautiful conceptual synthesis, unifying this temporal highway architecture with the spatial structures we developed in Chapter 36.</p>
+<p>Every deep learning framework can be understood as a technique for preventing gradient decay by embedding an identity highway inside the architecture. The difference lies entirely in <strong>which structural axis of our tensor space the identity highway is applied to</strong>.</p>
+<h4 id="a-spatial-identity-highways-the-resnet-framework">A. Spatial Identity Highways: The ResNet Framework</h4>
+<p>In a deep fully connected MLP or a deep CNN, adding more hidden layers can paradoxically cause validation accuracy to drop because gradients vanish as they pass backward through thick stacks of parameters across depth.</p>
+<p>To solve this, <strong>ResNet</strong> introduces a localized spatial identity highway known as a <strong>Skip Connection</strong>:</p>
+<div class="arithmatex">\[\vec{a}^{l} = \vec{a}^{l-1} + f_{\text{Conv}}\left(\vec{a}^{l-1}; \,\, \vec{\theta}\right)\]</div>
+<p>This connection passes information straight across the <strong>depth dimension</strong>. It gives the gradient a frictionless path to flow from the terminal output layer directly back to the initial input features without being degraded by intermediate matrix multiplications.</p>
+<h4 id="b-temporal-identity-highways-the-gated-recurrent-framework">B. Temporal Identity Highways: The Gated Recurrent Framework</h4>
+<p>In a sequential RNN, our vanishing gradient problem occurs because errors must flow across a massive timeline. An LSTM or GRU solves this by building an identity highway across the <strong>temporal dimension</strong>:</p>
+<div class="arithmatex">\[\vec{h}_t = \vec{h}_{t-1} + f_{\text{Gated}}\left(\vec{h}_{t-1}, \,\, \vec{x}_t; \,\, \vec{\theta}\right)\]</div>
+<pre><code>  [ Spatial Skip Connection (ResNet) ]      [ Temporal Skip Connection (LSTM) ]
+  - Vector Equation:                         - Vector Equation:
+    aˡ = aˡ⁻¹ + f(aˡ⁻¹)                        h_t = h_t₋₁ + f(h_t₋₁, x_t)
+  - Layout Axis: Depth Continuum             - Layout Axis: Time/Sequence Continuum
+  - Primary Axis: Bottom-to-Top Updates      - Primary Axis: Left-to-Right Updates
+  - Shared Rules: No Parameter Sharing       - Shared Rules: Strict Parameter Sharing 
+    Across Depth Layers                        Across Temporal Indices
+
+</code></pre>
+<p>Both frameworks utilize the exact same mathematical strategy: they combine a non-linear parameter block with a clean identity bypass. This architectural layout gives the optimization engine the best of both worlds: it can use the parameter block to extract highly intricate, non-linear features, or open the identity highway to pass raw gradient signals across massive distances without distortion.</p>
+<hr />
+<h2 id="textbook-notes-master-summary-sheet">Textbook Notes Master Summary Sheet</h2>
+<h3 id="foundational-structural-update-protocol">Foundational Structural Update Protocol</h3>
+<div class="arithmatex">\[\text{Generalized State Mixer: } \quad \vec{h}_t = \vec{\alpha}_t \odot \vec{h}_{t-1} + \vec{\beta}_t \odot \tilde{\vec{h}}_t\]</div>
+<div class="arithmatex">\[\text{Step Transition Jacobian: } \quad \frac{\partial \vec{h}_t}{\partial \vec{h}_{t-1}} = \text{diag}\left(\vec{\alpha}_t\right) + \mathbf{E}_t\]</div>
+<div class="arithmatex">\[\text{The ResNet Identity Highway: } \quad \vec{a}^{l} = \vec{a}^{l-1} + f_{\text{Conv}}\left(\vec{a}^{l-1}\right) \quad \text{(Depth Axis Resolution)}\]</div>
+<div class="arithmatex">\[\text{The Recurrent Identity Highway: } \quad \vec{h}_t = \vec{h}_{t-1} + f_{\text{Gated}}\left(\vec{h}_{t-1}, \,\, \vec{x}_t\right) \quad \text{(Temporal Axis Resolution)}\]</div>
+<hr />
+<h3 id="core-conceptual-milestones">Core Conceptual Milestones</h3>
+<ol>
+<li><strong>The Additive Graph Engine:</strong> Gated architectures eliminate the vanishing gradient problem by introducing an additive update pathway that uncouples historical memory transitions from pure, repetitive matrix multiplications.</li>
+<li><strong>Dynamic Identity Memory Allocation:</strong> The modulator gates (<span class="arithmatex">\(\vec{\alpha}_t\)</span>) function as learnable vector filters. By adjusting these weights, the network can selectively drop historical noise (<span class="arithmatex">\(\alpha_j \to 0\)</span>) or open the identity highway (<span class="arithmatex">\(\alpha_j \to 1\)</span>) to preserve crucial context across long sequences.</li>
+<li><strong>The Global Unified Field:</strong> Whether you are designing deep convolutional vision stacks or temporal sequence engines, the core solution to modeling long-term dependencies remains the same: use first principles to build an uninhibited identity channel that gives backpropagation gradients a safe, direct path to flow through the system.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

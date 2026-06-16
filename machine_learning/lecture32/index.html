@@ -1,0 +1,3378 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture31/">
+      
+      
+        <link rel="next" href="../lecture33/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture32 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture32
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-26-the-manifold-hypothesis-constrained-optimization-and-the-foundations-of-parameter-penalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 26: The Manifold Hypothesis, Constrained Optimization, and the Foundations of Parameter Penalization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 26: The Manifold Hypothesis, Constrained Optimization, and the Foundations of Parameter Penalization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261-the-topological-bottleneck-the-manifold-hypothesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.1 The Topological Bottleneck: The Manifold Hypothesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262-classification-as-manifold-partitioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.2 Classification as Manifold Partitioning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263-constrained-empirical-risk-minimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.3 Constrained Empirical Risk Minimization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="26.3 Constrained Empirical Risk Minimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264-the-lagrangian-reformulation-and-the-machine-learning-shortcut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.4 The Lagrangian Reformulation and the Machine Learning Shortcut
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="26.4 The Lagrangian Reformulation and the Machine Learning Shortcut">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265-classical-parameter-penalties-l_2-ridge-vs-l_1-lasso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.5 Classical Parameter Penalties: \(L_2\) Ridge vs. \(L_1\) Lasso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="26.5 Classical Parameter Penalties: \(L_2\) Ridge vs. \(L_1\) Lasso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-l_2-regularization-ridge-regression-weight-decay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. \(L_2\) Regularization (Ridge Regression / Weight Decay)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-l_1-regularization-lasso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. \(L_1\) Regularization (Lasso)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#266-summary-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.6 Summary Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="26.6 Summary Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-unifying-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Unifying Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-automated-feature-selection-drowning-out-the-noise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Automated Feature Selection (Drowning Out the Noise)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-model-interpretability-the-explainability-win" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Model Interpretability (The Explainability Win)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-computational-and-hardware-efficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Computational and Hardware Efficiency
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-catch-why-we-use-l_1-instead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Catch: Why We Use \(L_1\) Instead
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Catch: Why We Use \(L_1\) Instead">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-dynamic-balancing-act" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Dynamic Balancing Act
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-geometric-shapes-of-the-constraint-regions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Geometric Shapes of the Constraint Regions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Geometric Shapes of the Constraint Regions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-l_2-boundary-ridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The \(L_2\) Boundary (Ridge)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-l_1-boundary-lasso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The \(L_1\) Boundary (Lasso)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-moment-of-intersection-why-corners-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Moment of Intersection: Why Corners Matter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Moment of Intersection: Why Corners Matter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-l_2-cannot-eliminate-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why \(L_2\) Cannot Eliminate Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-l_1-knocks-features-to-absolute-zero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why \(L_1\) Knocks Features to Absolute Zero
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-high-dimensional-shape-the-cross-polytope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The High-Dimensional Shape: The Cross-Polytope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-spiky-volume-restrictor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Spiky "Volume Restrictor"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-the-corner-effect-explodes-in-higher-dimensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How the "Corner" Effect Explodes in Higher Dimensions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. How the &#34;Corner&#34; Effect Explodes in Higher Dimensions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-true-high-dimensional-geometry-of-feature-elimination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The True High-Dimensional Geometry of Feature Elimination
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-26-the-manifold-hypothesis-constrained-optimization-and-the-foundations-of-parameter-penalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 26: The Manifold Hypothesis, Constrained Optimization, and the Foundations of Parameter Penalization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 26: The Manifold Hypothesis, Constrained Optimization, and the Foundations of Parameter Penalization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261-the-topological-bottleneck-the-manifold-hypothesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.1 The Topological Bottleneck: The Manifold Hypothesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262-classification-as-manifold-partitioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.2 Classification as Manifold Partitioning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263-constrained-empirical-risk-minimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.3 Constrained Empirical Risk Minimization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="26.3 Constrained Empirical Risk Minimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264-the-lagrangian-reformulation-and-the-machine-learning-shortcut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.4 The Lagrangian Reformulation and the Machine Learning Shortcut
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="26.4 The Lagrangian Reformulation and the Machine Learning Shortcut">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265-classical-parameter-penalties-l_2-ridge-vs-l_1-lasso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.5 Classical Parameter Penalties: \(L_2\) Ridge vs. \(L_1\) Lasso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="26.5 Classical Parameter Penalties: \(L_2\) Ridge vs. \(L_1\) Lasso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-l_2-regularization-ridge-regression-weight-decay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. \(L_2\) Regularization (Ridge Regression / Weight Decay)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-l_1-regularization-lasso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. \(L_1\) Regularization (Lasso)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#266-summary-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.6 Summary Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="26.6 Summary Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-unifying-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Unifying Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-automated-feature-selection-drowning-out-the-noise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Automated Feature Selection (Drowning Out the Noise)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-model-interpretability-the-explainability-win" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Model Interpretability (The Explainability Win)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-computational-and-hardware-efficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Computational and Hardware Efficiency
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-catch-why-we-use-l_1-instead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Catch: Why We Use \(L_1\) Instead
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Catch: Why We Use \(L_1\) Instead">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-dynamic-balancing-act" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Dynamic Balancing Act
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-geometric-shapes-of-the-constraint-regions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Geometric Shapes of the Constraint Regions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Geometric Shapes of the Constraint Regions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-l_2-boundary-ridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The \(L_2\) Boundary (Ridge)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-l_1-boundary-lasso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The \(L_1\) Boundary (Lasso)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-moment-of-intersection-why-corners-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Moment of Intersection: Why Corners Matter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Moment of Intersection: Why Corners Matter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-l_2-cannot-eliminate-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why \(L_2\) Cannot Eliminate Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-l_1-knocks-features-to-absolute-zero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why \(L_1\) Knocks Features to Absolute Zero
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-high-dimensional-shape-the-cross-polytope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The High-Dimensional Shape: The Cross-Polytope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-spiky-volume-restrictor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Spiky "Volume Restrictor"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-how-the-corner-effect-explodes-in-higher-dimensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How the "Corner" Effect Explodes in Higher Dimensions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. How the &#34;Corner&#34; Effect Explodes in Higher Dimensions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-true-high-dimensional-geometry-of-feature-elimination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The True High-Dimensional Geometry of Feature Elimination
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-26-the-manifold-hypothesis-constrained-optimization-and-the-foundations-of-parameter-penalization">Chapter 26: The Manifold Hypothesis, Constrained Optimization, and the Foundations of Parameter Penalization</h2>
+<hr />
+<h3 id="261-the-topological-bottleneck-the-manifold-hypothesis">26.1 The Topological Bottleneck: The Manifold Hypothesis</h3>
+<p>To understand why a systemic tension exists between bias and variance in small-sample landscapes, we must look at the geometric distribution of data within high-dimensional spaces. This brings us to a foundational concept in representation learning: <strong>The Manifold Hypothesis</strong>.</p>
+<blockquote>
+<p><strong>The Manifold Hypothesis:</strong>
+Real-world high-dimensional data (such as images, text streams, or audio waveforms) does not distribute uniformly across its ambient vector space. Instead, it concentrates its probability mass within highly confined, lower-dimensional localized pockets or topological surfaces known as <strong>manifolds</strong> embedded within the high-dimensional space.</p>
+</blockquote>
+<p>To understand this concept with structural rigor, let us walk through the professor's <strong>Typewriter Monkey</strong> binary image experiment.</p>
+<p>Suppose we analyze a dataset of grayscale digital images measuring <span class="arithmatex">\(100 \times 100\)</span> pixels. Mathematically, each image lives as a single coordinate vector inside an ambient space of 10,000 dimensions (<span class="arithmatex">\(\mathbb{R}^{10,000}\)</span>).</p>
+<p>Now, imagine an experiment where we construct an image purely by chance. We treat every individual pixel grid coordinate as an independent Bernoulli random variable. We flip a coin with success probability <span class="arithmatex">\(P\)</span>. If it lands on heads, we set the pixel value to <span class="arithmatex">\(1\)</span>; if it lands on tails, we set the pixel value to <span class="arithmatex">\(0\)</span>.</p>
+<p>If you run this independent random trial 10,000 times, you will synthesize one image matrix. If you repeat this process indefinitely, what are the mathematical odds that this random process will synthesize a structurally recognizable handwritten character like those found in the MNIST dataset?</p>
+<p>The probability is vanishingly small. Because <span class="arithmatex">\(P &lt; 1.0\)</span>, multiplying that fractional probability mass across 10,000 independent dimensions causes the global joint probability of generating a coherent visual structure to collapse to zero.</p>
+<p>This tells us that valid data structures (like human faces, spoken words, or digits) represent a minute fraction of the vast ambient space. They occupy an incredibly narrow, highly structured, lower-dimensional subspace or topological manifold.</p>
+<hr />
+<h3 id="262-classification-as-manifold-partitioning">26.2 Classification as Manifold Partitioning</h3>
+<p>When we build a machine learning model, our functional goal is to <strong>partition this manifold</strong>. If we execute an Empirical Risk Minimization pipeline over a small training sample size, our algorithm faces a structural hazard.</p>
+<p>Because the dataset is small, the model only sees a handful of discrete coordinate nodes scattered across a tiny segment of the true manifold. If we use an unconstrained, overparameterized hypothesis class, the model will effortlessly build a complex decision boundary that snakes perfectly between those specific training coordinates. This isolates the training nodes with <span class="arithmatex">\(100\%\)</span> precision, but creates an brittle decision surface.</p>
+<p>The moment we evaluate this model on an independent testing data split (<span class="arithmatex">\(D_{\text{test}}\)</span>), the data vectors will sit on a slightly different region of the true underlying manifold. Because our decision boundary was tuned exclusively to the training coordinates, it fails to generalize to these adjacent regions. This mismatch triggers massive variance across different data splits.</p>
+<p>Conversely, if we try to restrict the model's flexibility to clamp down on this variance, our structural boundaries may fail to capture the curvature of the manifold entirely. This issue traps the system in the underfitting zone (high bias).</p>
+<p>Therefore, our primary task is to find a way to let the model explore the manifold freely while systematically restricting its capacity to memorize localized training noise. We achieve this through <strong>Regularization</strong>.</p>
+<hr />
+<h3 id="263-constrained-empirical-risk-minimization">26.3 Constrained Empirical Risk Minimization</h3>
+<p>The professor formalizes regularization by transforming our standard unconstrained ERM problem into a <strong>Constrained Optimization Problem</strong>.</p>
+<p>Instead of allowing our parameter vector <span class="arithmatex">\(\vec{\theta}\)</span> to navigate the entire infinite real vector space unguided, we introduce a non-negative penalty functional, denoted as <span class="arithmatex">\(\Omega(\vec{\theta})\)</span>. This function quantifies the complexity or geometric length of our parameters. We state that the optimization engine must minimize our training loss while keeping this complexity function strictly bounded below a user-defined threshold constant <span class="arithmatex">\(K\)</span>:</p>
+<div class="arithmatex">\[\min_{\vec{\theta}} \hat{R}_N(\vec{\theta}) \quad \text{subject to} \quad \Omega(\vec{\theta}) \leq K\]</div>
+<h4 id="literal-variable-breakdown">Literal Variable Breakdown:</h4>
+<div class="arithmatex">\[\hat{R}_N(\vec{\theta}) = \frac{1}{N} \sum_{i=1}^{N} L\left(h_{\vec{\theta}}(\vec{x}_i), \,\, y_i\right)\]</div>
+<ul>
+<li><strong><span class="arithmatex">\(\hat{R}_N(\vec{\theta})\)</span></strong>: The empirical risk function computing the arithmetic average loss over our active training dataset.</li>
+<li><strong><span class="arithmatex">\(\vec{\theta}\)</span></strong>: The trainable model parameter vector sitting inside a <span class="arithmatex">\(P\)</span>-dimensional real parameter space (<span class="arithmatex">\(\mathbb{R}^P\)</span>).</li>
+<li><strong><span class="arithmatex">\(\Omega(\vec{\theta})\)</span></strong>: The parameter penalty functional mapping the active parameter coordinate vector to a non-negative real scalar value (<span class="arithmatex">\(\mathbb{R}^P \to \mathbb{R}^+\)</span>).</li>
+<li><strong><span class="arithmatex">\(K\)</span></strong>: The positive real scalar hyperparameter representing our strict maximum complexity budget limit.</li>
+</ul>
+<hr />
+<h3 id="264-the-lagrangian-reformulation-and-the-machine-learning-shortcut">26.4 The Lagrangian Reformulation and the Machine Learning Shortcut</h3>
+<p>To optimize this constrained system cleanly using standard calculus tools, we convert the inequality boundary constraint into an unconstrained surrogate function using a <strong>Lagrangian Framework</strong>:</p>
+<div class="arithmatex">\[\mathcal{L}(\vec{\theta}, \,\, \lambda) = \hat{R}_N(\vec{\theta}) + \lambda \left( \Omega(\vec{\theta}) - K \right)\]</div>
+<h4 id="literal-variable-breakdown_1">Literal Variable Breakdown:</h4>
+<ul>
+<li><strong><span class="arithmatex">\(\mathcal{L}(\vec{\theta}, \,\, \lambda)\)</span></strong>: The scalar output value of our unified Lagrangian objective function.</li>
+<li><strong><span class="arithmatex">\(\lambda\)</span></strong>: The continuous scalar <strong>Lagrange Multiplier</strong> weight parameter (<span class="arithmatex">\(\lambda \geq 0\)</span>).</li>
+<li><strong><span class="arithmatex">\(\Omega(\vec{\theta}) - K\)</span></strong>: The active constraint boundary discrepancy equation tracking our complexity budget margin.</li>
+</ul>
+<p>In formal optimization theory, solving this system requires running a dual optimization loop to find the exact saddle point across both the primal parameters (<span class="arithmatex">\(\vec{\theta}\)</span>) and the dual parameters (<span class="arithmatex">\(\lambda\)</span>).</p>
+<p>However, the professor highlights a major shortcut used across the machine learning community: <strong>we drop the dual optimization loop entirely.</strong> Because the constant term <span class="arithmatex">\(-\lambda K\)</span> has no derivative relationship with our active model parameters <span class="arithmatex">\(\vec{\theta}\)</span>, it can be safely discarded during gradient updates. We re-contextualize the Lagrange multiplier <span class="arithmatex">\(\lambda\)</span> as a standalone, fixed structural hyperparameter known as the <strong>Regularization Constant</strong>. This yields our finalized <strong>Regularized Empirical Risk Minimization</strong> objective function:</p>
+<div class="arithmatex">\[\vec{\theta}^* = \arg\min_{\vec{\theta}} \left[ \frac{1}{N} \sum_{i=1}^{N} L\left(h_{\vec{\theta}}(\vec{x}_i), \,\, y_i\right) + \lambda \Omega(\vec{\theta}) \right]\]</div>
+<h4 id="literal-variable-breakdown_2">Literal Variable Breakdown:</h4>
+<ul>
+<li><strong><span class="arithmatex">\(\lambda\)</span></strong>: The fixed, positive scalar <strong>Regularization Constant</strong> hyperparameter (<span class="arithmatex">\(\lambda \in [0, \infty)\)</span>) that acts as a balancing dial. Setting <span class="arithmatex">\(\lambda = 0\)</span> returns the model to unconstrained, high-variance ERM. Scaling <span class="arithmatex">\(\lambda \to \infty\)</span> forces the optimizer to ignore the data loss entirely and focus exclusively on driving the parameter complexity down to zero.</li>
+<li><strong><span class="arithmatex">\(\Omega(\vec{\theta})\)</span></strong>: The active structural parameter penalty function.</li>
+</ul>
+<p>In modern engineering pipelines, we never attempt to solve for <span class="arithmatex">\(\lambda\)</span> analytically. We treat it as a structural design knob, validating different values on our validation dataset (<span class="arithmatex">\(D_{\text{val}}\)</span>) until we locate the exact operational coordinate where our generalization error curves reach their minimum.</p>
+<hr />
+<h3 id="265-classical-parameter-penalties-l_2-ridge-vs-l_1-lasso">26.5 Classical Parameter Penalties: <span class="arithmatex">\(L_2\)</span> Ridge vs. <span class="arithmatex">\(L_1\)</span> Lasso</h3>
+<p>The geometric behavior of your regularized surface is determined entirely by your chosen formula for the parameter penalty function <span class="arithmatex">\(\Omega(\vec{\theta})\)</span>. We examine the two dominant standards used throughout the industry.</p>
+<h4 id="1-l_2-regularization-ridge-regression-weight-decay">1. <span class="arithmatex">\(L_2\)</span> Regularization (Ridge Regression / Weight Decay)</h4>
+<p>We define our complexity function as the squared <span class="arithmatex">\(L_2\)</span> Euclidean vector norm of our parameter coefficients:</p>
+<div class="arithmatex">\[\Omega(\vec{\theta}) = \|\vec{\theta}\|_2^2 = \sum_{j=1}^P \theta_j^2\]</div>
+<ul>
+<li><strong>The Gradient Derivation:</strong> Taking the partial derivative of this penalty with respect to our parameters yields a clean linear vector term: <span class="arithmatex">\(\nabla_{\vec{\theta}} \Omega(\vec{\theta}) = 2\vec{\theta}\)</span>.</li>
+<li><strong>Physical Mechanics:</strong> During gradient descent updates, this linear derivative subtracts a fraction of the parameter's own active value at every step. This mechanism forces the parameter weights to decay smoothly toward zero. It prevents individual weights from exploding to extreme values, smoothing out the model's sensitivity to localized data variations and reducing overall variance.</li>
+</ul>
+<h4 id="2-l_1-regularization-lasso">2. <span class="arithmatex">\(L_1\)</span> Regularization (Lasso)</h4>
+<p>We define our complexity function as the absolute <span class="arithmatex">\(L_1\)</span> vector norm of our parameter coefficients:</p>
+<div class="arithmatex">\[\Omega(\vec{\theta}) = \|\vec{\theta}\|_1 = \sum_{j=1}^P |\theta_j|\]</div>
+<ul>
+<li><strong>The Gradient Derivation:</strong> Taking the partial derivative of this absolute value function yields a non-linear step vector: <span class="arithmatex">\(\nabla_{\vec{\theta}} \Omega(\vec{\theta}) = \text{sign}(\vec{\theta})\)</span>.</li>
+<li><strong>Physical Mechanics:</strong> Because the geometric contours of an <span class="arithmatex">\(L_1\)</span> norm form sharp, multi-axis corners along the coordinate axes, the optimization path forces less predictive coefficients to drop exactly to zero (<span class="arithmatex">\(0.0\)</span>). This mechanism performs automated, sparse feature selection, completely shutting down uninformative feature channels.</li>
+</ul>
+<blockquote>
+<p><strong>The <span class="arithmatex">\(L_0\)</span> Boundary Condition:</strong>
+An engineer in the lecture asks why we don't use an <span class="arithmatex">\(L_0\)</span> penalty to count the number of non-zero weights directly. The professor points out a major practical limitation: <strong>the <span class="arithmatex">\(L_0\)</span> function is non-convex and non-differentiable.</strong> Because it uses a discrete step function, its gradient evaluates to zero everywhere, making it impossible to optimize using standard gradient descent routines without complex sub-gradient approximations.</p>
+</blockquote>
+<hr />
+<h2 id="266-summary-reference-sheet">26.6 Summary Reference Sheet</h2>
+<h3 id="the-core-unifying-principles">The Core Unifying Principles</h3>
+<ol>
+<li><strong>The Manifold Principle:</strong> Real-world data concentrates its probability mass within lower-dimensional manifolds embedded within high-dimensional spaces. Regularization is required to keep our decision hyperplanes from overfitting to small-sample noise across these narrow surfaces.</li>
+<li><strong>The ERM Constraint Duality:</strong> Adding a parameter penalty function (<span class="arithmatex">\(\lambda \Omega(\vec{\theta})\)</span>) to your unconstrained loss function is mathematically equivalent to solving a constrained optimization problem inside a bounded parameter space.</li>
+<li><strong>The Parameter Decay Metric:</strong> Regularization provides a programmatic way to increase a model's internal structural bias. By balancing the data loss with a parameter norm penalty, we force our weights to remain small, dampening model sensitivity and stabilizing performance over unseen coordinate fields.</li>
+</ol>
+<hr />
+<p>The theoretical foundation of regularized empirical risk is complete. We have mapped out the manifold hypothesis, derived the unconstrained Lagrangian shortcut, and analyzed the geometric trade-offs separating <span class="arithmatex">\(L_1\)</span> and <span class="arithmatex">\(L_2\)</span> vector norms.</p>
+<p>As we prepare for the next lecture to establish the exact mathematical connection demonstrating that <strong>Regularized ERM is the identical twin of a Bayesian Maximum A Posteriori (MAP) estimation loop</strong>, how does your understanding of parameter penalties help you visualize why adding a weight constraint behaves exactly like injecting an engineering prior belief over your parameter space?</p>
+<p>Counting the number of non-zero weights is the ultimate dream of <strong>Feature Selection</strong>.</p>
+<p>Mathematically, counting non-zero entries is written as the <strong><span class="arithmatex">\(L_0\)</span> pseudo-norm</strong>:</p>
+<div class="arithmatex">\[\|\vec{\theta}\|_0 = \sum_{j=1}^P \mathbb{I}(\theta_j \neq 0)\]</div>
+<p>Where <span class="arithmatex">\(\mathbb{I}(\cdot)\)</span> is an indicator function that outputs exactly <span class="arithmatex">\(1\)</span> if the condition is true, and <span class="arithmatex">\(0\)</span> if it is false.</p>
+<p>If you force an optimization engine to minimize this count, you are demanding <strong>Sparsity</strong>. Here is exactly what that gets you from an architectural and business standpoint:</p>
+<hr />
+<h2 id="1-automated-feature-selection-drowning-out-the-noise">1. Automated Feature Selection (Drowning Out the Noise)</h2>
+<p>Imagine you are deploying your medical diagnostic app to detect a rare disease based on genomic data. The input vector <span class="arithmatex">\(\vec{x}\)</span> contains <span class="arithmatex">\(P = 20,000\)</span> distinct gene expression measurements.</p>
+<ul>
+<li>In reality, only <span class="arithmatex">\(5\)</span> specific genes actually drive the disease pathology. The other <span class="arithmatex">\(19,995\)</span> variations are pure background statistical noise.</li>
+<li>If you train an unregularized model, or even an <span class="arithmatex">\(L_2\)</span> (Ridge) model, the optimizer will assign a tiny, fractional, non-zero weight (<span class="arithmatex">\(\theta_j = 0.0001\)</span>) to <em>every single gene</em> to perfectly fit the training data.</li>
+</ul>
+<p>If you minimize the <span class="arithmatex">\(L_0\)</span> count instead, you force the model to pick a strict budget—say, only allowed a maximum of 5 non-zero weights. The optimizer is forced to completely shut down the other <span class="arithmatex">\(19,995\)</span> inputs by setting their weights to exactly <span class="arithmatex">\(0.0\)</span>. The model automatically discards the noise and isolates the true physical signals.</p>
+<hr />
+<h2 id="2-model-interpretability-the-explainability-win">2. Model Interpretability (The Explainability Win)</h2>
+<p>In high-stakes environments like medicine, banking, or law, black-box models are a liability.</p>
+<p>If a linear model predicts a patient has a high risk of heart failure, and you look under the hood to find <span class="arithmatex">\(10,000\)</span> continuous features each contributing <span class="arithmatex">\(0.01\%\)</span> to the score, a human clinician cannot interpret <em>why</em> the model made that decision.</p>
+<p>If the model is regularized to minimize non-zero weights, it might achieve the same predictive accuracy using only three features:</p>
+<div class="arithmatex">\[y = 5.2(\text{Blood Pressure}) + 3.1(\text{Age}) + 2.4(\text{Cholesterol}) + 0 + 0 \dots\]</div>
+<p>This model is instantly interpretable. A human can audit it, validate it against physical medical science, and understand the exact causal triggers behind the prediction.</p>
+<hr />
+<h2 id="3-computational-and-hardware-efficiency">3. Computational and Hardware Efficiency</h2>
+<p>Storing and multiplying by zero is incredibly cheap.</p>
+<p>If a model has <span class="arithmatex">\(1,000,000\)</span> parameters, but an <span class="arithmatex">\(L_0\)</span> constraint forces <span class="arithmatex">\(99\%\)</span> of them to be exactly zero, your app's backend does not need to allocate massive memory blocks to hold those floating-point numbers.</p>
+<p>Using specialized <strong>Sparse Matrix</strong> libraries, your system entirely skips the execution steps for those channels:</p>
+<div class="arithmatex">\[\text{Skipped Operation: } 0.0 \times x_j = 0\]</div>
+<p>This drops your RAM consumption and slashes your real-time inference latency down to fractions of a millisecond. It allows you to run complex models directly on low-power edge hardware, like a smartphone or an on-premise medical clip-on lens.</p>
+<hr />
+<h2 id="the-catch-why-we-use-l_1-instead">The Catch: Why We Use <span class="arithmatex">\(L_1\)</span> Instead</h2>
+<p>If counting non-zero weights is so valuable, why don't we do it constantly? Because, as the professor noted, the <span class="arithmatex">\(L_0\)</span> surface is a discrete step-function. It looks like a staircase, meaning its derivative is zero everywhere. You cannot run gradient descent on it.</p>
+<p>To get these exact benefits without breaking our calculus pipelines, we use <strong><span class="arithmatex">\(L_1\)</span> Regularization (Lasso)</strong> as a mathematical proxy. The sharp, diamond-shaped geometric contours of the continuous <span class="arithmatex">\(L_1\)</span> absolute-value norm behave like a convex approximation of <span class="arithmatex">\(L_0\)</span>. It provides the exact same benefit—driving less informative parameter weights to absolute, clean zeros—while remaining fully differentiable for numerical optimization.</p>
+<p>To see exactly how regularization eliminates unwanted features, we have to look past the algebraic formulas and look directly at the <strong>geometry</strong> of the optimization landscape.</p>
+<p>The short answer is that <strong>only <span class="arithmatex">\(L_1\)</span> regularization (Lasso) eliminates features</strong>, while <span class="arithmatex">\(L_2\)</span> regularization (Ridge) just shrinks them. The secret behind how <span class="arithmatex">\(L_1\)</span> achieves this comes down to a battle between smooth curves and sharp corners.</p>
+<hr />
+<h3 id="1-the-dynamic-balancing-act">1. The Dynamic Balancing Act</h3>
+<p>When you add a parameter penalty to your model, your optimization engine is dragged in two opposite directions at the same time:</p>
+<div class="arithmatex">\[\arg\min_{\vec{\theta}} \Big[ \underbrace{\hat{R}_N(\vec{\theta})}_{\text{Data Loss}} + \underbrace{\lambda \Omega(\vec{\theta})}_{\text{Complexity Penalty}} \Big]\]</div>
+<ol>
+<li><strong>The Data Loss</strong> wants to drive the error down to zero to fit the training points perfectly. It forms a series of concentric, elliptical contour rings pulling outward toward the unconstrained maximum likelihood solution.</li>
+<li><strong>The Complexity Penalty</strong> wants to pull the parameters backward toward the origin <span class="arithmatex">\((0,0)\)</span> to keep the model simple.</li>
+</ol>
+<p>The final optimized parameter choice is the exact point where these two opposing forces find a perfect geometric compromise.</p>
+<hr />
+<h3 id="2-the-geometric-shapes-of-the-constraint-regions">2. The Geometric Shapes of the Constraint Regions</h3>
+<p>As established in Chapter 26, minimizing a regularized loss function is mathematically identical to solving a constrained optimization problem. We can visualize the penalty <span class="arithmatex">\(\Omega(\vec{\theta})\)</span> as a hard geometric boundary centered at the origin <span class="arithmatex">\((0,0)\)</span> that the parameters are not allowed to escape.</p>
+<p>Let's map this in a simple 2D feature space with two weights, <span class="arithmatex">\(\theta_1\)</span> and <span class="arithmatex">\(\theta_2\)</span>:</p>
+<h4 id="the-l_2-boundary-ridge">The <span class="arithmatex">\(L_2\)</span> Boundary (Ridge)</h4>
+<p>The constraint formula is a squared Euclidean norm: <span class="arithmatex">\(\theta_1^2 + \theta_2^2 \leq K\)</span>. This equation draws a <strong>perfectly smooth circle</strong> around the origin.</p>
+<h4 id="the-l_1-boundary-lasso">The <span class="arithmatex">\(L_1\)</span> Boundary (Lasso)</h4>
+<p>The constraint formula is an absolute value norm: <span class="arithmatex">\(|\theta_1| + |\theta_2| \leq K\)</span>. This equation draws a <strong>sharp, rotated square (a diamond)</strong> centered at the origin. The crucial detail is that the sharp corners of this diamond sit <strong>exactly on the coordinate axes</strong>.</p>
+<hr />
+<h3 id="3-the-moment-of-intersection-why-corners-matter">3. The Moment of Intersection: Why Corners Matter</h3>
+<p>To find the optimal regularized parameters, imagine the unconstrained data loss function expanding outward from its ideal center like a ripples on a pond. The optimizer is searching for the lowest-error ripple that makes physical contact with the allowed constraint boundary.</p>
+<h4 id="why-l_2-cannot-eliminate-features">Why <span class="arithmatex">\(L_2\)</span> Cannot Eliminate Features</h4>
+<p>When the expanding continuous loss ellipse hits the smooth <span class="arithmatex">\(L_2\)</span> circle, it almost always makes its first contact along a rounded edge. Because the tangent intersection happens out in the open space of the circle, both parameters (<span class="arithmatex">\(\theta_1\)</span> and <span class="arithmatex">\(\theta_2\)</span>) maintain non-zero fractional values. The weights shrink significantly, but they never reach absolute zero.</p>
+<h4 id="why-l_1-knocks-features-to-absolute-zero">Why <span class="arithmatex">\(L_1\)</span> Knocks Features to Absolute Zero</h4>
+<p>When the expanding loss ellipse collides with the <span class="arithmatex">\(L_1\)</span> diamond, the laws of geometry dictate that it is highly probable to make first contact at one of the <strong>sharp corners</strong> rather than a flat edge.</p>
+<p>Look at what a corner represents on a coordinate grid:</p>
+<ul>
+<li>The top corner of the diamond sits exactly at the coordinate position <span class="arithmatex">\((0, \,\, \theta_2)\)</span>.</li>
+<li>At this exact point, the horizontal parameter value is forced to be precisely zero: <span class="arithmatex">\(\theta_1 = 0.0\)</span>.</li>
+</ul>
+<p>The moment the optimizer locks onto that corner to minimize the joint objective, <span class="arithmatex">\(\theta_1\)</span> is wiped out completely. Because any number multiplied by zero is zero, the feature variable associated with <span class="arithmatex">\(\theta_1\)</span> is entirely decoupled from the model's calculus, executing automated feature selection.</p>
+<p>You are pushing back exactly where a rigorous engineer should. Slicing a problem down to two dimensions is a useful mental playground, but your real-world ML pipelines are routinely handling vectors spanning thousands of dimensions.</p>
+<p>Also, your intuition that the regularizer acts like a <strong>normalizer</strong> restricting the parameters to a specific volume is <strong>100% mathematically correct.</strong> That is exactly what a norm constraint does: it bounds the parameter vector inside a closed geometric hypervolume centered at the origin.</p>
+<p>Let’s scale the geometry up from our 2D sandbox and look at what the <span class="arithmatex">\(L_1\)</span> regularizer actually looks like when it enters hyper-dimensional space.</p>
+<hr />
+<h2 id="1-the-high-dimensional-shape-the-cross-polytope">1. The High-Dimensional Shape: The Cross-Polytope</h2>
+<p>When you enforce the <span class="arithmatex">\(L_1\)</span> penalty in higher dimensions, the formula scales linearly:</p>
+<div class="arithmatex">\[\|\vec{\theta}\|_1 = |\theta_1| + |\theta_2| + \dots + |\theta_D| \leq K\]</div>
+<p>As you increase the dimensionality <span class="arithmatex">\(D\)</span>, this restriction carves out a highly specific geometric family known in convex geometry as a <strong>cross-polytope</strong> (or an <em>orthoplex</em>).</p>
+<p>Here is how the shape evolves as you step up through the dimensions:</p>
+<ul>
+<li><strong>In 1D (<span class="arithmatex">\(\mathbb{R}^1\)</span>):</strong> A simple line segment stretching from <span class="arithmatex">\(-K\)</span> to <span class="arithmatex">\(+K\)</span>.</li>
+<li><strong>In 2D (<span class="arithmatex">\(\mathbb{R}^2\)</span>):</strong> A square rotated at <span class="arithmatex">\(45^\circ\)</span>—the <strong>diamond</strong> we just discussed.</li>
+<li><strong>In 3D (<span class="arithmatex">\(\mathbb{R}^3\)</span>):</strong> An <strong>octahedron</strong>. It looks like two square-based pyramids glued perfectly base-to-base.</li>
+<li><strong>In <span class="arithmatex">\(D\)</span>-Dimensions (<span class="arithmatex">\(\mathbb{R}^D\)</span>):</strong> A <strong><span class="arithmatex">\(D\)</span>-dimensional cross-polytope</strong>.</li>
+</ul>
+<hr />
+<h2 id="2-the-spiky-volume-restrictor">2. The Spiky "Volume Restrictor"</h2>
+<p>You called it a volume restrictor, so let's look at the exact physics of that volume. If you compare an <span class="arithmatex">\(L_2\)</span> regularizer to an <span class="arithmatex">\(L_1\)</span> regularizer in hyper-space, the structural differences become extreme.</p>
+<p>An <span class="arithmatex">\(L_2\)</span> constraint (<span class="arithmatex">\(\sum \theta_j^2 \leq K\)</span>) draws a perfect <span class="arithmatex">\(D\)</span>-dimensional <strong>hypersphere</strong>. It is perfectly smooth, uniform, and traps a volume that curves evenly in every single direction.</p>
+<p>The <span class="arithmatex">\(L_1\)</span> cross-polytope is a radically different kind of volume restrictor. It is an incredibly <strong>spiky hyper-diamond</strong>. As the number of dimensions <span class="arithmatex">\(D\)</span> grows, the volume of this cross-polytope shrinks drastically relative to the hypersphere. It pinches inward along the spaces between the axes, shooting outward <em>only</em> along the coordinate axes themselves.</p>
+<hr />
+<h2 id="3-how-the-corner-effect-explodes-in-higher-dimensions">3. How the "Corner" Effect Explodes in Higher Dimensions</h2>
+<p>The reason this spiky shape is so effective at crushing unwanted features in high dimensions comes down to the count of its <strong>vertices (corners)</strong> and <strong>facets (flat faces)</strong>.</p>
+<p>A <span class="arithmatex">\(D\)</span>-dimensional <span class="arithmatex">\(L_1\)</span> cross-polytope possesses exactly <span class="arithmatex">\(2D\)</span> vertices. Crucially, <strong>every single one of these vertices sits directly on a coordinate axis.</strong> Look at what happens mathematically at one of these high-dimensional vertices:</p>
+<ul>
+<li>In 3D, a vertex sits at <span class="arithmatex">\((0, 0, K)\)</span>. At this point, <strong>2 out of 3</strong> features are completely eliminated.</li>
+<li>In a 1,000-dimensional genomic space, a vertex sits at <span class="arithmatex">\((0, 0, \dots, K, \dots, 0)\)</span>. At this point, <strong>999 out of 1,000</strong> features have their weights driven to absolute, clean zero.</li>
+</ul>
+<h3 id="the-true-high-dimensional-geometry-of-feature-elimination">The True High-Dimensional Geometry of Feature Elimination</h3>
+<p>When your unconstrained data loss function expands in a 1,000-dimensional space, it doesn't just hit the absolute tips of the vertices. It collides with the lower-dimensional boundaries of the cross-polytope—its edges, ridges, and flat facets.</p>
+<p>In a cross-polytope, these boundary spaces are entirely composed of coordinates where multiple dimensions are locked to exactly zero.</p>
+<blockquote>
+<p><strong>The Geometric Law of High-Dimensional Sparsity:</strong>
+Because the <span class="arithmatex">\(L_1\)</span> hyper-volume is bounded entirely by flat, angular hyper-facets that meet at sharp axis-aligned ridges, the expanding data loss cloud is geometrically channeled into these corners and ridges. It is almost impossible for the optimization path to settle on a smooth, open edge where every feature is active.</p>
+</blockquote>
+<p>By functioning as a spiky volume restrictor, <span class="arithmatex">\(L_1\)</span> regularization forces the optimization engine to find its compromise at a coordinate location where the vast majority of your dimension dials are completely shut off.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

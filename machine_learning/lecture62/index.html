@@ -1,0 +1,3170 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture61/">
+      
+      
+        <link rel="next" href="../lecture63/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture62 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-47-noise-contrastive-estimation-nce-partition-function-tractability-and-discriminative-generative-structural-equivalence" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture62
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#471-the-architectural-review-latent-regularization-and-vae-topologies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.1 The Architectural Review: Latent Regularization and VAE Topologies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.1 The Architectural Review: Latent Regularization and VAE Topologies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-variational-autoencoder-vae-regularization-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Variational Autoencoder (VAE) Regularization Identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#472-the-informational-complexity-asymmetry-conditionals-vs-marginals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.2 The Informational Complexity Asymmetry: Conditionals vs. Marginals
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.2 The Informational Complexity Asymmetry: Conditionals vs. Marginals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-discriminative-axis-py-mid-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Discriminative Axis (\(P(Y \mid X)\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-generative-axis-px" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Generative Axis (\(P(X)\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#473-the-normalization-catastrophe-of-energy-based-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.3 The Normalization Catastrophe of Energy-Based Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.3 The Normalization Catastrophe of Energy-Based Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-subspace-functional-typing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Subspace Functional Typing:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-intractability-bottleneck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Intractability Bottleneck
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#474-noise-contrastive-estimation-nce-the-classification-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.4 Noise Contrastive Estimation (NCE): The Classification Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.4 Noise Contrastive Estimation (NCE): The Classification Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-contrastive-philosophy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Contrastive Philosophy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-defining-the-dual-density-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Defining the Dual Density Spaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-constructing-the-extended-union-manifold-d_u" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Constructing the Extended Union Manifold (\(D_U\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-enforcing-the-binary-labeling-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Enforcing the Binary Labeling Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#475-rigorous-derivation-of-the-nce-posterior-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.5 Rigorous Derivation of the NCE Posterior Equations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.5 Rigorous Derivation of the NCE Posterior Equations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-class-conditional-densities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Class-Conditional Densities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-statistical-prior-probabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Statistical Prior Probabilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-bayesian-posterior-derivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Bayesian Posterior Derivation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#476-unrolling-the-binary-cross-entropy-loss-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.6 Unrolling the Binary Cross-Entropy Loss Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.6 Unrolling the Binary Cross-Entropy Loss Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-logistic-sigmoid-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Logistic Sigmoid Transformation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-master-formula-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Master Formula Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Master Formula Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-universal-nce-bayesian-posteriors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Universal NCE Bayesian Posteriors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-global-nce-optimization-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Global NCE Optimization Target
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#471-the-architectural-review-latent-regularization-and-vae-topologies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.1 The Architectural Review: Latent Regularization and VAE Topologies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.1 The Architectural Review: Latent Regularization and VAE Topologies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-variational-autoencoder-vae-regularization-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Variational Autoencoder (VAE) Regularization Identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#472-the-informational-complexity-asymmetry-conditionals-vs-marginals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.2 The Informational Complexity Asymmetry: Conditionals vs. Marginals
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.2 The Informational Complexity Asymmetry: Conditionals vs. Marginals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-discriminative-axis-py-mid-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Discriminative Axis (\(P(Y \mid X)\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-generative-axis-px" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Generative Axis (\(P(X)\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#473-the-normalization-catastrophe-of-energy-based-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.3 The Normalization Catastrophe of Energy-Based Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.3 The Normalization Catastrophe of Energy-Based Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-subspace-functional-typing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Subspace Functional Typing:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-intractability-bottleneck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Intractability Bottleneck
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#474-noise-contrastive-estimation-nce-the-classification-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.4 Noise Contrastive Estimation (NCE): The Classification Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.4 Noise Contrastive Estimation (NCE): The Classification Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-contrastive-philosophy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Contrastive Philosophy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-defining-the-dual-density-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Defining the Dual Density Spaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-constructing-the-extended-union-manifold-d_u" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Constructing the Extended Union Manifold (\(D_U\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-enforcing-the-binary-labeling-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Enforcing the Binary Labeling Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#475-rigorous-derivation-of-the-nce-posterior-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.5 Rigorous Derivation of the NCE Posterior Equations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.5 Rigorous Derivation of the NCE Posterior Equations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-class-conditional-densities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Class-Conditional Densities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-statistical-prior-probabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Statistical Prior Probabilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-bayesian-posterior-derivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Bayesian Posterior Derivation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#476-unrolling-the-binary-cross-entropy-loss-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        47.6 Unrolling the Binary Cross-Entropy Loss Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="47.6 Unrolling the Binary Cross-Entropy Loss Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-logistic-sigmoid-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Logistic Sigmoid Transformation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-master-formula-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Master Formula Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Master Formula Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-universal-nce-bayesian-posteriors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Universal NCE Bayesian Posteriors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-global-nce-optimization-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Global NCE Optimization Target
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-47-noise-contrastive-estimation-nce-partition-function-tractability-and-discriminative-generative-structural-equivalence">Chapter 47: Noise Contrastive Estimation (NCE), Partition Function Tractability, and Discriminative-Generative Structural Equivalence</h1>
+<hr />
+<h3 id="471-the-architectural-review-latent-regularization-and-vae-topologies">47.1 The Architectural Review: Latent Regularization and VAE Topologies</h3>
+<p>We have finalized our analysis of implicit latent variable spaces, unrolling the conditions under which Principal Component Analysis (PCA) maps linear variance boundaries and deep autoencoders map non-linear manifolds. Before scaling our theoretical framework, let us unify the structural nomenclature of the <strong>Encoder-Decoder Matrix Processing Pipeline</strong>.</p>
+<p>In machine learning theory, an unsupervised network that maps features through an intermediate hidden space is governed by a strict two-part operational definition:</p>
+<ol>
+<li><strong>The Encoder Network (<span class="arithmatex">\(E_\phi\)</span>):</strong> A mapping function (linear projection or deep neural network) that projects coordinates from the native high-dimensional data space <span class="arithmatex">\(\mathbb{X} \in \mathbb{R}^D\)</span> down into the hidden latent manifold space <span class="arithmatex">\(\mathbb{Z} \in \mathbb{R}^K\)</span>.</li>
+<li><strong>The Decoder Network (<span class="arithmatex">\(D_\theta\)</span>):</strong> A mapping function that projects latent coordinates from <span class="arithmatex">\(\mathbb{Z}\)</span> back into the native data space <span class="arithmatex">\(\mathbb{R}^D\)</span>.</li>
+</ol>
+<p>Because the output of a decoder function generates physical coordinates within the original data domain, <strong>every decoder network operates fundamentally as a data sampler.</strong></p>
+<pre><code>  [ Data Space X ] ──────────&gt; ( Encoder Network E_ϕ ) ──────────&gt; [ Latent Space Z ]
+                                                                          │
+  [ Reconstructed Space X̂ ] &lt;─── ( Decoder Network D_θ ) &lt;────────────────┘
+
+</code></pre>
+<p>This structural separation defines the primary deployment archetypes of modern architectures:</p>
+<ul>
+<li><strong>Encoder-Decoder Architectures (e.g., Classical BERT):</strong> Houses both operational paths. Given a data matrix, it can compute a hidden embedding vector; given a hidden embedding vector, it can reconstruct the data matrix back.</li>
+<li><strong>Decoder-Only Architectures (e.g., Generative Autoregressive LLMs):</strong> Discards the explicit encoder transformation track (<span class="arithmatex">\(X \to Z\)</span>). The model operates entirely in the continuous latent token space, projecting hidden coordinates forward to sample physical words or pixels directly.</li>
+</ul>
+<h4 id="the-variational-autoencoder-vae-regularization-identity">The Variational Autoencoder (VAE) Regularization Identity</h4>
+<p>When an unconstrained autoencoder runs its training pass, the continuous latent variable <span class="arithmatex">\(Z\)</span> is free to take any arbitrary coordinate value because its distribution is unconstrained, depending entirely on the frozen encoder parameters.</p>
+<p>To control this latent manifold and force it to conform to a predictable distribution envelope, we can introduce <strong>Activity Regularization</strong> directly to the hidden representation layer.</p>
+<p>This design pattern defines the foundation of the <strong>Variational Autoencoder (VAE)</strong>. A VAE forces the network to minimize its reconstruction error while simultaneously minimizing a strict Kullback-Leibler (KL) divergence penalty that constrains the empirical distribution of <span class="arithmatex">\(Z\)</span> to match a pre-selected target prior density function (such as a standard normal Gaussian <span class="arithmatex">\(\mathcal{N}(\vec{0}, \mathbf{I})\)</span>):</p>
+<div class="arithmatex">\[\mathcal{L}_{\text{VAE}}(\phi, \,\, \theta) = \mathbb{E}_{q_\phi(\vec{z} \mid \vec{x})}\left[ \ln P_\theta(\vec{x} \mid \vec{z}) \right] - D_{\text{KL}}\Big( q_\phi(\vec{z} \mid \vec{x}) \parallel P(\vec{z}) \Big)\]</div>
+<hr />
+<h3 id="472-the-informational-complexity-asymmetry-conditionals-vs-marginals">47.2 The Informational Complexity Asymmetry: Conditionals vs. Marginals</h3>
+<p>We now transition to a fundamentally different paradigm of unsupervised estimation designed to solve the deepest bottleneck in generative modeling: the intractability of high-dimensional density normalization.</p>
+<p>Let us evaluate the raw computational complexity separating our two primary distributional tracking targets: the <strong>Conditional Label Density <span class="arithmatex">\(P(Y \mid X)\)</span></strong> and the <strong>Global Data Marginal Density <span class="arithmatex">\(P(X)\)</span></strong>.</p>
+<p>The professor states a foundational rule of statistical geometry: <strong>discriminative conditional models are inherently easier to train than generative marginal models.</strong> To understand why this asymmetry exists, we must analyze how each model structures its spatial partitions.</p>
+<p>[Image demonstrating spatial classification hyperplane partitioning vs continuous probability density landscape modeling]</p>
+<h4 id="the-discriminative-axis-py-mid-x">The Discriminative Axis (<span class="arithmatex">\(P(Y \mid X)\)</span>)</h4>
+<p>When you train a binary classifier, your output target space is a compressed discrete density governed by a single scalar probability parameter. Geometrically, the model's only job is to calculate an axis hyperplane that partitions the high-dimensional manifold into non-overlapping regions.</p>
+<p>As long as an observation coordinate falls on the correct side of that boundary wall, the model does not care where the point sits within that broad zone. The framework can safely confuse the exact coordinates of two distinct data points, because as long as they share the same class category, the model's empirical risk is minimized perfectly.</p>
+<h4 id="the-generative-axis-px">The Generative Axis (<span class="arithmatex">\(P(X)\)</span>)</h4>
+<p>When you train a marginal density estimator, this spatial confusion is completely forbidden. The model cannot simply declare that a coordinate resides within a generalized region; it must compute the exact mathematical density profile at every continuous coordinate point across the entire manifold.</p>
+<p>The engine must allocate precise probability mass across thousands of feature channels, ensuring that high-density clusters spike sharply while neighboring empty spaces drop to zero. Generative modeling requires mapping the absolute structural coordinates of the entire universe, scaling up the parameter complexity significantly relative to binary classification.</p>
+<hr />
+<h3 id="473-the-normalization-catastrophe-of-energy-based-models">47.3 The Normalization Catastrophe of Energy-Based Models</h3>
+<p>To formalize why maximum likelihood estimation becomes computationally intractable under this generative axis, we look at the mathematical form of <strong>Energy-Based Models (EBMs)</strong> and <strong>Gibbs Distributions</strong>.</p>
+<p>Suppose we assume our parametric data density model <span class="arithmatex">\(P_\theta(\vec{x})\)</span> conforms to an exponential unnormalized structural layout:</p>
+<div class="arithmatex">\[P_\theta(\vec{x}) = \frac{P'_\theta(\vec{x})}{Z(\theta)}\]</div>
+<h4 id="precise-subspace-functional-typing">Precise Subspace Functional Typing:</h4>
+<ul>
+<li><span class="arithmatex">\(\vec{x} \in \mathbb{R}^{D \times 1}\)</span>: The observed high-dimensional feature vector.</li>
+<li><span class="arithmatex">\(P'_\theta(\vec{x}): \mathbb{R}^D \to \mathbb{R}^+\)</span>: An unnormalized parametric function mapping our data space directly to positive real numbers (often parameterized as an exponential energy function <span class="arithmatex">\(e^{-E_\theta(\vec{x})}\)</span>).</li>
+<li><span class="arithmatex">\(Z(\theta) \in \mathbb{R}^+\)</span>: The global <strong>Normalization Constant</strong>, formally classified as the <strong>Partition Function</strong>.</li>
+</ul>
+<p>To ensure that <span class="arithmatex">\(P_\theta(\vec{x})\)</span> satisfies the foundational axioms of probability theory and integrates to exactly unity (<span class="arithmatex">\(\int P_\theta(\vec{x}) d\vec{x} = 1.0\)</span>), the partition function <span class="arithmatex">\(Z(\theta)\)</span> must calculate the total accumulated volume of our unnormalized function across the entire continuous data domain:</p>
+<div class="arithmatex">\[Z(\theta) = \int_{\mathbb{R}^D} P'_\theta(\vec{x}) \, d\vec{x}\]</div>
+<h4 id="the-intractability-bottleneck">The Intractability Bottleneck</h4>
+<p>When we attempt to optimize this model via standard Maximum Likelihood Estimation (MLE), we compute the log-likelihood function across a dataset of <span class="arithmatex">\(n\)</span> samples, unrolling the partition function explicitly:</p>
+<div class="arithmatex">\[\ln L(\theta) = \sum_{i=1}^{n} \ln P_\theta(\vec{x}_i) = \sum_{i=1}^{n} \ln P'_\theta(\vec{x}_i) - n \ln Z(\theta)\]</div>
+<p>Taking the gradient of this log-likelihood requires differentiating the partition function:</p>
+<div class="arithmatex">\[\nabla_\theta \ln Z(\theta) = \int_{\mathbb{R}^D} \frac{\nabla_\theta P'_\theta(\vec{x})}{Z(\theta)} \, d\vec{x} = \int_{\mathbb{R}^D} \nabla_\theta \ln P'_\theta(\vec{x}) \cdot P_\theta(\vec{x}) \, d\vec{x} = \mathbb{E}_{\vec{x} \sim P_\theta(\vec{x})} \left[ \nabla_\theta \ln P'_\theta(\vec{x}) \right]\]</div>
+<p>Look at the severe computational bottleneck of this gradient step: evaluating this mathematical expectation requires computing an integral across the entire high-dimensional continuous space (<span class="arithmatex">\(\mathbb{R}^D\)</span>). When the feature dimension <span class="arithmatex">\(D\)</span> spans thousands of channels (such as raw pixel grids or vocabulary matrices), this integration becomes completely intractable. The partition function <span class="arithmatex">\(Z(\theta)\)</span> cannot be solved analytically, blocking standard maximum likelihood estimation completely.</p>
+<hr />
+<h3 id="474-noise-contrastive-estimation-nce-the-classification-framework">47.4 Noise Contrastive Estimation (NCE): The Classification Framework</h3>
+<p>To resolve this normalization catastrophe, Gutmann and Hyvärinen introduced <strong>Noise Contrastive Estimation (NCE)</strong>.</p>
+<p>The core thesis of NCE is a brilliant conceptual inversion: <strong>Can we convert the complex problem of generative marginal density estimation into a simple binary classification problem, allowing us to learn the true data density <span class="arithmatex">\(P_X\)</span> using standard discriminative loss functions?</strong></p>
+<h4 id="the-contrastive-philosophy">The Contrastive Philosophy</h4>
+<p>The philosophical premise of NCE is straightforward: <em>If an architecture can flawlessly differentiate a structural signal (music) from a completely unstructured background distribution (noise), it must inherently understand the structural layout of that signal.</em> By training a model to discriminate between real data samples and artificial noise samples, the network implicitly learns the absolute density profile of the true data manifold.</p>
+<p>We formalize the NCE framework step-by-step from absolute first principles.</p>
+<h4 id="step-1-defining-the-dual-density-spaces">Step 1: Defining the Dual Density Spaces</h4>
+<p>We define our primary target space as the true, unknown data distribution <span class="arithmatex">\(P_X(\vec{x})\)</span>. We collect a clean, empirical dataset <span class="arithmatex">\(D\)</span> containing exactly <span class="arithmatex">\(N\)</span> samples harvested from this distribution:</p>
+<div class="arithmatex">\[\mathcal{D} = \{\vec{x}_1, \,\, \vec{x}_2, \,\, \dots, \,\, \vec{x}_N\} \quad \sim \quad P_X(\vec{x})\]</div>
+<p>Next, we explicitly introduce a secondary, completely artificial reference distribution known as the <strong>Noise Density Function (<span class="arithmatex">\(P_N(\vec{x})\)</span>)</strong>. This noise density can be any arbitrary, known distribution (such as a simple Gaussian or a uniform box) that we can easily sample from, under the sole condition that it is not identical to our true data distribution:</p>
+<div class="arithmatex">\[P_N(\vec{x}) \neq P_X(\vec{x})\]</div>
+<p>We deploy this reference model to sample exactly <span class="arithmatex">\(M\)</span> independent artificial noise data points, compiling a secondary dataset denoted as <span class="arithmatex">\(D'\)</span>:</p>
+<div class="arithmatex">\[\mathcal{D}' = \{\vec{y}_1, \,\, \vec{y}_2, \,\, \dots, \,\, \vec{y}_M\} \quad \sim \quad P_N(\vec{x})\]</div>
+<h4 id="step-2-constructing-the-extended-union-manifold-d_u">Step 2: Constructing the Extended Union Manifold (<span class="arithmatex">\(D_U\)</span>)</h4>
+<p>We merge these two independent datasets together side-by-side, constructing an expanded <strong>Union Dataset Matrix (<span class="arithmatex">\(D_U\)</span>)</strong> containing a total headcount of <span class="arithmatex">\(N + M\)</span> coordinate points:</p>
+<div class="arithmatex">\[\mathcal{D}_U = \mathcal{D} \cup \mathcal{D}' = \{\vec{u}_1, \,\, \vec{u}_2, \,\, \dots, \,\, \vec{u}_N, \,\, \vec{u}_{N+1}, \,\, \dots, \,\, \vec{u}_{N+M}\}\]</div>
+<h4 id="step-3-enforcing-the-binary-labeling-strategy">Step 3: Enforcing the Binary Labeling Strategy</h4>
+<p>We turn this unsupervised data pool into a supervised pipeline by assigning an explicit, discrete <strong>Binary Class Label (<span class="arithmatex">\(C_j\)</span>)</strong> to every individual coordinate slot inside our union dataset <span class="arithmatex">\(D_U\)</span>:</p>
+<div class="arithmatex">\[C_j = \begin{cases} 1 &amp; \text{if } \vec{u}_j \in \mathcal{D} \quad \text{(Real Data Sample)} \\ 0 &amp; \text{if } \vec{u}_j \in \mathcal{D}' \quad \text{(Artificial Noise Sample)} \end{cases}\]</div>
+<hr />
+<h3 id="475-rigorous-derivation-of-the-nce-posterior-equations">47.5 Rigorous Derivation of the NCE Posterior Equations</h3>
+<p>By framing our data layout using this binary structure, we can map out our system's underlying probability mechanics with absolute mathematical precision.</p>
+<h4 id="1-the-class-conditional-densities">1. The Class-Conditional Densities</h4>
+<p>By definition, if a coordinate point is drawn from Class 1, its spatial distribution matches our parametric model density <span class="arithmatex">\(P_\theta(\vec{u})\)</span>. If it is drawn from Class 0, its distribution matches our noise density <span class="arithmatex">\(P_N(\vec{u})\)</span>:</p>
+<div class="arithmatex">\[P(\vec{u} \mid C = 1) = P_\theta(\vec{u})\]</div>
+<div class="arithmatex">\[P(\vec{u} \mid C = 0) = P_N(\vec{u})\]</div>
+<h4 id="2-the-statistical-prior-probabilities">2. The Statistical Prior Probabilities</h4>
+<p>The prior probability of randomly plucking a sample that belongs to Class 1 or Class 0 from our union pool <span class="arithmatex">\(D_U\)</span> depends entirely on the relative sample sizes of our two datasets:</p>
+<div class="arithmatex">\[P(C = 1) = \frac{N}{N + M}\]</div>
+<div class="arithmatex">\[P(C = 0) = \frac{M}{N + M}\]</div>
+<h4 id="3-the-bayesian-posterior-derivation">3. The Bayesian Posterior Derivation</h4>
+<p>We now invoke <strong>Bayes' Law</strong> to calculate the exact posterior probability that an arbitrary coordinate point <span class="arithmatex">\(\vec{u}\)</span> pulled from our union dataset originates from the true data distribution (<span class="arithmatex">\(C=1\)</span>):</p>
+<div class="arithmatex">\[P(C = 1 \mid \vec{u}) = \frac{P(\vec{u} \mid C = 1)P(C = 1)}{P(\vec{u} \mid C = 1)P(C = 1) + P(\vec{u} \mid C = 0)P(C = 0)}\]</div>
+<p>We substitute our class-conditional definitions and statistical priors straight into this equation:</p>
+<div class="arithmatex">\[P(C = 1 \mid \vec{u}) = \frac{P_\theta(\vec{u}) \cdot \left( \frac{N}{N + M} \right)}{P_\theta(\vec{u}) \cdot \left( \frac{N}{N + M} \right) + P_N(\vec{u}) \cdot \left( \frac{M}{N + M} \right)}\]</div>
+<p>To clear the fraction, we multiply both the numerator and the denominator by the global sample denominator <span class="arithmatex">\((N + M)\)</span>:</p>
+<div class="arithmatex">\[P(C = 1 \mid \vec{u}) = \frac{N \cdot P_\theta(\vec{u})}{N \cdot P_\theta(\vec{u}) + M \cdot P_N(\vec{u})}\]</div>
+<p>Finally, we isolate our model density by dividing both the numerator and the denominator by the scalar headcount variable <span class="arithmatex">\(N\)</span>:</p>
+<div class="arithmatex">\[P(C = 1 \mid \vec{u}) = \frac{\frac{N}{N} \cdot P_\theta(\vec{u})}{\frac{N}{N} \cdot P_\theta(\vec{u}) + \frac{M}{N} \cdot P_N(\vec{u})} = \frac{P_\theta(\vec{u})}{P_\theta(\vec{u}) + \left( \frac{M}{N} \right) P_N(\vec{u})}\]</div>
+<p>To simplify our notation, we define a permanent scalar parameter tracking the exact ratio of noise samples to data samples, denoted as the <strong>Noise Index (<span class="arithmatex">\(\nu\)</span>)</strong>:</p>
+<div class="arithmatex">\[\nu \triangleq \frac{M}{N}\]</div>
+<p>Substituting this noise index <span class="arithmatex">\(\nu\)</span> into our equation yields the definitive <strong>NCE Data Posterior Formula</strong>:</p>
+<div class="arithmatex">\[P(C = 1 \mid \vec{u}) = \frac{P_\theta(\vec{u})}{P_\theta(\vec{u}) + \nu P_N(\vec{u})}\]</div>
+<p>By following the exact same algebraic progression, we calculate the matching posterior probability that the coordinate point originates from our noise distribution (<span class="arithmatex">\(C=0\)</span>):</p>
+<div class="arithmatex">\[P(C = 0 \mid \vec{u}) = \frac{\nu P_N(\vec{u})}{P_\theta(\vec{u}) + \nu P_N(\vec{u})}\]</div>
+<hr />
+<h3 id="476-unrolling-the-binary-cross-entropy-loss-architecture">47.6 Unrolling the Binary Cross-Entropy Loss Architecture</h3>
+<p>We have derived the exact equations for our posterior probabilities. We now map the learning loop of NCE onto a standard <strong>Discriminative Binary Cross-Entropy Loss Function</strong>.</p>
+<p>Our optimization goal is to update the model parameters <span class="arithmatex">\(\theta\)</span> to maximize the conditional log-likelihood of our binary class labels across all <span class="arithmatex">\(N+M\)</span> samples stored within our union dataset <span class="arithmatex">\(D_U\)</span>:</p>
+<div class="arithmatex">\[\mathcal{L}(\theta) = \sum_{j=1}^{N+M} \left[ C_j \ln P(C = 1 \mid \vec{u}_j) + (1 - C_j) \ln P(C = 0 \mid \vec{u}_j) \right]\]</div>
+<p>Because our class labels <span class="arithmatex">\(C_j\)</span> are discrete binary indicators (<span class="arithmatex">\(1\)</span> or <span class="arithmatex">\(0\)</span>), we can unroll this global summation by splitting it back into its two independent source datasets: the <span class="arithmatex">\(N\)</span> real data points (<span class="arithmatex">\(\vec{x}_i \in D\)</span>) and the <span class="arithmatex">\(M\)</span> artificial noise points (<span class="arithmatex">\(\vec{y}_i \in D'\)</span>):</p>
+<div class="arithmatex">\[\mathcal{L}(\theta) = \sum_{i=1}^{N} \ln P(C = 1 \mid \vec{x}_i) + \sum_{i=1}^{M} \ln P(C = 0 \mid \vec{y}_i)\]</div>
+<p>We substitute our derived Bayesian posterior formulas directly into this split loss ledger:</p>
+<div class="arithmatex">\[\mathcal{L}(\theta) = \sum_{i=1}^{N} \ln \left( \frac{P_\theta(\vec{x}_i)}{P_\theta(\vec{x}_i) + \nu P_N(\vec{x}_i)} \right) + \sum_{i=1}^{M} \ln \left( \frac{\nu P_N(\vec{y}_i)}{P_\theta(\vec{y}_i) + \nu P_N(\vec{y}_i)} \right)\]</div>
+<h4 id="the-logistic-sigmoid-transformation">The Logistic Sigmoid Transformation</h4>
+<p>To highlight the connection between this framework and standard neural networks, we rewrite our posterior equation using a functional change of variables. Let us isolate our data posterior formula and divide both the numerator and the denominator by our model density <span class="arithmatex">\(P_\theta(\vec{u})\)</span>:</p>
+<div class="arithmatex">\[P(C = 1 \mid \vec{u}) = \frac{\frac{P_\theta(\vec{u})}{P_\theta(\vec{u})}}{\frac{P_\theta(\vec{u})}{P_\theta(\vec{u})} + \nu \frac{P_N(\vec{u})}{P_\theta(\vec{u})}} = \frac{1}{1 + \nu \left( \frac{P_N(\vec{u})}{P_\theta(\vec{u})} \right)}\]</div>
+<p>We move our variables into an exponential layer using standard logarithmic identities (<span class="arithmatex">\(A = e^{\ln A}\)</span>):</p>
+<div class="arithmatex">\[P(C = 1 \mid \vec{u}) = \frac{1}{1 + \exp\left( \ln \left( \nu \frac{P_N(\vec{u})}{P_\theta(\vec{u})} \right) \right)} = \frac{1}{1 + \exp\left( \ln(\nu) + \ln P_N(\vec{u}) - \ln P_\theta(\vec{u}) \right)}\]</div>
+<div class="arithmatex">\[P(C = 1 \mid \vec{u}) = \frac{1}{1 + \exp\left( -\Big( \ln P_\theta(\vec{u}) - \ln P_N(\vec{u}) - \ln(\nu) \Big) \right)}\]</div>
+<p>We define our core structural transformation variable as the <strong>Log-Density Difference Function (<span class="arithmatex">\(f_\theta(\vec{u})\)</span>)</strong>:</p>
+<div class="arithmatex">\[f_\theta(\vec{u}) \triangleq \ln P_\theta(\vec{u}) - \ln P_N(\vec{u})\]</div>
+<p>Substituting this function shape straight back into our equation yields:</p>
+<div class="arithmatex">\[P(C = 1 \mid \vec{u}) = \sigma\Big( f_\theta(\vec{u}) - \ln(\nu) \Big) \quad \text{where} \quad \sigma(z) = \frac{1}{1 + e^{-z}}\]</div>
+<p>This is a beautiful result. It proves that our NCE data posterior equation matches the exact mathematical structure of a standard <strong>Logistic Sigmoid Activation Layer</strong>.</p>
+<p>By training a neural network to model <span class="arithmatex">\(f_\theta(\vec{u})\)</span> and passing the outputs through a sigmoid function, maximizing the binary cross-entropy loss over our data-noise pool allows the model to estimate the true underlying data density <span class="arithmatex">\(P_X\)</span>.</p>
+<p>The network does not need to compute an intractable partition function integral. By framing unsupervised learning as a discriminative classification task, the model learns the data distribution implicitly, providing a powerful, scalable engine for training modern foundational artificial intelligence.</p>
+<hr />
+<h2 id="textbook-notes-master-formula-reference-sheet">Textbook Notes Master Formula Reference Sheet</h2>
+<h3 id="the-universal-nce-bayesian-posteriors">The Universal NCE Bayesian Posteriors</h3>
+<div class="arithmatex">\[\text{The Noise Sampling Index: } \quad \nu \triangleq \frac{M}{N}\]</div>
+<div class="arithmatex">\[\text{Data Posterior Probability: } \quad P(C = 1 \mid \vec{u}) = \frac{P_\theta(\vec{u})}{P_\theta(\vec{u}) + \nu P_N(\vec{u})} = \sigma\Big( \ln P_\theta(\vec{u}) - \ln P_N(\vec{u}) - \ln(\nu) \Big)\]</div>
+<div class="arithmatex">\[\text{Noise Posterior Probability: } \quad P(C = 0 \mid \vec{u}) = \frac{\nu P_N(\vec{u})}{P_\theta(\vec{u}) + \nu P_N(\vec{u})} = 1 - P(C = 1 \mid \vec{u})\]</div>
+<hr />
+<h3 id="the-global-nce-optimization-target">The Global NCE Optimization Target</h3>
+<div class="arithmatex">\[\mathcal{L}(\theta) = \sum_{i=1}^{N} \ln \left( \frac{P_\theta(\vec{x}_i)}{P_\theta(\vec{x}_i) + \nu P_N(\vec{x}_i)} \right) + \sum_{i=1}^{M} \ln \left( \frac{\nu P_N(\vec{y}_i)}{P_\theta(\vec{y}_i) + \nu P_N(\vec{y}_i)} \right)\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

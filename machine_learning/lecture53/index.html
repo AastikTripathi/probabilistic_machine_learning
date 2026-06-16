@@ -1,0 +1,2929 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture52/">
+      
+      
+        <link rel="next" href="../lecture54/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture53 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture53
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-45-foundations-of-non-parametric-topologies-greedy-recursive-partitioning-and-information-theoretic-splitting-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 45: Foundations of Non-Parametric Topologies, Greedy Recursive Partitioning, and Information-Theoretic Splitting Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 45: Foundations of Non-Parametric Topologies, Greedy Recursive Partitioning, and Information-Theoretic Splitting Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#451-the-non-parametric-paradigm-and-spatial-partitioning-geography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.1 The Non-Parametric Paradigm and Spatial Partitioning Geography
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#452-the-combinatorial-crisis-and-greedy-optimization-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.2 The Combinatorial Crisis and Greedy Optimization Mechanics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#453-mathematical-unrolling-of-the-weighted-splitting-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.3 Mathematical Unrolling of the Weighted Splitting Objective
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="45.3 Mathematical Unrolling of the Weighted Splitting Objective">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strict-variable-balance-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strict Variable Balance Sheet:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#454-information-theoretic-impurity-profiles-entropy-vs-gini" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.4 Information-Theoretic Impurity Profiles: Entropy vs. Gini
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="45.4 Information-Theoretic Impurity Profiles: Entropy vs. Gini">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metric-1-shannon-entropy-information-gain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metric 1: Shannon Entropy / Information Gain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-strict-proof-of-the-kl-uniform-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Strict Proof of the KL Uniform Identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metric-2-gini-impurity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metric 2: Gini Impurity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-random-misclassification-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Random Misclassification Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#455-inference-architecture-leaf-state-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.5 Inference Architecture: Leaf State Distributions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#universal-tree-partitioning-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Universal Tree Partitioning Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-theoretical-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Theoretical Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-45-foundations-of-non-parametric-topologies-greedy-recursive-partitioning-and-information-theoretic-splitting-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 45: Foundations of Non-Parametric Topologies, Greedy Recursive Partitioning, and Information-Theoretic Splitting Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 45: Foundations of Non-Parametric Topologies, Greedy Recursive Partitioning, and Information-Theoretic Splitting Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#451-the-non-parametric-paradigm-and-spatial-partitioning-geography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.1 The Non-Parametric Paradigm and Spatial Partitioning Geography
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#452-the-combinatorial-crisis-and-greedy-optimization-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.2 The Combinatorial Crisis and Greedy Optimization Mechanics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#453-mathematical-unrolling-of-the-weighted-splitting-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.3 Mathematical Unrolling of the Weighted Splitting Objective
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="45.3 Mathematical Unrolling of the Weighted Splitting Objective">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strict-variable-balance-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strict Variable Balance Sheet:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#454-information-theoretic-impurity-profiles-entropy-vs-gini" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.4 Information-Theoretic Impurity Profiles: Entropy vs. Gini
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="45.4 Information-Theoretic Impurity Profiles: Entropy vs. Gini">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metric-1-shannon-entropy-information-gain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metric 1: Shannon Entropy / Information Gain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-strict-proof-of-the-kl-uniform-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Strict Proof of the KL Uniform Identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metric-2-gini-impurity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metric 2: Gini Impurity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-random-misclassification-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Random Misclassification Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#455-inference-architecture-leaf-state-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.5 Inference Architecture: Leaf State Distributions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#universal-tree-partitioning-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Universal Tree Partitioning Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-theoretical-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Theoretical Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-45-foundations-of-non-parametric-topologies-greedy-recursive-partitioning-and-information-theoretic-splitting-metrics">Chapter 45: Foundations of Non-Parametric Topologies, Greedy Recursive Partitioning, and Information-Theoretic Splitting Metrics</h2>
+<hr />
+<h3 id="451-the-non-parametric-paradigm-and-spatial-partitioning-geography">45.1 The Non-Parametric Paradigm and Spatial Partitioning Geography</h3>
+<p>Up to this point in the course, our structural treatment of machine learning has operated strictly within the <strong>Parametric Class of Algorithms</strong>. Whether optimizing standard Linear Discriminant Functions, Kernel Support Vector Machines, or massive multi-head Transformer networks, we began by explicitly defining a rigid functional form for our hypothesis space, indexed by a fixed-dimensional parameter vector <span class="arithmatex">\(\vec{\theta} \in \mathbb{R}^P\)</span>:</p>
+<div class="arithmatex">\[\mathcal{H} = \left\{ h_{\vec{\theta}}(\vec{x}) \mid \vec{\theta} \in \mathbb{R}^P \right\}\]</div>
+<p>Under the parametric paradigm, the learning loop reduces to executing Empirical Risk Minimization (ERM) to discover a localized coordinate point <span class="arithmatex">\(\vec{\theta}^*\)</span> within that fixed parameter space.</p>
+<p>We now transition to <strong>Non-Parametric Models</strong>, exemplified fundamentally by <strong>Classification and Regression Trees (CART)</strong>, or <strong>Decision Trees</strong>. A non-parametric algorithm does not mean an architecture has zero parameters; rather, it means <strong>the structural complexity and the number of split boundary allocations are not fixed in advance of looking at the data.</strong> The model size scales dynamically with the dataset size. Instead of forcing data to conform to a pre-defined vector space wrapper, non-parametric algorithms learn the underlying decision boundary implicitly by carving up the raw feature manifold itself.</p>
+<p>Every classification algorithm can be understood geometrically as an engine that partitions the ambient data space <span class="arithmatex">\(\mathbb{X} \in \mathbb{R}^D\)</span> into non-overlapping zones.</p>
+<ul>
+<li>A linear model draws a single flat hyperplane that slices the data space into two contiguous half-spaces.</li>
+<li>A multi-class neural network uses nested compositions to warp the manifold, partitioning the space into <span class="arithmatex">\(K\)</span> distinct geometric regions.</li>
+</ul>
+<p>A decision tree adopts this spatial partitioning strategy directly and transparently. It recursively fragments the <span class="arithmatex">\(D\)</span>-dimensional coordinate boundaries into hyper-rectangular regions.</p>
+<p>Crucially, because the tree evaluates feature dimensions one-by-one, <strong>every boundary line it draws is strictly axis-parallel</strong>. Each individual split cuts a feature space perpendicular to its coordinate axis, constructing a hierarchical web of localized decision blocks.</p>
+<hr />
+<h3 id="452-the-combinatorial-crisis-and-greedy-optimization-mechanics">45.2 The Combinatorial Crisis and Greedy Optimization Mechanics</h3>
+<p>To construct a decision tree over a training dataset, we must determine exactly which feature dimensions to cut, where to position the thresholds, and how deep to grow the hierarchical tree graph.</p>
+<p>Let us formalize the math behind finding an absolutely optimal tree. If we treat the structural choice of thresholds and features as a global optimization problem across arbitrary depths, we hit an immediate wall: <strong>global decision tree optimization is a fundamentally NP-complete problem.</strong> Even if you assume the feature dimensions and split points are finite and discrete, evaluating all possible permutations of cuts across all possible depths to minimize the absolute empirical risk triggers an exponential combinatorial explosion. It is computationally impossible to solve for large datasets.</p>
+<p>To bypass this combinatorial wall, decision trees discard global optimality guarantees and rely on a <strong>Top-Down, Recursive, Greedy Optimization Algorithm</strong>.</p>
+<blockquote>
+<p><strong>The Rule of Greedy Selection:</strong>
+At any given node in the tree graph, the optimization engine evaluates and selects the single best split point for that isolated step without looking ahead to future layers, and without ever backtracking to alter a previously established cut. It takes the best immediate locally optimal choice, sacrificing global optimization guarantees to secure fast, polynomial-time computational execution.</p>
+</blockquote>
+<hr />
+<h3 id="453-mathematical-unrolling-of-the-weighted-splitting-objective">45.3 Mathematical Unrolling of the Weighted Splitting Objective</h3>
+<p>We formalize the mechanics of this greedy split mathematically. Suppose we are evaluating an active node <span class="arithmatex">\(m\)</span> within our tree graph. This node represents a bounded spatial region within our high-dimensional manifold, denoted as <span class="arithmatex">\(R_m \subset \mathbb{R}^D\)</span>. This localized region currently contains a subset of <span class="arithmatex">\(N_m\)</span> training samples pulled from our global dataset <span class="arithmatex">\(D\)</span>.</p>
+<p>The tree algorithm executes a split by evaluating a coordinate parameter pair <span class="arithmatex">\((j, \,\, \tau)\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(j \in \{1, \,\, 2, \,\, \dots, \,\, D\}\)</span>: The structural index tracking which specific feature dimension is under evaluation.</li>
+<li><span class="arithmatex">\(\tau \in \mathbb{R}\)</span>: The continuous scalar threshold cutting that specific feature axis.</li>
+</ul>
+<p>The parameter pair defines a binary geometric boundary condition that splits the parent region <span class="arithmatex">\(R_m\)</span> into two disjoint child sub-regions, denoted as the Left Region (<span class="arithmatex">\(R_L\)</span>) and Right Region (<span class="arithmatex">\(R_R\)</span>):</p>
+<div class="arithmatex">\[R_L(j, \,\, \tau) = \left\{ \vec{x} \in R_m \mid x_j \leq \tau \right\}\]</div>
+<div class="arithmatex">\[R_R(j, \,\, \tau) = \left\{ \vec{x} \in R_m \mid x_j &gt; \tau \right\}\]</div>
+<p>This split causes the <span class="arithmatex">\(N_m\)</span> parental training samples to separate, routing <span class="arithmatex">\(N_L\)</span> samples into the left child region and <span class="arithmatex">\(N_R\)</span> samples into the right child region, such that <span class="arithmatex">\(N_m = N_L + N_R\)</span>.</p>
+<p>To evaluate whether a proposed parameter pair <span class="arithmatex">\((j, \,\, \tau)\)</span> is a high-quality cut, the greedy optimization engine minimizes a <strong>Weighted Target Cost Function (<span class="arithmatex">\(\mathcal{L}\)</span>)</strong> that balances the impurity of both resulting children:</p>
+<div class="arithmatex">\[\mathcal{L}(j, \,\, \tau) = \frac{N_L}{N_m} I(R_L) + \frac{N_R}{N_m} I(R_R)\]</div>
+<h4 id="strict-variable-balance-sheet">Strict Variable Balance Sheet:</h4>
+<ul>
+<li><span class="arithmatex">\(R_m\)</span>: The active parent node region under evaluation.</li>
+<li><span class="arithmatex">\(N_m\)</span>: The total number of training samples currently sitting inside the parent region <span class="arithmatex">\(R_m\)</span>.</li>
+<li><span class="arithmatex">\(j\)</span>: The feature dimension index chosen to execute the spatial cut.</li>
+<li><span class="arithmatex">\(\tau\)</span>: The scalar axis-parallel boundary threshold.</li>
+<li><span class="arithmatex">\(R_L, R_R\)</span>: The resulting left and right child sub-regions generated by the cut.</li>
+<li><span class="arithmatex">\(N_L, N_R\)</span>: The headcount of training samples routed into the left and right child sub-regions.</li>
+<li><span class="arithmatex">\(I(\cdot)\)</span>: The core <strong>Impurity Function</strong>, a mathematical metric that measures the statistical disorder of class labels within a specific region.</li>
+</ul>
+<p>At every step of recursive growth, the tree scans across all available features <span class="arithmatex">\(j\)</span> and all valid thresholds <span class="arithmatex">\(\tau\)</span>, selecting the exact coordinate pair that minimizes this weighted ledger:</p>
+<div class="arithmatex">\[(j^*, \,\, \tau^*) = \arg\min_{(j, \,\, \tau)} \left[ \frac{N_L}{N_m} I(R_L) + \frac{N_R}{N_m} I(R_R) \right]\]</div>
+<hr />
+<h3 id="454-information-theoretic-impurity-profiles-entropy-vs-gini">45.4 Information-Theoretic Impurity Profiles: Entropy vs. Gini</h3>
+<p>To compute this optimization step, we must define a concrete mathematical form for our impurity function <span class="arithmatex">\(I(R)\)</span>. A region is considered perfectly "pure" if it contains samples belonging exclusively to one single class category. Conversely, it is maximally "impure" if classes are spread uniformly across the zone.</p>
+<p>Let us define the foundational Maximum Likelihood Estimate (MLE) probability proportion vector within a region <span class="arithmatex">\(R_m\)</span> containing <span class="arithmatex">\(K\)</span> total classes. The scalar coefficient <span class="arithmatex">\(P_k\)</span> tracks the exact percentage of samples inside that region that belong to class <span class="arithmatex">\(k\)</span>:</p>
+<div class="arithmatex">\[P_k = \frac{1}{N_m} \sum_{\vec{x}_i \in R_m} \mathbb{I}(y_i = k)\]</div>
+<p>We evaluate this probability proportion vector using two standard analytical metrics.</p>
+<h4 id="metric-1-shannon-entropy-information-gain">Metric 1: Shannon Entropy / Information Gain</h4>
+<p>The first classical metric leverages information theory to evaluate the statistical disorder of the class distribution:</p>
+<div class="arithmatex">\[I_E(R_m) = H(R_m) = -\sum_{k=1}^{K} P_k \log_2(P_k)\]</div>
+<h4 id="the-strict-proof-of-the-kl-uniform-identity">The Strict Proof of the KL Uniform Identity</h4>
+<p>The professor stated a fundamental identity: <em>the Kullback-Leibler (KL) Divergence between a region's class distribution and a completely uniform distribution maps directly to Shannon Entropy.</em> Let us unroll this connection from absolute first principles to ensure complete mathematical clarity.</p>
+<p>Let <span class="arithmatex">\(P\)</span> represent our region's discrete class distribution vector, and let <span class="arithmatex">\(U\)</span> represent a flat <strong>Uniform Distribution</strong> spanning across the same sample space of <span class="arithmatex">\(K\)</span> total classes. By definition, the uniform probability for any class is a constant scalar: <span class="arithmatex">\(U(k) = \frac{1}{K}\)</span>.</p>
+<p>We write out the standard equation for KL Divergence from <span class="arithmatex">\(P\)</span> to <span class="arithmatex">\(U\)</span>:</p>
+<div class="arithmatex">\[D_{\text{KL}}(P \parallel U) = \sum_{k=1}^{K} P_k \log_2\left( \frac{P_k}{U(k)} \right)\]</div>
+<p>We substitute the uniform value <span class="arithmatex">\(U(k) = \frac{1}{K}\)</span> straight into the log term:</p>
+<div class="arithmatex">\[D_{\text{KL}}(P \parallel U) = \sum_{k=1}^{K} P_k \log_2\left( \frac{P_k}{1/K} \right) = \sum_{k=1}^{K} P_k \log_2\left( K \cdot P_k \right)\]</div>
+<p>We expand the logarithm using standard algebraic product properties:</p>
+<div class="arithmatex">\[D_{\text{KL}}(P \parallel U) = \sum_{k=1}^{K} P_k \Big( \log_2(P_k) + \log_2(K) \Big)\]</div>
+<p>We distribute the summation across both components:</p>
+<div class="arithmatex">\[D_{\text{KL}}(P \parallel U) = \sum_{k=1}^{K} P_k \log_2(P_k) + \sum_{k=1}^{K} P_k \log_2(K)\]</div>
+<p>Because <span class="arithmatex">\(\log_2(K)\)</span> is a constant scalar relative to the index <span class="arithmatex">\(k\)</span>, we pull it completely outside the summation. Additionally, because <span class="arithmatex">\(P\)</span> is a valid probability vector, its total coordinates sum to exactly unity (<span class="arithmatex">\(\sum P_k = 1.0\)</span>):</p>
+<div class="arithmatex">\[D_{\text{KL}}(P \parallel U) = \sum_{k=1}^{K} P_k \log_2(P_k) + \log_2(K) \underbrace{\sum_{k=1}^{K} P_k}_{1.0}\]</div>
+<div class="arithmatex">\[D_{\text{KL}}(P \parallel U) = \sum_{k=1}^{K} P_k \log_2(P_k) + \log_2(K)\]</div>
+<p>Finally, we substitute the canonical definition of Shannon Entropy (<span class="arithmatex">\(H(P) = -\sum P_k \log_2 P_k\)</span>) into this equation:</p>
+<div class="arithmatex">\[D_{\text{KL}}(P \parallel U) = -H(P) + \log_2(K) \quad \implies \quad H(P) = \log_2(K) - D_{\text{KL}}(P \parallel U)\]</div>
+<p>This completes the proof. Look at the beauty of this final identity: because <span class="arithmatex">\(\log_2(K)\)</span> is a fixed constant, <strong>minimizing the entropy of a region's class distribution is mathematically identical to maximizing its KL divergence away from a uniform state.</strong> The greedy optimizer forces child nodes to become as highly skewed and far away from uniform chaos as possible.</p>
+<h4 id="metric-2-gini-impurity">Metric 2: Gini Impurity</h4>
+<p>While entropy is theoretically elegant, computing logarithms (<span class="arithmatex">\(\log_2\)</span>) for millions of continuous candidate coordinates is computationally expensive on hardware processors. To eliminate this computational bottleneck, libraries frequently substitute a faster second-order metric known as <strong>Gini Impurity</strong>:</p>
+<div class="arithmatex">\[I_G(R_m) = \sum_{k=1}^{K} P_k (1 - P_k) = 1 - \sum_{k=1}^{K} P_k^2\]</div>
+<h4 id="the-random-misclassification-intuition">The Random Misclassification Intuition</h4>
+<p>Gini impurity tracks a clear physical probability scenario. Imagine you walk into a specific region <span class="arithmatex">\(R_m\)</span> and randomly pluck a sample from its pool. The probability that this sample belongs to class <span class="arithmatex">\(k\)</span> is exactly <span class="arithmatex">\(P_k\)</span>. Now, suppose you blindly assign a label to that sample by randomly sampling from the <em>exact same</em> regional class distribution. The probability that you incorrectly label that sample is <span class="arithmatex">\((1 - P_k)\)</span>.</p>
+<p>Summing this multiplication across all <span class="arithmatex">\(K\)</span> classes tracks the global probability that a randomly chosen point from the region would be incorrectly classified if it were randomly labeled according to the zone's distribution.</p>
+<p>[Image comparing entropy and gini impurity mathematical curves as a function of class probability]</p>
+<p>As shown in the curve profiles, both Entropy and Gini impurity reach their absolute peaks when classes are balanced uniformly, and fall to absolute zero when a single class dominates completely (a Dirac delta profile). Because both curves share near-identical optimization gradients across the space, <strong>they yield empirically identical spatial cuts.</strong> However, because Gini impurity replaces transcendental logarithms with basic multiplication and subtraction (<span class="arithmatex">\(1 - \sum P_k^2\)</span>), it runs significantly faster on digital CPUs, making it the industry standard default choice for frameworks like <code>scikit-learn</code>.</p>
+<hr />
+<h3 id="455-inference-architecture-leaf-state-distributions">45.5 Inference Architecture: Leaf State Distributions</h3>
+<p>Once our greedy recursive optimization loop has fully partitioned the data space down to a pre-selected depth limit, training stops, and we lock in our final tree architecture.</p>
+<p>During downstream inference, when a new, unseen testing sample coordinate <span class="arithmatex">\(\vec{x}_{\text{test}}\)</span> enters the system, it executes a <strong>Deterministic Traversal Pass</strong>. It begins at the root node, answers each axis-parallel threshold question sequentially, and travels down the branches until it lands in a terminal <strong>Leaf Node</strong> region.</p>
+<p>This terminal leaf node acts exactly like a localized <strong>Softmax State Matrix</strong>. It does not merely spit out a rigid classification label; it outputs a valid conditional probability distribution over classes based on the historical training samples that settled in that zone:</p>
+<div class="arithmatex">\[p(y = k \mid \vec{x}_{\text{test}}) = P_{k, \text{\,\,leaf}}\]</div>
+<p>If the testing sample lands in a leaf zone populated by 7 samples from Class A and 3 samples from Class B, the model outputs a probability vector of <span class="arithmatex">\([0.7, \,\, 0.3]\)</span>. To make a final hard discrete choice, we apply a standard argmax operation, assigning the sample to the class category that won the majority vote within that sub-region.</p>
+<hr />
+<h2 id="textbook-notes-core-reference-sheet">Textbook Notes Core Reference Sheet</h2>
+<h3 id="universal-tree-partitioning-protocol">Universal Tree Partitioning Protocol</h3>
+<div class="arithmatex">\[\text{Weighted Child Cost Function: } \quad \mathcal{L}(j, \,\, \tau) = \frac{N_L}{N_m} I(R_L) + \frac{N_R}{N_m} I(R_R)\]</div>
+<div class="arithmatex">\[\text{Shannon Entropy Metric: } \quad I_E(R_m) = -\sum_{k=1}^{K} P_k \log_2(P_k)\]</div>
+<div class="arithmatex">\[\text{Gini Impurity Metric: } \quad I_G(R_m) = 1 - \sum_{k=1}^{K} P_k^2\]</div>
+<hr />
+<h3 id="core-theoretical-milestones">Core Theoretical Milestones</h3>
+<ol>
+<li><strong>The Non-Parametric Framework:</strong> Decision trees let their structural complexity expand dynamically with the dataset size. They map out axis-parallel boundaries (<span class="arithmatex">\(X_j \leq \tau\)</span>) to partition high-dimensional space into regular hyper-rectangles without relying on a fixed parameter vector format beforehand.</li>
+<li><strong>The Greedy Optimization Constraint:</strong> Because evaluating all possible permutations of spatial cuts across arbitrary depths is an NP-complete problem, tree algorithms leverage a top-down greedy optimization framework, selecting locally optimal cuts at each step without backtracking.</li>
+<li><strong>The Information-Theoretic Equivalence:</strong> The mathematical ceiling of Shannon Entropy maps directly to a region's KL divergence from uniform chaos (<span class="arithmatex">\(H(P) = \log_2(K) - D_{\text{KL}}(P \parallel U)\)</span>). Minimizing entropy forces the greedy optimizer to isolate highly skewed, pure class distributions where a single category dominates the sub-manifold.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

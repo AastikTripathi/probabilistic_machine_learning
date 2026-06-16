@@ -1,0 +1,3057 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture59/">
+      
+      
+        <link rel="next" href="../lecture61/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture60 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture60
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-45-mixture-densities-topological-quantization-and-the-limiting-derivation-of-hard-k-means-from-isotropic-gmms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 45: Mixture Densities, Topological Quantization, and the Limiting Derivation of Hard K-Means from Isotropic GMMs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 45: Mixture Densities, Topological Quantization, and the Limiting Derivation of Hard K-Means from Isotropic GMMs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#451-the-latent-continuum-posteriors-as-structural-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.1 The Latent Continuum: Posteriors as Structural Maps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#452-soft-topological-quantization-gaussian-mixture-models-gmm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.2 Soft Topological Quantization: Gaussian Mixture Models (GMM)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="45.2 Soft Topological Quantization: Gaussian Mixture Models (GMM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-variable-typing-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Variable Typing Ledger:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-expectation-maximization-em-sub-routine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Expectation-Maximization (EM) Sub-Routine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-soft-clustering-footprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Soft Clustering Footprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#453-hard-topological-quantization-the-isotropic-dirac-collapse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.3 Hard Topological Quantization: The Isotropic Dirac Collapse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#454-the-derived-k-means-algorithmic-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.4 The Derived K-Means Algorithmic Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="45.4 The Derived K-Means Algorithmic Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-expectation-step-hard-voronoi-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: The Expectation Step (Hard Voronoi Assignment)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-the-maximization-step-arithmetic-centroid-realignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: The Maximization Step (Arithmetic Centroid Realignment)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operational-synchronization-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational Synchronization Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#455-non-linear-manifolds-the-kernelized-k-means-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.5 Non-Linear Manifolds: The Kernelized K-Means Extension
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#456-the-semantics-of-representation-bias-supervised-vs-unsupervised-partitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.6 The Semantics of Representation Bias: Supervised vs. Unsupervised Partitions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="45.6 The Semantics of Representation Bias: Supervised vs. Unsupervised Partitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-mnist-failure-mode-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The MNIST Failure Mode Analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-unsupervised-marginal-defense" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Unsupervised Marginal Defense
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-isotropic-gmm-mathematical-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Isotropic GMM Mathematical Expansion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-kernelized-k-means-distance-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Kernelized K-Means Distance Target
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-45-mixture-densities-topological-quantization-and-the-limiting-derivation-of-hard-k-means-from-isotropic-gmms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 45: Mixture Densities, Topological Quantization, and the Limiting Derivation of Hard K-Means from Isotropic GMMs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 45: Mixture Densities, Topological Quantization, and the Limiting Derivation of Hard K-Means from Isotropic GMMs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#451-the-latent-continuum-posteriors-as-structural-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.1 The Latent Continuum: Posteriors as Structural Maps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#452-soft-topological-quantization-gaussian-mixture-models-gmm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.2 Soft Topological Quantization: Gaussian Mixture Models (GMM)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="45.2 Soft Topological Quantization: Gaussian Mixture Models (GMM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-variable-typing-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Variable Typing Ledger:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-expectation-maximization-em-sub-routine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Expectation-Maximization (EM) Sub-Routine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-soft-clustering-footprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Soft Clustering Footprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#453-hard-topological-quantization-the-isotropic-dirac-collapse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.3 Hard Topological Quantization: The Isotropic Dirac Collapse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#454-the-derived-k-means-algorithmic-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.4 The Derived K-Means Algorithmic Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="45.4 The Derived K-Means Algorithmic Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-expectation-step-hard-voronoi-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: The Expectation Step (Hard Voronoi Assignment)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-the-maximization-step-arithmetic-centroid-realignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: The Maximization Step (Arithmetic Centroid Realignment)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operational-synchronization-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational Synchronization Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#455-non-linear-manifolds-the-kernelized-k-means-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.5 Non-Linear Manifolds: The Kernelized K-Means Extension
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#456-the-semantics-of-representation-bias-supervised-vs-unsupervised-partitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.6 The Semantics of Representation Bias: Supervised vs. Unsupervised Partitions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="45.6 The Semantics of Representation Bias: Supervised vs. Unsupervised Partitions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-mnist-failure-mode-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The MNIST Failure Mode Analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-unsupervised-marginal-defense" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Unsupervised Marginal Defense
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-isotropic-gmm-mathematical-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Isotropic GMM Mathematical Expansion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-kernelized-k-means-distance-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Kernelized K-Means Distance Target
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-45-mixture-densities-topological-quantization-and-the-limiting-derivation-of-hard-k-means-from-isotropic-gmms">Chapter 45: Mixture Densities, Topological Quantization, and the Limiting Derivation of Hard K-Means from Isotropic GMMs</h2>
+<hr />
+<h3 id="451-the-latent-continuum-posteriors-as-structural-maps">45.1 The Latent Continuum: Posteriors as Structural Maps</h3>
+<p>In Chapter 44, we completed our rigorous exploration of non-parametric ensembles, unrolling the exact functional calculus behind gradient-driven boosting networks. We now return to <strong>Unsupervised Topologies</strong>, expanding the latent variable frameworks introduced in Chapter 43 into concrete, deployable coordinate partition systems.</p>
+<p>Recall our core definition of an unsupervised learning engine: it is the systematic estimation of the global marginal distribution <span class="arithmatex">\(P(X)\)</span> over an observed training dataset <span class="arithmatex">\(D\)</span>, bypassing the need for an external target label variable <span class="arithmatex">\(Y\)</span>. To capture complex, multi-modal data manifolds, we factor our model marginal distribution through a hidden <strong>Latent Variable space (<span class="arithmatex">\(\mathbb{Z}\)</span>)</strong>:</p>
+<div class="arithmatex">\[P_{\vec{\theta}}(\vec{x}) = \int_{\mathbb{Z}} P_{\vec{\theta}}(\vec{x}, \,\, \vec{z}) \, d\vec{z} \quad \sim \quad P_{\vec{\theta}}(\vec{x}) = \sum_{\vec{z} \in \mathbb{Z}} P_{\vec{\theta}}(\vec{x}, \,\, \vec{z})\]</div>
+<p>Once this global marginal identity is optimized via Empirical Risk Minimization (ERM), we exploit its mathematical structure by deriving the <strong>Bayesian Posterior Distribution <span class="arithmatex">\(P_{\vec{\theta}}(Z \mid X)\)</span></strong>:</p>
+<div class="arithmatex">\[P_{\vec{\theta}}(\vec{z} \mid \vec{x}) = \frac{P_{\vec{\theta}}(\vec{x} \mid \vec{z})P(\vec{z})}{P_{\vec{\theta}}(\vec{x})}\]</div>
+<p>The categorical blueprint of our unsupervised algorithm depends entirely on the topological definition of this hidden space:</p>
+<ul>
+<li><strong>Continuous Latent Spaces (<span class="arithmatex">\(\mathbb{Z} \in \mathbb{R}^M\)</span>):</strong> Computing the posterior mode maps coordinates into the domain of <strong>Continuous Representation Learning, Feature Extraction, or Embedding Generation</strong>. This path preserves continuous distance metrics across low-dimensional bottleneck sub-manifolds.</li>
+<li><strong>Discrete Latent Spaces (<span class="arithmatex">\(\mathbb{Z} \in \{1, \,\, 2, \,\, \dots, \,\, M\}\)</span>):</strong> Computing the posterior distribution maps coordinates directly into a <strong>Clustering Framework</strong>. The hidden states act as discrete partition zones that segment the data space.</li>
+</ul>
+<hr />
+<h3 id="452-soft-topological-quantization-gaussian-mixture-models-gmm">45.2 Soft Topological Quantization: Gaussian Mixture Models (GMM)</h3>
+<p>Let us unroll the exact mathematical physics of a discrete latent variable model configured as a <strong>Gaussian Mixture Model (GMM)</strong>. We define a discrete latent variable <span class="arithmatex">\(Z\)</span> capable of plucking one out of <span class="arithmatex">\(M\)</span> total constituent groups, where each group index is governed by a categorical prior parameter <span class="arithmatex">\(\alpha_m\)</span>:</p>
+<div class="arithmatex">\[P(z = m) = \alpha_m \quad \text{such that} \quad \sum_{m=1}^{M} \alpha_m = 1.0 \quad \text{and} \quad \alpha_m \geq 0\]</div>
+<p>Conditional on selecting a specific hidden component index <span class="arithmatex">\(m\)</span>, the raw data coordinates are modeled as manifesting from an unconstrained multivariate Gaussian distribution characterized by a localized mean vector <span class="arithmatex">\(\vec{\mu}_m\)</span> and a covariance matrix <span class="arithmatex">\(\mathbf{\Sigma}_m\)</span>:</p>
+<div class="arithmatex">\[P_{\vec{\theta}}(\vec{x} \mid z = m) = \mathcal{N}\left(\vec{x}; \,\, \vec{\mu}_m, \,\, \mathbf{\Sigma}_m\right) = \frac{1}{(2\pi)^{D/2} |\mathbf{\Sigma}_m|^{1/2}} \exp\left( -\frac{1}{2} (\vec{x} - \vec{\mu}_m)^T \mathbf{\Sigma}_m^{-1} \vec{x} - \vec{\mu}_m) \right)\]</div>
+<h4 id="precise-variable-typing-ledger">Precise Variable Typing Ledger:</h4>
+<ul>
+<li><span class="arithmatex">\(\vec{x} \in \mathbb{R}^{D \times 1}\)</span>: The observed high-dimensional data vector containing <span class="arithmatex">\(D\)</span> continuous features.</li>
+<li><span class="arithmatex">\(M \in \mathbb{N}\)</span>: The structural hyperparameter tracking the total count of allowed constituent clusters.</li>
+<li><span class="arithmatex">\(\vec{\mu}_m \in \mathbb{R}^{D \times 1}\)</span>: The geometric centroid vector of the <span class="arithmatex">\(m\)</span>-th Gaussian component density.</li>
+<li><span class="arithmatex">\(\mathbf{\Sigma}_m \in \mathbb{R}^{D \times D}\)</span>: The full positive-definite covariance matrix controlling the spatial orientation and multi-dimensional spread of component <span class="arithmatex">\(m\)</span>.</li>
+<li><span class="arithmatex">\(\vec{\theta} = \{ \alpha_1 \dots \alpha_M, \,\, \vec{\mu}_1 \dots \vec{\mu}_M, \,\, \mathbf{\Sigma}_1 \dots \mathbf{\Sigma}_M \}\)</span>: The unified global parameter ledger.</li>
+</ul>
+<p>We expand our global marginal density by summing across this discrete component bank:</p>
+<div class="arithmatex">\[P_{\vec{\theta}}(\vec{x}) = \sum_{m=1}^{M} \alpha_m \mathcal{N}\left(\vec{x}; \,\, \vec{\mu}_m, \,\, \mathbf{\Sigma}_m\right)\]</div>
+<h4 id="the-expectation-maximization-em-sub-routine">The Expectation-Maximization (EM) Sub-Routine</h4>
+<p>Because our data matrix <span class="arithmatex">\(\mathbf{X}\)</span> lacks explicit label assignments pinpointing which specific cluster generated each row, we cannot solve for <span class="arithmatex">\(\vec{\theta}\)</span> using simple closed-form maximum likelihood equations. We optimize the parameter space iteratively using the <strong>Expectation-Maximization (EM) Algorithm</strong>.</p>
+<p>During each execution loop, the engine alternates between calculating fractional hidden coordinate distributions (the E-Step responsibilities) and maximizing our global Expected Lower Bound (ELBO) matrix to update our structural parameter positions (the M-Step):</p>
+<div class="arithmatex">\[\text{E-Step (Responsibility Mapping):} \quad \gamma_{im} = P_{\vec{\theta}}(z = m \mid \vec{x}_i) = \frac{\alpha_m \mathcal{N}\left(\vec{x}_i; \,\, \vec{\mu}_m, \,\, \mathbf{\Sigma}_m\right)}{\sum_{j=1}^{M} \alpha_j \mathcal{N}\left(\vec{x}_i; \,\, \vec{\mu}_j, \,\, \mathbf{\Sigma}_j\right)}\]</div>
+<div class="arithmatex">\[\text{M-Step (Centroid Realignment):} \quad \vec{\mu}_m^{\text{\,\,new}} = \frac{\sum_{i=1}^n \gamma_{im} \vec{x}_i}{\sum_{i=1}^n \gamma_{im}}\]</div>
+<h4 id="the-soft-clustering-footprint">The Soft Clustering Footprint</h4>
+<p>Once these parameters settle, feeding an un-labeled test coordinate <span class="arithmatex">\(\vec{x}\)</span> into our posterior engine outputs an <span class="arithmatex">\(M\)</span>-dimensional categorical distribution vector. We classify this as <strong>Soft Clustering</strong>.</p>
+<p>Because a standard Gaussian distribution possesses infinite mathematical support across Euclidean space (<span class="arithmatex">\(\mathbb{R}^D\)</span>), every component density overlaps. Consequently, the posterior vector assigns a non-zero fractional probability to every single cluster slot simultaneously. The model tracks a continuous gradient of regional responsibility, declaring that a sample belongs to cluster 1 with <span class="arithmatex">\(70\%\)</span> probability and cluster 2 with <span class="arithmatex">\(30\%\)</span> probability.</p>
+<hr />
+<h3 id="453-hard-topological-quantization-the-isotropic-dirac-collapse">45.3 Hard Topological Quantization: The Isotropic Dirac Collapse</h3>
+<p>While tracking continuous soft responsibilities provides exceptional probabilistic expressivity, practical software architectures often require a definitive, discrete coordinate allocation. We define this paradigm as <strong>Hard Clustering</strong>. Under this setup, a sample must be locked completely to a single isolated cluster category, forcing the posterior distribution to collapse into a rigid <strong>Dirac Delta Distribution</strong>:</p>
+<div class="arithmatex">\[P_{\vec{\theta}}(z = m \mid \vec{x}_i) \in \{0, \,\, 1\} \quad \text{such that} \quad \gamma_{im} = 1.0 \quad \text{for exactly one slot } m^*\]</div>
+<p>To force a standard GMM to natively generate this hard, non-overlapping spatial partition by construction, we must enforce an aggressive <strong>Isotropic Structural Prior constraint</strong> on our component covariance matrices.</p>
+<p>Let us lock every component covariance matrix to a uniform, spherical identity structure scaled by a single, shared scalar variance parameter <span class="arithmatex">\(\sigma^2\)</span>:</p>
+<div class="arithmatex">\[\mathbf{\Sigma}_m = \sigma^2 \mathbf{I} \quad \forall \quad m \in \{1, \,\, 2, \,\, \dots, \,\, M\}\]</div>
+<p>We unroll our structural component equation under this isotropic identity constraint:</p>
+<div class="arithmatex">\[\mathcal{N}\left(\vec{x}_i; \,\, \vec{\mu}_m, \,\, \sigma^2 \mathbf{I}\right) = \frac{1}{(2\pi\sigma^2)^{D/2}} \exp\left( -\frac{\|\vec{x}_i - \vec{\mu}_m\|_2^2}{2\sigma^2} \right)\]</div>
+<p>We substitute this isotropic equation directly back into our E-step posterior responsibility mapping formula to evaluate how individual coordinates behave:</p>
+<div class="arithmatex">\[\gamma_{im} = \frac{\alpha_m \frac{1}{(2\pi\sigma^2)^{D/2}} \exp\left( -\frac{\|\vec{x}_i - \vec{\mu}_m\|_2^2}{2\sigma^2} \right)}{\sum_{j=1}^{M} \alpha_j \frac{1}{(2\pi\sigma^2)^{D/2}} \exp\left( -\frac{\|\vec{x}_i - \vec{\mu}_j\|_2^2}{2\sigma^2} \right)}\]</div>
+<p>We cancel out the shared multi-dimensional scale denominators operating uniformly across both the numerator and the denominator:</p>
+<div class="arithmatex">\[\gamma_{im} = \frac{\alpha_m \exp\left( -\frac{\|\vec{x}_i - \vec{\mu}_m\|_2^2}{2\sigma^2} \right)}{\sum_{j=1}^{M} \alpha_j \exp\left( -\frac{\|\vec{x}_i - \vec{\mu}_j\|_2^2}{2\sigma^2} \right)}\]</div>
+<p>Now, we analyze the limiting behavior of this coordinate map as we force our shared variance parameter to shrink down to an infinitesimally small, near-zero boundary (<span class="arithmatex">\(\sigma^2 \to 0\)</span>):</p>
+<div class="arithmatex">\[\lim_{\sigma^2 \to 0} \gamma_{im} = \lim_{\sigma^2 \to 0} \frac{\alpha_m \exp\left( -\frac{\|\vec{x}_i - \vec{\mu}_m\|_2^2}{2\sigma^2} \right)}{\sum_{j=1}^{M} \alpha_j \exp\left( -\frac{\|\vec{x}_i - \vec{\mu}_j\|_2^2}{2\sigma^2} \right)}\]</div>
+<p>Look closely at the mathematics of this limit. The terms inside the exponentials are driven by negative quotients scaled by <span class="arithmatex">\(\frac{1}{\sigma^2}\)</span>. As <span class="arithmatex">\(\sigma^2\)</span> vanishes, the exponent components explode toward negative infinity, forcing the overall exponential terms to race toward zero.</p>
+<p>However, the velocity of this decay is governed entirely by the numerator term: the squared <strong>Euclidean Distance (<span class="arithmatex">\(\|\vec{x}_i - \vec{\mu}\|_2^2\)</span>)</strong>.</p>
+<p>Let <span class="arithmatex">\(m^*\)</span> denote the specific component index that sits physically closest to our data point coordinate <span class="arithmatex">\(\vec{x}_i\)</span> in our vector space:</p>
+<div class="arithmatex">\[m^* = \arg\min_{j \in \{1 \dots M\}} \|\vec{x}_i - \vec{\mu}_j\|_2^2\]</div>
+<p>If we divide both the numerator and denominator by the dominant exponential term associated with this closest centroid (<span class="arithmatex">\(\exp( -\|\vec{x}_i - \vec{\mu}_{m^*}\|_2^2 / 2\sigma^2 )\)</span>), all neighboring component ratios collapse straight to absolute zero because their larger spatial distances force an infinitely faster exponential decay. This isolates a clean binary limit statement:</p>
+<div class="arithmatex">\[\lim_{\sigma^2 \to 0} \gamma_{im} = \begin{cases} 1.0 &amp; \text{if } m = \arg\min_j \|\vec{x}_i - \vec{\mu}_j\|_2^2 \\ 0.0 &amp; \text{otherwise} \end{cases}\]</div>
+<p>This completes our foundational derivation. By locking our mixture model components to isotropic structures and forcing the variance to zero, the continuous soft responsibilities of our EM algorithm undergo an absolute phase transition. The overlapping densities collapse into rigid boundaries, giving rise to the classic hard assignment rules of the <strong>K-Means Clustering Algorithm</strong>.</p>
+<hr />
+<h3 id="454-the-derived-k-means-algorithmic-protocol">45.4 The Derived K-Means Algorithmic Protocol</h3>
+<p>By unrolling this isotropic limit case, the standard loops of the EM algorithm simplify into the two alternating steps of the non-parametric K-Means pipeline.</p>
+<h4 id="step-1-the-expectation-step-hard-voronoi-assignment">Step 1: The Expectation Step (Hard Voronoi Assignment)</h4>
+<p>The continuous responsibility matrix collapses into an absolute binary assignment gate. The engine loops across all <span class="arithmatex">\(n\)</span> training data rows, calculating the exact Euclidean distance from each sample to all <span class="arithmatex">\(M\)</span> current cluster centroids. It assigns each observation exclusively to its closest centroid set <span class="arithmatex">\(S_m\)</span>:</p>
+<div class="arithmatex">\[S_m = \left\{ \vec{x}_i \in D \,\,\Big|\,\, m = \arg\min_{j \in \{1 \dots M\}} \|\vec{x}_i - \vec{\mu}_j\|_2^2 \right\}\]</div>
+<p>This step draws a system of hard geometric boundaries across the data manifold, partitioning the feature space into non-overlapping cells known as a <strong>Voronoi Tessellation</strong>.</p>
+<h4 id="step-2-the-maximization-step-arithmetic-centroid-realignment">Step 2: The Maximization Step (Arithmetic Centroid Realignment)</h4>
+<p>Once every sample is mapped to a discrete cell, the parameter optimization step runs. Because responsibilities are strictly binary (<span class="arithmatex">\(\gamma_{im} \in \{0, 1\}\)</span>), the soft GMM matrix equations collapse into a clean <strong>Arithmetic Sample Mean calculation</strong>.</p>
+<p>The position of each cluster centroid <span class="arithmatex">\(\vec{\mu}_m\)</span> is updated by averaging the coordinates of all training observations that were routed into its Voronoi cell during the assignment phase:</p>
+<div class="arithmatex">\[\vec{\mu}_m = \frac{1}{|S_m|} \sum_{\vec{x}_i \in S_m} \vec{x}_i\]</div>
+<h4 id="operational-synchronization-ledger">Operational Synchronization Ledger</h4>
+<p>We map these derived operational steps directly back onto our primary Expectation-Maximization framework:</p>
+<table>
+<thead>
+<tr>
+<th>EM Component Axis</th>
+<th>Isotropic Density Limit Condition (<span class="arithmatex">\(\sigma^2 \to 0\)</span>)</th>
+<th>Streamlined K-Means Execution Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>The E-Step</strong></td>
+<td>Responsibilities collapse from smooth probabilities to Dirac delta indicators (<span class="arithmatex">\(\gamma_{im} \to \{0, 1\}\)</span>).</td>
+<td>Hard Voronoi Assignment over the nearest Euclidean distance centroids: <span class="arithmatex">\(\arg\min_j \|\vec{x}_i - \vec{\mu}_j\|_2\)</span>.</td>
+</tr>
+<tr>
+<td><strong>The M-Step</strong></td>
+<td>The parameter updates drop the soft fractional scaling weights completely.</td>
+<td>Closed-form arithmetic realignment of centroids over active partition sets: $\frac{1}{</td>
+</tr>
+<tr>
+<td><strong>Convergence</strong></td>
+<td>Guarantees that the global log-likelihood lower bound matrix monotonically ascends.</td>
+<td>Guarantees that the Within-Cluster Sum of Squares (WCSS) distortion metric monotonically decreases.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="455-non-linear-manifolds-the-kernelized-k-means-extension">45.5 Non-Linear Manifolds: The Kernelized K-Means Extension</h3>
+<p>Because the standard K-Means algorithm evaluates spatial proximity using raw Euclidean distances (<span class="arithmatex">\(\|\vec{x}_i - \vec{\mu}_j\|_2^2\)</span>), it possesses a hard geometric limitation: <strong>it can only isolate linearly separable, spherical cluster volumes.</strong> If a dataset is distributed along a complex non-linear manifold—such as two concentric rings or entangled sinusoidal waves—K-Means fails completely, cutting straight across the structural paths.</p>
+<p>To bypass this linear boundary without abandoning our fast quantization algorithm, we deploy <strong>Kernelized K-Means</strong>. We map our raw features into an expanded Hilbert feature space <span class="arithmatex">\(Z\)</span> using a non-linear coordinate transformation mapping function <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span>:</p>
+<div class="arithmatex">\[\vec{\phi}(\vec{x}): \mathbb{R}^D \to Z\]</div>
+<p>Let us evaluate our assignment distance equation within this high-dimensional feature domain:</p>
+<div class="arithmatex">\[\|\vec{\phi}(\vec{x}_i) - \vec{\mu}_m^{\,\,\phi}\|_2^2 = \vec{\phi}(\vec{x}_i) \cdot \vec{\phi}(\vec{x}_i) - 2 \vec{\phi}(\vec{x}_i) \cdot \vec{\mu}_m^{\,\,\phi} + \vec{\mu}_m^{\,\,\phi} \cdot \vec{\mu}_m^{\,\,\phi}\]</div>
+<p>We substitute our M-step arithmetic centroid update equation (<span class="arithmatex">\(\vec{\mu}_m^{\,\,\phi} = \frac{1}{|S_m|} \sum_{\vec{x}_k \in S_m} \vec{\phi}(\vec{x}_k)\)</span>) directly into this inner product expansion:</p>
+<div class="arithmatex">\[\|\vec{\phi}(\vec{x}_i) - \vec{\mu}_m^{\,\,\phi}\|_2^2 = \vec{\phi}(\vec{x}_i) \cdot \vec{\phi}(\vec{x}_i) - \frac{2}{|S_m|} \sum_{\vec{x}_k \in S_m} \vec{\phi}(\vec{x}_i) \cdot \vec{\phi}(\vec{x}_k) + \frac{1}{|S_m|^2} \sum_{\vec{x}_k \in S_m} \sum_{\vec{x}_l \in S_m} \vec{\phi}(\vec{x}_k) \cdot \vec{\phi}(\vec{x}_l)\]</div>
+<p>Look at the structure of this expanded equation. Every single vector transformation has assembled into a clean <strong>dot product pair</strong> (<span class="arithmatex">\(\vec{\phi}(\cdot) \cdot \vec{\phi}(\cdot)\)</span>). This means we can deploy the <strong>Kernel Trick</strong> derived in Chapter 33, replacing every high-dimensional inner product with a localized evaluation of a Mercer Kernel function <span class="arithmatex">\(K(\vec{x}_i, \vec{x}_j)\)</span>:</p>
+<div class="arithmatex">\[\|\vec{\phi}(\vec{x}_i) - \vec{\mu}_m^{\,\,\phi}\|_2^2 = K(\vec{x}_i, \,\, \vec{x}_i) - \frac{2}{|S_m|} \sum_{\vec{x}_k \in S_m} K(\vec{x}_i, \,\, \vec{x}_k) + \frac{1}{|S_m|^2} \sum_{\vec{x}_k \in S_m} \sum_{\vec{x}_l \in S_m} K(\vec{x}_k, \,\, \vec{x}_l)\]</div>
+<p>This is a beautiful result. It proves that we can execute K-Means clustering over immensely complex, non-linear manifolds without ever calculating the explicit high-dimensional coordinate mapping <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span> directly. As long as we can define a valid kernel matrix over our data rows, the engine can compute exact hard assignments and track non-linear clusters flawlessly.</p>
+<hr />
+<h3 id="456-the-semantics-of-representation-bias-supervised-vs-unsupervised-partitions">45.6 The Semantics of Representation Bias: Supervised vs. Unsupervised Partitions</h3>
+<p>To conclude this chapter, we analyze the core difference between <strong>Implicit Latent Variable Models</strong> built via supervised networks versus those optimized via unsupervised marginal goals.</p>
+<p>Every layer inside a deep neural network functions as a coordinate projection engine that shapes an internal hidden representation space <span class="arithmatex">\(\vec{z}\)</span>. However, if you train a deep network (like a multi-layer MLP) on a supervised task, <strong>the learned representation coordinates are heavily constrained by the specific semantics of the training labels.</strong></p>
+<p>[Image contrasting supervised classification partitions vs unsupervised marginal clustering geometry]</p>
+<h4 id="the-mnist-failure-mode-analysis">The MNIST Failure Mode Analysis</h4>
+<p>To visualize this limitation, consider the standard MNIST handwritten digit dataset. Suppose you train a deep classifier to predict the raw digit category (<span class="arithmatex">\(Y \in \{0 \dots 9\}\)</span>).</p>
+<ul>
+<li><strong>The Supervised Representation Landscape:</strong> The network optimizes its early layers to isolate features that separate digit identity (e.g., detecting the closed loop that isolates a <code>0</code> from a <code>1</code>). During this process, it deliberately erases any feature variation that is irrelevant to the target labels—such as the image's rotation, stroke thickness, or line orientation.</li>
+</ul>
+<p>If you freeze this model, tap its intermediate hidden layers to extract embeddings, and try to use those features to solve a new downstream task—such as classifying the <em>angle of orientation</em> of the writing—the model fails completely. The features required to track orientation were discarded as non-target noise during the initial supervised training loop.</p>
+<h4 id="the-unsupervised-marginal-defense">The Unsupervised Marginal Defense</h4>
+<p>Unsupervised latent variable models completely avoid this representation bias. Because an unsupervised architecture is optimized to estimate the absolute global marginal distribution <span class="arithmatex">\(P(X)\)</span>, <strong>the model is forced to preserve the entire structural topology of the data manifold.</strong> By mapping the data coordinates without relying on a pre-selected labeling scheme, the resulting continuous embeddings (<span class="arithmatex">\(\vec{z}\)</span>) capture a comprehensive structural summary of the input features. This makes unsupervised representations highly robust and versatile, allowing them to easily scale and transfer to support diverse, unannounced downstream tasks in production environments.</p>
+<hr />
+<h2 id="textbook-notes-core-reference-sheet">Textbook Notes Core Reference Sheet</h2>
+<h3 id="the-isotropic-gmm-mathematical-expansion">The Isotropic GMM Mathematical Expansion</h3>
+<div class="arithmatex">\[P(\vec{x}_i \mid \vec{\mu}_m, \,\, \sigma^2 \mathbf{I}) = \frac{1}{(2\pi\sigma^2)^{D/2}} \exp\left( -\frac{\|\vec{x}_i - \vec{\mu}_m\|_2^2}{2\sigma^2} \right)\]</div>
+<div class="arithmatex">\[\lim_{\sigma^2 \to 0} \gamma_{im} = \begin{cases} 1.0 &amp; \text{if } m = \arg\min_j \|\vec{x}_i - \vec{\mu}_j\|_2^2 \\ 0.0 &amp; \text{otherwise} \end{cases}\]</div>
+<hr />
+<h3 id="the-kernelized-k-means-distance-target">The Kernelized K-Means Distance Target</h3>
+<div class="arithmatex">\[\mathcal{D}_{\phi}(\vec{x}_i, \,\, S_m) = K(\vec{x}_i, \,\, \vec{x}_i) - \frac{2}{|S_m|} \sum_{\vec{x}_k \in S_m} K(\vec{x}_i, \,\, \vec{x}_k) + \frac{1}{|S_m|^2} \sum_{\vec{x}_k \in S_m} \sum_{\vec{x}_l \in S_m} K(\vec{x}_k, \,\, \vec{x}_l)\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

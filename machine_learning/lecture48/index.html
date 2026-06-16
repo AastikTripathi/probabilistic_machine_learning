@@ -1,0 +1,3004 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture47/">
+      
+      
+        <link rel="next" href="../lecture49/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture48 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture48
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-41-scaled-dot-product-attention-numerical-stability-envelopes-and-global-matrix-unrolling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 41: Scaled Dot-Product Attention, Numerical Stability Envelopes, and Global Matrix Unrolling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 41: Scaled Dot-Product Attention, Numerical Stability Envelopes, and Global Matrix Unrolling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411-dot-product-attention-calculus-for-a-single-token-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        41.1 Dot-Product Attention Calculus for a Single Token Node
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="41.1 Dot-Product Attention Calculus for a Single Token Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-dimensional-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Dimensional Verification:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412-the-variance-stabilization-factor-scaling-the-subspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        41.2 The Variance Stabilization Factor: Scaling the Subspace
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="41.2 The Variance Stabilization Factor: Scaling the Subspace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-numerical-physics-of-softmax-saturation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Numerical Physics of Softmax Saturation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#413-normalization-and-value-payload-blending" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        41.3 Normalization and Value Payload Blending
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#414-global-matrix-unrolling-the-parallel-attention-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        41.4 Global Matrix Unrolling: The Parallel Attention Block
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#415-comprehensive-breakdown-of-the-optimization-paradigm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        41.5 Comprehensive Breakdown of the Optimization Paradigm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="41.5 Comprehensive Breakdown of the Optimization Paradigm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#question-1-what-is-the-structural-necessity-of-maintaining-three-separate-matrices-mathbfw_q-mathbfw_k-mathbfw_v-could-we-operate-using-the-raw-data-matrix-mathbfx-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 1: What is the structural necessity of maintaining three separate matrices (\(\mathbf{W}_Q, \mathbf{W}_K, \mathbf{W}_V\))? Could we operate using the raw data matrix \(\mathbf{X}\) directly?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-2-does-a-token-include-its-own-index-during-the-attention-summation-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 2: Does a token include its own index during the attention summation loop?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-3-why-do-we-use-the-final-attention-matrix-multiplication-mathbfamathbfv-to-blend-value-vectors-why-not-skip-this-step-and-use-the-raw-routing-coefficients-vecalpha-directly-as-our-data-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 3: Why do we use the final attention matrix multiplication (\(\mathbf{A}\mathbf{V}\)) to blend value vectors? Why not skip this step and use the raw routing coefficients (\(\vec{\alpha}\)) directly as our data representation?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-4-how-does-this-pure-attention-framework-eliminate-the-vanishing-gradient-problem-without-relying-on-complex-recurrent-gates-like-those-in-lstms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 4: How does this pure attention framework eliminate the vanishing gradient problem without relying on complex recurrent gates like those in LSTMs?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-5-how-does-a-transformer-handle-varying-sequence-lengths-t-across-different-training-samples-if-it-lacks-temporal-recurrence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 5: How does a Transformer handle varying sequence lengths (\(T\)) across different training samples if it lacks temporal recurrence?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-6-is-the-attention-block-completely-linear-how-does-it-satisfy-the-universal-approximation-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 6: Is the attention block completely linear? How does it satisfy the Universal Approximation Theorem?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-master-formula-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Master Formula Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Master Formula Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-universal-token-wise-attention-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Universal Token-Wise Attention Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-global-parallelized-matrix-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Global Parallelized Matrix Equation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-41-scaled-dot-product-attention-numerical-stability-envelopes-and-global-matrix-unrolling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 41: Scaled Dot-Product Attention, Numerical Stability Envelopes, and Global Matrix Unrolling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 41: Scaled Dot-Product Attention, Numerical Stability Envelopes, and Global Matrix Unrolling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411-dot-product-attention-calculus-for-a-single-token-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        41.1 Dot-Product Attention Calculus for a Single Token Node
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="41.1 Dot-Product Attention Calculus for a Single Token Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-dimensional-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Dimensional Verification:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412-the-variance-stabilization-factor-scaling-the-subspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        41.2 The Variance Stabilization Factor: Scaling the Subspace
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="41.2 The Variance Stabilization Factor: Scaling the Subspace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-numerical-physics-of-softmax-saturation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Numerical Physics of Softmax Saturation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#413-normalization-and-value-payload-blending" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        41.3 Normalization and Value Payload Blending
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#414-global-matrix-unrolling-the-parallel-attention-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        41.4 Global Matrix Unrolling: The Parallel Attention Block
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#415-comprehensive-breakdown-of-the-optimization-paradigm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        41.5 Comprehensive Breakdown of the Optimization Paradigm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="41.5 Comprehensive Breakdown of the Optimization Paradigm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#question-1-what-is-the-structural-necessity-of-maintaining-three-separate-matrices-mathbfw_q-mathbfw_k-mathbfw_v-could-we-operate-using-the-raw-data-matrix-mathbfx-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 1: What is the structural necessity of maintaining three separate matrices (\(\mathbf{W}_Q, \mathbf{W}_K, \mathbf{W}_V\))? Could we operate using the raw data matrix \(\mathbf{X}\) directly?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-2-does-a-token-include-its-own-index-during-the-attention-summation-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 2: Does a token include its own index during the attention summation loop?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-3-why-do-we-use-the-final-attention-matrix-multiplication-mathbfamathbfv-to-blend-value-vectors-why-not-skip-this-step-and-use-the-raw-routing-coefficients-vecalpha-directly-as-our-data-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 3: Why do we use the final attention matrix multiplication (\(\mathbf{A}\mathbf{V}\)) to blend value vectors? Why not skip this step and use the raw routing coefficients (\(\vec{\alpha}\)) directly as our data representation?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-4-how-does-this-pure-attention-framework-eliminate-the-vanishing-gradient-problem-without-relying-on-complex-recurrent-gates-like-those-in-lstms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 4: How does this pure attention framework eliminate the vanishing gradient problem without relying on complex recurrent gates like those in LSTMs?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-5-how-does-a-transformer-handle-varying-sequence-lengths-t-across-different-training-samples-if-it-lacks-temporal-recurrence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 5: How does a Transformer handle varying sequence lengths (\(T\)) across different training samples if it lacks temporal recurrence?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#question-6-is-the-attention-block-completely-linear-how-does-it-satisfy-the-universal-approximation-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question 6: Is the attention block completely linear? How does it satisfy the Universal Approximation Theorem?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-master-formula-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Master Formula Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Master Formula Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-universal-token-wise-attention-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Universal Token-Wise Attention Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-global-parallelized-matrix-equation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Global Parallelized Matrix Equation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-41-scaled-dot-product-attention-numerical-stability-envelopes-and-global-matrix-unrolling">Chapter 41: Scaled Dot-Product Attention, Numerical Stability Envelopes, and Global Matrix Unrolling</h2>
+<hr />
+<h3 id="411-dot-product-attention-calculus-for-a-single-token-node">41.1 Dot-Product Attention Calculus for a Single Token Node</h3>
+<p>In Chapter 40, we established the architectural rationale for transitioning away from sequential recurrent loops, formalizing the linear projection of our global input matrix <span class="arithmatex">\(\mathbf{X} \in \mathbb{R}^{T \times D}\)</span> into the specialized Query (<span class="arithmatex">\(\mathbf{Q}\)</span>), Key (<span class="arithmatex">\(\mathbf{K}\)</span>), and Value (<span class="arithmatex">\(\mathbf{V}\)</span>) subspaces. We now derive the core mathematical mechanics of the <strong>Attention Vector</strong>, building the operational routing engine from a single token coordinate up to global matrix-wide transformations.</p>
+<p>To ensure absolute clarity, we isolate a single, arbitrary row vector from our Query matrix <span class="arithmatex">\(\mathbf{Q}\)</span>. This row vector represents the query profile of the <span class="arithmatex">\(t\)</span>-th token in our sequence, denoted as:</p>
+<div class="arithmatex">\[\vec{q} \in \mathbb{R}^{1 \times D_V}\]</div>
+<p>Our immediate goal is to calculate how intensely this singular token relates to every other token across the entire timeline. To achieve this, we evaluate the inner product of <span class="arithmatex">\(\vec{q}\)</span> against every individual row vector <span class="arithmatex">\(\vec{k}_i\)</span> stored inside our global Key matrix <span class="arithmatex">\(\mathbf{K} \in \mathbb{R}^{T \times D_V}\)</span>. For each token position <span class="arithmatex">\(i\)</span> (where <span class="arithmatex">\(1 \leq i \times T\)</span>), we compute a raw scalar similarity score <span class="arithmatex">\(s_i\)</span>:</p>
+<div class="arithmatex">\[s_i = \vec{q} \cdot \vec{k}_i^T\]</div>
+<p>By stacking these <span class="arithmatex">\(T\)</span> independent scalar operations chronologically into a single array, we construct the <strong>Raw Similarity Vector (<span class="arithmatex">\(\vec{s}\)</span>)</strong> for our isolated token. This vector has a clean 1D spatial footprint of <span class="arithmatex">\(\mathbb{R}^{1 \times T}\)</span>:</p>
+<div class="arithmatex">\[\vec{s} = \vec{q} \mathbf{K}^T = \begin{bmatrix} \vec{q}\cdot\vec{k}_1^T, &amp; \vec{q}\cdot\vec{k}_2^T, &amp; \dots, &amp; \vec{q}\cdot\vec{k}_T^T \end{bmatrix}\]</div>
+<h4 id="precise-dimensional-verification">Precise Dimensional Verification:</h4>
+<ul>
+<li><span class="arithmatex">\(\vec{q} \in \mathbb{R}^{1 \times D_V}\)</span>: The query profile under evaluation.</li>
+<li><span class="arithmatex">\(\mathbf{K} \in \mathbb{R}^{T \times D_V} \implies \mathbf{K}^T \in \mathbb{R}^{D_V \times T}\)</span>: The transposed global Key tensor.</li>
+<li>Matrix Multiplication Rule: <span class="arithmatex">\((1 \times D_V) \times (D_V \times T) \implies (1 \times T)\)</span>.</li>
+</ul>
+<hr />
+<h3 id="412-the-variance-stabilization-factor-scaling-the-subspace">41.2 The Variance Stabilization Factor: Scaling the Subspace</h3>
+<p>Before passing our raw similarity vector <span class="arithmatex">\(\vec{s}\)</span> into a normalization pipeline, we must introduce a crucial variance stabilization factor. We divide our raw scores by the square root of the hidden subspace dimension (<span class="arithmatex">\(\sqrt{D_V}\)</span>), mapping our coordinates to a scaled vector denoted as <span class="arithmatex">\(\vec{s}_{\text{cap}}\)</span>:</p>
+<div class="arithmatex">\[\vec{s}_{\text{cap}} = \frac{\vec{s}}{\sqrt{D_V}} = \frac{\vec{q} \mathbf{K}^T}{\sqrt{D_V}}\]</div>
+<h4 id="the-numerical-physics-of-softmax-saturation">The Numerical Physics of Softmax Saturation</h4>
+<p>To understand why this scaling division is a mathematical necessity rather than an arbitrary choice, we analyze the probabilistic behavior of high-dimensional inner products.</p>
+<p>Suppose the individual components of our query vector <span class="arithmatex">\(\vec{q}\)</span> and key vector <span class="arithmatex">\(\vec{k}\)</span> behave as independent, identically distributed (i.i.d.) random variables characterized by a mean of <span class="arithmatex">\(0\)</span> and a variance of <span class="arithmatex">\(1\)</span>:</p>
+<div class="arithmatex">\[\mathbb{E}[q_m] = \mathbb{E}[k_m] = 0, \quad \text{Var}(q_m) = \text{Var}(k_m) = 1\]</div>
+<p>When we compute their raw dot product across a high-dimensional space of width <span class="arithmatex">\(D_V\)</span>, the variance of their inner product scales linearly with that dimension:</p>
+<div class="arithmatex">\[s_i = \sum_{m=1}^{D_V} q_m k_m \implies \text{Var}(s_i) = D_V\]</div>
+<p>As <span class="arithmatex">\(D_V\)</span> expands to large values (such as <span class="arithmatex">\(D_V = 512\)</span> or <span class="arithmatex">\(1024\)</span> in industrial architectures), the variance explodes. This causes the components of the raw vector <span class="arithmatex">\(\vec{s}\)</span> to drift far apart, pushing the largest values toward extreme magnitudes.</p>
+<p>When these unscaled scores are passed through an exponential Softmax operator, the largest value dominates the equation completely. This forces the Softmax output to collapse into a rigid, one-hot vector representation where the winning coordinate slot locks at <span class="arithmatex">\(1.0\)</span> and all neighboring slots drop to absolute zero (<span class="arithmatex">\(0.0\)</span>).</p>
+<div class="arithmatex">\[\lim_{\text{Var}(s) \to \infty} \text{Softmax}(\vec{s}) = \begin{bmatrix} 0, &amp; \dots, &amp; 1.0, &amp; \dots, &amp; 0 \end{bmatrix}\]</div>
+<p>This structural collapse triggers a severe <strong>Vanishing Gradient Crisis</strong>. Because the Softmax function's mathematical curve flattens completely as its outputs approach <span class="arithmatex">\(1.0\)</span> or <span class="arithmatex">\(0.0\)</span>, its localized derivative drops to zero (<span class="arithmatex">\(\sigma'(z) \to 0\)</span>). During backpropagation, the incoming error gradient is multiplied by this zero value, permanently halting learning throughout the network.</p>
+<p>Dividing by our stabilization factor scales the variance of our inner products back to a stable unity value (<span class="arithmatex">\(\text{Var}(\vec{s}_{\text{cap}}) = 1\)</span>), ensuring the Softmax distribution remains well-spread and protecting our backpropagation pass from gradient saturation.</p>
+<hr />
+<h3 id="413-normalization-and-value-payload-blending">41.3 Normalization and Value Payload Blending</h3>
+<p>Once variance is stabilized, we pass our scaled similarity array <span class="arithmatex">\(\vec{s}_{\text{cap}}\)</span> through a row-wise <strong>Softmax</strong> operator, converting our unconstrained geometric distances into a clean, normalized probability distribution vector denoted as <span class="arithmatex">\(\vec{\alpha}\)</span>:</p>
+<div class="arithmatex">\[\vec{\alpha} = \text{Softmax}\left( \vec{s}_{\text{cap}} \right) = \text{Softmax}\left( \frac{\vec{q} \mathbf{K}^T}{\sqrt{D_V}} \right) \in \mathbb{R}^{1 \times T}\]</div>
+<p>Every individual component <span class="arithmatex">\(\alpha_i\)</span> inside this vector is strictly bounded between <span class="arithmatex">\(0\)</span> and <span class="arithmatex">\(1\)</span>, and the entire array sums to exactly unity:</p>
+<div class="arithmatex">\[\sum_{i=1}^{T} \alpha_i = 1.0\]</div>
+<p>These normalized coefficients function as a dynamic routing filter, dictating exactly how much relative importance our active token must assign to every position across the sequence timeline.</p>
+<p>To finalize our token's attention calculation, we use this distribution vector <span class="arithmatex">\(\vec{\alpha}\)</span> to compute a <strong>weighted linear combination</strong> across all row vectors stored within our global Value matrix <span class="arithmatex">\(\mathbf{V} \in \mathbb{R}^{T \times D_V}\)</span>. This step yields our final <strong>Attention Vector (<span class="arithmatex">\(\vec{a}_q\)</span>)</strong> for our isolated token node:</p>
+<div class="arithmatex">\[\vec{a}_q = \sum_{i=1}^{T} \alpha_i \vec{v}_i = \vec{\alpha} \mathbf{V} \in \mathbb{R}^{1 \times D_V}\]</div>
+<p>This operation demonstrates the true mechanics of the attention engine. The attention representation for any given token is calculated as an explicit linear blend of the Value profiles of all tokens in the sequence.</p>
+<p>The query and key coordinates determine the routing weights (<span class="arithmatex">\(\vec{\alpha}\)</span>), while the Value vectors (<span class="arithmatex">\(\vec{v}_i\)</span>) provide the actual information payload that is blended to construct the new feature representation.</p>
+<hr />
+<h3 id="414-global-matrix-unrolling-the-parallel-attention-block">41.4 Global Matrix Unrolling: The Parallel Attention Block</h3>
+<p>While deriving attention token-by-token is essential for understanding its mechanics, running loops over individual vectors is highly inefficient on modern hardware chips. To exploit the massive parallel processing power of GPU clusters, we scale our single-token equations up into a unified <strong>Global Matrix Operator Equation</strong>.</p>
+<p>Instead of calculating a single query vector <span class="arithmatex">\(\vec{q}\)</span> at a time, we stack every single token's query profile simultaneously, evaluating the global Query tensor <span class="arithmatex">\(\mathbf{Q} \in \mathbb{R}^{T \times D_V}\)</span> in a single forward pass:</p>
+<div class="arithmatex">\[\text{Attention}(\mathbf{Q}, \,\, \mathbf{K}, \,\, \mathbf{V}) = \text{Softmax}\left( \frac{\mathbf{Q} \mathbf{K}^T}{\sqrt{D_V}} \right) \mathbf{V}\]</div>
+<p>Let us map out the exact matrix calculus operations driving this global equation step-by-step:</p>
+<pre><code>  Step 1: Global Subspace Matrix Cross-Multiplication
+  Q Kᵀ = [ T × D_V ] × [ D_V × T ] ───&gt; Outputs a raw [ T × T ] Adjacency Matrix
+
+  Step 2: Element-Wise Scale Stabilization
+  (Q Kᵀ) / √D_V ──────────────────────&gt; Normalizes variance across the [ T × T ] Grid
+
+  Step 3: Row-Wise Softmax Wrappers
+  A = Softmax( (Q Kᵀ) / √D_V ) ───────&gt; Converts each row into a sum-to-one routing filter
+
+  Step 4: Value Payload Tensor Synthesis
+  Z = A V = [ T × T ] × [ T × D_V ] ──&gt; Generates the final [ T × D_V ] Context Matrix
+
+</code></pre>
+<p>This global formulation highlights why the attention block is highly efficient. By packaging sequence modeling into standard matrix multiplications (<span class="arithmatex">\(\mathbf{Q}\mathbf{K}^T\)</span> and <span class="arithmatex">\(\mathbf{A}\mathbf{V}\)</span>), we bypass the sequential bottlenecks of recurrent architectures, allowing the network to evaluate long-range dependencies across all tokens simultaneously in parallel.</p>
+<hr />
+<h3 id="415-comprehensive-breakdown-of-the-optimization-paradigm">41.5 Comprehensive Breakdown of the Optimization Paradigm</h3>
+<p>To conclude this chapter, we address the critical questions raised during the interactive lecture session, unpacking the exact mathematical rules and engineering choices that define this framework.</p>
+<h4 id="question-1-what-is-the-structural-necessity-of-maintaining-three-separate-matrices-mathbfw_q-mathbfw_k-mathbfw_v-could-we-operate-using-the-raw-data-matrix-mathbfx-directly">Question 1: What is the structural necessity of maintaining three separate matrices (<span class="arithmatex">\(\mathbf{W}_Q, \mathbf{W}_K, \mathbf{W}_V\)</span>)? Could we operate using the raw data matrix <span class="arithmatex">\(\mathbf{X}\)</span> directly?</h4>
+<p><strong>Answer:</strong> Mathematically, you <em>can</em> calculate attention using only the raw data matrix <span class="arithmatex">\(\mathbf{X}\)</span> by removing the learnable projection blocks entirely (<span class="arithmatex">\(\mathbf{A} = \text{Softmax}(\mathbf{X}\mathbf{X}^T)\mathbf{X}\)</span>). However, removing these matrices strips the model of its learnable parameter capacity.</p>
+<p>The weight parameters inside <span class="arithmatex">\(\mathbf{W}_Q, \mathbf{W}_K,\)</span> and <span class="arithmatex">\(\mathbf{W}_V\)</span> are the specific entries updated during Empirical Risk Minimization (ERM) via gradient descent. They allow the network to project identical raw data inputs into distinct functional roles. Without these learnable matrices, the attention block becomes a rigid, unalterable geometric filter, preventing the model from adjusting its internal representations to minimize training loss.</p>
+<h4 id="question-2-does-a-token-include-its-own-index-during-the-attention-summation-loop">Question 2: Does a token include its own index during the attention summation loop?</h4>
+<p><strong>Answer:</strong> Yes. When calculating the similarity vector across a timeline from <span class="arithmatex">\(i=1\)</span> to <span class="arithmatex">\(T\)</span>, the running index inevitably matches the query's active position (<span class="arithmatex">\(i = t\)</span>). This means a token explicitly computes an inner product against its own key vector (<span class="arithmatex">\(\vec{q}_t \cdot \vec{k}_t^T\)</span>).</p>
+<p>Because a token's query and key vectors are projected into the same subspace, they maintain a high geometric alignment. This allows the model to pay strong attention to its own intrinsic features whenever self-retention minimizes global risk.</p>
+<h4 id="question-3-why-do-we-use-the-final-attention-matrix-multiplication-mathbfamathbfv-to-blend-value-vectors-why-not-skip-this-step-and-use-the-raw-routing-coefficients-vecalpha-directly-as-our-data-representation">Question 3: Why do we use the final attention matrix multiplication (<span class="arithmatex">\(\mathbf{A}\mathbf{V}\)</span>) to blend value vectors? Why not skip this step and use the raw routing coefficients (<span class="arithmatex">\(\vec{\alpha}\)</span>) directly as our data representation?</h4>
+<p><strong>Answer:</strong> The routing vector <span class="arithmatex">\(\vec{\alpha}\)</span> is a simple array of scalar coefficients that measures the relationship between keys and queries. It does not contain the actual feature content of the tokens.</p>
+<p>We use the value matrix multiplication to ensure our updated representation sits within a continuous feature domain. If we skipped this step and used <span class="arithmatex">\(\vec{\alpha}\)</span> directly, our representation layer would change size every time the sequence length <span class="arithmatex">\(T\)</span> shifted, breaking the model's architectural consistency. Blending the Value vectors creates a robust feature representation where every token carries contextual information extracted from the entire sequence.</p>
+<pre><code>  [ Input Word Tokens ] ───&gt; Project to Queries ──┐
+                                                  ├─&gt; [ Q·Kᵀ Inner Product Matrix ] ─&gt; [ Softmax Weight Filter α ]
+  [ Input Word Tokens ] ───&gt; Project to Keys ────┘                                                  │
+                                                                                                    ▼
+  [ Input Word Tokens ] ───&gt; Project to Values ──────────────────────────────────────────&gt; [ Combined Output Tensor Z ]
+
+</code></pre>
+<h4 id="question-4-how-does-this-pure-attention-framework-eliminate-the-vanishing-gradient-problem-without-relying-on-complex-recurrent-gates-like-those-in-lstms">Question 4: How does this pure attention framework eliminate the vanishing gradient problem without relying on complex recurrent gates like those in LSTMs?</h4>
+<p><strong>Answer:</strong> An RNN forces information to flow step-by-step across time, creating an exponential gradient chain (<span class="arithmatex">\(\mathbf{W}_1^{T-t}\)</span>) that causes errors to vanish over long sequences.</p>
+<p>The attention mechanism bypasses this sequential chain entirely. Because every token pair is cross-referenced directly using parallel inner products, <strong>the maximum path length for information to travel across the sequence is exactly one step.</strong> During backpropagation, error gradients travel straight from the terminal token back to any historical node along a direct path, escaping the exponential decay boundary of recurrent networks.</p>
+<h4 id="question-5-how-does-a-transformer-handle-varying-sequence-lengths-t-across-different-training-samples-if-it-lacks-temporal-recurrence">Question 5: How does a Transformer handle varying sequence lengths (<span class="arithmatex">\(T\)</span>) across different training samples if it lacks temporal recurrence?</h4>
+<p><strong>Answer:</strong> We manage varying sequence lengths by defining a maximum spatial boundary known as the <strong>Context Window Threshold (<span class="arithmatex">\(T_{\max}\)</span>)</strong>.</p>
+<p>If a training sample contains fewer tokens than this threshold, we pad the remaining rows of our input matrix <span class="arithmatex">\(\mathbf{X}\)</span> with zeros up to <span class="arithmatex">\(T_{\max}\)</span>. Modern production models use advanced hardware management to scale this context window to massive boundaries, successfully handling up to millions of tokens in a single parallel pass.</p>
+<h4 id="question-6-is-the-attention-block-completely-linear-how-does-it-satisfy-the-universal-approximation-theorem">Question 6: Is the attention block completely linear? How does it satisfy the Universal Approximation Theorem?</h4>
+<p><strong>Answer:</strong> Except for the Softmax operator, the core operations within an attention block—the QK projections and the final Value blending pass—are linear matrix combinations.</p>
+<p>To introduce true non-linear expressive capacity and fulfill the Universal Approximation Theorem, a complete Transformer layer does not stop at the attention block. As foreshadowed by the professor, a full Transformer architecture appends a standalone <strong>Multi-Layer Perceptron (MLP)</strong> block with non-linear activation functions (like ReLU or GELU) immediately after the attention block. This ensures the network can model highly intricate, non-linear system boundaries across depth while using the attention block to route features across time.</p>
+<hr />
+<h2 id="textbook-notes-master-formula-reference-sheet">Textbook Notes Master Formula Reference Sheet</h2>
+<h3 id="the-universal-token-wise-attention-protocol">The Universal Token-Wise Attention Protocol</h3>
+<div class="arithmatex">\[\vec{s} = \vec{q} \mathbf{K}^T \in \mathbb{R}^{1 \times T} \quad \text{where} \quad \vec{q} \in \mathbb{R}^{1 \times D_V} \quad \text{and} \quad \mathbf{K} \in \mathbb{R}^{T \times D_V}\]</div>
+<div class="arithmatex">\[\vec{s}_{\text{cap}} = \frac{\vec{q} \mathbf{K}^T}{\sqrt{D_V}} \in \mathbb{R}^{1 \times T} \quad \text{(Variance Stabilization Step)}\]</div>
+<div class="arithmatex">\[\vec{\alpha} = \text{Softmax}\left( \frac{\vec{q} \mathbf{K}^T}{\sqrt{D_V}} \right) \in \mathbb{R}^{1 \times T} \quad \text{such that} \quad \sum_{i=1}^{T} \alpha_i = 1.0\]</div>
+<div class="arithmatex">\[\vec{a}_q = \vec{\alpha} \mathbf{V} = \sum_{i=1}^{T} \alpha_i \vec{v}_i \in \mathbb{R}^{1 \times D_V} \quad \text{where} \quad \mathbf{V} \in \mathbb{R}^{T \times D_V}\]</div>
+<hr />
+<h3 id="the-global-parallelized-matrix-equation">The Global Parallelized Matrix Equation</h3>
+<div class="arithmatex">\[\text{Attention}(\mathbf{Q}, \,\, \mathbf{K}, \,\, \mathbf{V}) = \text{Softmax}\left( \frac{\mathbf{Q} \mathbf{K}^T}{\sqrt{D_V}} \right) \mathbf{V} \in \mathbb{R}^{T \times D_V}\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

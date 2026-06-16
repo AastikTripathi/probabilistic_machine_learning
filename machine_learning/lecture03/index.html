@@ -1,0 +1,3200 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture02/">
+      
+      
+        <link rel="next" href="../lecture03_1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture03 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-1-the-measure-theoretic-bridge-to-random-variables" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture03
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-1-the-measure-theoretic-bridge-to-random-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 1: The Measure-Theoretic Bridge to Random Variables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1: The Measure-Theoretic Bridge to Random Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-the-transition-think-abstract-act-concrete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 The Transition: "Think Abstract, Act Concrete"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-defining-the-random-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Defining the Random Variable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Defining the Random Variable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-axiom-of-the-misnomer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Axiom of the Misnomer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-generalization-to-higher-dimensions-vector-valued-random-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Generalization to Higher Dimensions: Vector-Valued Random Variables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Generalization to Higher Dimensions: Vector-Valued Random Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-architecture-of-an-image-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Architecture of an Image Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exemplar-manifestations-10-core-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Exemplar Manifestations: 10 Core Use Cases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Exemplar Manifestations: 10 Core Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-the-digital-radiograph-pipeline-computer-vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: The Digital Radiograph Pipeline (Computer Vision)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-the-binary-diagnostic-assayer-classification-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: The Binary Diagnostic Assayer (Classification Labels)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-document-sentiment-ingestion-natural-language-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Document Sentiment Ingestion (Natural Language Processing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-network-email-spam-auditing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Network Email Spam Auditing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-high-frequency-algorithmic-market-tracking-time-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: High-Frequency Algorithmic Market Tracking (Time Series)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-atmospheric-environmental-sensors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Atmospheric Environmental Sensors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-speech-synthesis-waveform-extraction-audio-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Speech Synthesis Waveform Extraction (Audio Processing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-user-retention-and-ltv-estimation-recommendation-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: User Retention and LTV Estimation (Recommendation Systems)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-brain-computer-interface-ingestion-neural-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Brain-Computer Interface Ingestion (Neural Engineering)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-physics-informed-structural-load-profiling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Physics-Informed Structural Load Profiling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-push-forward-measure-and-the-cumulative-distribution-function-cdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Push-Forward Measure and the Cumulative Distribution Function (CDF)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Push-Forward Measure and the Cumulative Distribution Function (CDF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-strict-mathematical-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Strict Mathematical Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-extension-to-high-dimensional-vector-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Extension to High-Dimensional Vector Spaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-fundamental-properties-of-the-induced-measure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Fundamental Properties of the Induced Measure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-unified-formulation-the-core-objective-of-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Unified Formulation: The Core Objective of Machine Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Unified Formulation: The Core Objective of Machine Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-true-core-paradigm-of-ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The True Core Paradigm of ML
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-1-the-measure-theoretic-bridge-to-random-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 1: The Measure-Theoretic Bridge to Random Variables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1: The Measure-Theoretic Bridge to Random Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-the-transition-think-abstract-act-concrete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 The Transition: "Think Abstract, Act Concrete"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-defining-the-random-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Defining the Random Variable
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Defining the Random Variable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-axiom-of-the-misnomer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Axiom of the Misnomer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-generalization-to-higher-dimensions-vector-valued-random-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Generalization to Higher Dimensions: Vector-Valued Random Variables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Generalization to Higher Dimensions: Vector-Valued Random Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-architecture-of-an-image-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Architecture of an Image Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-exemplar-manifestations-10-core-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Exemplar Manifestations: 10 Core Use Cases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Exemplar Manifestations: 10 Core Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-the-digital-radiograph-pipeline-computer-vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: The Digital Radiograph Pipeline (Computer Vision)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-the-binary-diagnostic-assayer-classification-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: The Binary Diagnostic Assayer (Classification Labels)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-document-sentiment-ingestion-natural-language-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Document Sentiment Ingestion (Natural Language Processing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-network-email-spam-auditing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Network Email Spam Auditing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-high-frequency-algorithmic-market-tracking-time-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: High-Frequency Algorithmic Market Tracking (Time Series)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-atmospheric-environmental-sensors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Atmospheric Environmental Sensors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-speech-synthesis-waveform-extraction-audio-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Speech Synthesis Waveform Extraction (Audio Processing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-user-retention-and-ltv-estimation-recommendation-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: User Retention and LTV Estimation (Recommendation Systems)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-brain-computer-interface-ingestion-neural-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Brain-Computer Interface Ingestion (Neural Engineering)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-physics-informed-structural-load-profiling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Physics-Informed Structural Load Profiling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-push-forward-measure-and-the-cumulative-distribution-function-cdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Push-Forward Measure and the Cumulative Distribution Function (CDF)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. The Push-Forward Measure and the Cumulative Distribution Function (CDF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-strict-mathematical-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Strict Mathematical Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-extension-to-high-dimensional-vector-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Extension to High-Dimensional Vector Spaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-fundamental-properties-of-the-induced-measure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Fundamental Properties of the Induced Measure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-unified-formulation-the-core-objective-of-machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Unified Formulation: The Core Objective of Machine Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Unified Formulation: The Core Objective of Machine Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-true-core-paradigm-of-ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The True Core Paradigm of ML
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Lecture03</h1>
+
+<h2 id="chapter-1-the-measure-theoretic-bridge-to-random-variables">Chapter 1: The Measure-Theoretic Bridge to Random Variables</h2>
+<hr />
+<h3 id="11-the-transition-think-abstract-act-concrete">1.1 The Transition: "Think Abstract, Act Concrete"</h3>
+<p>In standard enterprise environments, engineers are drowning in vectors. We write code to manipulate arrays, track optimization gradients across multi-dimensional tensor spaces, and process matrices of image pixels. However, deterministic vector manipulation lacks the vocabulary to model the semantic ambiguity of the real world.</p>
+<p>To bridge this gap, we rely on the fundamental probability triplet:</p>
+<div class="arithmatex">\[\left(\Omega, \mathcal{F}, P\right)\]</div>
+<p>Where:</p>
+<ul>
+<li><span class="arithmatex">\(\Omega\)</span> is the <strong>Sample Space</strong> (the raw set of all chaotic, non-numeric real-world outcomes).</li>
+<li><span class="arithmatex">\(\mathcal{F}\)</span> is the <strong>Event Space</strong> (the <span class="arithmatex">\(\sigma\)</span>-algebra containing measurable subsets of <span class="arithmatex">\(\Omega\)</span>).</li>
+<li><span class="arithmatex">\(P\)</span> is the <strong>Probability Measure</strong> (the deterministic function mapping elements of <span class="arithmatex">\(\mathcal{F}\)</span> to the closed interval <span class="arithmatex">\([0, 1]\)</span>).</li>
+</ul>
+<p>As engineers, we cannot execute linear algebra or run optimization passes on abstract objects like "a patient developing a lung nodule." We require numbers. The mathematical mechanism that cleanly maps the irreducible abstraction of a sample space into an actionable, numeric space is the <strong>Random Variable</strong>.</p>
+<hr />
+<h3 id="12-defining-the-random-variable">1.2 Defining the Random Variable</h3>
+<blockquote>
+<p><strong>Definition 1.1 (Random Variable).</strong> Let <span class="arithmatex">\(\left(\Omega, \mathcal{F}, P\right)\)</span> be a probability space. A random variable <span class="arithmatex">\(X\)</span> is a deterministic, measurable mapping from the sample space <span class="arithmatex">\(\Omega\)</span> to the real line <span class="arithmatex">\(\mathbb{R}\)</span>:
+$<span class="arithmatex">\(X: \Omega \rightarrow \mathbb{R}\)</span>$</p>
+<p>For <span class="arithmatex">\(X\)</span> to be strictly valid under measure theory, it must be <em>measurable</em>. This requires that the inverse image of any well-behaved numeric subset (a Borel set <span class="arithmatex">\(B \in \mathcal{B}(\mathbb{R})\)</span>) maps back to an event that our probability measure <span class="arithmatex">\(P\)</span> legally knows how to quantify:
+$<span class="arithmatex">\(X^{-1}(B) = \{\omega \in \Omega \mid X(\omega) \in B\} \in \mathcal{F}\)</span>$</p>
+</blockquote>
+<h4 id="the-axiom-of-the-misnomer">The Axiom of the Misnomer</h4>
+<p>A random variable is <strong>neither random nor a variable</strong>. It is a completely deterministic mathematical function. All structural randomness is isolated within the unobserved physical generation of the experiment itself; once an outcome <span class="arithmatex">\(\omega \in \Omega\)</span> is realized, the evaluation <span class="arithmatex">\(X(\omega)\)</span> yields a fixed, unchanging scalar or vector.</p>
+<hr />
+<h3 id="13-generalization-to-higher-dimensions-vector-valued-random-variables">1.3 Generalization to Higher Dimensions: Vector-Valued Random Variables</h3>
+<p>Real-world datasets rarely present themselves as individual real-valued scalars. In deep learning architectures, we explicitly handle images, audio frames, and embedded tokens as high-dimensional tensors.</p>
+<p>To support this, we extend Definition 1.1 to a <span class="arithmatex">\(d\)</span>-dimensional Euclidean space:</p>
+<div class="arithmatex">\[X: \Omega \rightarrow \mathbb{R}^d\]</div>
+<p>Where <span class="arithmatex">\(X\)</span> is a <strong>vector-valued random variable</strong>.</p>
+<h4 id="the-architecture-of-an-image-matrix">The Architecture of an Image Matrix</h4>
+<p>Consider a grayscale digital radiograph stored on disk. This artifact is a matrix of dimensions <span class="arithmatex">\(P \times Q\)</span>. When flattened along its columns, it yields a structural vector in a high-dimensional real space:</p>
+<div class="arithmatex">\[\vec{x} \in \mathbb{R}^d, \quad \text{where } d = P \times Q\]</div>
+<p>Under a probabilistic framework, this vector <span class="arithmatex">\(\vec{x}\)</span> is not a static data point. It is an explicit evaluation of a vector-valued random variable mapping a clinical physical reality down to a <span class="arithmatex">\(d\)</span>-dimensional coordinate:</p>
+<div class="arithmatex">\[\vec{x} = X(\omega)\]</div>
+<p>Every dataset folder containing raw text segments or images is a collection of static coordinates drawn entirely from the <strong>range space</strong> of an underlying vector-valued random variable.</p>
+<hr />
+<h2 id="2-exemplar-manifestations-10-core-use-cases">2. Exemplar Manifestations: 10 Core Use Cases</h2>
+<p>To ground the transformation <span class="arithmatex">\(X: \Omega \rightarrow \mathbb{R}^d\)</span>, we examine ten concrete technical domains mapping abstract sample spaces to structural real-valued representations.</p>
+<h4 id="example-1-the-digital-radiograph-pipeline-computer-vision">Example 1: The Digital Radiograph Pipeline (Computer Vision)</h4>
+<ul>
+<li><strong>Abstract Experiment / Space (<span class="arithmatex">\(\Omega\)</span>):</strong> A human body undergoes cellular mutation, forms an organic lung lesion, enters a clinical facility, and triggers a localized burst of high-energy electromagnetic radiation.</li>
+<li><strong>The Mapping (<span class="arithmatex">\(X\)</span>):</strong> The sensor array captures variations in photon attenuation coefficients across a pixel grid.</li>
+<li><strong>Range Space (<span class="arithmatex">\(\mathbb{R}^d\)</span>):</strong> A high-dimensional flattened image vector <span class="arithmatex">\(\vec{x} \in \mathbb{R}^{512 \times 512} = \mathbb{R}^{262,144}\)</span>.</li>
+</ul>
+<h4 id="example-2-the-binary-diagnostic-assayer-classification-labels">Example 2: The Binary Diagnostic Assayer (Classification Labels)</h4>
+<ul>
+<li><strong>Abstract Experiment / Space (<span class="arithmatex">\(\Omega\)</span>):</strong> The subjective clinical review of an active physiological pathology by an expert radiologist.</li>
+<li><strong>The Mapping (<span class="arithmatex">\(Y\)</span>):</strong> The deterministic conversion of a subjective expert diagnosis ("Malignant Growth Detected") into an indicator flag.</li>
+<li><strong>Range Space (<span class="arithmatex">\(\mathbb{R}^d\)</span>):</strong> A discrete space <span class="arithmatex">\(\mathbb{R}^1\)</span>, restricted cleanly to the binary support set <span class="arithmatex">\(\{0, 1\}\)</span>.</li>
+</ul>
+<h4 id="example-3-document-sentiment-ingestion-natural-language-processing">Example 3: Document Sentiment Ingestion (Natural Language Processing)</h4>
+<ul>
+<li><strong>Abstract Experiment / Space (<span class="arithmatex">\(\Omega\)</span>):</strong> A human user experiences an internal emotional reaction to a consumer application and types a raw, unformatted text review.</li>
+<li><strong>The Mapping (<span class="arithmatex">\(X\)</span>):</strong> Tokenization parsing combined with an embedding model transformation (e.g., a transformer-based encoder).</li>
+<li><strong>Range Space (<span class="arithmatex">\(\mathbb{R}^d\)</span>):</strong> A continuous embedding vector space <span class="arithmatex">\(\mathbb{R}^{768}\)</span>.</li>
+</ul>
+<h4 id="example-4-network-email-spam-auditing">Example 4: Network Email Spam Auditing</h4>
+<ul>
+<li><strong>Abstract Experiment / Space (<span class="arithmatex">\(\Omega\)</span>):</strong> An adversarial actor generates an unformatted string of raw text characters intending to bypass modern firewalls for financial gain.</li>
+<li><strong>The Mapping (<span class="arithmatex">\(X\)</span>):</strong> A pipeline counting normalized occurrences of distinct terminal substrings (e.g., TF-IDF frequency tracking).</li>
+<li><strong>Range Space (<span class="arithmatex">\(\mathbb{R}^d\)</span>):</strong> A sparse frequency tally vector <span class="arithmatex">\(\mathbb{R}^V\)</span>, where <span class="arithmatex">\(V\)</span> represents the token vocabulary size.</li>
+</ul>
+<h4 id="example-5-high-frequency-algorithmic-market-tracking-time-series">Example 5: High-Frequency Algorithmic Market Tracking (Time Series)</h4>
+<ul>
+<li><strong>Abstract Experiment / Space (<span class="arithmatex">\(\Omega\)</span>):</strong> Global micro-economic transactions, order-book cancellations, and international sentiment fluctuations occurring within an exact millisecond bracket.</li>
+<li><strong>The Mapping (<span class="arithmatex">\(X\)</span>):</strong> The automated matching engine of a public exchange pricing ticker.</li>
+<li><strong>Range Space (<span class="arithmatex">\(\mathbb{R}^d\)</span>):</strong> A continuous, real-valued asset price sequence scalar <span class="arithmatex">\(\mathbb{R}^1\)</span>.</li>
+</ul>
+<h4 id="example-6-atmospheric-environmental-sensors">Example 6: Atmospheric Environmental Sensors</h4>
+<ul>
+<li><strong>Abstract Experiment / Space (<span class="arithmatex">\(\Omega\)</span>):</strong> Kinetic collisions of gas particles and thermal energy shifts across a localized geographic space.</li>
+<li><strong>The Mapping (<span class="arithmatex">\(X\)</span>):</strong> A physical semiconductor sensor passing electrical currents influenced by heat.</li>
+<li><strong>Range Space (<span class="arithmatex">\(\mathbb{R}^d\)</span>):</strong> A real-valued scalar <span class="arithmatex">\(\mathbb{R}^1\)</span> quantifying temperature in Celsius.</li>
+</ul>
+<h4 id="example-7-speech-synthesis-waveform-extraction-audio-processing">Example 7: Speech Synthesis Waveform Extraction (Audio Processing)</h4>
+<ul>
+<li><strong>Abstract Experiment / Space (<span class="arithmatex">\(\Omega\)</span>):</strong> A human speaker constricts vocal cords, modulating air-pressure gradients across a sequence of acoustic waveguides.</li>
+<li><strong>The Mapping (<span class="arithmatex">\(X\)</span>):</strong> A physical condenser microphone sensor tracking voltage fluctuations at a localized sample rate (e.g., 44.1 kHz).</li>
+<li><strong>Range Space (<span class="arithmatex">\(\mathbb{R}^d\)</span>):</strong> A discrete sequence vector <span class="arithmatex">\(\mathbb{R}^{44,100}\)</span> detailing continuous amplitude displacements.</li>
+</ul>
+<h4 id="example-8-user-retention-and-ltv-estimation-recommendation-systems">Example 8: User Retention and LTV Estimation (Recommendation Systems)</h4>
+<ul>
+<li><strong>Abstract Experiment / Space (<span class="arithmatex">\(\Omega\)</span>):</strong> Psychological and behavioral impulses of a consumer interacting with a digital interface.</li>
+<li><strong>The Mapping (<span class="arithmatex">\(X\)</span>):</strong> Telemetry software counting click events, session hold times, and transaction histories over a fixed month bracket.</li>
+<li><strong>Range Space (<span class="arithmatex">\(\mathbb{R}^d\)</span>):</strong> A mixed-integer vector tracking historical platform interactions <span class="arithmatex">\(\mathbb{R}^5\)</span>.</li>
+</ul>
+<h4 id="example-9-brain-computer-interface-ingestion-neural-engineering">Example 9: Brain-Computer Interface Ingestion (Neural Engineering)</h4>
+<ul>
+<li><strong>Abstract Experiment / Space (<span class="arithmatex">\(\Omega\)</span>):</strong> Synaptic ion channels firing across a subject's cerebral cortex during localized motor intent.</li>
+<li><strong>The Mapping (<span class="arithmatex">\(X\)</span>):</strong> An array of intracranial microelectrodes processing local field potentials.</li>
+<li><strong>Range Space (<span class="arithmatex">\(\mathbb{R}^d\)</span>):</strong> A multi-channel real-valued time-series matrix flattened into <span class="arithmatex">\(\mathbb{R}^C\)</span>.</li>
+</ul>
+<h4 id="example-10-physics-informed-structural-load-profiling">Example 10: Physics-Informed Structural Load Profiling</h4>
+<ul>
+<li><strong>Abstract Experiment / Space (<span class="arithmatex">\(\Omega\)</span>):</strong> Gravitational force vectors and structural wind turbulence shearing across a newly constructed suspension bridge.</li>
+<li><strong>The Mapping (<span class="arithmatex">\(X\)</span>):</strong> Fiber-optic strain gauges reading microscopic structural transformations.</li>
+<li><strong>Range Space (<span class="arithmatex">\(\mathbb{R}^d\)</span>):</strong> A real-valued continuous deformation load vector <span class="arithmatex">\(\mathbb{R}^{N}\)</span>.</li>
+</ul>
+<hr />
+<h2 id="3-the-push-forward-measure-and-the-cumulative-distribution-function-cdf">3. The Push-Forward Measure and the Cumulative Distribution Function (CDF)</h2>
+<p>Once we map the abstract space <span class="arithmatex">\(\Omega\)</span> to the Euclidean space <span class="arithmatex">\(\mathbb{R}^d\)</span> via a random variable, our original probability measure <span class="arithmatex">\(P\)</span> must transform along with it. This induced measure on the real numbers is known as the <strong>Push-Forward Measure</strong>. In practical machine learning applications, we interact with this measure through the <strong>Cumulative Distribution Function (CDF)</strong>.</p>
+<p>[Image mapping the transformation from a sample space measure down to a push-forward measure on the real number line]</p>
+<h3 id="31-strict-mathematical-definition">3.1 Strict Mathematical Definition</h3>
+<blockquote>
+<p><strong>Definition 1.2 (Cumulative Distribution Function).</strong> Let <span class="arithmatex">\(X: \Omega \rightarrow \mathbb{R}\)</span> be a scalar random variable defined on a probability space <span class="arithmatex">\(\left(\Omega, \mathcal{F}, P\right)\)</span>. The Cumulative Distribution Function <span class="arithmatex">\(F_X(x)\)</span> (alternatively denoted as <span class="arithmatex">\(P_X(x)\)</span>) evaluated at a target real scalar coordinate <span class="arithmatex">\(x \in \mathbb{R}\)</span> is defined as:
+$<span class="arithmatex">\(F_X(x) \triangleq P\left(\{\omega \in \Omega \mid X(\omega) \leq x\}\right)\)</span>$</p>
+</blockquote>
+<p>To calculate the value of <span class="arithmatex">\(F_X(x)\)</span> at a specific numerical coordinate <span class="arithmatex">\(x\)</span>, we execute a three-step trace backward:</p>
+<ol>
+<li>Isolate the semi-infinite interval on the real line: <span class="arithmatex">\(B = (-\infty, x]\)</span>.</li>
+<li>Compute the inverse image of this interval under our random variable function to isolate the corresponding event in the abstract sample space: <span class="arithmatex">\(A = X^{-1}(B) = \{\omega \in \Omega \mid X(\omega) \in (-\infty, x]\}\)</span>.</li>
+<li>Evaluate the original, abstract probability measure of that isolated event: <span class="arithmatex">\(P(A)\)</span>.</li>
+</ol>
+<h3 id="32-extension-to-high-dimensional-vector-spaces">3.2 Extension to High-Dimensional Vector Spaces</h3>
+<p>For a vector-valued random variable <span class="arithmatex">\(X: \Omega \rightarrow \mathbb{R}^d\)</span>, the evaluation coordinate is a multi-dimensional real vector <span class="arithmatex">\(\vec{x} = [x_1, x_2, \dots, x_d]^T \in \mathbb{R}^d\)</span>. The joint distribution function is governed by the intersection of individual coordinate constraints via a <strong>Cartesian Product</strong>:</p>
+<div class="arithmatex">\[F_X(\vec{x}) \triangleq P\left(\bigcap_{i=1}^{d} \{\omega \in \Omega \mid X_i(\omega) \leq x_i\}\right)\]</div>
+<p>Geometrically, in a two-dimensional plane (<span class="arithmatex">\(\mathbb{R}^2\)</span>), this operation isolates a semi-infinite quadrant whose top-right corner terminates precisely at the coordinate pointer <span class="arithmatex">\((x_1, x_2)\)</span>:</p>
+<div class="arithmatex">\[F_X(x_1, x_2) = P\left(X_1 \leq x_1 \,\,\cap\,\, X_2 \leq x_2\right)\]</div>
+<hr />
+<h2 id="4-fundamental-properties-of-the-induced-measure">4. Fundamental Properties of the Induced Measure</h2>
+<p>For any distribution function <span class="arithmatex">\(F_X: \mathbb{R} \rightarrow [0, 1]\)</span> to be mathematically valid, it must satisfies four foundational properties dictated by Kolmogorov's Axioms of Probability:</p>
+<ul>
+<li><strong>Property 1: Monotonicity</strong> If <span class="arithmatex">\(x_1 \leq x_2\)</span>, then <span class="arithmatex">\(F_X(x_1) \leq F_X(x_2)\)</span>. Expanding the target numeric interval can only add elements to the inverse image event space, never remove them.</li>
+<li><strong>Property 2: Asymptotic Lower Bound</strong> 
+$<span class="arithmatex">\(\lim_{x \to -\infty} F_X(x) = 0\)</span>$</li>
+</ul>
+<p>As the interval limits shrink to an empty set, the inverse image maps cleanly to the null set <span class="arithmatex">\(\emptyset\)</span>, yielding a measure of exactly zero.
+* <strong>Property 3: Asymptotic Upper Bound</strong> 
+$<span class="arithmatex">\(\lim_{x \to +\infty} F_X(x) = 1\)</span>$</p>
+<p>As the interval expands to cover the entire real line <span class="arithmatex">\((-\infty, +\infty)\)</span>, its inverse image captures the entire universal sample space <span class="arithmatex">\(\Omega\)</span>, yielding a measure of exactly one.
+* <strong>Property 4: Right-Continuity</strong> For every real value <span class="arithmatex">\(x \in \mathbb{R}\)</span>:
+$<span class="arithmatex">\(\lim_{t \to x^+} F_X(t) = F_X(x)\)</span>$</p>
+<hr />
+<h2 id="5-unified-formulation-the-core-objective-of-machine-learning">5. Unified Formulation: The Core Objective of Machine Learning</h2>
+<p>We now possess the exact vocabulary needed to transcend the classical, deterministic definition of machine learning.</p>
+<p>In the deterministic worldview, we treat data as static pairs and search blindly for an unknown function <span class="arithmatex">\(f\)</span>:</p>
+<div class="arithmatex">\[\text{Given } D = \{(x_i, y_i)\}_{i=1}^n, \quad \text{Find } y = f(x)\]</div>
+<p>In the <strong>measure-theoretic probabilistic worldview</strong>, we declare that there exists a global, vector-valued random variable <span class="arithmatex">\(Z\)</span> that combines our input observations and their respective targets into a unified space:</p>
+<div class="arithmatex">\[Z = [X, Y]^T \in \mathbb{R}^{d+1}\]</div>
+<p>We accept that nature has deployed a hidden, true probability measure <span class="arithmatex">\(P\)</span> across the universal sample space. This underlying measure pushes forward into a true, hidden joint distribution function over our vector space:</p>
+<div class="arithmatex">\[F_{X, Y}(x, y)\]</div>
+<h3 id="the-true-core-paradigm-of-ml">The True Core Paradigm of ML</h3>
+<blockquote>
+<p><strong>The Paradigm.</strong> The foundational objective of machine learning is to use a finite dataset of empirical coordinate vectors <span class="arithmatex">\(D = \{(\vec{x}_1, y_1), (\vec{x}_2, y_2), \dots, (\vec{x}_n, y_n)\}\)</span> drawn from the range space of <span class="arithmatex">\(Z\)</span> to <strong>estimate the true, hidden push-forward probability distribution</strong>.</p>
+</blockquote>
+<p>Under this unified formulation, the dividing line between modern ML architectures simply depends on how we manipulate this estimated distribution:</p>
+<pre><code>                          [Joint Distribution F_X,Y(x,y)]
+                                        |
+                 -----------------------------------------------
+                 |                                             |
+     [Generative Modeling]                         [Discriminative Modeling]
+     Learn the full joint topology                 Isolate the conditional slice
+    to synthesize brand new data:                  to predict class boundaries:
+         P(X, Y) or P(X|Y)                              P(Y | X = x)
+
+</code></pre>
+<p>By framing machine learning as <strong>distribution estimation</strong> rather than static curve-fitting, we immediately see that tasks like processing natural language text, classifying image vectors, or synthesizing novel generative samples are mathematically identical. They are simply different coordinate expressions of a push-forward measure across an engineering space.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

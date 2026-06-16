@@ -1,0 +1,3593 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture63/">
+      
+      
+        <link rel="next" href="../lecture65/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture64 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-67-generative-adversarial-networks" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture64
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#671-recapitulation-and-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.1 Recapitulation and Roadmap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#672-why-mathcalnmathbf0-mathbfi-instead-of-uniform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.2 Why \(\mathcal{N}(\mathbf{0}, \mathbf{I})\) Instead of Uniform?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#673-the-f-divergence-family" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.3 The \(f\)-Divergence Family
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.3 The \(f\)-Divergence Family">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6731-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.3.1 Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6732-special-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.3.2 Special Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6733-why-not-just-use-kl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.3.3 Why Not Just Use KL?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#674-the-variational-representation-of-f-divergences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.4 The Variational Representation of \(f\)-Divergences
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.4 The Variational Representation of \(f\)-Divergences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6741-the-fenchel-conjugate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.4.1 The Fenchel Conjugate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6742-the-variational-lower-bound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.4.2 The Variational Lower Bound
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#675-the-jensen-shannon-gan-full-derivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.5 The Jensen-Shannon GAN: Full Derivation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.5 The Jensen-Shannon GAN: Full Derivation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6751-the-jensen-shannon-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.5.1 The Jensen-Shannon Divergence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6752-the-minimax-value-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.5.2 The Minimax Value Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6753-step-1-optimal-discriminator-for-fixed-g_theta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.5.3 Step 1 — Optimal Discriminator for Fixed \(G_\theta\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6754-step-2-substituting-d-and-connecting-to-d_textjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.5.4 Step 2 — Substituting \(D^*\) and Connecting to \(D_{\text{JS}}\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#676-the-saddle-point-structure-and-why-it-is-hard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.6 The Saddle-Point Structure and Why It Is Hard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.6 The Saddle-Point Structure and Why It Is Hard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6761-what-is-a-saddle-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.6.1 What Is a Saddle Point?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6762-the-alternating-optimization-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.6.2 The Alternating Optimization Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6763-intuitive-interpretation-the-adversarial-game" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.6.3 Intuitive Interpretation: The Adversarial Game
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#677-detailed-training-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.7 Detailed Training Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.7 Detailed Training Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6771-network-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.7.1 Network Architectures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6772-mini-batch-approximation-of-the-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.7.2 Mini-Batch Approximation of the Objective
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6773-gradient-computation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.7.3 Gradient Computation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6774-the-saturating-generator-loss-and-its-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.7.4 The Saturating Generator Loss and its Fix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#678-the-complete-gan-training-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.8 The Complete GAN Training Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.8 The Complete GAN Training Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6781-why-fresh-mathbfz-samples-for-the-generator-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.8.1 Why Fresh \(\mathbf{z}\) Samples for the Generator Update?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#679-the-implicit-nature-of-p_theta-why-no-density-formula-is-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.9 The Implicit Nature of \(p_\theta\): Why No Density Formula Is Needed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6710-worked-example-training-a-1d-gan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.10 Worked Example: Training a 1D GAN
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6711-training-difficulties-mode-collapse-and-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.11 Training Difficulties: Mode Collapse and Instability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.11 Training Difficulties: Mode Collapse and Instability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#67111-mode-collapse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.11.1 Mode Collapse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67112-training-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.11.2 Training Instability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67113-the-wasserstein-gan-wgan-a-cure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.11.3 The Wasserstein GAN (WGAN): A Cure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6712-inference-the-generator-stands-alone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.12 Inference: The Generator Stands Alone
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6713-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.13 Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#671-recapitulation-and-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.1 Recapitulation and Roadmap
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#672-why-mathcalnmathbf0-mathbfi-instead-of-uniform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.2 Why \(\mathcal{N}(\mathbf{0}, \mathbf{I})\) Instead of Uniform?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#673-the-f-divergence-family" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.3 The \(f\)-Divergence Family
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.3 The \(f\)-Divergence Family">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6731-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.3.1 Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6732-special-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.3.2 Special Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6733-why-not-just-use-kl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.3.3 Why Not Just Use KL?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#674-the-variational-representation-of-f-divergences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.4 The Variational Representation of \(f\)-Divergences
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.4 The Variational Representation of \(f\)-Divergences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6741-the-fenchel-conjugate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.4.1 The Fenchel Conjugate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6742-the-variational-lower-bound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.4.2 The Variational Lower Bound
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#675-the-jensen-shannon-gan-full-derivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.5 The Jensen-Shannon GAN: Full Derivation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.5 The Jensen-Shannon GAN: Full Derivation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6751-the-jensen-shannon-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.5.1 The Jensen-Shannon Divergence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6752-the-minimax-value-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.5.2 The Minimax Value Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6753-step-1-optimal-discriminator-for-fixed-g_theta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.5.3 Step 1 — Optimal Discriminator for Fixed \(G_\theta\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6754-step-2-substituting-d-and-connecting-to-d_textjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.5.4 Step 2 — Substituting \(D^*\) and Connecting to \(D_{\text{JS}}\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#676-the-saddle-point-structure-and-why-it-is-hard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.6 The Saddle-Point Structure and Why It Is Hard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.6 The Saddle-Point Structure and Why It Is Hard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6761-what-is-a-saddle-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.6.1 What Is a Saddle Point?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6762-the-alternating-optimization-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.6.2 The Alternating Optimization Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6763-intuitive-interpretation-the-adversarial-game" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.6.3 Intuitive Interpretation: The Adversarial Game
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#677-detailed-training-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.7 Detailed Training Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.7 Detailed Training Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6771-network-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.7.1 Network Architectures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6772-mini-batch-approximation-of-the-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.7.2 Mini-Batch Approximation of the Objective
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6773-gradient-computation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.7.3 Gradient Computation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6774-the-saturating-generator-loss-and-its-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.7.4 The Saturating Generator Loss and its Fix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#678-the-complete-gan-training-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.8 The Complete GAN Training Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.8 The Complete GAN Training Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6781-why-fresh-mathbfz-samples-for-the-generator-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.8.1 Why Fresh \(\mathbf{z}\) Samples for the Generator Update?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#679-the-implicit-nature-of-p_theta-why-no-density-formula-is-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.9 The Implicit Nature of \(p_\theta\): Why No Density Formula Is Needed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6710-worked-example-training-a-1d-gan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.10 Worked Example: Training a 1D GAN
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6711-training-difficulties-mode-collapse-and-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.11 Training Difficulties: Mode Collapse and Instability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="67.11 Training Difficulties: Mode Collapse and Instability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#67111-mode-collapse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.11.1 Mode Collapse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67112-training-instability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.11.2 Training Instability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67113-the-wasserstein-gan-wgan-a-cure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.11.3 The Wasserstein GAN (WGAN): A Cure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6712-inference-the-generator-stands-alone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.12 Inference: The Generator Stands Alone
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6713-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        67.13 Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-67-generative-adversarial-networks">Chapter 67: Generative Adversarial Networks</h1>
+<hr />
+<h2 id="671-recapitulation-and-roadmap">67.1 Recapitulation and Roadmap</h2>
+<p>In the previous chapter we established the master framework of generative modeling. Every generative model is, at bottom, a solution to the following problem:</p>
+<div class="arithmatex">\[\theta^* = \arg\min_\theta \, D(p \,\|\, p_\theta), \qquad \tilde{\mathbf{x}} = G_{\theta^*}(\mathbf{z}), \quad \mathbf{z} \sim p_Z \tag{67.1}\]</div>
+<p>where <span class="arithmatex">\(p\)</span> is the unknown data distribution, <span class="arithmatex">\(p_\theta\)</span> is the push-forward of a known noise distribution <span class="arithmatex">\(p_Z\)</span> through a parametric function <span class="arithmatex">\(G_\theta\)</span>, and <span class="arithmatex">\(D\)</span> is some divergence measure.</p>
+<p>Three questions govern every specific model:
+1. What is <span class="arithmatex">\(p_Z\)</span>?
+2. What is <span class="arithmatex">\(G_\theta\)</span>?
+3. What is <span class="arithmatex">\(D\)</span>, and how is <span class="arithmatex">\(\min_\theta D(p \| p_\theta)\)</span> solved given that neither <span class="arithmatex">\(p\)</span> nor <span class="arithmatex">\(p_\theta\)</span> is available in closed form?</p>
+<p>For <strong>Generative Adversarial Networks (GANs)</strong>, the answers are:
+1. <span class="arithmatex">\(p_Z = \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span> — a <span class="arithmatex">\(k\)</span>-dimensional standard normal (rather than Uniform, for reasons discussed in §67.2).
+2. <span class="arithmatex">\(G_\theta\)</span> is a deep neural network, typically with an expanding architecture (mapping <span class="arithmatex">\(\mathbb{R}^k \to \mathbb{R}^d\)</span> with <span class="arithmatex">\(k &lt; d\)</span>).
+3. <span class="arithmatex">\(D\)</span> belongs to the family of <strong><span class="arithmatex">\(f\)</span>-divergences</strong>, specifically the <strong>Jensen-Shannon divergence</strong>. Because this divergence is intractable, we construct a variational lower bound on it; tightening that bound introduces a second neural network <span class="arithmatex">\(D_\phi\)</span>, the <strong>discriminator</strong> (or critic). The result is a <strong>saddle-point optimization problem</strong> over <span class="arithmatex">\((\theta, \phi)\)</span>.</p>
+<p>This chapter builds the GAN formulation from the ground up: from the choice of <span class="arithmatex">\(p_Z\)</span>, through the <span class="arithmatex">\(f\)</span>-divergence family and its variational representation, to the minimax objective, the training algorithm, and a careful analysis of what the optimal solution means.</p>
+<hr />
+<h2 id="672-why-mathcalnmathbf0-mathbfi-instead-of-uniform">67.2 Why <span class="arithmatex">\(\mathcal{N}(\mathbf{0}, \mathbf{I})\)</span> Instead of Uniform?</h2>
+<p>In Chapter 66 we took <span class="arithmatex">\(p_Z = \text{Uniform}[0,1]\)</span> as the canonical starting point, motivated by the Probability Integral Transform. In practice, however, generative models for continuous data use <span class="arithmatex">\(p_Z = \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>.</p>
+<p>The reason is <strong>support</strong>. A <span class="arithmatex">\(k\)</span>-dimensional uniform distribution has support <span class="arithmatex">\([0,1]^k\)</span>, a bounded hypercube. Natural data distributions — images, audio, text embeddings — have unbounded support in <span class="arithmatex">\(\mathbb{R}^d\)</span>: any value, however extreme, occurs with some nonzero probability. If <span class="arithmatex">\(p_Z\)</span> has bounded support and <span class="arithmatex">\(G_\theta\)</span> is a continuous function, then by the continuous image theorem <span class="arithmatex">\(G_\theta([0,1]^k)\)</span> is also bounded, and <span class="arithmatex">\(p_\theta\)</span> cannot assign nonzero density to unbounded regions.</p>
+<p><span class="arithmatex">\(\mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span> has full support on <span class="arithmatex">\(\mathbb{R}^k\)</span>: for every open set <span class="arithmatex">\(U \subseteq \mathbb{R}^k\)</span>, <span class="arithmatex">\(p_Z(U) &gt; 0\)</span>. Therefore, <span class="arithmatex">\(p_\theta\)</span> can in principle place mass anywhere in <span class="arithmatex">\(\mathbb{R}^d\)</span>, matching the full support of <span class="arithmatex">\(p\)</span>.</p>
+<p>Moreover, we can sample from <span class="arithmatex">\(\mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span> for the same reason we can sample from Uniform<span class="arithmatex">\([0,1]\)</span>: there exists a known deterministic transformation from <span class="arithmatex">\(\text{Uniform}[0,1]^k\)</span> to <span class="arithmatex">\(\mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>, called the <strong>Box-Muller transform</strong> (one concrete instance of the Push-Forward Principle itself).</p>
+<p><strong>Box-Muller Transform (Example 67.1).</strong> Given <span class="arithmatex">\(U_1, U_2 \stackrel{\text{i.i.d.}}{\sim} \text{Uniform}(0,1]\)</span>, define:</p>
+<div class="arithmatex">\[Z_1 = \sqrt{-2\ln U_1} \cos(2\pi U_2), \qquad Z_2 = \sqrt{-2\ln U_1} \sin(2\pi U_2)\]</div>
+<p>Then <span class="arithmatex">\(Z_1, Z_2 \stackrel{\text{i.i.d.}}{\sim} \mathcal{N}(0,1)\)</span>. The full derivation uses the change-of-variables formula for the joint density of <span class="arithmatex">\((U_1, U_2)\)</span> under the polar coordinate transformation, which the reader can verify as an exercise. The key takeaway is that sampling from <span class="arithmatex">\(\mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span> is itself an instance of the master framework — we will simply accept it as a primitive going forward.</p>
+<hr />
+<h2 id="673-the-f-divergence-family">67.3 The <span class="arithmatex">\(f\)</span>-Divergence Family</h2>
+<p>The choice of divergence <span class="arithmatex">\(D\)</span> in (67.1) is not arbitrary — it fundamentally shapes the geometry of the optimization landscape and the behavior of the learned model. GANs use a large and principled family called <strong><span class="arithmatex">\(f\)</span>-divergences</strong>, which contains the KL divergence, reverse KL, Jensen-Shannon, <span class="arithmatex">\(\chi^2\)</span>, and many others as special cases.</p>
+<h3 id="6731-definition">67.3.1 Definition</h3>
+<p><strong>Definition 67.1 (<span class="arithmatex">\(f\)</span>-Divergence).</strong> Let <span class="arithmatex">\(f : (0, \infty) \to \mathbb{R}\)</span> be a convex, lower-semicontinuous function with <span class="arithmatex">\(f(1) = 0\)</span>. The <span class="arithmatex">\(f\)</span>-divergence between distributions <span class="arithmatex">\(p\)</span> and <span class="arithmatex">\(q\)</span> (with <span class="arithmatex">\(p \ll q\)</span>, i.e., <span class="arithmatex">\(p\)</span> is absolutely continuous with respect to <span class="arithmatex">\(q\)</span>) is:</p>
+<div class="arithmatex">\[D_f(p \,\|\, q) = \int_{\mathcal{X}} q(\mathbf{x}) \, f\!\left(\frac{p(\mathbf{x})}{q(\mathbf{x})}\right) d\mathbf{x} = \mathbb{E}_{\mathbf{x} \sim q}\!\left[f\!\left(\frac{p(\mathbf{x})}{q(\mathbf{x})}\right)\right] \tag{67.2}\]</div>
+<p>The function <span class="arithmatex">\(f\)</span> is called the <strong>generator function</strong> of the divergence. (Beware the overloaded terminology: in the GAN context, "generator" refers to the network <span class="arithmatex">\(G_\theta\)</span>; here it is a scalar function defining the divergence. These are distinct uses of the same word.)</p>
+<p><strong>Properties.</strong> For any valid <span class="arithmatex">\(f\)</span>:
+- <span class="arithmatex">\(D_f(p \| q) \geq 0\)</span> for all <span class="arithmatex">\(p, q\)</span>.
+- <span class="arithmatex">\(D_f(p \| q) = 0\)</span> if and only if <span class="arithmatex">\(p = q\)</span> (almost everywhere).
+- <span class="arithmatex">\(D_f\)</span> is generally <strong>not</strong> symmetric: <span class="arithmatex">\(D_f(p \| q) \neq D_f(q \| p)\)</span> in general.</p>
+<p>The non-negativity follows from Jensen's inequality: since <span class="arithmatex">\(f\)</span> is convex,</p>
+<div class="arithmatex">\[\mathbb{E}_{q}\!\left[f\!\left(\frac{p}{q}\right)\right] \geq f\!\left(\mathbb{E}_{q}\!\left[\frac{p}{q}\right]\right) = f\!\left(\int p(\mathbf{x}) d\mathbf{x}\right) = f(1) = 0\]</div>
+<p>where we used <span class="arithmatex">\(\int p(\mathbf{x}) d\mathbf{x} = 1\)</span>.</p>
+<h3 id="6732-special-cases">67.3.2 Special Cases</h3>
+<p>The following table shows how the standard divergences arise as special cases.</p>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(f(t)\)</span></th>
+<th><span class="arithmatex">\(D_f(p \| q)\)</span></th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(t \ln t\)</span></td>
+<td><span class="arithmatex">\(D_{\text{KL}}(p \| q) = \int p \ln \frac{p}{q}\)</span></td>
+<td>KL divergence (forward)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(-\ln t\)</span></td>
+<td><span class="arithmatex">\(D_{\text{KL}}(q \| p) = \int q \ln \frac{q}{p}\)</span></td>
+<td>Reverse KL divergence</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\((t-1)^2\)</span></td>
+<td><span class="arithmatex">\(\chi^2(p \| q) = \int \frac{(p-q)^2}{q}\)</span></td>
+<td>Chi-squared divergence</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\frac{1}{2}\left(t \ln t - (t+1)\ln\frac{t+1}{2}\right)\)</span></td>
+<td><span class="arithmatex">\(D_{\text{JS}}(p \| q)\)</span></td>
+<td>Jensen-Shannon divergence</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\|t - 1\|\)</span></td>
+<td>$TV(p, q) = \frac{1}{2}\int</td>
+<td>p - q</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Worked Example 67.1: Verifying KL as an <span class="arithmatex">\(f\)</span>-divergence.</strong></p>
+<p>Take <span class="arithmatex">\(f(t) = t \ln t\)</span>. Then:</p>
+<div class="arithmatex">\[D_f(p \| q) = \int q(\mathbf{x}) \cdot \frac{p(\mathbf{x})}{q(\mathbf{x})} \ln \frac{p(\mathbf{x})}{q(\mathbf{x})} \, d\mathbf{x} = \int p(\mathbf{x}) \ln \frac{p(\mathbf{x})}{q(\mathbf{x})} \, d\mathbf{x} = D_{\text{KL}}(p \| q) \checkmark\]</div>
+<p>Note <span class="arithmatex">\(f(1) = 1 \cdot \ln 1 = 0\)</span> ✓ and <span class="arithmatex">\(f''(t) = 1/t &gt; 0\)</span> for <span class="arithmatex">\(t &gt; 0\)</span>, so <span class="arithmatex">\(f\)</span> is convex ✓.</p>
+<h3 id="6733-why-not-just-use-kl">67.3.3 Why Not Just Use KL?</h3>
+<p>This is a natural question. We used <span class="arithmatex">\(D_{\text{KL}}\)</span> for all our discriminative models (maximum likelihood minimizes <span class="arithmatex">\(D_{\text{KL}}(p_{\text{data}} \| p_\theta)\)</span>), so why not here?</p>
+<p>The issue is the <strong>support mismatch problem</strong>. Recall that <span class="arithmatex">\(D_{\text{KL}}(p \| q) = \int p \ln \frac{p}{q}\)</span>. If there exists a region <span class="arithmatex">\(A\)</span> where <span class="arithmatex">\(p(A) &gt; 0\)</span> but <span class="arithmatex">\(q(A) = 0\)</span>, then <span class="arithmatex">\(\frac{p}{q} \to \infty\)</span> on <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(D_{\text{KL}}(p \| q) = +\infty\)</span>. In the generative setting, early in training <span class="arithmatex">\(p_\theta\)</span> is randomly initialized and its support may not overlap with <span class="arithmatex">\(p\)</span> at all. This makes the KL gradient uninformative — it is <span class="arithmatex">\(+\infty\)</span> everywhere that <span class="arithmatex">\(p_\theta\)</span> has no support.</p>
+<p><strong>Reverse KL</strong> <span class="arithmatex">\(D_{\text{KL}}(q \| p)\)</span> has the opposite pathology: it is <span class="arithmatex">\(+\infty\)</span> when <span class="arithmatex">\(q\)</span> assigns mass where <span class="arithmatex">\(p\)</span> does not, forcing the model to be <strong>zero-avoiding</strong> (it must cover everything <span class="arithmatex">\(p\)</span> covers) but potentially ignoring modes of <span class="arithmatex">\(p\)</span> it hasn't yet found. The two behaviors are called <strong>mass-covering</strong> (forward KL) and <strong>mode-seeking</strong> (reverse KL).</p>
+<p><strong>Jensen-Shannon divergence</strong> <span class="arithmatex">\(D_{\text{JS}}\)</span> is a symmetric interpolation between the two, bounded in <span class="arithmatex">\([0, \ln 2]\)</span>, and well-defined even when <span class="arithmatex">\(p\)</span> and <span class="arithmatex">\(p_\theta\)</span> have disjoint support (it evaluates to <span class="arithmatex">\(\ln 2\)</span> in that case, rather than <span class="arithmatex">\(\infty\)</span>). This makes it more numerically stable for early-stage training and provides gradients even when supports do not overlap. These properties motivated Goodfellow et al. (2014) to build the original GAN around <span class="arithmatex">\(D_{\text{JS}}\)</span>.</p>
+<hr />
+<h2 id="674-the-variational-representation-of-f-divergences">67.4 The Variational Representation of <span class="arithmatex">\(f\)</span>-Divergences</h2>
+<p>The central mathematical obstacle is that we cannot compute <span class="arithmatex">\(D_f(p \| p_\theta)\)</span> — we know neither <span class="arithmatex">\(p\)</span> nor <span class="arithmatex">\(p_\theta\)</span> in closed form. We only have samples from each.</p>
+<p>The key breakthrough is that <strong>every <span class="arithmatex">\(f\)</span>-divergence admits a variational lower bound</strong> expressible purely in terms of expectations over samples. This is the <strong>Fenchel conjugate</strong> (or Legendre transform) representation.</p>
+<h3 id="6741-the-fenchel-conjugate">67.4.1 The Fenchel Conjugate</h3>
+<p><strong>Definition 67.2 (Fenchel Conjugate).</strong> For a function <span class="arithmatex">\(f : \mathbb{R} \to \mathbb{R}\)</span>, its Fenchel conjugate (convex conjugate) is:</p>
+<div class="arithmatex">\[f^*(s) = \sup_{t \in \text{dom}(f)} \left\{st - f(t)\right\} \tag{67.3}\]</div>
+<p>For convex <span class="arithmatex">\(f\)</span>, the Fenchel-Moreau theorem guarantees that <span class="arithmatex">\(f^{**} = f\)</span>, i.e., <span class="arithmatex">\(f\)</span> is recoverable from <span class="arithmatex">\(f^*\)</span>:</p>
+<div class="arithmatex">\[f(t) = \sup_{s \in \text{dom}(f^*)} \left\{st - f^*(s)\right\} \tag{67.4}\]</div>
+<p><strong>Example 67.2.</strong> For <span class="arithmatex">\(f(t) = t \ln t\)</span> (KL generator):</p>
+<div class="arithmatex">\[f^*(s) = \sup_t \{st - t\ln t\}\]</div>
+<p>Setting <span class="arithmatex">\(\frac{d}{dt}[st - t\ln t] = s - \ln t - 1 = 0\)</span> gives <span class="arithmatex">\(t^* = e^{s-1}\)</span>, so:</p>
+<div class="arithmatex">\[f^*(s) = s \cdot e^{s-1} - e^{s-1}\ln(e^{s-1}) = s e^{s-1} - (s-1)e^{s-1} = e^{s-1}\]</div>
+<p>Therefore <span class="arithmatex">\(f^*(s) = e^{s-1}\)</span>, with domain <span class="arithmatex">\(\mathbb{R}\)</span>.</p>
+<h3 id="6742-the-variational-lower-bound">67.4.2 The Variational Lower Bound</h3>
+<p><strong>Theorem 67.1 (Variational Representation of <span class="arithmatex">\(f\)</span>-Divergences, Nguyen et al. 2010).</strong> For any <span class="arithmatex">\(f\)</span>-divergence:</p>
+<div class="arithmatex">\[D_f(p \,\|\, q) = \sup_{T : \mathcal{X} \to \text{dom}(f^*)} \left\{ \mathbb{E}_{\mathbf{x} \sim p}[T(\mathbf{x})] - \mathbb{E}_{\mathbf{x} \sim q}[f^*(T(\mathbf{x}))] \right\} \tag{67.5}\]</div>
+<p>where the supremum is over all measurable functions <span class="arithmatex">\(T : \mathcal{X} \to \text{dom}(f^*)\)</span>.</p>
+<p><em>Proof.</em> Starting from (67.2) and substituting (67.4):</p>
+<div class="arithmatex">\[D_f(p \| q) = \int q(\mathbf{x}) f\!\left(\frac{p(\mathbf{x})}{q(\mathbf{x})}\right) d\mathbf{x} = \int q(\mathbf{x}) \sup_s \left\{s \frac{p(\mathbf{x})}{q(\mathbf{x})} - f^*(s)\right\} d\mathbf{x}\]</div>
+<p>Since the supremum over <span class="arithmatex">\(s\)</span> can be taken pointwise and <span class="arithmatex">\(q &gt; 0\)</span>:</p>
+<div class="arithmatex">\[\geq \sup_T \int q(\mathbf{x}) \left\{T(\mathbf{x}) \frac{p(\mathbf{x})}{q(\mathbf{x})} - f^*(T(\mathbf{x}))\right\} d\mathbf{x}\]</div>
+<div class="arithmatex">\[= \sup_T \left\{\int p(\mathbf{x}) T(\mathbf{x}) d\mathbf{x} - \int q(\mathbf{x}) f^*(T(\mathbf{x})) d\mathbf{x}\right\}\]</div>
+<div class="arithmatex">\[= \sup_T \left\{\mathbb{E}_p[T(\mathbf{x})] - \mathbb{E}_q[f^*(T(\mathbf{x}))]\right\}\]</div>
+<p>The inequality becomes an equality when <span class="arithmatex">\(T^*(\mathbf{x}) = \arg\sup_s\{s \cdot p(\mathbf{x})/q(\mathbf{x}) - f^*(s)\}\)</span>, which by (67.3)–(67.4) is <span class="arithmatex">\(T^*(\mathbf{x}) = (f^*)^{-1}(p(\mathbf{x})/q(\mathbf{x}))\)</span> (or equivalently, where the pointwise supremum is attained). <span class="arithmatex">\(\blacksquare\)</span></p>
+<p><strong>What does this tell us?</strong> The <span class="arithmatex">\(f\)</span>-divergence equals the supremum of a quantity that involves only:
+- An expectation over <span class="arithmatex">\(p\)</span> (estimable from real data <span class="arithmatex">\(\mathcal{D}\)</span>), and
+- An expectation over <span class="arithmatex">\(q = p_\theta\)</span> (estimable by generating samples through <span class="arithmatex">\(G_\theta\)</span>).</p>
+<p>The function <span class="arithmatex">\(T\)</span> is the variational parameter. Approximating <span class="arithmatex">\(T\)</span> with a neural network <span class="arithmatex">\(T_\phi\)</span> — restricting the supremum to the class of functions representable by that network — gives us a computable lower bound:</p>
+<div class="arithmatex">\[D_f(p \,\|\, p_\theta) \geq \sup_\phi \left\{ \mathbb{E}_{\mathbf{x} \sim p}[T_\phi(\mathbf{x})] - \mathbb{E}_{\mathbf{z} \sim p_Z}[f^*(T_\phi(G_\theta(\mathbf{z})))] \right\} \tag{67.6}\]</div>
+<p>This is precisely the bound whose tightness requires solving the inner maximization over <span class="arithmatex">\(\phi\)</span>. Plugging this bound back into our goal of minimizing <span class="arithmatex">\(D_f(p \| p_\theta)\)</span> over <span class="arithmatex">\(\theta\)</span> gives the GAN saddle-point problem:</p>
+<div class="arithmatex">\[\min_\theta \max_\phi \left\{ \mathbb{E}_{\mathbf{x} \sim p}[T_\phi(\mathbf{x})] - \mathbb{E}_{\mathbf{z} \sim p_Z}[f^*(T_\phi(G_\theta(\mathbf{z})))] \right\} \tag{67.7}\]</div>
+<p>This is the <strong>general <span class="arithmatex">\(f\)</span>-GAN objective</strong> (Nowozin et al., 2016). The specific functional form of the objective depends on the choice of <span class="arithmatex">\(f\)</span>. Let us now work out the case <span class="arithmatex">\(f = D_{\text{JS}}\)</span> in detail.</p>
+<hr />
+<h2 id="675-the-jensen-shannon-gan-full-derivation">67.5 The Jensen-Shannon GAN: Full Derivation</h2>
+<h3 id="6751-the-jensen-shannon-divergence">67.5.1 The Jensen-Shannon Divergence</h3>
+<p>Recall from Chapter 66:</p>
+<div class="arithmatex">\[D_{\text{JS}}(p \| q) = \frac{1}{2} D_{\text{KL}}\!\left(p \,\Big\|\, \frac{p+q}{2}\right) + \frac{1}{2} D_{\text{KL}}\!\left(q \,\Big\|\, \frac{p+q}{2}\right) \tag{67.8}\]</div>
+<p>We can write this using the mixture distribution <span class="arithmatex">\(m = \frac{p+q}{2}\)</span>:</p>
+<div class="arithmatex">\[D_{\text{JS}}(p \| q) = \frac{1}{2}\int p \ln\frac{p}{m} + \frac{1}{2}\int q \ln\frac{q}{m} = \ln 2 - H\!\left(\frac{p+q}{2}\right) + \frac{1}{2}H(p) + \frac{1}{2}H(q)\]</div>
+<p>where <span class="arithmatex">\(H\)</span> denotes differential entropy. Key properties:
+- <span class="arithmatex">\(D_{\text{JS}}(p \| q) \in [0, \ln 2]\)</span>, bounded regardless of support overlap.
+- <span class="arithmatex">\(D_{\text{JS}}(p \| q) = 0 \Leftrightarrow p = q\)</span>.
+- <strong>Symmetric</strong>: <span class="arithmatex">\(D_{\text{JS}}(p \| q) = D_{\text{JS}}(q \| p)\)</span>.
+- <span class="arithmatex">\(D_{\text{JS}}(p \| q) = \ln 2\)</span> when <span class="arithmatex">\(p\)</span> and <span class="arithmatex">\(q\)</span> have completely disjoint support.</p>
+<h3 id="6752-the-minimax-value-function">67.5.2 The Minimax Value Function</h3>
+<p>In the original GAN paper, Goodfellow et al. (2014) proposed the following value function directly:</p>
+<div class="arithmatex">\[V(G_\theta, D_\phi) = \mathbb{E}_{\mathbf{x} \sim p}[\ln D_\phi(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_Z}[\ln(1 - D_\phi(G_\theta(\mathbf{z})))] \tag{67.9}\]</div>
+<p>where <span class="arithmatex">\(D_\phi : \mathbb{R}^d \to (0,1)\)</span> (with a sigmoid output layer). The GAN training objective is:</p>
+<div class="arithmatex">\[\min_\theta \max_\phi \, V(G_\theta, D_\phi) \tag{67.10}\]</div>
+<p>We will now rigorously derive that this is equivalent to minimizing <span class="arithmatex">\(D_{\text{JS}}(p \| p_\theta)\)</span>.</p>
+<h3 id="6753-step-1-optimal-discriminator-for-fixed-g_theta">67.5.3 Step 1 — Optimal Discriminator for Fixed <span class="arithmatex">\(G_\theta\)</span></h3>
+<p><strong>Proposition 67.1.</strong> For any fixed generator <span class="arithmatex">\(G_\theta\)</span> (and thus fixed <span class="arithmatex">\(p_\theta\)</span>), the discriminator that maximizes <span class="arithmatex">\(V(G_\theta, D_\phi)\)</span> over all measurable functions <span class="arithmatex">\(D : \mathbb{R}^d \to (0,1)\)</span> is:</p>
+<div class="arithmatex">\[D^*(\mathbf{x}) = \frac{p(\mathbf{x})}{p(\mathbf{x}) + p_\theta(\mathbf{x})} \tag{67.11}\]</div>
+<p><em>Proof.</em> Since the expectations in (67.9) are over the data space, we can write:</p>
+<div class="arithmatex">\[V = \int_{\mathcal{X}} \left[ p(\mathbf{x}) \ln D(\mathbf{x}) + p_\theta(\mathbf{x}) \ln(1 - D(\mathbf{x})) \right] d\mathbf{x}\]</div>
+<p>(using <span class="arithmatex">\(\mathbb{E}_{\mathbf{z} \sim p_Z}[f(G_\theta(\mathbf{z}))] = \mathbb{E}_{\mathbf{x} \sim p_\theta}[f(\mathbf{x})]\)</span> by the push-forward). The integrand decomposes pointwise: for each <span class="arithmatex">\(\mathbf{x}\)</span>, we maximize <span class="arithmatex">\(h(y) = a \ln y + b \ln(1-y)\)</span> over <span class="arithmatex">\(y \in (0,1)\)</span> with <span class="arithmatex">\(a = p(\mathbf{x}) &gt; 0\)</span> and <span class="arithmatex">\(b = p_\theta(\mathbf{x}) &gt; 0\)</span>.</p>
+<div class="arithmatex">\[h'(y) = \frac{a}{y} - \frac{b}{1-y} = 0 \implies a(1-y) = by \implies y^* = \frac{a}{a+b} = \frac{p(\mathbf{x})}{p(\mathbf{x}) + p_\theta(\mathbf{x})}\]</div>
+<p>Checking the second derivative: <span class="arithmatex">\(h''(y) = -a/y^2 - b/(1-y)^2 &lt; 0\)</span>, confirming this is a maximum. <span class="arithmatex">\(\blacksquare\)</span></p>
+<p><strong>Interpretation.</strong> <span class="arithmatex">\(D^*(\mathbf{x})\)</span> is exactly the Bayes-optimal classifier for the binary problem of distinguishing whether <span class="arithmatex">\(\mathbf{x}\)</span> came from <span class="arithmatex">\(p\)</span> (real, label <span class="arithmatex">\(1\)</span>) or <span class="arithmatex">\(p_\theta\)</span> (generated, label <span class="arithmatex">\(0\)</span>). When <span class="arithmatex">\(p = p_\theta\)</span>, <span class="arithmatex">\(D^*(\mathbf{x}) = 1/2\)</span> everywhere — the discriminator is no better than a coin flip.</p>
+<p><strong>Remark.</strong> A discriminator with sigmoid output naturally parameterizes <span class="arithmatex">\(D_\phi(\mathbf{x}) \in (0,1)\)</span>. In the limit of infinite capacity, <span class="arithmatex">\(D_\phi\)</span> can approximate any measurable function, so this optimal solution is achievable.</p>
+<h3 id="6754-step-2-substituting-d-and-connecting-to-d_textjs">67.5.4 Step 2 — Substituting <span class="arithmatex">\(D^*\)</span> and Connecting to <span class="arithmatex">\(D_{\text{JS}}\)</span></h3>
+<p><strong>Theorem 67.2.</strong> The minimax value of the GAN game equals <span class="arithmatex">\(2D_{\text{JS}}(p \| p_\theta) - 2\ln 2\)</span>:</p>
+<div class="arithmatex">\[\max_\phi V(G_\theta, D_\phi) = 2 D_{\text{JS}}(p \,\|\, p_\theta) - 2\ln 2 \tag{67.12}\]</div>
+<p><em>Proof.</em> Substitute <span class="arithmatex">\(D^*\)</span> from (67.11) into (67.9):</p>
+<div class="arithmatex">\[V(G_\theta, D^*) = \mathbb{E}_{\mathbf{x} \sim p}\!\left[\ln \frac{p(\mathbf{x})}{p(\mathbf{x}) + p_\theta(\mathbf{x})}\right] + \mathbb{E}_{\mathbf{x} \sim p_\theta}\!\left[\ln \frac{p_\theta(\mathbf{x})}{p(\mathbf{x}) + p_\theta(\mathbf{x})}\right]\]</div>
+<p>In each term, add and subtract <span class="arithmatex">\(\ln 2\)</span> inside:</p>
+<div class="arithmatex">\[= \mathbb{E}_{p}\!\left[\ln\frac{2 p(\mathbf{x})}{p(\mathbf{x}) + p_\theta(\mathbf{x})} - \ln 2\right] + \mathbb{E}_{p_\theta}\!\left[\ln\frac{2 p_\theta(\mathbf{x})}{p(\mathbf{x}) + p_\theta(\mathbf{x})} - \ln 2\right]\]</div>
+<div class="arithmatex">\[= \mathbb{E}_{p}\!\left[\ln\frac{p(\mathbf{x})}{m(\mathbf{x})}\right] + \mathbb{E}_{p_\theta}\!\left[\ln\frac{p_\theta(\mathbf{x})}{m(\mathbf{x})}\right] - 2\ln 2\]</div>
+<p>where <span class="arithmatex">\(m(\mathbf{x}) = \frac{p(\mathbf{x}) + p_\theta(\mathbf{x})}{2}\)</span> is the mixture. Recognizing the KL divergences:</p>
+<div class="arithmatex">\[= D_{\text{KL}}(p \,\|\, m) + D_{\text{KL}}(p_\theta \,\|\, m) - 2\ln 2 = 2 D_{\text{JS}}(p \,\|\, p_\theta) - 2\ln 2 \qquad \blacksquare\]</div>
+<p><strong>Corollary 67.1.</strong> The outer minimization</p>
+<div class="arithmatex">\[\min_\theta \max_\phi V(G_\theta, D_\phi) = \min_\theta \left[2 D_{\text{JS}}(p \,\|\, p_\theta) - 2\ln 2\right]\]</div>
+<p>is equivalent to <span class="arithmatex">\(\min_\theta D_{\text{JS}}(p \| p_\theta)\)</span>, which is minimized (to <span class="arithmatex">\(0\)</span>) if and only if <span class="arithmatex">\(p_\theta = p\)</span>.</p>
+<p>At the global optimum:
+- <span class="arithmatex">\(p_{\theta^*} = p\)</span> (the generator perfectly matches the data distribution),
+- <span class="arithmatex">\(D^*(\mathbf{x}) = 1/2\)</span> for all <span class="arithmatex">\(\mathbf{x}\)</span> (the discriminator cannot distinguish real from generated),
+- <span class="arithmatex">\(V^* = -2\ln 2 \approx -1.386\)</span>.</p>
+<hr />
+<h2 id="676-the-saddle-point-structure-and-why-it-is-hard">67.6 The Saddle-Point Structure and Why It Is Hard</h2>
+<h3 id="6761-what-is-a-saddle-point">67.6.1 What Is a Saddle Point?</h3>
+<p><strong>Definition 67.3 (Saddle Point).</strong> A point <span class="arithmatex">\((\theta^*, \phi^*)\)</span> is a saddle point of <span class="arithmatex">\(V(\theta, \phi)\)</span> if:</p>
+<div class="arithmatex">\[V(\theta^*, \phi) \leq V(\theta^*, \phi^*) \leq V(\theta, \phi^*) \quad \forall \, \theta, \phi\]</div>
+<p>In other words, <span class="arithmatex">\((\theta^*, \phi^*)\)</span> is a minimum of <span class="arithmatex">\(V\)</span> with respect to <span class="arithmatex">\(\theta\)</span> and simultaneously a maximum with respect to <span class="arithmatex">\(\phi\)</span>.</p>
+<p>Geometrically, imagine the surface of <span class="arithmatex">\(V\)</span> over <span class="arithmatex">\((\theta, \phi)\)</span>-space. At a saddle point, slicing along the <span class="arithmatex">\(\theta\)</span>-axis gives a local minimum, while slicing along the <span class="arithmatex">\(\phi\)</span>-axis gives a local maximum — like the surface of a horse's saddle (hence the name). The landscape curves downward in one direction and upward in another.</p>
+<h3 id="6762-the-alternating-optimization-strategy">67.6.2 The Alternating Optimization Strategy</h3>
+<p>Standard gradient descent seeks a minimum of a function by always moving downhill. For a saddle-point problem, we need to move downhill in <span class="arithmatex">\(\theta\)</span> and uphill in <span class="arithmatex">\(\phi\)</span> simultaneously. The standard approach is <strong>alternating gradient descent-ascent</strong>:</p>
+<blockquote>
+<p>For each iteration <span class="arithmatex">\(t\)</span>:
+1. Fix <span class="arithmatex">\(\theta\)</span>, take a gradient <strong>ascent</strong> step in <span class="arithmatex">\(\phi\)</span>: <span class="arithmatex">\(\phi \leftarrow \phi + \eta \nabla_\phi V\)</span>.
+2. Fix <span class="arithmatex">\(\phi\)</span>, take a gradient <strong>descent</strong> step in <span class="arithmatex">\(\theta\)</span>: <span class="arithmatex">\(\theta \leftarrow \theta - \eta \nabla_\theta V\)</span>.</p>
+</blockquote>
+<p>This is not guaranteed to converge in general, even for convex-concave problems with non-trivial structure. In the deep neural network setting, where both <span class="arithmatex">\(G_\theta\)</span> and <span class="arithmatex">\(D_\phi\)</span> are non-convex, convergence guarantees are essentially absent. This fundamental difficulty is the primary reason GAN training is notoriously unstable, prone to <strong>oscillation</strong> (alternating between regions rather than converging) and <strong>mode collapse</strong> (the generator producing only a few distinct samples).</p>
+<h3 id="6763-intuitive-interpretation-the-adversarial-game">67.6.3 Intuitive Interpretation: The Adversarial Game</h3>
+<p>Although the saddle-point formulation is the correct mathematical view, there is a complementary intuition that has become standard in the field.</p>
+<p>Think of <span class="arithmatex">\(D_\phi\)</span> as a <strong>detective</strong> and <span class="arithmatex">\(G_\theta\)</span> as a <strong>forger</strong>. The detective's job is to inspect a piece of data <span class="arithmatex">\(\mathbf{x}\)</span> and decide: is this authentic (from <span class="arithmatex">\(p\)</span>) or counterfeit (from <span class="arithmatex">\(p_\theta\)</span>)? The forger's job is to produce counterfeits <span class="arithmatex">\(G_\theta(\mathbf{z})\)</span> that are indistinguishable from authentic data.</p>
+<p>The loss function encodes this competition:
+- The discriminator maximizes: assign high <span class="arithmatex">\(D_\phi(\mathbf{x})\)</span> to real data, low <span class="arithmatex">\(D_\phi(G_\theta(\mathbf{z}))\)</span> to fake data.
+- The generator minimizes (equivalently, tries to maximize <span class="arithmatex">\(D_\phi(G_\theta(\mathbf{z}))\)</span>): produce fakes that the discriminator scores highly.</p>
+<p>Equilibrium (saddle point) is reached when the forger is so good that the detective cannot do better than guessing (<span class="arithmatex">\(D^* = 1/2\)</span> everywhere). At that point, <span class="arithmatex">\(p_\theta = p\)</span> and the generative modeling problem is solved.</p>
+<p><strong>A caution.</strong> This narrative, while pedagogically useful, can be misleading if taken as the starting point (rather than a consequence) of the mathematical construction. The adversarial game is not what defines GANs; it is what emerges from the variational representation of the Jensen-Shannon divergence. Starting from the game story leads to ad hoc constructions that are hard to analyze theoretically.</p>
+<hr />
+<h2 id="677-detailed-training-algorithm">67.7 Detailed Training Algorithm</h2>
+<p>We now make the training procedure fully explicit, tracking every tensor and gradient.</p>
+<h3 id="6771-network-architectures">67.7.1 Network Architectures</h3>
+<p><strong>Generator <span class="arithmatex">\(G_\theta : \mathbb{R}^k \to \mathbb{R}^d\)</span></strong> takes a latent vector <span class="arithmatex">\(\mathbf{z} \in \mathbb{R}^k\)</span> (<span class="arithmatex">\(k \ll d\)</span>) and produces a synthetic data point <span class="arithmatex">\(\tilde{\mathbf{x}} \in \mathbb{R}^d\)</span>. Because the mapping goes from lower to higher dimension, the network expands: successive layers have increasing width, typically with transposed convolutions (for image data) or dense layers followed by reshape operations.</p>
+<p><strong>Discriminator <span class="arithmatex">\(D_\phi : \mathbb{R}^d \to (0,1)\)</span></strong> takes a data point <span class="arithmatex">\(\mathbf{x} \in \mathbb{R}^d\)</span> (either real or generated) and outputs a scalar in <span class="arithmatex">\((0,1)\)</span>, interpreted as the probability that <span class="arithmatex">\(\mathbf{x}\)</span> came from <span class="arithmatex">\(p\)</span> (real). The architecture mirrors the generator in reverse: contracting (for image data, convolutional with pooling or strided convolutions), ending with a single sigmoid unit.</p>
+<h3 id="6772-mini-batch-approximation-of-the-objective">67.7.2 Mini-Batch Approximation of the Objective</h3>
+<p>The expectations in (67.9) are approximated via mini-batches of size <span class="arithmatex">\(m\)</span>:</p>
+<div class="arithmatex">\[\hat{V}_D = \frac{1}{m}\sum_{i=1}^m \ln D_\phi(\mathbf{x}^{(i)}) + \frac{1}{m}\sum_{i=1}^m \ln\!\left(1 - D_\phi(G_\theta(\mathbf{z}^{(i)}))\right) \tag{67.13}\]</div>
+<div class="arithmatex">\[\hat{V}_G = \frac{1}{m}\sum_{i=1}^m \ln\!\left(1 - D_\phi(G_\theta(\mathbf{z}^{(i)}))\right) \tag{67.14}\]</div>
+<p>where <span class="arithmatex">\(\{\mathbf{x}^{(i)}\}_{i=1}^m \sim p\)</span> (a mini-batch from <span class="arithmatex">\(\mathcal{D}\)</span>) and <span class="arithmatex">\(\{\mathbf{z}^{(i)}\}_{i=1}^m \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>.</p>
+<h3 id="6773-gradient-computation">67.7.3 Gradient Computation</h3>
+<p><strong>Discriminator gradient.</strong> We want <span class="arithmatex">\(\nabla_\phi \hat{V}_D\)</span> to perform ascent on <span class="arithmatex">\(\phi\)</span>:</p>
+<div class="arithmatex">\[\nabla_\phi \hat{V}_D = \frac{1}{m}\sum_{i=1}^m \frac{\nabla_\phi D_\phi(\mathbf{x}^{(i)})}{D_\phi(\mathbf{x}^{(i)})} - \frac{1}{m}\sum_{i=1}^m \frac{\nabla_\phi D_\phi(G_\theta(\mathbf{z}^{(i)}))}{1 - D_\phi(G_\theta(\mathbf{z}^{(i)}))}\]</div>
+<p>Note that <span class="arithmatex">\(G_\theta(\mathbf{z}^{(i)})\)</span> is treated as a <strong>fixed input</strong> to <span class="arithmatex">\(D_\phi\)</span> during the discriminator update — we do not differentiate through <span class="arithmatex">\(G_\theta\)</span>. The update:</p>
+<div class="arithmatex">\[\phi \leftarrow \phi + \eta_D \nabla_\phi \hat{V}_D \tag{67.15}\]</div>
+<p><strong>Generator gradient.</strong> We minimize <span class="arithmatex">\(\hat{V}_G\)</span> over <span class="arithmatex">\(\theta\)</span>. The first term <span class="arithmatex">\(\frac{1}{m}\sum \ln D_\phi(\mathbf{x}^{(i)})\)</span> is independent of <span class="arithmatex">\(\theta\)</span> and contributes zero gradient. Only the second term matters:</p>
+<div class="arithmatex">\[\nabla_\theta \hat{V}_G = \frac{1}{m}\sum_{i=1}^m \frac{-\nabla_\theta D_\phi(G_\theta(\mathbf{z}^{(i)}))}{1 - D_\phi(G_\theta(\mathbf{z}^{(i)}))}\]</div>
+<p>where <span class="arithmatex">\(\nabla_\theta D_\phi(G_\theta(\mathbf{z}^{(i)}))\)</span> is computed by <strong>backpropagation through <span class="arithmatex">\(D_\phi\)</span> into <span class="arithmatex">\(G_\theta\)</span></strong> (treating <span class="arithmatex">\(\phi\)</span> as fixed). The chain rule gives:</p>
+<div class="arithmatex">\[\nabla_\theta D_\phi(G_\theta(\mathbf{z})) = J_{D_\phi}(G_\theta(\mathbf{z})) \cdot \nabla_\theta G_\theta(\mathbf{z})\]</div>
+<p>where <span class="arithmatex">\(J_{D_\phi}\)</span> is the Jacobian of <span class="arithmatex">\(D_\phi\)</span> evaluated at <span class="arithmatex">\(G_\theta(\mathbf{z})\)</span>. The update:</p>
+<div class="arithmatex">\[\theta \leftarrow \theta - \eta_G \nabla_\theta \hat{V}_G \tag{67.16}\]</div>
+<h3 id="6774-the-saturating-generator-loss-and-its-fix">67.7.4 The Saturating Generator Loss and its Fix</h3>
+<p><strong>The saturation problem.</strong> The generator loss <span class="arithmatex">\(\hat{V}_G = \frac{1}{m}\sum \ln(1 - D_\phi(G_\theta(\mathbf{z}^{(i)})))\)</span> saturates early in training. When <span class="arithmatex">\(G_\theta\)</span> is poorly trained, <span class="arithmatex">\(D_\phi\)</span> correctly rejects all generated samples: <span class="arithmatex">\(D_\phi(G_\theta(\mathbf{z})) \approx 0\)</span>. Then:</p>
+<div class="arithmatex">\[\ln(1 - D_\phi(G_\theta(\mathbf{z}))) \approx \ln(1 - 0) = \ln 1 = 0\]</div>
+<p>The loss is near <span class="arithmatex">\(0\)</span> (its maximum), and its gradient <span class="arithmatex">\(\frac{-1}{1 - D_\phi(G_\theta(\mathbf{z}))} \cdot \nabla_\theta D_\phi(G_\theta(\mathbf{z})) \approx -\nabla_\theta D_\phi(G_\theta(\mathbf{z}))\)</span> can be near zero as well because <span class="arithmatex">\(D_\phi(G_\theta(\mathbf{z})) \approx 0\)</span> means the sigmoid is saturating in the other direction. The generator receives vanishing gradients and barely learns.</p>
+<p><strong>The non-saturating fix (Goodfellow et al., 2014).</strong> Instead of minimizing <span class="arithmatex">\(\mathbb{E}[\ln(1 - D_\phi(G_\theta(\mathbf{z})))]\)</span>, the generator maximizes <span class="arithmatex">\(\mathbb{E}[\ln D_\phi(G_\theta(\mathbf{z}))]\)</span>:</p>
+<div class="arithmatex">\[\hat{L}_G = -\frac{1}{m}\sum_{i=1}^m \ln D_\phi(G_\theta(\mathbf{z}^{(i)})) \tag{67.17}\]</div>
+<p>When <span class="arithmatex">\(D_\phi(G_\theta(\mathbf{z})) \approx 0\)</span>: <span class="arithmatex">\(\ln D_\phi(G_\theta(\mathbf{z})) \approx -\infty\)</span>, so the loss is large and the gradient <span class="arithmatex">\(\frac{-1}{D_\phi(G_\theta(\mathbf{z}))}\nabla_\theta D_\phi(G_\theta(\mathbf{z}))\)</span> is large (note the <span class="arithmatex">\(1/D_\phi\)</span> amplification). This provides <strong>strong gradients exactly when the generator is performing poorly</strong> — precisely when learning is most needed.</p>
+<p>This modification changes the game from a pure minimax to a <strong>heuristic objective</strong> that no longer exactly minimizes <span class="arithmatex">\(D_{\text{JS}}\)</span>, but works far better in practice. The theoretical purity is sacrificed for gradient signal.</p>
+<p><strong>Worked Example 67.2: Scalar Case of Gradient Saturation.</strong></p>
+<p>Let <span class="arithmatex">\(d = k = 1\)</span>. Suppose <span class="arithmatex">\(D_\phi(x) = \sigma(w x + b)\)</span> where <span class="arithmatex">\(\sigma(t) = 1/(1+e^{-t})\)</span> and <span class="arithmatex">\(G_\theta(z) = \theta z\)</span> (scaling only). Early in training, suppose <span class="arithmatex">\(\theta \approx 0\)</span>, so <span class="arithmatex">\(G_\theta(z) \approx 0\)</span> for all <span class="arithmatex">\(z\)</span>, and <span class="arithmatex">\(D_\phi(0) \approx 0.01\)</span> (the discriminator correctly rejects the constant output).</p>
+<p><strong>Saturating loss:</strong> <span class="arithmatex">\(\nabla_\theta L_G = \frac{-w \cdot D_\phi(0)(1 - D_\phi(0)) \cdot z}{1 - D_\phi(0)} = -w \cdot D_\phi(0) \cdot z \approx -w \cdot 0.01 \cdot z\)</span>. The gradient is scaled by <span class="arithmatex">\(0.01\)</span> — tiny.</p>
+<p><strong>Non-saturating loss:</strong> <span class="arithmatex">\(\nabla_\theta L_G = \frac{-w(1 - D_\phi(0)) \cdot z}{D_\phi(0)} \cdot (-1) = \frac{w(1-D_\phi(0))z}{D_\phi(0)} \approx \frac{0.99 \, w \, z}{0.01} = 99 \, w \, z\)</span>. The gradient is scaled by <span class="arithmatex">\(99\)</span> — nearly 100 times larger.</p>
+<hr />
+<h2 id="678-the-complete-gan-training-algorithm">67.8 The Complete GAN Training Algorithm</h2>
+<hr />
+<p><strong>Algorithm 67.1: GAN Training</strong></p>
+<p><strong>Input:</strong> Dataset <span class="arithmatex">\(\mathcal{D}\)</span>, noise dimension <span class="arithmatex">\(k\)</span>, batch size <span class="arithmatex">\(m\)</span>, learning rates <span class="arithmatex">\(\eta_D, \eta_G\)</span>, number of discriminator steps per generator step <span class="arithmatex">\(n_D\)</span>.</p>
+<p><strong>Initialize:</strong> <span class="arithmatex">\(\theta\)</span> (generator parameters), <span class="arithmatex">\(\phi\)</span> (discriminator parameters), randomly.</p>
+<p><strong>For</strong> each training epoch:</p>
+<p><strong>For</strong> each mini-batch <span class="arithmatex">\(\{\mathbf{x}^{(i)}\}_{i=1}^m \sim \mathcal{D}\)</span>:</p>
+<blockquote>
+<p><strong>Discriminator update</strong> (repeat <span class="arithmatex">\(n_D\)</span> times):
+1. Sample <span class="arithmatex">\(\{\mathbf{z}^{(i)}\}_{i=1}^m \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>
+2. Compute generated samples: <span class="arithmatex">\(\tilde{\mathbf{x}}^{(i)} = G_\theta(\mathbf{z}^{(i)})\)</span> (forward pass, no grad w.r.t. <span class="arithmatex">\(\theta\)</span>)
+3. Compute discriminator loss:
+   $<span class="arithmatex">\(\hat{L}_D = -\frac{1}{m}\!\sum_{i=1}^m \left[\ln D_\phi(\mathbf{x}^{(i)}) + \ln(1 - D_\phi(\tilde{\mathbf{x}}^{(i)}))\right]\)</span>$
+4. Update: <span class="arithmatex">\(\phi \leftarrow \phi - \eta_D \nabla_\phi \hat{L}_D\)</span> (descent on <span class="arithmatex">\(-V\)</span>, equivalently ascent on <span class="arithmatex">\(V\)</span>)</p>
+<p><strong>Generator update</strong> (once):
+1. Sample fresh <span class="arithmatex">\(\{\mathbf{z}^{(i)}\}_{i=1}^m \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>
+2. Compute generated samples: <span class="arithmatex">\(\tilde{\mathbf{x}}^{(i)} = G_\theta(\mathbf{z}^{(i)})\)</span> (forward pass)
+3. Compute generator loss (non-saturating):
+   $<span class="arithmatex">\(\hat{L}_G = -\frac{1}{m}\!\sum_{i=1}^m \ln D_\phi(\tilde{\mathbf{x}}^{(i)})\)</span>$
+   Note: <span class="arithmatex">\(\phi\)</span> is held <strong>fixed</strong> during this step.
+4. Update: <span class="arithmatex">\(\theta \leftarrow \theta - \eta_G \nabla_\theta \hat{L}_G\)</span> (backprop flows through <span class="arithmatex">\(D_\phi\)</span> into <span class="arithmatex">\(G_\theta\)</span>)</p>
+</blockquote>
+<p><strong>At inference time:</strong> Discard <span class="arithmatex">\(D_\phi\)</span>. For each new sample: draw <span class="arithmatex">\(\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>, return <span class="arithmatex">\(G_{\theta^*}(\mathbf{z})\)</span>.</p>
+<hr />
+<p><strong>The ratio <span class="arithmatex">\(n_D\)</span>: discriminator steps per generator step.</strong> A common heuristic is to run more discriminator updates per generator update (e.g., <span class="arithmatex">\(n_D = 5\)</span>). The motivation: to provide a good gradient signal to the generator, the discriminator should be "close to optimal" for the current <span class="arithmatex">\(G_\theta\)</span>. If the generator outpaces the discriminator, the gradients through <span class="arithmatex">\(D_\phi\)</span> become uninformative. Conversely, an overpowering discriminator can lead to vanishing generator gradients (the saturation problem). Balancing this ratio is an art as much as a science.</p>
+<h3 id="6781-why-fresh-mathbfz-samples-for-the-generator-update">67.8.1 Why Fresh <span class="arithmatex">\(\mathbf{z}\)</span> Samples for the Generator Update?</h3>
+<p>During the discriminator update, we compute <span class="arithmatex">\(G_\theta(\mathbf{z}^{(i)})\)</span> as fixed inputs to <span class="arithmatex">\(D_\phi\)</span> — these <span class="arithmatex">\(\tilde{\mathbf{x}}^{(i)}\)</span> can be reused. However, for the generator update, we draw <strong>fresh</strong> <span class="arithmatex">\(\mathbf{z}^{(i)}\)</span> samples. This is not strictly necessary mathematically, but it reduces correlation between the gradient estimates at successive steps, leading to lower-variance stochastic gradient updates.</p>
+<hr />
+<h2 id="679-the-implicit-nature-of-p_theta-why-no-density-formula-is-needed">67.9 The Implicit Nature of <span class="arithmatex">\(p_\theta\)</span>: Why No Density Formula Is Needed</h2>
+<p>A conceptually important feature of GANs is that they are <strong>implicit generative models</strong>: <span class="arithmatex">\(p_\theta(\mathbf{x})\)</span> is never written down or evaluated.</p>
+<p>Recall that <span class="arithmatex">\(p_\theta\)</span> is defined as the push-forward of <span class="arithmatex">\(p_Z = \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span> through <span class="arithmatex">\(G_\theta\)</span>. When <span class="arithmatex">\(k &lt; d\)</span> (as is typical — a <span class="arithmatex">\(100\)</span>-dimensional noise vector generates a <span class="arithmatex">\(786432\)</span>-dimensional image), the push-forward <span class="arithmatex">\(p_\theta\)</span> is supported on a <span class="arithmatex">\(k\)</span>-dimensional manifold embedded in <span class="arithmatex">\(\mathbb{R}^d\)</span>. This manifold has Lebesgue measure zero in <span class="arithmatex">\(\mathbb{R}^d\)</span>, so <span class="arithmatex">\(p_\theta\)</span> is technically a singular measure — it has no density with respect to the Lebesgue measure. Writing down "<span class="arithmatex">\(p_\theta(\mathbf{x})\)</span>" as a real-valued function is therefore not possible.</p>
+<p>This is not a problem for the GAN framework because the value function <span class="arithmatex">\(V\)</span> only requires:
+- Sampling from <span class="arithmatex">\(p\)</span> (done via <span class="arithmatex">\(\mathcal{D}\)</span>), and
+- Sampling from <span class="arithmatex">\(p_\theta\)</span> (done via forward passes through <span class="arithmatex">\(G_\theta\)</span>).</p>
+<p>The discriminator's output <span class="arithmatex">\(D_\phi(\mathbf{x})\)</span> implicitly encodes the likelihood ratio <span class="arithmatex">\(p(\mathbf{x})/p_\theta(\mathbf{x})\)</span>, but we never need this ratio in closed form.</p>
+<p><strong>This contrasts sharply with VAEs and autoregressive models</strong>, where <span class="arithmatex">\(\ln p_\theta(\mathbf{x})\)</span> (or a bound on it) must be explicitly computable. The tradeoff: GANs can model lower-dimensional manifolds freely, but cannot be evaluated for held-out likelihood, making quantitative evaluation harder (cf. §66.12).</p>
+<hr />
+<h2 id="6710-worked-example-training-a-1d-gan">67.10 Worked Example: Training a 1D GAN</h2>
+<p>To make the abstract algorithm concrete, we trace through a complete 1D example.</p>
+<p><strong>Setup.</strong> Let <span class="arithmatex">\(p = \mathcal{N}(3, 1)\)</span> (the unknown target) and <span class="arithmatex">\(p_Z = \mathcal{N}(0, 1)\)</span>. Let:
+$<span class="arithmatex">\(G_\theta(z) = \theta_1 z + \theta_2 \quad (\text{affine generator}, \; \theta = (\theta_1, \theta_2))\)</span>$
+$<span class="arithmatex">\(D_\phi(x) = \sigma(\phi_1 x + \phi_0) \quad (\text{linear discriminator with sigmoid})\)</span>$</p>
+<p>Then <span class="arithmatex">\(G_\theta\)</span> pushes <span class="arithmatex">\(\mathcal{N}(0,1)\)</span> to <span class="arithmatex">\(\mathcal{N}(\theta_2, \theta_1^2)\)</span>. The target is <span class="arithmatex">\(\mathcal{N}(3,1)\)</span>, so <span class="arithmatex">\(\theta^* = (1, 3)\)</span> (unit scale, shift by 3).</p>
+<p><strong>Initial state.</strong> Suppose <span class="arithmatex">\(\theta_1 = 0.5\)</span>, <span class="arithmatex">\(\theta_2 = 0\)</span>, so <span class="arithmatex">\(p_\theta = \mathcal{N}(0, 0.25)\)</span>. The generator is producing samples near 0, far from the target near 3.</p>
+<p><strong>Discriminator at this state.</strong> The optimal discriminator (for fixed <span class="arithmatex">\(G_\theta\)</span>) is:
+$<span class="arithmatex">\(D^*(x) = \frac{\mathcal{N}(x; 3, 1)}{\mathcal{N}(x; 3, 1) + \mathcal{N}(x; 0, 0.25)}\)</span>$</p>
+<p>For <span class="arithmatex">\(x\)</span> near 3: numerator <span class="arithmatex">\(\approx 0.399\)</span>, denominator <span class="arithmatex">\(\approx 0.399 + \approx 0\)</span>. So <span class="arithmatex">\(D^*(3) \approx 1\)</span> (correctly identified as real).
+For <span class="arithmatex">\(x\)</span> near 0: numerator <span class="arithmatex">\(\approx \mathcal{N}(0; 3, 1) \approx 0.0044\)</span>, denominator <span class="arithmatex">\(\approx 0.0044 + \mathcal{N}(0; 0, 0.25) \approx 0.0044 + 0.798 \approx 0.802\)</span>. So <span class="arithmatex">\(D^*(0) \approx 0.0055\)</span> (correctly identified as fake).</p>
+<p><strong>Generator gradient.</strong> Using the non-saturating loss:</p>
+<div class="arithmatex">\[\hat{L}_G = -\frac{1}{m}\sum_i \ln D_\phi(G_\theta(z^{(i)})) = -\frac{1}{m}\sum_i \ln D_\phi(\theta_1 z^{(i)} + \theta_2)\]</div>
+<div class="arithmatex">\[\frac{\partial \hat{L}_G}{\partial \theta_2} = -\frac{1}{m}\sum_i \frac{D_\phi'(G_\theta(z^{(i)}))}{D_\phi(G_\theta(z^{(i)}))}\]</div>
+<p>where <span class="arithmatex">\(D_\phi'\)</span> is the derivative of <span class="arithmatex">\(D_\phi\)</span> with respect to its input. Since <span class="arithmatex">\(D^*(0) \approx 0.0055\)</span> and <span class="arithmatex">\(D_\phi'(0) = D^*(0)(1 - D^*(0)) \cdot \phi_1 \approx 0.0055 \cdot 0.9945 \cdot \phi_1\)</span>:</p>
+<div class="arithmatex">\[\frac{\partial \hat{L}_G}{\partial \theta_2} \approx -\phi_1 \cdot (1 - D^*(0))\]</div>
+<p>For the non-saturating loss: <span class="arithmatex">\(-1/D^*(0) \cdot D^*(0)(1-D^*(0)) \cdot \phi_1 = -(1-D^*(0))\phi_1 \approx -0.9945\phi_1\)</span>.</p>
+<p>This is a strong, non-zero gradient pointing in the direction of increasing <span class="arithmatex">\(\theta_2\)</span> (i.e., shifting the generator output toward the real data at <span class="arithmatex">\(x = 3\)</span>). Training proceeds with <span class="arithmatex">\(\theta_2\)</span> being pushed toward <span class="arithmatex">\(3\)</span> and <span class="arithmatex">\(\theta_1\)</span> toward <span class="arithmatex">\(1\)</span>.</p>
+<p><strong>Convergence.</strong> At <span class="arithmatex">\(\theta^* = (1, 3)\)</span>: <span class="arithmatex">\(p_\theta = \mathcal{N}(3, 1) = p\)</span>. The optimal discriminator becomes <span class="arithmatex">\(D^*(x) = 1/2\)</span> everywhere, and <span class="arithmatex">\(\hat{L}_G = -\ln(1/2) = \ln 2\)</span> — a constant with zero gradient. Training has converged.</p>
+<hr />
+<h2 id="6711-training-difficulties-mode-collapse-and-instability">67.11 Training Difficulties: Mode Collapse and Instability</h2>
+<p>The GAN training algorithm described above works in theory but faces serious difficulties in practice. Understanding these difficulties requires understanding the geometry of the optimization problem.</p>
+<h3 id="67111-mode-collapse">67.11.1 Mode Collapse</h3>
+<p><strong>Definition 67.4 (Mode Collapse).</strong> A generator <span class="arithmatex">\(G_\theta\)</span> exhibits mode collapse if it produces samples from only a subset of the modes of <span class="arithmatex">\(p\)</span>, ignoring others.</p>
+<p><em>Example.</em> If <span class="arithmatex">\(p\)</span> is a mixture of five Gaussians (five "modes" — high-probability regions), a mode-collapsed GAN might generate samples from only two of them, leaving the others completely unrepresented.</p>
+<p><strong>Mathematical cause.</strong> The Jensen-Shannon divergence, despite being symmetric, can still create incentives for mode collapse due to the discrete nature of the alternating optimization. When the discriminator is near-optimal and the generator is far from <span class="arithmatex">\(p\)</span>, the discriminator provides a very small gradient signal for modes the generator has not yet learned — the generator has no incentive to explore them. The generator gravitates to modes where it already generates plausible-looking samples and finds those regions locally stable.</p>
+<p>A deeper analysis shows that when <span class="arithmatex">\(p\)</span> and <span class="arithmatex">\(p_\theta\)</span> have disjoint support (common early in training), <span class="arithmatex">\(D_{\text{JS}}(p \| p_\theta) = \ln 2\)</span> regardless of the specific geometry of the mismatch — the gradient of <span class="arithmatex">\(D_{\text{JS}}\)</span> with respect to the generator parameters is zero almost everywhere. This is the <strong>vanishing gradient problem</strong> for the theoretically correct objective. The practical non-saturating loss alleviates the symptom but does not address the underlying cause.</p>
+<h3 id="67112-training-instability">67.11.2 Training Instability</h3>
+<p>Because the alternating optimization does not have convergence guarantees, GANs often exhibit oscillatory behavior: the generator and discriminator chase each other around a cycle rather than converging to the saddle point.</p>
+<p>The root cause is that the saddle-point problem (67.10) is in general a non-convex-non-concave optimization: <span class="arithmatex">\(V\)</span> is non-convex in <span class="arithmatex">\(\theta\)</span> (due to <span class="arithmatex">\(G_\theta\)</span> being a deep network) and non-concave in <span class="arithmatex">\(\phi\)</span> (due to <span class="arithmatex">\(D_\phi\)</span> being a deep network). In this regime, gradient descent-ascent can cycle indefinitely.</p>
+<h3 id="67113-the-wasserstein-gan-wgan-a-cure">67.11.3 The Wasserstein GAN (WGAN): A Cure</h3>
+<p>The Wasserstein GAN (Arjovsky et al., 2017) addresses both problems by replacing <span class="arithmatex">\(D_{\text{JS}}\)</span> with the <strong>Wasserstein-1 distance</strong> (also called Earth Mover's distance):</p>
+<div class="arithmatex">\[W_1(p, q) = \inf_{\gamma \in \Pi(p,q)} \mathbb{E}_{(\mathbf{x}, \mathbf{y}) \sim \gamma}[\|\mathbf{x} - \mathbf{y}\|]\]</div>
+<p>where <span class="arithmatex">\(\Pi(p,q)\)</span> is the set of all joint distributions with marginals <span class="arithmatex">\(p\)</span> and <span class="arithmatex">\(q\)</span>. <span class="arithmatex">\(W_1\)</span> is well-defined even when supports are disjoint (unlike <span class="arithmatex">\(D_{\text{JS}}\)</span>, which saturates to <span class="arithmatex">\(\ln 2\)</span>) and provides gradients everywhere.</p>
+<p>Via the Kantorovich-Rubinstein duality theorem:</p>
+<div class="arithmatex">\[W_1(p, q) = \sup_{\|f\|_L \leq 1} \left\{\mathbb{E}_{\mathbf{x} \sim p}[f(\mathbf{x})] - \mathbb{E}_{\mathbf{x} \sim q}[f(\mathbf{x})]\right\}\]</div>
+<p>where the supremum is over all <span class="arithmatex">\(1\)</span>-Lipschitz functions <span class="arithmatex">\(f\)</span>. Parameterizing <span class="arithmatex">\(f\)</span> by a neural network <span class="arithmatex">\(D_\phi\)</span> constrained to be <span class="arithmatex">\(1\)</span>-Lipschitz (enforced via weight clipping or gradient penalty) gives the WGAN objective:</p>
+<div class="arithmatex">\[\min_\theta \max_{\phi : \|D_\phi\|_L \leq 1} \left\{\mathbb{E}_{\mathbf{x} \sim p}[D_\phi(\mathbf{x})] - \mathbb{E}_{\mathbf{z} \sim p_Z}[D_\phi(G_\theta(\mathbf{z}))]\right\}\]</div>
+<p>Note that <span class="arithmatex">\(D_\phi\)</span> is no longer a classifier outputting probabilities — it is an unconstrained real-valued function (the WGAN paper calls it a "critic," not a "discriminator," to emphasize this). The mathematical development of WGAN follows the same structure as this chapter but uses the Kantorovich-Rubinstein duality in place of the Jensen-Shannon variational representation.</p>
+<hr />
+<h2 id="6712-inference-the-generator-stands-alone">67.12 Inference: The Generator Stands Alone</h2>
+<p>Once training is complete, the discriminator is discarded entirely. It was a computational device for constructing and optimizing the bound on the divergence metric — a teacher, not a permanent part of the model. The generative model is simply:</p>
+<div class="arithmatex">\[\tilde{\mathbf{x}} = G_{\theta^*}(\mathbf{z}), \qquad \mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_k) \tag{67.18}\]</div>
+<p>This is a single forward pass through a neural network — computationally fast and independent of the dataset <span class="arithmatex">\(\mathcal{D}\)</span>. The discriminator was useful only insofar as it guided <span class="arithmatex">\(\theta\)</span> to the correct value <span class="arithmatex">\(\theta^*\)</span>; once that is achieved, it has nothing more to contribute.</p>
+<p>This stands in contrast to non-parametric methods (like kernel density estimation) where the training data must be retained and consulted at inference time. A trained GAN compresses the knowledge of <span class="arithmatex">\(p\)</span> entirely into <span class="arithmatex">\(\theta^*\)</span>, a fixed parameter vector.</p>
+<hr />
+<h2 id="6713-summary">67.13 Summary</h2>
+<p>This chapter developed the GAN framework in full mathematical detail. The essential arc is:</p>
+<p>The objective is to minimize a divergence <span class="arithmatex">\(D(p \| p_\theta)\)</span>. We choose the <strong><span class="arithmatex">\(f\)</span>-divergence family</strong>, and specifically the <strong>Jensen-Shannon divergence</strong>. This divergence is intractable (neither <span class="arithmatex">\(p\)</span> nor <span class="arithmatex">\(p_\theta\)</span> is available in closed form), so we use the <strong>Fenchel conjugate (variational) representation</strong> of <span class="arithmatex">\(f\)</span>-divergences to construct a lower bound:</p>
+<div class="arithmatex">\[D_f(p \| p_\theta) \geq \sup_\phi \left\{\mathbb{E}_p[T_\phi(\mathbf{x})] - \mathbb{E}_{p_\theta}[f^*(T_\phi(\mathbf{x}))]\right\}\]</div>
+<p>Tightening this bound requires solving an inner maximization over <span class="arithmatex">\(\phi\)</span>, the parameters of a second neural network <span class="arithmatex">\(D_\phi\)</span>. Substituting the JS divergence, the optimal inner solution is the <strong>Bayes-optimal classifier</strong> <span class="arithmatex">\(D^*(\mathbf{x}) = p(\mathbf{x})/(p(\mathbf{x}) + p_\theta(\mathbf{x}))\)</span>, and the bound exactly equals <span class="arithmatex">\(2D_{\text{JS}}(p \| p_\theta) - 2\ln 2\)</span>.</p>
+<p>The resulting optimization is a <strong>saddle-point (minimax) problem</strong> over <span class="arithmatex">\((\theta, \phi)\)</span>, solved by alternating gradient descent-ascent. The <strong>non-saturating generator loss</strong> addresses the practical problem of vanishing gradients early in training. Training is inherently difficult because the saddle point must be sought in a non-convex-non-concave landscape, leading to instability and mode collapse.</p>
+<p>At inference, the discriminator is discarded. The generator <span class="arithmatex">\(G_{\theta^*}\)</span> maps Gaussian noise to approximate samples from <span class="arithmatex">\(p\)</span> in a single forward pass.</p>
+<p>The GAN framework instantiates the general principle that to learn to sample from an unknown distribution, one need only learn a deterministic transformation from a simple known distribution. Everything else — the discriminator, the minimax game, the alternating updates — is machinery for identifying the correct transformation from data alone.</p>
+<hr />
+<p><em>End of Chapter 67. Chapter 68 develops Variational Autoencoders (VAEs), which address the same generative modeling goal using an explicit lower bound on the log-likelihood (the ELBO), introducing a learned encoder alongside the decoder to make the bound tractable.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3662 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture64/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture65 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-68-latent-variable-generative-models-and-variational-autoencoders" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture65
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#681-a-new-family-models-that-think-in-two-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.1 A New Family: Models That Think in Two Spaces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#682-the-gaussian-mixture-model-as-a-generative-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.2 The Gaussian Mixture Model as a Generative Model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.2 The Gaussian Mixture Model as a Generative Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6821-review-of-the-gmm-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.2.1 Review of the GMM Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6822-gmm-generative-inference-a-two-step-sampler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.2.2 GMM Generative Inference: A Two-Step Sampler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6823-why-the-gmm-limits-us" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.2.3 Why the GMM Limits Us
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#683-encoder-decoder-taxonomy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.3 Encoder-Decoder Taxonomy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#684-variational-autoencoders-problem-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.4 Variational Autoencoders: Problem Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.4 Variational Autoencoders: Problem Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6841-the-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.4.1 The Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6842-the-training-objective-maximum-likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.4.2 The Training Objective: Maximum Likelihood
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6843-why-the-em-approach-fails-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.4.3 Why the EM Approach Fails Here
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#685-the-evidence-lower-bound-elbo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.5 The Evidence Lower Bound (ELBO)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.5 The Evidence Lower Bound (ELBO)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6851-deriving-the-elbo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.5.1 Deriving the ELBO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6852-the-gap-between-the-log-likelihood-and-the-elbo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.5.2 The Gap Between the Log-Likelihood and the ELBO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6853-interpretation-of-the-two-elbo-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.5.3 Interpretation of the Two ELBO Terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#686-the-vae-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.6 The VAE Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.6 The VAE Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6861-representing-distributions-with-neural-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.6.1 Representing Distributions with Neural Networks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6862-the-data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.6.2 The Data Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6863-the-sampling-problem-non-differentiability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.6.3 The Sampling Problem: Non-Differentiability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#687-the-reparameterization-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.7 The Reparameterization Trick
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.7 The Reparameterization Trick">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6871-the-core-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.7.1 The Core Idea
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6872-why-this-solves-the-gradient-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.7.2 Why This Solves the Gradient Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6873-the-closed-form-kl-term" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.7.3 The Closed-Form KL Term
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6874-the-full-differentiable-elbo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.7.4 The Full Differentiable ELBO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#688-the-vae-training-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.8 The VAE Training Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#689-worked-example-vae-on-univariate-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.9 Worked Example: VAE on Univariate Data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6810-inference-with-a-trained-vae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.10 Inference with a Trained VAE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.10 Inference with a Trained VAE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#68101-generation-decoder-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.10.1 Generation (Decoder Mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#68102-embedding-extraction-encoder-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.10.2 Embedding Extraction (Encoder Mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#68103-latent-space-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.10.3 Latent Space Interpolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6811-latent-variable-models-as-the-foundation-for-modern-generative-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.11 Latent Variable Models as the Foundation for Modern Generative AI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.11 Latent Variable Models as the Foundation for Modern Generative AI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#68111-the-two-stage-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.11.1 The Two-Stage Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6812-vae-vs-gan-a-mathematical-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.12 VAE vs. GAN: A Mathematical Comparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6813-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.13 Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#681-a-new-family-models-that-think-in-two-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.1 A New Family: Models That Think in Two Spaces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#682-the-gaussian-mixture-model-as-a-generative-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.2 The Gaussian Mixture Model as a Generative Model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.2 The Gaussian Mixture Model as a Generative Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6821-review-of-the-gmm-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.2.1 Review of the GMM Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6822-gmm-generative-inference-a-two-step-sampler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.2.2 GMM Generative Inference: A Two-Step Sampler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6823-why-the-gmm-limits-us" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.2.3 Why the GMM Limits Us
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#683-encoder-decoder-taxonomy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.3 Encoder-Decoder Taxonomy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#684-variational-autoencoders-problem-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.4 Variational Autoencoders: Problem Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.4 Variational Autoencoders: Problem Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6841-the-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.4.1 The Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6842-the-training-objective-maximum-likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.4.2 The Training Objective: Maximum Likelihood
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6843-why-the-em-approach-fails-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.4.3 Why the EM Approach Fails Here
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#685-the-evidence-lower-bound-elbo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.5 The Evidence Lower Bound (ELBO)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.5 The Evidence Lower Bound (ELBO)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6851-deriving-the-elbo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.5.1 Deriving the ELBO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6852-the-gap-between-the-log-likelihood-and-the-elbo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.5.2 The Gap Between the Log-Likelihood and the ELBO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6853-interpretation-of-the-two-elbo-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.5.3 Interpretation of the Two ELBO Terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#686-the-vae-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.6 The VAE Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.6 The VAE Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6861-representing-distributions-with-neural-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.6.1 Representing Distributions with Neural Networks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6862-the-data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.6.2 The Data Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6863-the-sampling-problem-non-differentiability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.6.3 The Sampling Problem: Non-Differentiability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#687-the-reparameterization-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.7 The Reparameterization Trick
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.7 The Reparameterization Trick">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6871-the-core-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.7.1 The Core Idea
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6872-why-this-solves-the-gradient-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.7.2 Why This Solves the Gradient Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6873-the-closed-form-kl-term" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.7.3 The Closed-Form KL Term
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6874-the-full-differentiable-elbo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.7.4 The Full Differentiable ELBO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#688-the-vae-training-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.8 The VAE Training Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#689-worked-example-vae-on-univariate-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.9 Worked Example: VAE on Univariate Data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6810-inference-with-a-trained-vae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.10 Inference with a Trained VAE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.10 Inference with a Trained VAE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#68101-generation-decoder-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.10.1 Generation (Decoder Mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#68102-embedding-extraction-encoder-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.10.2 Embedding Extraction (Encoder Mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#68103-latent-space-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.10.3 Latent Space Interpolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6811-latent-variable-models-as-the-foundation-for-modern-generative-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.11 Latent Variable Models as the Foundation for Modern Generative AI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="68.11 Latent Variable Models as the Foundation for Modern Generative AI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#68111-the-two-stage-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.11.1 The Two-Stage Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6812-vae-vs-gan-a-mathematical-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.12 VAE vs. GAN: A Mathematical Comparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6813-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        68.13 Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-68-latent-variable-generative-models-and-variational-autoencoders">Chapter 68: Latent Variable Generative Models and Variational Autoencoders</h1>
+<hr />
+<h2 id="681-a-new-family-models-that-think-in-two-spaces">68.1 A New Family: Models That Think in Two Spaces</h2>
+<p>The GAN framework of Chapter 67 is a <strong>decoder-only</strong> generative model. It defines a map <span class="arithmatex">\(G_\theta : \mathcal{Z} \to \mathcal{X}\)</span> from a latent noise space to the data space, and at inference time we simply draw <span class="arithmatex">\(\mathbf{z} \sim p_Z\)</span> and apply <span class="arithmatex">\(G_\theta\)</span>. The model has no mechanism for asking the inverse question: given an observed data point <span class="arithmatex">\(\mathbf{x}\)</span>, what is the corresponding latent representation? The discriminator <span class="arithmatex">\(D_\phi\)</span>, which did have access to <span class="arithmatex">\(\mathbf{x}\)</span>, is discarded after training.</p>
+<p>This chapter introduces a richer family: <strong>latent variable generative models</strong>. These models are built around the idea that data <span class="arithmatex">\(\mathbf{x} \in \mathcal{X}\)</span> is generated by a two-step process:</p>
+<ol>
+<li>Draw a latent variable <span class="arithmatex">\(\mathbf{z} \in \mathcal{Z}\)</span> from some prior <span class="arithmatex">\(p(\mathbf{z})\)</span>.</li>
+<li>Draw <span class="arithmatex">\(\mathbf{x}\)</span> from a conditional distribution <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z})\)</span>.</li>
+</ol>
+<p>The joint distribution is <span class="arithmatex">\(p_\theta(\mathbf{x}, \mathbf{z}) = p_\theta(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z})\)</span>, and the marginal of interest is:</p>
+<div class="arithmatex">\[p_\theta(\mathbf{x}) = \int_{\mathcal{Z}} p_\theta(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z}) \, d\mathbf{z} \tag{68.1}\]</div>
+<p>This is the same latent variable model structure introduced in the EM and mixture model chapters of this course. The new element is that we now use it explicitly for generation: by learning a good <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z})\)</span>, we gain a <strong>decoder</strong> that maps latent samples to data samples. Because the latent space is also equipped with a prior <span class="arithmatex">\(p(\mathbf{z})\)</span>, the model can run in both directions — encoding data into latents and decoding latents into data.</p>
+<blockquote>
+<p><strong>Definition 68.1 (Encoder and Decoder).</strong> In a latent variable model:
+- The <strong>encoder</strong> is the posterior <span class="arithmatex">\(p_\theta(\mathbf{z} \mid \mathbf{x})\)</span>: given a data point <span class="arithmatex">\(\mathbf{x}\)</span>, it returns the distribution over latent codes <span class="arithmatex">\(\mathbf{z}\)</span> that could have generated <span class="arithmatex">\(\mathbf{x}\)</span>. It is the <strong>feature extractor</strong> or <strong>embedding function</strong>.
+- The <strong>decoder</strong> is the conditional <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z})\)</span>: given a latent code <span class="arithmatex">\(\mathbf{z}\)</span>, it returns the distribution over data points <span class="arithmatex">\(\mathbf{x}\)</span>. It is the <strong>sampler</strong> or <strong>generator</strong>.</p>
+</blockquote>
+<p>This dual nature is what distinguishes latent variable generative models from GANs:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>GAN</th>
+<th>Latent Variable Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Generates new samples</td>
+<td>Yes (<span class="arithmatex">\(G_\theta(\mathbf{z})\)</span>)</td>
+<td>Yes (decoder)</td>
+</tr>
+<tr>
+<td>Extracts embeddings</td>
+<td>No</td>
+<td>Yes (encoder)</td>
+</tr>
+<tr>
+<td>Has tractable <span class="arithmatex">\(p_\theta(\mathbf{x})\)</span></td>
+<td>No</td>
+<td>Sometimes</td>
+</tr>
+<tr>
+<td>Architecture type</td>
+<td>Decoder-only</td>
+<td>Encoder-decoder</td>
+</tr>
+</tbody>
+</table>
+<p>The Variational Autoencoder (VAE) is the canonical example of a latent variable generative model trained with neural networks. Before deriving it, we revisit a simpler and already-familiar model that is, in fact, also a latent variable generative model: the Gaussian Mixture Model.</p>
+<hr />
+<h2 id="682-the-gaussian-mixture-model-as-a-generative-model">68.2 The Gaussian Mixture Model as a Generative Model</h2>
+<h3 id="6821-review-of-the-gmm-structure">68.2.1 Review of the GMM Structure</h3>
+<p>We have studied the GMM extensively as a clustering and density estimation method. Recall the model:</p>
+<div class="arithmatex">\[p_\theta(\mathbf{x}, z) = p_\theta(\mathbf{x} \mid z) \, p_\theta(z) = \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_z, \boldsymbol{\Sigma}_z) \cdot \pi_z \tag{68.2}\]</div>
+<p>where <span class="arithmatex">\(z \in \{1, 2, \ldots, M\}\)</span> is a <strong>discrete</strong> latent variable (the component index), <span class="arithmatex">\(\pi_z = p(z)\)</span> is the mixing proportion for component <span class="arithmatex">\(z\)</span>, and <span class="arithmatex">\(\boldsymbol{\mu}_z, \boldsymbol{\Sigma}_z\)</span> are the mean and covariance of the <span class="arithmatex">\(z\)</span>-th Gaussian. The marginal is:</p>
+<div class="arithmatex">\[p_\theta(\mathbf{x}) = \sum_{z=1}^M \pi_z \, \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_z, \boldsymbol{\Sigma}_z) \tag{68.3}\]</div>
+<p>The parameter set is <span class="arithmatex">\(\theta^* = \{\pi_z^*, \boldsymbol{\mu}_z^*, \boldsymbol{\Sigma}_z^*\}_{z=1}^M\)</span>, estimated via the EM algorithm.</p>
+<h3 id="6822-gmm-generative-inference-a-two-step-sampler">68.2.2 GMM Generative Inference: A Two-Step Sampler</h3>
+<p>Once <span class="arithmatex">\(\theta^*\)</span> is known, the GMM is a fully operational generative model. Sampling from <span class="arithmatex">\(p_{\theta^*}(\mathbf{x})\)</span> decomposes into exactly the two steps prescribed by the latent variable framework:</p>
+<p><strong>Step 1: Sample the latent variable.</strong> Draw <span class="arithmatex">\(\hat{z} \sim p_{\theta^*}(z) = \text{Categorical}(\pi_1^*, \pi_2^*, \ldots, \pi_M^*)\)</span>.</p>
+<p><strong>Step 2: Sample from the conditional.</strong> Given <span class="arithmatex">\(\hat{z}\)</span>, draw <span class="arithmatex">\(\tilde{\mathbf{x}} \sim p_{\theta^*}(\mathbf{x} \mid z = \hat{z}) = \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_{\hat{z}}^*, \boldsymbol{\Sigma}_{\hat{z}}^*)\)</span>.</p>
+<p>The output <span class="arithmatex">\(\tilde{\mathbf{x}}\)</span> is a sample from <span class="arithmatex">\(p_{\theta^*}(\mathbf{x})\)</span>, the fitted mixture density.</p>
+<p><strong>Step 1 in detail: Sampling from a discrete distribution.</strong> We assumed we know how to sample from <span class="arithmatex">\(\text{Uniform}[0,1]\)</span>. How do we convert that into a sample from <span class="arithmatex">\(\text{Categorical}(\pi_1, \ldots, \pi_M)\)</span>?</p>
+<p>This is precisely the Inverse CDF method applied to a discrete distribution. Define the cumulative probabilities:</p>
+<div class="arithmatex">\[F(k) = \sum_{j=1}^k \pi_j, \quad k = 1, \ldots, M, \quad F(0) = 0\]</div>
+<p>Draw <span class="arithmatex">\(u \sim \text{Uniform}[0,1]\)</span> and return <span class="arithmatex">\(\hat{z} = k\)</span> where <span class="arithmatex">\(k\)</span> is the unique index satisfying <span class="arithmatex">\(F(k-1) &lt; u \leq F(k)\)</span>.</p>
+<p><strong>Why this works.</strong> The probability of returning <span class="arithmatex">\(\hat{z} = k\)</span> is:</p>
+<div class="arithmatex">\[\mathbb{P}(\hat{z} = k) = \mathbb{P}(F(k-1) &lt; U \leq F(k)) = F(k) - F(k-1) = \pi_k\]</div>
+<p>which matches the target distribution exactly. <span class="arithmatex">\(\blacksquare\)</span></p>
+<p><strong>Worked Example 68.1: Discrete Sampling.</strong> Suppose <span class="arithmatex">\(M = 3\)</span> with <span class="arithmatex">\(\pi_1 = 0.5\)</span>, <span class="arithmatex">\(\pi_2 = 0.3\)</span>, <span class="arithmatex">\(\pi_3 = 0.2\)</span>. The CDF breakpoints are <span class="arithmatex">\(F(1) = 0.5\)</span>, <span class="arithmatex">\(F(2) = 0.8\)</span>, <span class="arithmatex">\(F(3) = 1.0\)</span>.</p>
+<p>If <span class="arithmatex">\(u = 0.37\)</span>: <span class="arithmatex">\(F(0) = 0 &lt; 0.37 \leq 0.5 = F(1)\)</span>, so <span class="arithmatex">\(\hat{z} = 1\)</span>.
+If <span class="arithmatex">\(u = 0.72\)</span>: <span class="arithmatex">\(F(1) = 0.5 &lt; 0.72 \leq 0.8 = F(2)\)</span>, so <span class="arithmatex">\(\hat{z} = 2\)</span>.
+If <span class="arithmatex">\(u = 0.91\)</span>: <span class="arithmatex">\(F(2) = 0.8 &lt; 0.91 \leq 1.0 = F(3)\)</span>, so <span class="arithmatex">\(\hat{z} = 3\)</span>.</p>
+<p>Over many draws, component 1 is selected 50\% of the time, component 2 is selected 30\%, and component 3 is selected 20\% — matching <span class="arithmatex">\((\pi_1, \pi_2, \pi_3)\)</span>.</p>
+<p>The brute-force implementation of this (linear scan) is <span class="arithmatex">\(O(M)\)</span>. By precomputing the CDF and using binary search, it is reducible to <span class="arithmatex">\(O(\log M)\)</span> — a useful observation for large <span class="arithmatex">\(M\)</span>.</p>
+<p><strong>Step 2 in detail.</strong> Once <span class="arithmatex">\(\hat{z} = k\)</span> is selected, we need <span class="arithmatex">\(\tilde{\mathbf{x}} \sim \mathcal{N}(\boldsymbol{\mu}_k^*, \boldsymbol{\Sigma}_k^*)\)</span>. If <span class="arithmatex">\(\boldsymbol{\Sigma}_k^* = \mathbf{L}_k \mathbf{L}_k^\top\)</span> (Cholesky factorization), then:</p>
+<div class="arithmatex">\[\tilde{\mathbf{x}} = \boldsymbol{\mu}_k^* + \mathbf{L}_k \boldsymbol{\epsilon}, \quad \boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_d)\]</div>
+<p>We already know how to draw <span class="arithmatex">\(\boldsymbol{\epsilon}\)</span> (via Box-Muller or its generalization). So the full GMM sampler requires only operations we already have primitives for.</p>
+<p><strong>Example 68.2: GMM on MNIST.</strong> Fit a <span class="arithmatex">\(M\)</span>-component GMM (via EM) to the <span class="arithmatex">\(d = 784\)</span>-dimensional MNIST digit images with no labels. Each pixel is one dimension; the GMM models the joint distribution over all 784 pixels. Post-fitting, to generate a new image:</p>
+<ol>
+<li>Sample a component <span class="arithmatex">\(\hat{z} \in \{1, \ldots, M\}\)</span> using the inverse-CDF method on <span class="arithmatex">\((\hat{\pi}_1, \ldots, \hat{\pi}_M)\)</span>.</li>
+<li>Sample <span class="arithmatex">\(\tilde{\mathbf{x}} \sim \mathcal{N}(\hat{\boldsymbol{\mu}}_{\hat{z}}, \hat{\boldsymbol{\Sigma}}_{\hat{z}})\)</span>, a 784-dimensional vector.</li>
+<li>Reshape to <span class="arithmatex">\(28 \times 28\)</span> and display.</li>
+</ol>
+<p>Each component <span class="arithmatex">\(\hat{z}\)</span> loosely corresponds to a cluster of visually similar digits (perhaps not perfectly separated by class, since EM has no access to labels). The generated image is a novel pixel vector that the fitted distribution assigns nonzero probability to.</p>
+<h3 id="6823-why-the-gmm-limits-us">68.2.3 Why the GMM Limits Us</h3>
+<p>The GMM illustrates the latent variable generative model principle beautifully but has two fundamental limitations that motivate the VAE:</p>
+<p><strong>Expressivity.</strong> The conditional <span class="arithmatex">\(p_\theta(\mathbf{x} \mid z) = \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_z, \boldsymbol{\Sigma}_z)\)</span> is a Gaussian — a unimodal, symmetric distribution in the data space. Real data distributions (images, audio) are vastly more complex than any mixture of Gaussians in the pixel space. To capture fine structure, we would need <span class="arithmatex">\(M \to \infty\)</span> components, which is computationally intractable.</p>
+<p><strong>Tractability of the posterior.</strong> In the GMM, the posterior <span class="arithmatex">\(p_\theta(z \mid \mathbf{x})\)</span> is computable via Bayes' rule because both <span class="arithmatex">\(p_\theta(\mathbf{x} \mid z)\)</span> and <span class="arithmatex">\(p_\theta(z)\)</span> are in closed form. The EM algorithm exploits this. For more expressive conditionals (e.g., <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z})\)</span> given by a deep neural network), the posterior <span class="arithmatex">\(p_\theta(\mathbf{z} \mid \mathbf{x}) = p_\theta(\mathbf{x} \mid \mathbf{z}) p(\mathbf{z}) / p_\theta(\mathbf{x})\)</span> involves the intractable integral <span class="arithmatex">\(p_\theta(\mathbf{x}) = \int p_\theta(\mathbf{x} \mid \mathbf{z}) p(\mathbf{z}) d\mathbf{z}\)</span> in the denominator. The encoder becomes unavailable.</p>
+<p>The Variational Autoencoder is precisely the solution to these two problems: it uses neural networks for both the encoder and decoder (solving the expressivity problem) and introduces variational inference to handle the intractable posterior (solving the tractability problem).</p>
+<hr />
+<h2 id="683-encoder-decoder-taxonomy">68.3 Encoder-Decoder Taxonomy</h2>
+<p>Before diving into the VAE, it is useful to situate it within the broader taxonomy of models we have seen in this course.</p>
+<p><strong>Encoder-only models</strong> learn a mapping <span class="arithmatex">\(\mathcal{X} \to \mathcal{Z}\)</span> from the data space to a latent space. They extract representations but cannot generate new data. Examples: SimCLR and other self-supervised contrastive learning methods, which learn feature extractors but discard the generative structure.</p>
+<p><strong>Decoder-only models</strong> learn a mapping <span class="arithmatex">\(\mathcal{Z} \to \mathcal{X}\)</span> from a latent space to the data space. They generate new data but cannot extract structured embeddings from existing data. Examples: GANs (Chapter 67), autoregressive language models (see §68.8).</p>
+<p><strong>Encoder-decoder models</strong> maintain both directions simultaneously: an encoder <span class="arithmatex">\(\mathcal{X} \to \mathcal{Z}\)</span> and a decoder <span class="arithmatex">\(\mathcal{Z} \to \mathcal{X}\)</span>. They support both generation and embedding extraction. Examples: VAEs (this chapter), VQ-VAEs, diffusion models in latent space.</p>
+<p>The mathematical content of each direction is:</p>
+<div class="arithmatex">\[\text{Encoder:} \quad p_\theta(\mathbf{z} \mid \mathbf{x}) \quad \text{(posterior of latent given data)}$$
+$$\text{Decoder:} \quad p_\theta(\mathbf{x} \mid \mathbf{z}) \quad \text{(conditional of data given latent)}\]</div>
+<p>The joint distribution <span class="arithmatex">\(p_\theta(\mathbf{x}, \mathbf{z}) = p_\theta(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z})\)</span> gives the model; the marginal <span class="arithmatex">\(p_\theta(\mathbf{x}) = \int p_\theta(\mathbf{x} \mid \mathbf{z}) p(\mathbf{z}) d\mathbf{z}\)</span> is what we want to match to the data distribution.</p>
+<hr />
+<h2 id="684-variational-autoencoders-problem-setup">68.4 Variational Autoencoders: Problem Setup</h2>
+<h3 id="6841-the-model">68.4.1 The Model</h3>
+<p>A Variational Autoencoder assumes the following generative process for data <span class="arithmatex">\(\mathbf{x} \in \mathbb{R}^d\)</span>:</p>
+<div class="arithmatex">\[\mathbf{z} \sim p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I}_k) \tag{68.4}$$
+$$\mathbf{x} \mid \mathbf{z} \sim p_\theta(\mathbf{x} \mid \mathbf{z}) \tag{68.5}\]</div>
+<p>where <span class="arithmatex">\(\theta\)</span> parameterizes the <strong>decoder</strong> neural network <span class="arithmatex">\(f_\theta : \mathbb{R}^k \to \mathcal{X}\)</span> (more precisely, to the parameter space of a distribution over <span class="arithmatex">\(\mathcal{X}\)</span>). Common choices:</p>
+<ul>
+<li>For continuous data: <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z}) = \mathcal{N}(\mathbf{x} \mid f_\theta(\mathbf{z}), \sigma^2 \mathbf{I})\)</span> — the decoder outputs the mean of a Gaussian.</li>
+<li>For binary data: <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z}) = \prod_{j=1}^d \text{Bernoulli}(x_j \mid \sigma(f_\theta(\mathbf{z}))_j)\)</span> — the decoder outputs Bernoulli probabilities per pixel.</li>
+</ul>
+<p>The prior <span class="arithmatex">\(p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span> is fixed (not learned). The marginal:</p>
+<div class="arithmatex">\[p_\theta(\mathbf{x}) = \int_{\mathbb{R}^k} p_\theta(\mathbf{x} \mid \mathbf{z}) \, \mathcal{N}(\mathbf{z} \mid \mathbf{0}, \mathbf{I}_k) \, d\mathbf{z} \tag{68.6}\]</div>
+<p>is intractable for deep network decoders.</p>
+<h3 id="6842-the-training-objective-maximum-likelihood">68.4.2 The Training Objective: Maximum Likelihood</h3>
+<p>We would like to maximize the log-likelihood of the data:</p>
+<div class="arithmatex">\[\max_\theta \sum_{i=1}^n \ln p_\theta(\mathbf{x}^{(i)}) = \max_\theta \sum_{i=1}^n \ln \int p_\theta(\mathbf{x}^{(i)} \mid \mathbf{z}) \, p(\mathbf{z}) \, d\mathbf{z} \tag{68.7}\]</div>
+<p>Both the integral itself and its gradient with respect to <span class="arithmatex">\(\theta\)</span> are intractable. Direct naive Monte Carlo estimation of the gradient is possible but has extremely high variance — the samples from <span class="arithmatex">\(p(\mathbf{z})\)</span> that contribute to <span class="arithmatex">\(p_\theta(\mathbf{x}^{(i)} \mid \mathbf{z})\)</span> being large are rare for complex data. We need a smarter approach.</p>
+<h3 id="6843-why-the-em-approach-fails-here">68.4.3 Why the EM Approach Fails Here</h3>
+<p>Recall the EM algorithm: it circumvents the intractable integral by alternating between (E) computing <span class="arithmatex">\(p_\theta(\mathbf{z} \mid \mathbf{x})\)</span> and (M) maximizing the expected complete-data log-likelihood. The E-step requires computing the posterior:</p>
+<div class="arithmatex">\[p_\theta(\mathbf{z} \mid \mathbf{x}) = \frac{p_\theta(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z})}{p_\theta(\mathbf{x})} \tag{68.8}\]</div>
+<p>For the GMM, <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z})\)</span> is Gaussian, so the numerator and denominator are both expressible in closed form, and (68.8) is tractable (it is just a softmax over mixture weights). For a deep neural network decoder, <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z}) = \mathcal{N}(\mathbf{x} \mid f_\theta(\mathbf{z}), \sigma^2 \mathbf{I})\)</span> has no closed-form normalizer as a function of <span class="arithmatex">\(\mathbf{z}\)</span>, so <span class="arithmatex">\(p_\theta(\mathbf{x}) = \int p_\theta(\mathbf{x} \mid \mathbf{z}) p(\mathbf{z}) d\mathbf{z}\)</span> is intractable. The E-step breaks down.</p>
+<p>The VAE's solution: replace the intractable true posterior <span class="arithmatex">\(p_\theta(\mathbf{z} \mid \mathbf{x})\)</span> with a <strong>learned approximate posterior</strong> (encoder) <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x})\)</span>, and derive a tractable surrogate objective.</p>
+<hr />
+<h2 id="685-the-evidence-lower-bound-elbo">68.5 The Evidence Lower Bound (ELBO)</h2>
+<h3 id="6851-deriving-the-elbo">68.5.1 Deriving the ELBO</h3>
+<p>We have already seen the ELBO in Chapter 66 (§66.10.2). We re-derive it here more carefully, connecting it explicitly to the EM machinery the course has developed.</p>
+<p>For a single data point <span class="arithmatex">\(\mathbf{x}\)</span>, introduce any distribution <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x})\)</span> over the latent space. We can write the log-marginal as:</p>
+<div class="arithmatex">\[\ln p_\theta(\mathbf{x}) = \ln \int p_\theta(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z}) \, d\mathbf{z}\]</div>
+<p>Multiply and divide the integrand by <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x})\)</span> (assumed to have the same support as <span class="arithmatex">\(p(\mathbf{z})\)</span>):</p>
+<div class="arithmatex">\[= \ln \int q_\phi(\mathbf{z} \mid \mathbf{x}) \cdot \frac{p_\theta(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z})}{q_\phi(\mathbf{z} \mid \mathbf{x})} \, d\mathbf{z} = \ln \, \mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}\!\left[\frac{p_\theta(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z})}{q_\phi(\mathbf{z} \mid \mathbf{x})}\right]\]</div>
+<p>Apply Jensen's inequality (<span class="arithmatex">\(\ln\)</span> is concave, so <span class="arithmatex">\(\ln \mathbb{E}[Y] \geq \mathbb{E}[\ln Y]\)</span>):</p>
+<div class="arithmatex">\[\geq \mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}\!\left[\ln \frac{p_\theta(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z})}{q_\phi(\mathbf{z} \mid \mathbf{x})}\right] \tag{68.9}\]</div>
+<p>Expanding the logarithm:</p>
+<div class="arithmatex">\[= \mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})] + \mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}\!\left[\ln \frac{p(\mathbf{z})}{q_\phi(\mathbf{z} \mid \mathbf{x})}\right]\]</div>
+<div class="arithmatex">\[= \underbrace{\mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})]}_{\text{reconstruction term}} - \underbrace{D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \,\|\, p(\mathbf{z}))}_{\text{regularization term}} \tag{68.10}\]</div>
+<p><strong>Definition 68.2 (Evidence Lower Bound).</strong> The ELBO for data point <span class="arithmatex">\(\mathbf{x}\)</span> is:</p>
+<div class="arithmatex">\[\mathcal{L}(\theta, \phi; \mathbf{x}) = \mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})] - D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \,\|\, p(\mathbf{z})) \tag{68.11}\]</div>
+<p>We have established <span class="arithmatex">\(\ln p_\theta(\mathbf{x}) \geq \mathcal{L}(\theta, \phi; \mathbf{x})\)</span> for any <span class="arithmatex">\(q_\phi\)</span>.</p>
+<h3 id="6852-the-gap-between-the-log-likelihood-and-the-elbo">68.5.2 The Gap Between the Log-Likelihood and the ELBO</h3>
+<p>The ELBO is not a loose, arbitrary lower bound — it has a precise relationship to the true log-likelihood.</p>
+<p><strong>Proposition 68.1.</strong> <span class="arithmatex">\(\ln p_\theta(\mathbf{x}) = \mathcal{L}(\theta, \phi; \mathbf{x}) + D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \,\|\, p_\theta(\mathbf{z} \mid \mathbf{x}))\)</span>.</p>
+<p><em>Proof.</em> Starting from (68.10):</p>
+<div class="arithmatex">\[\mathcal{L}(\theta, \phi; \mathbf{x}) = \mathbb{E}_{q_\phi}\!\left[\ln p_\theta(\mathbf{x} \mid \mathbf{z}) + \ln p(\mathbf{z}) - \ln q_\phi(\mathbf{z} \mid \mathbf{x})\right]\]</div>
+<p>Add and subtract <span class="arithmatex">\(\ln p_\theta(\mathbf{x})\)</span> (a constant with respect to <span class="arithmatex">\(\mathbf{z}\)</span>):</p>
+<div class="arithmatex">\[= \ln p_\theta(\mathbf{x}) + \mathbb{E}_{q_\phi}\!\left[\ln p_\theta(\mathbf{x} \mid \mathbf{z}) + \ln p(\mathbf{z}) - \ln q_\phi(\mathbf{z} \mid \mathbf{x}) - \ln p_\theta(\mathbf{x})\right]\]</div>
+<div class="arithmatex">\[= \ln p_\theta(\mathbf{x}) + \mathbb{E}_{q_\phi}\!\left[\ln \frac{p_\theta(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z})}{q_\phi(\mathbf{z} \mid \mathbf{x}) \, p_\theta(\mathbf{x})}\right]\]</div>
+<div class="arithmatex">\[= \ln p_\theta(\mathbf{x}) + \mathbb{E}_{q_\phi}\!\left[\ln \frac{p_\theta(\mathbf{z} \mid \mathbf{x})}{q_\phi(\mathbf{z} \mid \mathbf{x})}\right]\]</div>
+<div class="arithmatex">\[= \ln p_\theta(\mathbf{x}) - D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \,\|\, p_\theta(\mathbf{z} \mid \mathbf{x})) \qquad \blacksquare\]</div>
+<p>Therefore:</p>
+<div class="arithmatex">\[\ln p_\theta(\mathbf{x}) = \mathcal{L}(\theta, \phi; \mathbf{x}) + D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \,\|\, p_\theta(\mathbf{z} \mid \mathbf{x})) \tag{68.12}\]</div>
+<p><strong>Three consequences of (68.12):</strong></p>
+<p>First, since <span class="arithmatex">\(D_{\text{KL}} \geq 0\)</span>, we confirm <span class="arithmatex">\(\ln p_\theta(\mathbf{x}) \geq \mathcal{L}(\theta, \phi; \mathbf{x})\)</span>.</p>
+<p>Second, the bound is <strong>tight</strong> when <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x}) = p_\theta(\mathbf{z} \mid \mathbf{x})\)</span>, i.e., when the approximate posterior exactly equals the true posterior. In the GMM, this was achievable via Bayes' rule. In the VAE with a neural network decoder, it is generally not achievable (the true posterior may not belong to the Gaussian family), so the bound remains slightly loose.</p>
+<p>Third, <strong>maximizing the ELBO jointly over <span class="arithmatex">\(\theta\)</span> and <span class="arithmatex">\(\phi\)</span></strong>:
+- Maximizing over <span class="arithmatex">\(\theta\)</span> increases <span class="arithmatex">\(\ln p_\theta(\mathbf{x})\)</span> directly (makes the model fit the data better).
+- Maximizing over <span class="arithmatex">\(\phi\)</span> reduces <span class="arithmatex">\(D_{\text{KL}}(q_\phi \| p_\theta)\)</span> (makes the approximate posterior closer to the true posterior).</p>
+<p>Both effects are desirable and occur simultaneously when we gradient-ascend on <span class="arithmatex">\(\mathcal{L}(\theta, \phi; \mathbf{x})\)</span>.</p>
+<h3 id="6853-interpretation-of-the-two-elbo-terms">68.5.3 Interpretation of the Two ELBO Terms</h3>
+<p><strong>Term 1: Reconstruction.</strong> <span class="arithmatex">\(\mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})]\)</span>.</p>
+<p>This measures how well the decoder can reconstruct <span class="arithmatex">\(\mathbf{x}\)</span> from latent codes <span class="arithmatex">\(\mathbf{z}\)</span> drawn from the encoder's distribution. High reconstruction means: "for a typical encoding of <span class="arithmatex">\(\mathbf{x}\)</span>, the decoder assigns <span class="arithmatex">\(\mathbf{x}\)</span> high probability." It is a measure of <strong>fidelity</strong> — the model is rewarded for producing outputs similar to the input.</p>
+<p>For continuous data with <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z}) = \mathcal{N}(\mathbf{x} \mid f_\theta(\mathbf{z}), \sigma^2 \mathbf{I})\)</span>:</p>
+<div class="arithmatex">\[\ln p_\theta(\mathbf{x} \mid \mathbf{z}) = -\frac{d}{2}\ln(2\pi\sigma^2) - \frac{1}{2\sigma^2}\|{\mathbf{x} - f_\theta(\mathbf{z})}\|^2\]</div>
+<p>So maximizing the reconstruction term is equivalent to minimizing the <strong>mean squared error</strong> <span class="arithmatex">\(\mathbb{E}_{q_\phi}[\|\mathbf{x} - f_\theta(\mathbf{z})\|^2]\)</span> between the input and the decoded output. This is why VAEs are called <strong>autoencoders</strong> — they encode and then decode, and the reconstruction loss penalizes the round-trip error.</p>
+<p><strong>Term 2: Regularization.</strong> <span class="arithmatex">\(-D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \,\|\, p(\mathbf{z}))\)</span>.</p>
+<p>This penalizes the encoder for deviating from the prior <span class="arithmatex">\(p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>. It acts as a <strong>regularizer</strong> on the latent space, pulling the approximate posteriors <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x})\)</span> toward the standard Gaussian. This has two effects:</p>
+<p>(a) <strong>Generation at test time.</strong> If <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x}) \approx p(\mathbf{z})\)</span> for all <span class="arithmatex">\(\mathbf{x}\)</span>, then sampling <span class="arithmatex">\(\mathbf{z} \sim p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span> at test time will produce <span class="arithmatex">\(\mathbf{z}\)</span> values in regions that the decoder has seen during training, yielding meaningful outputs.</p>
+<p>(b) <strong>Smooth interpolation.</strong> The KL term prevents the encoder from memorizing (collapsing each <span class="arithmatex">\(\mathbf{x}\)</span> to a delta function in <span class="arithmatex">\(\mathcal{Z}\)</span>). If each <span class="arithmatex">\(\mathbf{x}\)</span> were mapped to a distinct point in <span class="arithmatex">\(\mathcal{Z}\)</span>, sampling randomly from <span class="arithmatex">\(p(\mathbf{z})\)</span> would land between training points, producing garbage. The regularization ensures neighboring regions of <span class="arithmatex">\(\mathcal{Z}\)</span> decode to visually similar outputs.</p>
+<p><strong>The tension.</strong> The two terms are in tension: the reconstruction term wants the encoder to map each <span class="arithmatex">\(\mathbf{x}\)</span> to a sharp, precise <span class="arithmatex">\(\mathbf{z}\)</span> (low variance), while the regularization term wants <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x})\)</span> to be broad and close to <span class="arithmatex">\(\mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>. The ELBO balances these competing pressures automatically.</p>
+<hr />
+<h2 id="686-the-vae-architecture">68.6 The VAE Architecture</h2>
+<h3 id="6861-representing-distributions-with-neural-networks">68.6.1 Representing Distributions with Neural Networks</h3>
+<p>A neural network can represent a probability distribution in two ways, and the choice matters:</p>
+<p><strong>Type A: Sample output.</strong> The network takes an input and directly outputs a sample from the target distribution. Example: the GAN generator <span class="arithmatex">\(G_\theta(\mathbf{z})\)</span> outputs a sample <span class="arithmatex">\(\tilde{\mathbf{x}} \sim p_\theta(\mathbf{x} \mid \mathbf{z})\)</span>.</p>
+<p><strong>Type B: Parameter output.</strong> The network takes an input and outputs the parameters of a parametric distribution. The user then samples from that distribution using a known primitive. Example: a classifier with softmax output gives <span class="arithmatex">\((\pi_1, \ldots, \pi_K)\)</span>, the parameters of a categorical distribution over class labels.</p>
+<p><strong>The VAE encoder uses Type B.</strong> We parameterize <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x}) = \mathcal{N}(\mathbf{z} \mid \boldsymbol{\mu}_\phi(\mathbf{x}), \text{diag}(\boldsymbol{\sigma}^2_\phi(\mathbf{x})))\)</span> — a diagonal-covariance Gaussian whose parameters depend on <span class="arithmatex">\(\mathbf{x}\)</span>. The encoder network <span class="arithmatex">\(\text{Enc}_\phi : \mathbb{R}^d \to \mathbb{R}^k \times \mathbb{R}^k_{&gt;0}\)</span> outputs:</p>
+<div class="arithmatex">\[\text{Enc}_\phi(\mathbf{x}) = (\boldsymbol{\mu}_\phi(\mathbf{x}), \boldsymbol{\sigma}^2_\phi(\mathbf{x})) \tag{68.13}\]</div>
+<p>where <span class="arithmatex">\(\boldsymbol{\mu}_\phi(\mathbf{x}) \in \mathbb{R}^k\)</span> (mean vector, unconstrained, with linear output activations) and <span class="arithmatex">\(\boldsymbol{\sigma}^2_\phi(\mathbf{x}) \in \mathbb{R}^k_{&gt;0}\)</span> (variance vector, constrained positive, e.g., via softplus or <span class="arithmatex">\(e^{\cdot}\)</span> output activations). In practice, it is common to output <span class="arithmatex">\(\log \boldsymbol{\sigma}^2_\phi(\mathbf{x})\)</span> and exponentiate, which avoids numerical issues.</p>
+<p>The encoder therefore outputs a full Gaussian distribution, not a single point. For each data point <span class="arithmatex">\(\mathbf{x}\)</span>, we get a distinct Gaussian distribution <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x})\)</span> in the latent space.</p>
+<p><strong>The VAE decoder.</strong> The decoder <span class="arithmatex">\(\text{Dec}_\theta : \mathbb{R}^k \to \mathcal{X}\)</span> takes a latent vector <span class="arithmatex">\(\mathbf{z}\)</span> and outputs the parameters of <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z})\)</span>. For the Gaussian decoder:</p>
+<div class="arithmatex">\[\text{Dec}_\theta(\mathbf{z}) = f_\theta(\mathbf{z}), \quad p_\theta(\mathbf{x} \mid \mathbf{z}) = \mathcal{N}(\mathbf{x} \mid f_\theta(\mathbf{z}), \sigma^2 \mathbf{I}) \tag{68.14}\]</div>
+<h3 id="6862-the-data-flow">68.6.2 The Data Flow</h3>
+<p>For a single training point <span class="arithmatex">\(\mathbf{x}\)</span>, the forward pass of a VAE is:</p>
+<div class="arithmatex">\[\mathbf{x} \xrightarrow{\text{Enc}_\phi} (\boldsymbol{\mu}_\phi, \boldsymbol{\sigma}^2_\phi) \xrightarrow{\text{sample}} \mathbf{z} \sim \mathcal{N}(\boldsymbol{\mu}_\phi, \text{diag}(\boldsymbol{\sigma}^2_\phi)) \xrightarrow{\text{Dec}_\theta} f_\theta(\mathbf{z}) \approx \mathbf{x}\]</div>
+<p>Compute the ELBO:</p>
+<div class="arithmatex">\[\mathcal{L}(\theta, \phi; \mathbf{x}) = \mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})] - D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \,\|\, p(\mathbf{z}))\]</div>
+<p>Back-propagate the gradient of <span class="arithmatex">\(-\mathcal{L}\)</span> (we minimize the negative ELBO) through both <span class="arithmatex">\(\theta\)</span> and <span class="arithmatex">\(\phi\)</span> jointly.</p>
+<h3 id="6863-the-sampling-problem-non-differentiability">68.6.3 The Sampling Problem: Non-Differentiability</h3>
+<p>There is a fundamental obstruction to naively computing <span class="arithmatex">\(\nabla_\phi \mathcal{L}\)</span>. The first ELBO term involves:</p>
+<div class="arithmatex">\[\mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})] = \int q_\phi(\mathbf{z} \mid \mathbf{x}) \ln p_\theta(\mathbf{x} \mid \mathbf{z}) \, d\mathbf{z}\]</div>
+<p>We estimate this by Monte Carlo: draw <span class="arithmatex">\(\mathbf{z} \sim q_\phi(\mathbf{z} \mid \mathbf{x})\)</span>, then evaluate <span class="arithmatex">\(\ln p_\theta(\mathbf{x} \mid \mathbf{z})\)</span>. But the sampling step <span class="arithmatex">\(\mathbf{z} \sim q_\phi(\mathbf{z} \mid \mathbf{x})\)</span> <strong>depends on <span class="arithmatex">\(\phi\)</span></strong>. Sampling is a stochastic operation, and stochastic operations are not differentiable in the standard sense — there is no chain rule through a random number generator.</p>
+<p>Formally: define <span class="arithmatex">\(F(\phi) = \mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}[f(\mathbf{z})]\)</span> for some function <span class="arithmatex">\(f\)</span>. We need <span class="arithmatex">\(\nabla_\phi F(\phi)\)</span>. We cannot write <span class="arithmatex">\(\nabla_\phi F(\phi) = \mathbb{E}_{q_\phi}[\nabla_\phi f(\mathbf{z})]\)</span> because <span class="arithmatex">\(\nabla_\phi f(\mathbf{z}) = 0\)</span> (f does not depend on <span class="arithmatex">\(\phi\)</span>). The <span class="arithmatex">\(\phi\)</span>-dependence is entirely in the distribution we are sampling from, not in the integrand.</p>
+<p>One approach is the <strong>REINFORCE / log-derivative trick</strong> (also called score function estimator):</p>
+<div class="arithmatex">\[\nabla_\phi \mathbb{E}_{q_\phi}[f(\mathbf{z})] = \mathbb{E}_{q_\phi}[f(\mathbf{z}) \, \nabla_\phi \ln q_\phi(\mathbf{z} \mid \mathbf{x})]\]</div>
+<p>This is unbiased but has extremely high variance for complex models, making it impractical.</p>
+<p>The VAE uses a far superior approach: the <strong>reparameterization trick</strong>.</p>
+<hr />
+<h2 id="687-the-reparameterization-trick">68.7 The Reparameterization Trick</h2>
+<h3 id="6871-the-core-idea">68.7.1 The Core Idea</h3>
+<p>The reparameterization trick exploits the following observation: sampling from <span class="arithmatex">\(\mathcal{N}(\boldsymbol{\mu}_\phi, \text{diag}(\boldsymbol{\sigma}^2_\phi))\)</span> is equivalent to a <strong>deterministic transformation</strong> of a sample from <span class="arithmatex">\(\mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>.</p>
+<p><strong>Proposition 68.2 (Reparameterization).</strong> Let <span class="arithmatex">\(\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>. Define:</p>
+<div class="arithmatex">\[\mathbf{z} = \boldsymbol{\mu}_\phi(\mathbf{x}) + \boldsymbol{\sigma}_\phi(\mathbf{x}) \odot \boldsymbol{\epsilon} \tag{68.15}\]</div>
+<p>where <span class="arithmatex">\(\odot\)</span> denotes element-wise multiplication and <span class="arithmatex">\(\boldsymbol{\sigma}_\phi = \sqrt{\boldsymbol{\sigma}^2_\phi}\)</span> (element-wise). Then <span class="arithmatex">\(\mathbf{z} \sim \mathcal{N}(\boldsymbol{\mu}_\phi(\mathbf{x}), \text{diag}(\boldsymbol{\sigma}^2_\phi(\mathbf{x})))\)</span>.</p>
+<p><em>Proof.</em> Each component: <span class="arithmatex">\(z_j = \mu_{\phi,j}(\mathbf{x}) + \sigma_{\phi,j}(\mathbf{x}) \cdot \epsilon_j\)</span> with <span class="arithmatex">\(\epsilon_j \sim \mathcal{N}(0,1)\)</span>. By the affine transformation property of Gaussians, <span class="arithmatex">\(z_j \sim \mathcal{N}(\mu_{\phi,j}, \sigma_{\phi,j}^2)\)</span>. Independence across <span class="arithmatex">\(j\)</span> gives the diagonal-covariance Gaussian. <span class="arithmatex">\(\blacksquare\)</span></p>
+<h3 id="6872-why-this-solves-the-gradient-problem">68.7.2 Why This Solves the Gradient Problem</h3>
+<p>With (68.15), the Monte Carlo estimate of the first ELBO term becomes:</p>
+<div class="arithmatex">\[\mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})] = \mathbb{E}_{\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})}[\ln p_\theta(\mathbf{x} \mid \boldsymbol{\mu}_\phi(\mathbf{x}) + \boldsymbol{\sigma}_\phi(\mathbf{x}) \odot \boldsymbol{\epsilon})] \tag{68.16}\]</div>
+<p>The expectation is now over <span class="arithmatex">\(\boldsymbol{\epsilon}\)</span>, which does <strong>not</strong> depend on <span class="arithmatex">\(\phi\)</span>. The <span class="arithmatex">\(\phi\)</span>-dependence is entirely inside the deterministic function <span class="arithmatex">\(\boldsymbol{\mu}_\phi(\mathbf{x}) + \boldsymbol{\sigma}_\phi(\mathbf{x}) \odot \boldsymbol{\epsilon}\)</span>, which is differentiable with respect to <span class="arithmatex">\(\phi\)</span> via standard backpropagation.</p>
+<p>We can therefore pass the gradient through the sampling step:</p>
+<div class="arithmatex">\[\nabla_\phi \, \mathbb{E}_{q_\phi}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})] = \mathbb{E}_{\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})}\!\left[\nabla_\phi \ln p_\theta(\mathbf{x} \mid \boldsymbol{\mu}_\phi + \boldsymbol{\sigma}_\phi \odot \boldsymbol{\epsilon})\right] \tag{68.17}\]</div>
+<p>Estimating (68.17) with a single sample <span class="arithmatex">\(\boldsymbol{\epsilon}^{(1)} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})\)</span>:</p>
+<div class="arithmatex">\[\nabla_\phi \, \mathbb{E}_{q_\phi}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})] \approx \nabla_\phi \ln p_\theta(\mathbf{x} \mid \boldsymbol{\mu}_\phi + \boldsymbol{\sigma}_\phi \odot \boldsymbol{\epsilon}^{(1)})\]</div>
+<p>which is a low-variance, unbiased gradient estimator computable by backpropagation through <span class="arithmatex">\(\boldsymbol{\mu}_\phi\)</span> and <span class="arithmatex">\(\boldsymbol{\sigma}_\phi\)</span>.</p>
+<p>The reparameterization trick is the Push-Forward Principle of Chapter 66 in action: we have rewritten the sampling process <span class="arithmatex">\(\mathbf{z} \sim q_\phi(\mathbf{z} \mid \mathbf{x})\)</span> as a deterministic transformation <span class="arithmatex">\(\mathbf{z} = g_\phi(\boldsymbol{\epsilon}; \mathbf{x})\)</span> of a noise variable <span class="arithmatex">\(\boldsymbol{\epsilon}\)</span>, which is independent of <span class="arithmatex">\(\phi\)</span>.</p>
+<h3 id="6873-the-closed-form-kl-term">68.7.3 The Closed-Form KL Term</h3>
+<p>The second ELBO term <span class="arithmatex">\(D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \,\|\, p(\mathbf{z}))\)</span> requires no sampling — it has an exact closed form when both distributions are Gaussian.</p>
+<p><strong>Proposition 68.3 (KL Between Gaussians).</strong> Let <span class="arithmatex">\(q = \mathcal{N}(\boldsymbol{\mu}, \text{diag}(\boldsymbol{\sigma}^2))\)</span> and <span class="arithmatex">\(p = \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>. Then:</p>
+<div class="arithmatex">\[D_{\text{KL}}(q \,\|\, p) = \frac{1}{2} \sum_{j=1}^k \left(\mu_j^2 + \sigma_j^2 - 1 - \ln \sigma_j^2\right) \tag{68.18}\]</div>
+<p><em>Proof.</em> By independence of dimensions, <span class="arithmatex">\(D_{\text{KL}}(q \| p) = \sum_{j=1}^k D_{\text{KL}}(\mathcal{N}(\mu_j, \sigma_j^2) \,\|\, \mathcal{N}(0, 1))\)</span>.</p>
+<p>For a single dimension, compute:</p>
+<div class="arithmatex">\[D_{\text{KL}}(\mathcal{N}(\mu, \sigma^2) \,\|\, \mathcal{N}(0, 1)) = \int \mathcal{N}(z; \mu, \sigma^2) \ln \frac{\mathcal{N}(z; \mu, \sigma^2)}{\mathcal{N}(z; 0, 1)} \, dz\]</div>
+<div class="arithmatex">\[= \int \mathcal{N}(z; \mu, \sigma^2) \left[-\frac{(z-\mu)^2}{2\sigma^2} - \frac{1}{2}\ln(2\pi\sigma^2) + \frac{z^2}{2} + \frac{1}{2}\ln(2\pi)\right] dz\]</div>
+<p>Evaluate each integral using <span class="arithmatex">\(\mathbb{E}_q[(z-\mu)^2] = \sigma^2\)</span>, <span class="arithmatex">\(\mathbb{E}_q[z^2] = \sigma^2 + \mu^2\)</span>:</p>
+<div class="arithmatex">\[= -\frac{\sigma^2}{2\sigma^2} - \frac{1}{2}\ln(2\pi\sigma^2) + \frac{\sigma^2 + \mu^2}{2} + \frac{1}{2}\ln(2\pi)\]</div>
+<div class="arithmatex">\[= -\frac{1}{2} - \frac{1}{2}\ln\sigma^2 + \frac{\sigma^2 + \mu^2}{2}\]</div>
+<div class="arithmatex">\[= \frac{1}{2}\left(\mu^2 + \sigma^2 - 1 - \ln\sigma^2\right) \qquad \blacksquare\]</div>
+<p>This expression is differentiable with respect to <span class="arithmatex">\(\mu_j\)</span> and <span class="arithmatex">\(\sigma_j^2\)</span>, so the gradient <span class="arithmatex">\(\nabla_\phi D_{\text{KL}}\)</span> is available in closed form (just differentiate (68.18) through <span class="arithmatex">\(\boldsymbol{\mu}_\phi(\mathbf{x})\)</span> and <span class="arithmatex">\(\boldsymbol{\sigma}^2_\phi(\mathbf{x})\)</span>).</p>
+<h3 id="6874-the-full-differentiable-elbo">68.7.4 The Full Differentiable ELBO</h3>
+<p>Combining the reparameterized first term and the closed-form second term, the ELBO for a single data point <span class="arithmatex">\(\mathbf{x}\)</span> with a single noise sample <span class="arithmatex">\(\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span> becomes:</p>
+<div class="arithmatex">\[\mathcal{L}(\theta, \phi; \mathbf{x}) \approx \ln p_\theta(\mathbf{x} \mid \boldsymbol{\mu}_\phi(\mathbf{x}) + \boldsymbol{\sigma}_\phi(\mathbf{x}) \odot \boldsymbol{\epsilon}) - \frac{1}{2}\sum_{j=1}^k \left(\mu_{\phi,j}^2 + \sigma_{\phi,j}^2 - 1 - \ln\sigma_{\phi,j}^2\right) \tag{68.19}\]</div>
+<p>Both terms are differentiable with respect to <span class="arithmatex">\(\theta\)</span> and <span class="arithmatex">\(\phi\)</span>. The training objective is:</p>
+<div class="arithmatex">\[\max_{\theta, \phi} \frac{1}{n}\sum_{i=1}^n \mathcal{L}(\theta, \phi; \mathbf{x}^{(i)}) \tag{68.20}\]</div>
+<p>implemented by standard mini-batch stochastic gradient ascent.</p>
+<hr />
+<h2 id="688-the-vae-training-algorithm">68.8 The VAE Training Algorithm</h2>
+<hr />
+<p><strong>Algorithm 68.1: VAE Training</strong></p>
+<p><strong>Input:</strong> Dataset <span class="arithmatex">\(\mathcal{D}\)</span>, latent dimension <span class="arithmatex">\(k\)</span>, batch size <span class="arithmatex">\(m\)</span>, learning rate <span class="arithmatex">\(\eta\)</span>.</p>
+<p><strong>Initialize:</strong> Encoder parameters <span class="arithmatex">\(\phi\)</span>, decoder parameters <span class="arithmatex">\(\theta\)</span>, randomly.</p>
+<p><strong>For</strong> each training epoch:</p>
+<p><strong>For</strong> each mini-batch <span class="arithmatex">\(\{\mathbf{x}^{(i)}\}_{i=1}^m \subset \mathcal{D}\)</span>:</p>
+<blockquote>
+<ol>
+<li><strong>Encode:</strong> Compute <span class="arithmatex">\((\boldsymbol{\mu}_\phi^{(i)}, \log \boldsymbol{\sigma}_\phi^{(2,i)}) = \text{Enc}_\phi(\mathbf{x}^{(i)})\)</span> for each <span class="arithmatex">\(i\)</span>.</li>
+<li><strong>Reparameterize:</strong> Sample <span class="arithmatex">\(\boldsymbol{\epsilon}^{(i)} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span> and compute <span class="arithmatex">\(\mathbf{z}^{(i)} = \boldsymbol{\mu}_\phi^{(i)} + \boldsymbol{\sigma}_\phi^{(i)} \odot \boldsymbol{\epsilon}^{(i)}\)</span>.</li>
+<li><strong>Decode:</strong> Compute <span class="arithmatex">\(f_\theta(\mathbf{z}^{(i)}) = \text{Dec}_\theta(\mathbf{z}^{(i)})\)</span> for each <span class="arithmatex">\(i\)</span>.</li>
+<li><strong>Compute ELBO:</strong>
+   $<span class="arithmatex">\(\hat{\mathcal{L}} = \frac{1}{m}\sum_{i=1}^m \left[\ln p_\theta(\mathbf{x}^{(i)} \mid \mathbf{z}^{(i)}) - \frac{1}{2}\sum_{j=1}^k\!\left((\mu_{\phi,j}^{(i)})^2 + (\sigma_{\phi,j}^{(i)})^2 - 1 - \ln(\sigma_{\phi,j}^{(i)})^2\right)\right]\)</span>$</li>
+<li><strong>Update:</strong> <span class="arithmatex">\((\theta, \phi) \leftarrow (\theta, \phi) + \eta \nabla_{\theta,\phi} \hat{\mathcal{L}}\)</span> (joint gradient ascent).</li>
+</ol>
+</blockquote>
+<p><strong>At inference (generation):</strong> Draw <span class="arithmatex">\(\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>, compute <span class="arithmatex">\(\tilde{\mathbf{x}} = f_{\theta^*}(\mathbf{z})\)</span> (or sample from <span class="arithmatex">\(p_{\theta^*}(\mathbf{x} \mid \mathbf{z})\)</span>).</p>
+<p><strong>At inference (embedding):</strong> Pass <span class="arithmatex">\(\mathbf{x}\)</span> through encoder, return <span class="arithmatex">\(\boldsymbol{\mu}_{\phi^*}(\mathbf{x})\)</span> as the embedding (or sample <span class="arithmatex">\(\mathbf{z} \sim q_{\phi^*}(\mathbf{z} \mid \mathbf{x})\)</span>).</p>
+<hr />
+<p><strong>Note on the gradient flow.</strong> During the forward pass, the computation graph is:</p>
+<div class="arithmatex">\[\phi \to (\boldsymbol{\mu}_\phi, \boldsymbol{\sigma}_\phi) \to \mathbf{z} = \boldsymbol{\mu}_\phi + \boldsymbol{\sigma}_\phi \odot \boldsymbol{\epsilon} \to f_\theta(\mathbf{z}) \to \ln p_\theta(\mathbf{x} \mid \mathbf{z})\]</div>
+<p>The edge <span class="arithmatex">\((\boldsymbol{\mu}_\phi, \boldsymbol{\sigma}_\phi) \to \mathbf{z}\)</span> is a <strong>deterministic</strong> arithmetic operation (not a sampling operation), because <span class="arithmatex">\(\boldsymbol{\epsilon}\)</span> is treated as a constant input during backpropagation. The gradient therefore flows freely from the reconstruction loss all the way back to <span class="arithmatex">\(\phi\)</span> through the encoder.</p>
+<hr />
+<h2 id="689-worked-example-vae-on-univariate-data">68.9 Worked Example: VAE on Univariate Data</h2>
+<p><strong>Setup.</strong> Let <span class="arithmatex">\(d = k = 1\)</span> (both data and latent are scalar). Prior: <span class="arithmatex">\(p(z) = \mathcal{N}(0, 1)\)</span>. Target: <span class="arithmatex">\(p(x) = \mathcal{N}(5, 4)\)</span> (mean 5, variance 4). Decoder: <span class="arithmatex">\(p_\theta(x \mid z) = \mathcal{N}(x \mid \theta_1 z + \theta_2, 1)\)</span> (affine, unit variance). Encoder: <span class="arithmatex">\(q_\phi(z \mid x) = \mathcal{N}(z \mid \phi_1 x + \phi_0, e^{\phi_2})\)</span> (affine mean, learned log-variance).</p>
+<p><strong>ELBO calculation.</strong> The first term:</p>
+<div class="arithmatex">\[\mathbb{E}_{q_\phi(z \mid x)}[\ln p_\theta(x \mid z)] = -\frac{1}{2}\ln(2\pi) - \frac{1}{2}\mathbb{E}_{q_\phi}\!\left[(x - \theta_1 z - \theta_2)^2\right]\]</div>
+<div class="arithmatex">\[= -\frac{1}{2}\ln(2\pi) - \frac{1}{2}\left[(x - \theta_1 \mu_\phi - \theta_2)^2 + \theta_1^2 \sigma_\phi^2\right]\]</div>
+<p>where <span class="arithmatex">\(\mu_\phi = \phi_1 x + \phi_0\)</span> and <span class="arithmatex">\(\sigma_\phi^2 = e^{\phi_2}\)</span>. (We used <span class="arithmatex">\(\mathbb{E}_q[z^2] = \mu_\phi^2 + \sigma_\phi^2\)</span>.)</p>
+<p>The second term:</p>
+<div class="arithmatex">\[D_{\text{KL}}(q_\phi(z \mid x) \,\|\, p(z)) = \frac{1}{2}\left(\mu_\phi^2 + \sigma_\phi^2 - 1 - \ln\sigma_\phi^2\right) = \frac{1}{2}\left(\mu_\phi^2 + e^{\phi_2} - 1 - \phi_2\right)\]</div>
+<p><strong>At optimum.</strong> The true posterior is <span class="arithmatex">\(p_\theta(z \mid x) \propto p_\theta(x \mid z) p(z) = \mathcal{N}(x \mid \theta_1 z + \theta_2, 1) \cdot \mathcal{N}(z \mid 0, 1)\)</span>. Completing the square in <span class="arithmatex">\(z\)</span>:</p>
+<div class="arithmatex">\[\ln p_\theta(z \mid x) \propto -\frac{(x - \theta_1 z - \theta_2)^2}{2} - \frac{z^2}{2} = -\frac{(1 + \theta_1^2)}{2}\left(z - \frac{\theta_1(x-\theta_2)}{1+\theta_1^2}\right)^2 + \text{const}\]</div>
+<p>So <span class="arithmatex">\(p_\theta(z \mid x) = \mathcal{N}\!\left(z \mid \frac{\theta_1(x-\theta_2)}{1+\theta_1^2}, \frac{1}{1+\theta_1^2}\right)\)</span>.</p>
+<p>At the globally optimal VAE:
+- <span class="arithmatex">\(\theta_1 = 2\)</span>, <span class="arithmatex">\(\theta_2 = 5\)</span> (so <span class="arithmatex">\(p_\theta(x \mid z) = \mathcal{N}(x \mid 2z + 5, 1)\)</span>, and <span class="arithmatex">\(p_\theta(x) = \mathcal{N}(5, 4+1) = \mathcal{N}(5, 5)\)</span> — approximately right).
+- The encoder learns <span class="arithmatex">\(q_\phi(z \mid x) = \mathcal{N}(z \mid \frac{2(x-5)}{5}, \frac{1}{5})\)</span>, matching the true posterior.</p>
+<p>This toy example illustrates that the encoder and decoder co-adapt: the decoder learns how to expand the latent space to match the data distribution, and the encoder learns the inverse map.</p>
+<hr />
+<h2 id="6810-inference-with-a-trained-vae">68.10 Inference with a Trained VAE</h2>
+<p>A trained VAE supports two distinct inference modes.</p>
+<h3 id="68101-generation-decoder-mode">68.10.1 Generation (Decoder Mode)</h3>
+<p>To produce a new sample <span class="arithmatex">\(\tilde{\mathbf{x}}\)</span> not in <span class="arithmatex">\(\mathcal{D}\)</span>:</p>
+<ol>
+<li>Draw <span class="arithmatex">\(\mathbf{z} \sim p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>.</li>
+<li>Pass through the decoder: <span class="arithmatex">\(\tilde{\mathbf{x}} = f_{\theta^*}(\mathbf{z})\)</span> (for continuous data with MSE reconstruction).</li>
+</ol>
+<p>The encoder <span class="arithmatex">\(\text{Enc}_\phi\)</span> is not used during generation. Generation is purely decoder-driven, like a GAN — the difference is that the VAE's decoder was trained via ELBO maximization rather than adversarial training.</p>
+<h3 id="68102-embedding-extraction-encoder-mode">68.10.2 Embedding Extraction (Encoder Mode)</h3>
+<p>To obtain a latent representation for a data point <span class="arithmatex">\(\mathbf{x}\)</span>:</p>
+<ol>
+<li>Pass <span class="arithmatex">\(\mathbf{x}\)</span> through the encoder: <span class="arithmatex">\((\boldsymbol{\mu}_{\phi^*}(\mathbf{x}), \boldsymbol{\sigma}^2_{\phi^*}(\mathbf{x})) = \text{Enc}_{\phi^*}(\mathbf{x})\)</span>.</li>
+<li>Use <span class="arithmatex">\(\boldsymbol{\mu}_{\phi^*}(\mathbf{x}) \in \mathbb{R}^k\)</span> as the embedding (a deterministic <span class="arithmatex">\(k\)</span>-dimensional vector).</li>
+<li>Alternatively, sample <span class="arithmatex">\(\mathbf{z} \sim q_{\phi^*}(\mathbf{z} \mid \mathbf{x})\)</span> and use <span class="arithmatex">\(\mathbf{z}\)</span> as a stochastic embedding.</li>
+</ol>
+<p>The mean <span class="arithmatex">\(\boldsymbol{\mu}_{\phi^*}(\mathbf{x})\)</span> is the most natural embedding: it is the "center" of the posterior distribution of <span class="arithmatex">\(\mathbf{z}\)</span> given <span class="arithmatex">\(\mathbf{x}\)</span>. Because the ELBO has regularized the latent space toward <span class="arithmatex">\(\mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span>, these embeddings are well-organized: data points that are semantically similar (e.g., different images of the digit "3") will have nearby <span class="arithmatex">\(\boldsymbol{\mu}\)</span> values in <span class="arithmatex">\(\mathbb{R}^k\)</span>.</p>
+<h3 id="68103-latent-space-interpolation">68.10.3 Latent Space Interpolation</h3>
+<p>A consequence of the regularized latent space is that <strong>linear interpolation in <span class="arithmatex">\(\mathcal{Z}\)</span> corresponds to smooth interpolation in <span class="arithmatex">\(\mathcal{X}\)</span></strong>. Given two data points <span class="arithmatex">\(\mathbf{x}_A\)</span> and <span class="arithmatex">\(\mathbf{x}_B\)</span> with latent means <span class="arithmatex">\(\boldsymbol{\mu}_A = \boldsymbol{\mu}_{\phi^*}(\mathbf{x}_A)\)</span> and <span class="arithmatex">\(\boldsymbol{\mu}_B = \boldsymbol{\mu}_{\phi^*}(\mathbf{x}_B)\)</span>:</p>
+<div class="arithmatex">\[\tilde{\mathbf{x}}_t = f_{\theta^*}((1-t)\boldsymbol{\mu}_A + t\boldsymbol{\mu}_B), \quad t \in [0,1]\]</div>
+<p>produces a smooth morphing from <span class="arithmatex">\(\mathbf{x}_A\)</span> to <span class="arithmatex">\(\mathbf{x}_B\)</span> as <span class="arithmatex">\(t\)</span> goes from 0 to 1. This would not work in a GAN because there is no encoder to map <span class="arithmatex">\(\mathbf{x}_A\)</span> and <span class="arithmatex">\(\mathbf{x}_B\)</span> to latent codes.</p>
+<hr />
+<h2 id="6811-latent-variable-models-as-the-foundation-for-modern-generative-ai">68.11 Latent Variable Models as the Foundation for Modern Generative AI</h2>
+<p>The lecture mentioned a critical observation that warrants expansion: the encoder-decoder structure of latent variable models is not just a self-contained model class. It is the <strong>infrastructure</strong> on which the most capable modern generative systems are built.</p>
+<h3 id="68111-the-two-stage-architecture">68.11.1 The Two-Stage Architecture</h3>
+<p>Modern image generation systems (as of the time of this course) operate in two stages:</p>
+<p><strong>Stage 1: Build a latent space.</strong> Train a latent variable model (typically a VQ-VAE or VAE variant) on the raw data. This gives a trained encoder <span class="arithmatex">\(\text{Enc}_\phi : \mathcal{X} \to \mathcal{Z}\)</span> and decoder <span class="arithmatex">\(\text{Dec}_\theta : \mathcal{Z} \to \mathcal{X}\)</span>. The latent space <span class="arithmatex">\(\mathcal{Z}\)</span> is much lower-dimensional than <span class="arithmatex">\(\mathcal{X}\)</span>: for images, <span class="arithmatex">\(d\)</span> might be <span class="arithmatex">\(786432\)</span> (for a <span class="arithmatex">\(512 \times 512 \times 3\)</span> image) while <span class="arithmatex">\(k\)</span> might be <span class="arithmatex">\(4096\)</span> — a 192-fold compression.</p>
+<p><strong>Stage 2: Build a generative model on <span class="arithmatex">\(\mathcal{Z}\)</span>.</strong> Train a powerful generative model (a diffusion model, an autoregressive model, etc.) not on raw data <span class="arithmatex">\(\mathbf{x} \in \mathcal{X}\)</span>, but on latent codes <span class="arithmatex">\(\mathbf{z} = \text{Enc}_\phi(\mathbf{x}) \in \mathcal{Z}\)</span>. Because <span class="arithmatex">\(\mathcal{Z}\)</span> is far smaller and more structured than <span class="arithmatex">\(\mathcal{X}\)</span>, this is much more computationally tractable.</p>
+<p><strong>Inference:</strong> To generate a new image:
+1. Sample <span class="arithmatex">\(\hat{\mathbf{z}}\)</span> from the Stage-2 generative model.
+2. Decode: <span class="arithmatex">\(\tilde{\mathbf{x}} = \text{Dec}_\theta(\hat{\mathbf{z}})\)</span>.</p>
+<p>The raw image <span class="arithmatex">\(\tilde{\mathbf{x}}\)</span> is displayed to the user, who never sees the latent code <span class="arithmatex">\(\hat{\mathbf{z}}\)</span>.</p>
+<p>This architecture is called <strong>Latent Diffusion</strong> (Rombach et al., 2022), and it underlies most modern text-to-image systems. The text prompt conditions the Stage-2 generative model (making it a conditional generative model on <span class="arithmatex">\(\mathcal{Z}\)</span>), and the decoder then renders the output in pixel space.</p>
+<p>The conceptual contribution of this chapter is that the <strong>encoder-decoder pair (VAE/VQ-VAE) provides the vocabulary</strong> in which high-level generative models speak. The Stage-2 model generates meaning (in latent space); the decoder translates meaning into perception (in data space).</p>
+<hr />
+<h2 id="6812-vae-vs-gan-a-mathematical-comparison">68.12 VAE vs. GAN: A Mathematical Comparison</h2>
+<p>Having studied both families in depth, we can now compare them precisely along the dimensions that matter.</p>
+<p><strong>Divergence minimized.</strong> The GAN minimizes <span class="arithmatex">\(D_{\text{JS}}(p \| p_\theta)\)</span> (or the Wasserstein distance, for WGANs). The VAE maximizes the ELBO, which is equivalent to minimizing:</p>
+<div class="arithmatex">\[\text{VAE objective} \Leftrightarrow \min_{\theta, \phi} \left[-\mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})] + D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \,\|\, p(\mathbf{z}))\right]\]</div>
+<p>This does not directly minimize <span class="arithmatex">\(D_{\text{KL}}(p \| p_\theta)\)</span> — it minimizes a bound on it, with the bound gap equal to <span class="arithmatex">\(D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \| p_\theta(\mathbf{z} \mid \mathbf{x}))\)</span> (the quality of the approximate posterior).</p>
+<p><strong>Density tractability.</strong> The GAN provides no <span class="arithmatex">\(\ln p_\theta(\mathbf{x})\)</span>. The VAE provides <span class="arithmatex">\(\mathcal{L}(\theta, \phi; \mathbf{x})\)</span>, a lower bound on <span class="arithmatex">\(\ln p_\theta(\mathbf{x})\)</span>, which is useful for evaluation and anomaly detection.</p>
+<p><strong>Sample quality vs. sample diversity.</strong> GANs are typically praised for producing sharper, more photorealistic samples (they directly minimize a distributional divergence without a reconstruction term). VAEs tend to produce slightly blurrier samples because the Gaussian decoder encourages averaging (the MSE reconstruction minimizes the expected squared error, which corresponds to the posterior mean). However, VAEs produce more diverse samples and are less prone to mode collapse.</p>
+<p><strong>Training stability.</strong> VAE training is a standard gradient ascent problem on a well-defined scalar objective — stable and converging. GAN training is a minimax problem without convergence guarantees — prone to oscillation and collapse.</p>
+<p><strong>Embedding extraction.</strong> GANs: not available (decoder-only). VAEs: directly available via the encoder.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>GAN</th>
+<th>VAE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Objective</td>
+<td>Minimax (saddle point)</td>
+<td>ELBO maximization (standard opt.)</td>
+</tr>
+<tr>
+<td>Divergence</td>
+<td><span class="arithmatex">\(D_{\text{JS}}\)</span> (or Wasserstein)</td>
+<td>Bound on <span class="arithmatex">\(D_{\text{KL}}\)</span></td>
+</tr>
+<tr>
+<td>Density <span class="arithmatex">\(\ln p_\theta(\mathbf{x})\)</span></td>
+<td>Not available</td>
+<td>Lower bound (ELBO)</td>
+</tr>
+<tr>
+<td>Training stability</td>
+<td>Difficult</td>
+<td>Stable</td>
+</tr>
+<tr>
+<td>Sample sharpness</td>
+<td>High</td>
+<td>Moderate (Gaussian blur)</td>
+</tr>
+<tr>
+<td>Mode collapse</td>
+<td>Frequent</td>
+<td>Rare</td>
+</tr>
+<tr>
+<td>Embeddings</td>
+<td>Not available</td>
+<td>Available (encoder)</td>
+</tr>
+<tr>
+<td>Architecture</td>
+<td>Decoder-only</td>
+<td>Encoder-decoder</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6813-summary">68.13 Summary</h2>
+<p>This chapter developed the theory of latent variable generative models, culminating in the Variational Autoencoder.</p>
+<p>A <strong>latent variable model</strong> posits a hidden variable <span class="arithmatex">\(\mathbf{z}\)</span> with prior <span class="arithmatex">\(p(\mathbf{z})\)</span> and a conditional decoder <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z})\)</span>. The marginal <span class="arithmatex">\(p_\theta(\mathbf{x}) = \int p_\theta(\mathbf{x} \mid \mathbf{z}) p(\mathbf{z}) d\mathbf{z}\)</span> is the generative distribution. The model is an encoder-decoder pair: the encoder is the posterior <span class="arithmatex">\(p_\theta(\mathbf{z} \mid \mathbf{x})\)</span> (feature extractor), and the decoder is <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z})\)</span> (generator).</p>
+<p>The <strong>Gaussian Mixture Model</strong> is the simplest instance. Its discrete latent variable makes sampling a two-step process: draw a component index via the inverse-CDF method, then draw from the corresponding Gaussian. Its limitation is that the tractable posterior requires a closed-form conditional, restricting the model to simple likelihoods.</p>
+<p>The <strong>VAE</strong> generalizes the latent variable model to neural network decoders by:
+- Introducing an approximate posterior (encoder) <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x})\)</span> to replace the intractable true posterior.
+- Deriving the ELBO via Jensen's inequality: <span class="arithmatex">\(\ln p_\theta(\mathbf{x}) \geq \mathcal{L}(\theta, \phi; \mathbf{x}) = \mathbb{E}_{q_\phi}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})] - D_{\text{KL}}(q_\phi \| p)\)</span>.
+- The gap between the ELBO and <span class="arithmatex">\(\ln p_\theta(\mathbf{x})\)</span> is <span class="arithmatex">\(D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \| p_\theta(\mathbf{z} \mid \mathbf{x}))\)</span>; maximizing the ELBO simultaneously tightens this gap.
+- Using the <strong>reparameterization trick</strong> to make the ELBO differentiable: <span class="arithmatex">\(\mathbf{z} = \boldsymbol{\mu}_\phi(\mathbf{x}) + \boldsymbol{\sigma}_\phi(\mathbf{x}) \odot \boldsymbol{\epsilon}\)</span>, <span class="arithmatex">\(\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})\)</span>, converts the stochastic sampling step into a deterministic transformation, enabling standard backpropagation.
+- The KL term has a <strong>closed form</strong> for Gaussian <span class="arithmatex">\(q_\phi\)</span> and Gaussian <span class="arithmatex">\(p\)</span>: <span class="arithmatex">\(D_{\text{KL}} = \frac{1}{2}\sum_j(\mu_j^2 + \sigma_j^2 - 1 - \ln\sigma_j^2)\)</span>.</p>
+<p>At inference, the VAE supports both <strong>generation</strong> (sample <span class="arithmatex">\(\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})\)</span>, decode) and <strong>embedding extraction</strong> (encode <span class="arithmatex">\(\mathbf{x}\)</span>, return <span class="arithmatex">\(\boldsymbol{\mu}_\phi(\mathbf{x})\)</span>).</p>
+<p>The encoder-decoder structure of latent variable models is the foundation of modern image generation pipelines: a VAE compresses data into a structured latent space, and a downstream generative model (diffusion, autoregressive) operates in that latent space, with the decoder rendering final outputs.</p>
+<hr />
+<p><em>End of Chapter 68. Chapter 69 develops autoregressive generative models — the third major family — which use the chain rule of probability to factorize <span class="arithmatex">\(p(\mathbf{x})\)</span> into a product of conditionals, each modeled by a neural network, and sample sequentially. Large language models are the canonical instance.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

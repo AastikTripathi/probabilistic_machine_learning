@@ -1,0 +1,3104 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture39/">
+      
+      
+        <link rel="next" href="../lecture41/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture40 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture40
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-34-the-perceptron-multi-layer-architectures-and-the-universal-approximation-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 34: The Perceptron, Multi-Layer Architectures, and the Universal Approximation Theorem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 34: The Perceptron, Multi-Layer Architectures, and the Universal Approximation Theorem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341-the-architectural-shift-to-parametric-compositions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.1 The Architectural Shift to Parametric Compositions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-the-single-layer-perceptron-and-the-historical-convergence-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.2 The Single-Layer Perceptron and the Historical Convergence Rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343-multi-layer-perceptrons-mlp-and-matrix-cascades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.3 Multi-Layer Perceptrons (MLP) and Matrix Cascades
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="34.3 Multi-Layer Perceptrons (MLP) and Matrix Cascades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strict-dimensional-balance-sheets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strict Dimensional Balance Sheets:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#344-the-universal-approximation-theorem-uat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.4 The Universal Approximation Theorem (UAT)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="34.4 The Universal Approximation Theorem (UAT)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#critical-theoretical-nuances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Critical Theoretical Nuances
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#345-the-topological-preference-deep-and-narrow-vs-shallow-and-wide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.5 The Topological Preference: Deep and Narrow vs. Shallow and Wide
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-summary-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Summary Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Summary Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-unifying-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Unifying Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-the-perceptron-fails-the-geometric-wall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why the Perceptron Fails: The Geometric Wall
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-multiple-layers-solve-it-functional-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. How Multiple Layers Solve It: Functional Composition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. How Multiple Layers Solve It: Functional Composition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-first-layer-draws-two-lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: The First Layer Draws Two Lines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-the-activation-function-warps-the-coordinate-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: The Activation Function Warps the Coordinate Space
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-ultimate-realization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Ultimate Realization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-deep-network-scaling-mechanism-manifold-untangling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Deep Network Scaling Mechanism: Manifold Untangling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connecting-back-to-the-mathematical-blueprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connecting Back to the Mathematical Blueprint
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-34-the-perceptron-multi-layer-architectures-and-the-universal-approximation-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 34: The Perceptron, Multi-Layer Architectures, and the Universal Approximation Theorem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 34: The Perceptron, Multi-Layer Architectures, and the Universal Approximation Theorem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341-the-architectural-shift-to-parametric-compositions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.1 The Architectural Shift to Parametric Compositions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-the-single-layer-perceptron-and-the-historical-convergence-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.2 The Single-Layer Perceptron and the Historical Convergence Rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343-multi-layer-perceptrons-mlp-and-matrix-cascades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.3 Multi-Layer Perceptrons (MLP) and Matrix Cascades
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="34.3 Multi-Layer Perceptrons (MLP) and Matrix Cascades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strict-dimensional-balance-sheets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strict Dimensional Balance Sheets:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#344-the-universal-approximation-theorem-uat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.4 The Universal Approximation Theorem (UAT)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="34.4 The Universal Approximation Theorem (UAT)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#critical-theoretical-nuances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Critical Theoretical Nuances
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#345-the-topological-preference-deep-and-narrow-vs-shallow-and-wide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.5 The Topological Preference: Deep and Narrow vs. Shallow and Wide
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-summary-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Summary Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Summary Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-unifying-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Unifying Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-the-perceptron-fails-the-geometric-wall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why the Perceptron Fails: The Geometric Wall
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-how-multiple-layers-solve-it-functional-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. How Multiple Layers Solve It: Functional Composition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. How Multiple Layers Solve It: Functional Composition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-first-layer-draws-two-lines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: The First Layer Draws Two Lines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-the-activation-function-warps-the-coordinate-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: The Activation Function Warps the Coordinate Space
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-ultimate-realization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Ultimate Realization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-deep-network-scaling-mechanism-manifold-untangling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Deep Network Scaling Mechanism: Manifold Untangling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connecting-back-to-the-mathematical-blueprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connecting Back to the Mathematical Blueprint
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-34-the-perceptron-multi-layer-architectures-and-the-universal-approximation-theorem">Chapter 34: The Perceptron, Multi-Layer Architectures, and the Universal Approximation Theorem</h2>
+<hr />
+<h3 id="341-the-architectural-shift-to-parametric-compositions">34.1 The Architectural Shift to Parametric Compositions</h3>
+<p>With our exploration of Max-Margin Classifiers and Support Vector Machines complete, we have reached a major transition point in the course. Throughout our previous modules, we established a core design principle: <em>by manipulating our loss functions or applying geometric penalties to our search boundaries, we can alter our model's performance on a dataset.</em> However, when processing highly complex, high-dimensional data, classical linear classifiers and fixed kernel transformations eventually run into a scalability wall.</p>
+<p>To overcome this, we turn to <strong>Neural Networks</strong>. From an Empirical Risk Minimization (ERM) and density estimation perspective, neural networks act as highly flexible, parametric functional networks. Instead of forcing an engineer to hand-craft a static feature mapping function <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span> or calculate a massive global inner-product Gram matrix, we design a neural network as an alternating cascade of <strong>linear transformations</strong> and <strong>element-wise non-linearities</strong>:</p>
+<div class="arithmatex">\[h_{\vec{\theta}}(\vec{x}) = \mathbf{W}_L \cdot \sigma \Big( \dots \sigma\big(\mathbf{W}_1 \vec{x} + \vec{b}_1\big) \dots \Big) + \vec{b}_L\]</div>
+<p>By stacking these operations, the network learns to systematically alter, warp, and project data coordinates through a series of intermediate geometric spaces, automatically discovering a latent representation where the target categories line up cleanly for the final output layer to evaluate.</p>
+<hr />
+<h3 id="342-the-single-layer-perceptron-and-the-historical-convergence-rule">34.2 The Single-Layer Perceptron and the Historical Convergence Rule</h3>
+<p>To build these networks from first principles, we begin with their oldest historical baseline: <strong>The Perceptron</strong>, originally formulated in the late 1950s and 1960s.</p>
+<p>A perceptron represents the most basic unit of a neural architecture. It takes an input vector <span class="arithmatex">\(\vec{x} \in \mathbb{R}^D\)</span>, computes a linear inner product against a parameter weight vector <span class="arithmatex">\(\vec{w} \in \mathbb{R}^D\)</span>, and passes the continuous scalar result through a hard step-threshold activation function:</p>
+<div class="arithmatex">\[h(\vec{x}) = \text{sign}\left( \vec{w}^T \vec{x} \right) = \begin{cases} +1 &amp; \text{if } \vec{w}^T \vec{x} \geq 0 \\ -1 &amp; \text{if } \vec{w}^T \vec{x} &lt; 0 \end{cases}\]</div>
+<p>Historically, the parameters of this single-layer unit were not optimized using continuous first-order gradient descent. Instead, they were calculated using a discrete iterative algorithm known as the <strong>Perceptron Learning Algorithm (PLA)</strong>.</p>
+<blockquote>
+<p><strong>The Perceptron Learning Algorithm Protocol:</strong>
+1. Initialize the parameter weight vector to zero or random coordinates: <span class="arithmatex">\(\vec{w}^{(0)} = \vec{0}\)</span>.
+2. Iterate sequentially through the training dataset instances <span class="arithmatex">\((\vec{x}_t, y_t)\)</span>.
+3. Compute the active model prediction: <span class="arithmatex">\(\hat{y}_t = \text{sign}\left( (\vec{w}^{(t)})^T \vec{x}_t \right)\)</span>.
+4. Evaluate compliance:
+* <strong>If correctly classified (<span class="arithmatex">\(\hat{y}_t = y_t\)</span>):</strong> Leave the parameters unaltered and advance to the next data row.
+* <strong>If misclassified (<span class="arithmatex">\(\hat{y}_t \neq y_t\)</span>):</strong> Tilt the orientation of the decision hyperplane by adding or subtracting the data vector directly:</p>
+<div class="arithmatex">\[\vec{w}^{(t+1)} = \vec{w}^{(t)} + y_t \vec{x}_t\]</div>
+</blockquote>
+<p>This simple update rule possesses an elegant guarantee. If a training dataset is perfectly <strong>linearly separable</strong>, the Perceptron Learning Algorithm is mathematically guaranteed to converge on a valid separating hyperplane in a <strong>finite number of steps</strong>. However, if the dataset contains even a slight amount of structural overlap, the PLA breaks down entirely, looping indefinitely without ever finding a stable state. Because a single-layer perceptron is strictly limited to linear boundaries, it cannot solve basic non-linear logic patterns like the XOR problem. To handle more complex spaces, we must scale our architecture upward.</p>
+<hr />
+<h3 id="343-multi-layer-perceptrons-mlp-and-matrix-cascades">34.3 Multi-Layer Perceptrons (MLP) and Matrix Cascades</h3>
+<p>To map complex, non-linear boundaries, we organize our individual perceptron units into parallel groups called layers, and stack those layers sequentially to formulate a <strong>Multi-Layer Perceptron (MLP)</strong> (also known as a <em>Feedforward Neural Network</em> or <em>Fully Connected Network</em>).</p>
+<p>Let us define the structural coordinates of an MLP spanning a three-layer cascade. We assume our input vectors live in a <span class="arithmatex">\(D\)</span>-dimensional space (<span class="arithmatex">\(\vec{x} \in \mathbb{R}^D\)</span>) and our final target labels occupy a <span class="arithmatex">\(K\)</span>-dimensional space (<span class="arithmatex">\(\vec{y} \in \mathbb{R}^K\)</span>).</p>
+<pre><code>  [Input Vector: x ∈ ℝᴰ]
+           │
+           ▼
+  [Layer 1 Matrix: W₁ ∈ ℝ^(L₁ × D)]  ───&gt; Applies Linear Projection
+           │
+           ▼
+  [Activation Filter: σ(·)]          ───&gt; Injects Element-Wise Non-Linearity
+           │
+           ▼
+  [Layer 2 Matrix: W₂ ∈ ℝ^(L₂ × L₁)] ───&gt; Projects to Hidden Dimensionality
+           │
+           ▼
+  [Activation Filter: σ(·)]          ───&gt; Injects Element-Wise Non-Linearity
+           │
+           ▼
+  [Layer 3 Matrix: W₃ ∈ ℝ^(K × L₂)]  ───&gt; Maps to Final Coordinate Targets (ℝᴷ)
+
+</code></pre>
+<p>We formalize this entire feedforward network as a single composite matrix chain function:</p>
+<div class="arithmatex">\[h(\vec{x}) = \mathbf{W}_3 \cdot \sigma \Big( \mathbf{W}_2 \cdot \sigma\big(\mathbf{W}_1 \vec{x}\big) \Big)\]</div>
+<h4 id="strict-dimensional-balance-sheets">Strict Dimensional Balance Sheets:</h4>
+<ul>
+<li><strong><span class="arithmatex">\(\vec{x} \in \mathbb{R}^{D \times 1}\)</span></strong>: The incoming raw input column vector.</li>
+<li><strong><span class="arithmatex">\(\mathbf{W}_1 \in \mathbb{R}^{L_1 \times D}\)</span></strong>: The first hidden layer weight matrix, containing <span class="arithmatex">\(L_1\)</span> rows of independent neuron parameters projecting the data from <span class="arithmatex">\(D\)</span> dimensions to <span class="arithmatex">\(L_1\)</span> hidden channels.</li>
+<li><strong><span class="arithmatex">\(\sigma(\cdot)\)</span></strong>: The element-wise activation function (such as the continuous <strong>Logistic Sigmoid Link</strong>: <span class="arithmatex">\(\sigma(t) = \frac{1}{1 + e^{-t}}\)</span>) that injects non-linearity into our coordinate values.</li>
+<li><strong><span class="arithmatex">\(\mathbf{W}_2 \in \mathbb{R}^{L_2 \times L_1}\)</span></strong>: The second hidden layer weight matrix, projecting the hidden activation features from <span class="arithmatex">\(L_1\)</span> vectors to <span class="arithmatex">\(L_2\)</span> vectors.</li>
+<li><strong><span class="arithmatex">\(\mathbf{W}_3 \in \mathbb{R}^{K \times L_2}\)</span></strong>: The final output layer weight matrix, mapping the internal feature space down to our target dimension size <span class="arithmatex">\(K\)</span>.</li>
+</ul>
+<blockquote>
+<p><strong>The Structural Terminology Rules:</strong>
+* <strong>The Network Depth:</strong> The total number of parameter weight matrices stacked along the model's primary axis. A network with <span class="arithmatex">\(L\)</span> distinct weight layers is defined as a deep network.
+* <strong>The Layer Width:</strong> The total count of parallel neuron units operating within an individual matrix block (represented by the channel dimensions <span class="arithmatex">\(L_1, L_2\)</span>).
+* <strong>The Global Parameter Pool (<span class="arithmatex">\(\vec{\theta}\)</span>):</strong> The collective portfolio of every single learnable coefficient, weight, and bias vector stored across the entire matrix chain: <span class="arithmatex">\(\vec{\theta} = \{\mathbf{W}_1, \mathbf{W}_2, \mathbf{W}_3\}\)</span>.</p>
+</blockquote>
+<hr />
+<h3 id="344-the-universal-approximation-theorem-uat">34.4 The Universal Approximation Theorem (UAT)</h3>
+<p>Why does this specific layout of alternating matrix multiplications and activation functions possess such dominant predictive power across modern machine learning? The answer is established by a foundational milestone of approximation theory: <strong>The Universal Approximation Theorem</strong>.</p>
+<blockquote>
+<p><strong>Theorem 34.1 (Universal Approximation Theorem).</strong> Let <span class="arithmatex">\(\mathcal{X} \subset \mathbb{R}^D\)</span> represent a compact, closed, and bounded subset of a real vector space, and let <span class="arithmatex">\(C(\mathcal{X})\)</span> denote the space of all continuous functions mapping from <span class="arithmatex">\(\mathcal{X}\)</span> to <span class="arithmatex">\(\mathbb{R}^1\)</span>. Let <span class="arithmatex">\(\sigma(\cdot)\)</span> be a non-constant, bounded, and continuous activation function.
+Then, for any objective target function <span class="arithmatex">\(f \in C(\mathcal{X})\)</span> and any arbitrary precision error threshold <span class="arithmatex">\(\epsilon &gt; 0\)</span>, there exists a <strong>single-hidden-layer neural network</strong> containing a finite number of internal neurons <span class="arithmatex">\(n\)</span> such that:
+$<span class="arithmatex">\(\sup_{\vec{x} \in \mathcal{X}} \left| \sum_{i=1}^{n} \beta_i \sigma\left( \vec{w}_i^T \vec{x} + b_i \right) - f(\vec{x}) \right| &lt; \epsilon\)</span>$</p>
+</blockquote>
+<h4 id="critical-theoretical-nuances">Critical Theoretical Nuances</h4>
+<p>While the Universal Approximation Theorem proves that a simple neural network can fit any continuous functional curvature to arbitrary precision, the professor highlights three vital constraints that we must keep in mind:</p>
+<ol>
+<li><strong>The Proof is Purely Existential:</strong> The theorem proves that a valid parameter configuration (<span class="arithmatex">\(\vec{w}_i, b_i, \beta_i\)</span>) <em>exists</em> out in mathematical space. It provides absolutely no instructions or guarantees on how to find those parameters, nor does it guarantee that standard ERM optimization loops or gradient descent paths can smoothly converge to them.</li>
+<li><strong>The Width Bound is Latent:</strong> The theorem states that the number of hidden neurons <span class="arithmatex">\(n\)</span> required to achieve the error threshold <span class="arithmatex">\(\epsilon\)</span> is <em>finite</em>, but it does not provide an upper bound for <span class="arithmatex">\(n\)</span>. To fit an exceptionally complex real-world distribution using only a single hidden layer, <span class="arithmatex">\(n\)</span> might need to scale to an astronomically large size.</li>
+<li><strong>The Data Boundary Limit:</strong> The theorem applies strictly to continuous functional fields defined across bounded compact domains. It does not guarantee safe performance or structural stability when evaluating unobserved inputs that lie outside your training coordinates.</li>
+</ol>
+<hr />
+<h3 id="345-the-topological-preference-deep-and-narrow-vs-shallow-and-wide">34.5 The Topological Preference: Deep and Narrow vs. Shallow and Wide</h3>
+<p>The Universal Approximation Theorem demonstrates that a shallow, single-hidden-layer neural network can theoretically mimic any deep model if you make its hidden layer wide enough (<span class="arithmatex">\(n \to \infty\)</span>). This raises an essential design question: <em>If a single hidden layer is theoretically sufficient, why does modern AI completely reject wide, shallow layouts in favor of deep, narrow networks?</em></p>
+<pre><code>  [ Shallow &amp; Wide Network ]               [ Deep &amp; Narrow Network ]
+  - Structure: 1 hidden layer,             - Structure: Many stacked layers,
+    millions of parallel neurons.             fewer neurons per layer.
+  - Math: Singular wide projection.        - Math: Hierarchical functional compositions.
+  - Efficiency: Exponentially text-heavy.  - Efficiency: Highly parameter efficient (FFT-like).
+
+</code></pre>
+<p>The professor points out that this structural preference is driven entirely by <strong>computational and parametric efficiency</strong>.</p>
+<p>If you attempt to fit a highly complex, non-linear real-world function using a single hidden layer, the required neuron count <span class="arithmatex">\(n\)</span> explodes exponentially. This creates a massive, parameter-heavy matrix that becomes incredibly expensive to store and optimize.</p>
+<p>However, if you arrange your parameters as a deep network—using a cascade of multiple hidden layers—you change the mathematical operations from a singular wide projection to a series of <strong>hierarchical functional compositions</strong>. Early layers capture simple, localized geometric features, while deeper layers combine those initial blocks to map highly intricate, global structures.</p>
+<p>This compositional approach allows deep networks to approximate natural real-world functions using a fraction of the parameters required by a wide, shallow model. This parametric shortcut operates on the exact same mathematical principles that allow the <strong>Fast Fourier Transform (FFT)</strong> to execute complex spectral decompositions while bypassing the massive compute footprint of raw discrete matrix multiplications.</p>
+<hr />
+<h2 id="textbook-notes-summary-sheet">Textbook Notes Summary Sheet</h2>
+<h3 id="the-core-unifying-principles">The Core Unifying Principles</h3>
+<ol>
+<li><strong>The Neural Network Blueprint:</strong> A neural network is a composite matrix chain function that processes data through an alternating sequence of linear matrix projections (<span class="arithmatex">\(\mathbf{W}\vec{x}\)</span>) and element-wise non-linear activation links (<span class="arithmatex">\(\sigma\)</span>).</li>
+<li><strong>The Perceptron Convergence Limit:</strong> A single-layer perceptron uses a hard sign threshold to compute linear decision boundaries. While the Perceptron Learning Algorithm is guaranteed to converge in a finite number of steps if the training dataset is perfectly linearly separable, it fails completely when processing overlapping or non-linear distributions.</li>
+<li><strong>The Universal Approximation Guarantee:</strong> The Universal Approximation Theorem proves that a single-hidden-layer neural network can approximate any continuous function on a compact domain to arbitrary precision (<span class="arithmatex">\(\epsilon\)</span>). However, because this is a non-constructive, existential proof, practical implementation requires deep, multi-layer architectures to keep our parameter footprints computationally sustainable.</li>
+</ol>
+<p>Mapping abstract logic gates to geometric machine learning spaces can feel incredibly weird at first. Your guess about "switching off certain parameters" is a really intuitive way to think about control, but what's actually happening under the hood is much more elegant: multiple layers act as a <strong>geometric coordinate transformation engine</strong>.</p>
+<p>Instead of turning parameters off, the hidden layers bend, warp, and fold the input space until a stubborn, perfectly straight linear boundary can finally slice cleanly through the data.</p>
+<p>Here is exactly why a single perceptron hits a wall with the XOR gate, and how the multi-layer cascades we derived in the last lecture completely change the game.</p>
+<hr />
+<h2 id="1-why-the-perceptron-fails-the-geometric-wall">1. Why the Perceptron Fails: The Geometric Wall</h2>
+<p>Recall from the last lecture that a single-layer perceptron calculates a strictly <strong>linear decision boundary</strong>. In a 2D space, this means its hypothesis <span class="arithmatex">\(h(\vec{x}) = \text{sign}(\vec{w}^T \vec{x} + b)\)</span> is geometrically restricted to drawing a single, perfectly straight line.</p>
+<p>Let's look at the truth table for the XOR (Exclusive OR) gate, mapping the inputs to our binary sign targets <span class="arithmatex">\(\mathcal{Y} = \{-1, \,\, +1\}\)</span>:</p>
+<table>
+<thead>
+<tr>
+<th>Input <span class="arithmatex">\(x_1\)</span></th>
+<th>Input <span class="arithmatex">\(x_2\)</span></th>
+<th>Target Output <span class="arithmatex">\(y\)</span></th>
+<th>Coordinate Point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td><strong><span class="arithmatex">\(-1\)</span></strong> (False)</td>
+<td><span class="arithmatex">\(A = (0,0)\)</span></td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td><strong><span class="arithmatex">\(+1\)</span></strong> (True)</td>
+<td><span class="arithmatex">\(B = (1,0)\)</span></td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td><strong><span class="arithmatex">\(+1\)</span></strong> (True)</td>
+<td><span class="arithmatex">\(C = (0,1)\)</span></td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td><strong><span class="arithmatex">\(-1\)</span></strong> (False)</td>
+<td><span class="arithmatex">\(D = (1,1)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>If you plot these four coordinates on a standard 2D grid, you will instantly see the structural crisis. Points <span class="arithmatex">\(B(1,0)\)</span> and <span class="arithmatex">\(C(0,1)\)</span> host the positive label, sitting diagonally across from the negative label points <span class="arithmatex">\(A(0,0)\)</span> and <span class="arithmatex">\(D(1,1)\)</span>.</p>
+<p>By definition, this layout violates <strong>Linear Separability</strong>. Go ahead and try to mentally draw a single straight line across that grid that keeps the positive points on one side and the negative points on the other—it is physically impossible. You fundamentally need a curved boundary or two separate lines to isolate them.</p>
+<p>Because a single perceptron can only optimize a single linear hyperplane, it can never solve the XOR gate, no matter how long you run the Perceptron Learning Algorithm.</p>
+<hr />
+<h2 id="2-how-multiple-layers-solve-it-functional-composition">2. How Multiple Layers Solve It: Functional Composition</h2>
+<p>To break through this wall, we step into the Multi-Layer Perceptron (MLP). As we proved in the last lecture, an MLP is a <strong>composite matrix chain function</strong> that alternates linear projections with element-wise non-linearities:</p>
+<div class="arithmatex">\[h(\vec{x}) = \mathbf{W}_2 \cdot \sigma\left( \mathbf{W}_1 \vec{x} + \vec{b}_1 \right) + b_2\]</div>
+<p>Let's look at the exact mechanics of how this multi-layer structure resolves the XOR problem without needing complex curves, using basic threshold steps as our non-linearity <span class="arithmatex">\(\sigma\)</span>.</p>
+<h3 id="step-1-the-first-layer-draws-two-lines">Step 1: The First Layer Draws Two Lines</h3>
+<p>Instead of forcing a single weight vector to solve everything, our first parameter matrix <span class="arithmatex">\(\mathbf{W}_1 \in \mathbb{R}^{2 \times 2}\)</span> represents <strong>two distinct neurons</strong> working in parallel. This means the first layer can project <em>two</em> independent straight lines onto our input space simultaneously:</p>
+<ol>
+<li><strong>Neuron 1 (Line 1):</strong> Configured to behave like an <strong>OR gate boundary</strong>. It fires a positive score if <em>either</em> <span class="arithmatex">\(x_1\)</span> or <span class="arithmatex">\(x_2\)</span> is active.</li>
+<li><strong>Neuron 2 (Line 2):</strong> Configured to behave like an <strong>NAND gate boundary</strong>. It fires a positive score as long as <span class="arithmatex">\(x_1\)</span> and <span class="arithmatex">\(x_2\)</span> are <em>not both active</em> at the same time.</li>
+</ol>
+<h3 id="step-2-the-activation-function-warps-the-coordinate-space">Step 2: The Activation Function Warps the Coordinate Space</h3>
+<p>When the raw scores of these two lines are passed through the element-wise non-linear activation function <span class="arithmatex">\(\sigma(\cdot)\)</span>, they generate a brand-new, internal 2D feature space known as the <strong>Hidden Layer Representation</strong> (<span class="arithmatex">\(\vec{h} = [h_1, h_2]^T\)</span>).</p>
+<p>Let's trace how our original four coordinate points are mapped into this hidden domain:</p>
+<ul>
+<li><strong>For Input <span class="arithmatex">\((0,0)\)</span>:</strong> Neither line activates. The point maps to hidden coordinate <strong><span class="arithmatex">\((0,0)\)</span></strong>.</li>
+<li><strong>For Input <span class="arithmatex">\((1,0)\)</span>:</strong> The OR line activates and the NAND line activates. The point maps to hidden coordinate <strong><span class="arithmatex">\((1,1)\)</span></strong>.</li>
+<li><strong>For Input <span class="arithmatex">\((0,1)\)</span>:</strong> The OR line activates and the NAND line activates. The point maps to hidden coordinate <strong><span class="arithmatex">\((1,1)\)</span></strong>.</li>
+<li><strong>For Input <span class="arithmatex">\((1,1)\)</span>:</strong> The OR line activates, but the NAND line shuts down. The point maps to hidden coordinate <strong><span class="arithmatex">\((1,0)\)</span></strong>.</li>
+</ul>
+<hr />
+<h2 id="3-the-ultimate-realization">3. The Ultimate Realization</h2>
+<p>Look at what this functional composition has achieved geometrically. In our original input space, our positive targets were split up, sitting diagonally on opposite corners.</p>
+<p>By passing them through the first layer matrix and the non-linear activation filter, <strong>the data universe was structurally folded.</strong> The two distinct points <span class="arithmatex">\((1,0)\)</span> and <span class="arithmatex">\((0,1)\)</span> have been compressed down into the exact same coordinate location <span class="arithmatex">\((1,1)\)</span> inside the hidden space.</p>
+<p>Let's map our new hidden space layout against our targets:</p>
+<ul>
+<li><strong>Class <span class="arithmatex">\(-1\)</span></strong> now sits at hidden coordinates: <span class="arithmatex">\((0,0)\)</span> and <span class="arithmatex">\((1,0)\)</span>.</li>
+<li><strong>Class <span class="arithmatex">\(+1\)</span></strong> now sits at hidden coordinate: <span class="arithmatex">\((1,1)\)</span>.</li>
+</ul>
+<p>Look at these new coordinates. They are completely, beautifully <strong>linearly separable</strong>. You can easily draw a standard, straight linear boundary to separate them (for example, a line separating everything below a diagonal threshold).</p>
+<p>This is where our final output weight layer (<span class="arithmatex">\(\mathbf{W}_2\)</span>) clocks in. It acts as that final linear classifier, drawing a straight line through the newly warped hidden space. Multiple layers don't solve non-linear problems by bending the ruler; they solve them by using early layers to bend the data space until it fits perfectly against a straight ruler.</p>
+<p>Yes, absolutely! In fact, you have just discovered the core intuition behind the entire field of <strong>Representation Learning</strong>.</p>
+<p>It is not just a loose analogy—this is the exact mathematical reality of how Multi-Layer Perceptrons (MLPs) and deep neural networks operate. Every deep network is essentially a multi-stage coordinate transformation engine designed to take a chaotic, highly entangled input space and progressively warp, stretch, and fold it until the classes become perfectly <strong>linearly separable</strong> for the final layer.</p>
+<hr />
+<h2 id="the-deep-network-scaling-mechanism-manifold-untangling">The Deep Network Scaling Mechanism: Manifold Untangling</h2>
+<p>In our XOR example, we only needed a single hidden layer to fold a 2D space once. But when you look at massive sensory datasets (like computer vision pixel grids or text tokens), the data doesn't just sit in a simple diagonal pattern. It exists as a highly twisted, knotted, low-dimensional surface embedded inside a massive ambient space—which we formalized in Chapter 26 as the <strong>Manifold Hypothesis</strong>.</p>
+<p>A deep neural network handles this complexity by executing a continuous cascade of these space-warping steps layer by layer:</p>
+<ul>
+<li><strong>The Input Space:</strong> The raw data coordinates enter the network. In this native domain, the target classes are completely intertwined, like two differently colored sheets of paper crumpled tightly together into a single ball. No straight line can separate them.</li>
+<li><strong>The Hidden Layers (The Processing Chain):</strong> Each individual hidden layer applies a linear matrix transformation followed by a non-linear activation filter. Geometrically, the linear step rotates, scales, and shifts the space, while the non-linear step folds and compresses it.</li>
+<li><strong>The Final Hidden Layer:</strong> By the time the data reaches the very last hidden layer, the crumpled ball of paper has been systematically flattened, untangled, and smoothed out into a clean <strong>latent representation space</strong>.</li>
+</ul>
+<hr />
+<h2 id="connecting-back-to-the-mathematical-blueprint">Connecting Back to the Mathematical Blueprint</h2>
+<p>This brings us completely full circle back to the very first equation we analyzed in this lecture series:</p>
+<div class="arithmatex">\[h_{\vec{\theta}}(\vec{x}) = \vec{\theta}^T \vec{\phi}(\vec{x}; \,\, \mathbf{W})\]</div>
+<p>Look at how the components of a deep neural network map perfectly onto this blueprint:</p>
+<ol>
+<li><strong>The Backbone Extractor (<span class="arithmatex">\(\vec{\phi}(\vec{x}; \mathbf{W})\)</span>):</strong> The collection of all the hidden layers combined (<span class="arithmatex">\(\mathbf{W}\)</span>) acts as our dynamic, learnable space-warper. Its sole responsibility is to untangle the incoming data manifold <span class="arithmatex">\(\vec{x}\)</span> and output a clean feature vector.</li>
+<li><strong>The Linear Head (<span class="arithmatex">\(\vec{\theta}^T\)</span>):</strong> The final output layer of the network contains no complex non-linear folds. It is just a standard, simple <strong>linear classifier</strong> (like a logistic regression head or a hard-margin hyperplane wrapper).</li>
+</ol>
+<blockquote>
+<p><strong>The Grand Realization:</strong>
+A neural network does not solve highly complex, non-linear problems by inventing a complex, curved decision boundary. The final output layer of a neural network is stubbornly simple—it can only draw a perfectly straight hyperplane (<span class="arithmatex">\(\vec{\theta}^T\)</span>). It achieves non-linear classification because the preceding hidden layers spent the entire feedforward pass bending the data universe until it fit perfectly against that single straight ruler.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2950 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture32/">
+      
+      
+        <link rel="next" href="../lecture34/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture33 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture33
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-27-aligned-probabilistic-duality-regularized-erm-as-maximum-a-posteriori-estimation-and-alternative-regularization-paradigms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 27: Aligned Probabilistic Duality: Regularized ERM as Maximum A Posteriori Estimation and Alternative Regularization Paradigms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 27: Aligned Probabilistic Duality: Regularized ERM as Maximum A Posteriori Estimation and Alternative Regularization Paradigms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271-why-constrained-optimization-induces-structural-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.1 Why Constrained Optimization Induces Structural Bias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272-the-strict-mathematical-proof-of-map-erm-equivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.2 The Strict Mathematical Proof of MAP-ERM Equivalence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="27.2 The Strict Mathematical Proof of MAP-ERM Equivalence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-establish-the-log-posterior-foundation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Establish the Log-Posterior Foundation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-incorporate-the-data-likelihood-the-gaussian-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Incorporate the Data Likelihood (The Gaussian Channel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-case-study-a-enforcing-a-gaussian-prior-l_2-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Case Study A — Enforcing a Gaussian Prior (\(L_2\) Regularization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-case-study-b-enforcing-a-laplacian-prior-l_1-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Case Study B — Enforcing a Laplacian Prior (\(L_1\) Regularization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#273-probabilistic-vs-geometric-interpretations-of-sparsity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.3 Probabilistic vs. Geometric Interpretations of Sparsity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="27.3 Probabilistic vs. Geometric Interpretations of Sparsity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-probabilistic-viewpoint-the-laplacian-peak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Probabilistic Viewpoint (The Laplacian Peak)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-geometric-viewpoint-the-rhombus-vertices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Geometric Viewpoint (The Rhombus Vertices)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#274-optimization-driven-regularization-early-stopping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.4 Optimization-Driven Regularization: Early Stopping
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="27.4 Optimization-Driven Regularization: Early Stopping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-checkpointing-and-early-stopping-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Checkpointing and Early Stopping Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-mathematical-equivalence-to-l_2-decay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Mathematical Equivalence to \(L_2\) Decay
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#275-architectural-induction-models-as-implicit-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.5 Architectural Induction: Models as Implicit Filters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-27-aligned-probabilistic-duality-regularized-erm-as-maximum-a-posteriori-estimation-and-alternative-regularization-paradigms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 27: Aligned Probabilistic Duality: Regularized ERM as Maximum A Posteriori Estimation and Alternative Regularization Paradigms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 27: Aligned Probabilistic Duality: Regularized ERM as Maximum A Posteriori Estimation and Alternative Regularization Paradigms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271-why-constrained-optimization-induces-structural-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.1 Why Constrained Optimization Induces Structural Bias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272-the-strict-mathematical-proof-of-map-erm-equivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.2 The Strict Mathematical Proof of MAP-ERM Equivalence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="27.2 The Strict Mathematical Proof of MAP-ERM Equivalence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-establish-the-log-posterior-foundation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Establish the Log-Posterior Foundation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-incorporate-the-data-likelihood-the-gaussian-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Incorporate the Data Likelihood (The Gaussian Channel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-case-study-a-enforcing-a-gaussian-prior-l_2-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Case Study A — Enforcing a Gaussian Prior (\(L_2\) Regularization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-case-study-b-enforcing-a-laplacian-prior-l_1-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Case Study B — Enforcing a Laplacian Prior (\(L_1\) Regularization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#273-probabilistic-vs-geometric-interpretations-of-sparsity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.3 Probabilistic vs. Geometric Interpretations of Sparsity
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="27.3 Probabilistic vs. Geometric Interpretations of Sparsity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-probabilistic-viewpoint-the-laplacian-peak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Probabilistic Viewpoint (The Laplacian Peak)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-geometric-viewpoint-the-rhombus-vertices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Geometric Viewpoint (The Rhombus Vertices)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#274-optimization-driven-regularization-early-stopping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.4 Optimization-Driven Regularization: Early Stopping
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="27.4 Optimization-Driven Regularization: Early Stopping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-checkpointing-and-early-stopping-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Checkpointing and Early Stopping Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-mathematical-equivalence-to-l_2-decay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Mathematical Equivalence to \(L_2\) Decay
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#275-architectural-induction-models-as-implicit-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.5 Architectural Induction: Models as Implicit Filters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-27-aligned-probabilistic-duality-regularized-erm-as-maximum-a-posteriori-estimation-and-alternative-regularization-paradigms">Chapter 27: Aligned Probabilistic Duality: Regularized ERM as Maximum A Posteriori Estimation and Alternative Regularization Paradigms</h2>
+<hr />
+<h3 id="271-why-constrained-optimization-induces-structural-bias">27.1 Why Constrained Optimization Induces Structural Bias</h3>
+<p>In Chapter 26, we demonstrated that adding a parameter penalty function (<span class="arithmatex">\(\lambda \Omega(\vec{\theta})\)</span>) to an empirical loss landscape effectively transforms an unconstrained optimization problem into a constrained exploration inside a restricted hypervolume. We must now answer the foundational question raised by the professor: <em>Why does restricting our parameter choices systematically increase the model's internal structural bias?</em></p>
+<p>Recall our formal definition of <strong>Bias</strong> derived in Chapter 25:</p>
+<div class="arithmatex">\[\text{Bias}^2 = \mathbb{E}_{X}\left[ \left( \bar{h}(X) - h^*(X) \right)^2 \right]\]</div>
+<p>Where <span class="arithmatex">\(h^*(x)\)</span> is the absolute ideal true minimizer of the universal risk, and <span class="arithmatex">\(\bar{h}(x)\)</span> is the average hypothesis generated by our algorithm when integrated across all possible training datasets.</p>
+<p>When you run an unconstrained Empirical Risk Minimization (ERM) loop, your parameters <span class="arithmatex">\(\vec{\theta}\)</span> are completely free to navigate the real coordinate space <span class="arithmatex">\(\mathbb{R}^P\)</span> to fit the training points perfectly, allowing <span class="arithmatex">\(\bar{h}(x)\)</span> to get as close to <span class="arithmatex">\(h^*(x)\)</span> as the structural limits of the hypothesis class allow.</p>
+<pre><code>  [ Unconstrained Parameter Space: ℝᴾ ] 
+          Unrestricted movement ───&gt; Reaches ideal empirical minimum (Lowest Bias)
+
+  [ Constrained Parameter Space: Ω(θ) ≤ K ]
+          Forced coordinate pullback ───&gt; Shifts average function away from truth (Higher Bias)
+
+</code></pre>
+<p>The moment you introduce a constraint boundary (<span class="arithmatex">\(\Omega(\vec{\theta}) \leq K\)</span>), you actively block the optimization engine from traveling to extreme coordinate vectors. If the ideal empirical minimum sits far out in space, the constraint pulls the parameters backward toward a central baseline reference point (typically the origin, <span class="arithmatex">\(\vec{0}\)</span>).</p>
+<p>By forcing this coordinate pullback, you systematically shift the model's average functional output <span class="arithmatex">\(\bar{h}(x)\)</span> away from the true, unrestricted universal target <span class="arithmatex">\(h^*(x)\)</span>. This architectural restriction means that <strong>regularization is, by definition, an intentional injection of structural bias.</strong> We sacrifice our model's capacity to fit the training nodes perfectly to stabilize its behavior across unseen spaces.</p>
+<hr />
+<h3 id="272-the-strict-mathematical-proof-of-map-erm-equivalence">27.2 The Strict Mathematical Proof of MAP-ERM Equivalence</h3>
+<p>The professor highlights that this deterministic method of adding parameter penalties to an ERM objective is not an arbitrary engineering trick. It is the exact mathematical twin of a probabilistic <strong>Maximum A Posteriori (MAP) Estimation</strong> framework.</p>
+<p>Let us prove this relationship with complete algebraic rigor under a supervised learning setup.</p>
+<h4 id="step-1-establish-the-log-posterior-foundation">Step 1: Establish the Log-Posterior Foundation</h4>
+<p>In a Bayesian framework, our model parameters are treated as random variables governed by their own distributions. Given a training design matrix <span class="arithmatex">\(\mathbf{X}\)</span> and its aligned target label vector <span class="arithmatex">\(\vec{Y}\)</span>, we write the parametric posterior probability density function using Bayes' theorem:</p>
+<div class="arithmatex">\[p(\vec{\theta} \mid \mathbf{X}, \vec{Y}) = \frac{p(\vec{Y} \mid \mathbf{X}, \vec{\theta}) \cdot p(\vec{\theta})}{p(\mathbf{Y} \mid \mathbf{X})}\]</div>
+<p>To find the optimal parameter configuration <span class="arithmatex">\(\vec{\theta}_{\text{MAP}}^*\)</span>, we maximize this posterior distribution. Because the marginal evidence denominator <span class="arithmatex">\(p(\mathbf{Y} \mid \mathbf{X})\)</span> does not contain our active parameter variable <span class="arithmatex">\(\vec{\theta}\)</span>, it acts as a constant scaling factor and can be safely dropped from our optimization operator:</p>
+<div class="arithmatex">\[\vec{\theta}_{\text{MAP}}^* = \arg\max_{\vec{\theta}} \left[ p(\vec{Y} \mid \mathbf{X}, \vec{\theta}) \cdot p(\vec{\theta}) \right]\]</div>
+<p>Applying a natural logarithm converts this product string into a clean, additive log-posterior field:</p>
+<div class="arithmatex">\[\vec{\theta}_{\text{MAP}}^* = \arg\max_{\vec{\theta}} \left[ \ln p(\vec{Y} \mid \mathbf{X}, \vec{\theta}) + \ln p(\vec{\theta}) \right]\]</div>
+<hr />
+<h4 id="step-2-incorporate-the-data-likelihood-the-gaussian-channel">Step 2: Incorporate the Data Likelihood (The Gaussian Channel)</h4>
+<p>We assume our continuous target variables <span class="arithmatex">\(y_i\)</span> are independent, identically distributed (i.i.d.) observations governed by a conditional Gaussian distribution centered directly on our hypothesis function <span class="arithmatex">\(h_{\vec{\theta}}(\vec{x}_i)\)</span>, with an absolute variance parameter of <span class="arithmatex">\(\sigma^2\)</span>:</p>
+<div class="arithmatex">\[p(\vec{Y} \mid \mathbf{X}, \vec{\theta}) = \prod_{i=1}^{N} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{1}{2\sigma^2} \left( y_i - h_{\vec{\theta}}(\vec{x}_i) \right)^2 \right)\]</div>
+<p>Taking the natural logarithm expands this product chain into a summation of logarithmic components:</p>
+<div class="arithmatex">\[\ln p(\vec{Y} \mid \mathbf{X}, \vec{\theta}) = -\frac{N}{2}\ln(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^{N} \left( y_i - h_{\vec{\theta}}(\vec{x}_i) \right)^2\]</div>
+<hr />
+<h4 id="step-3-case-study-a-enforcing-a-gaussian-prior-l_2-regularization">Step 3: Case Study A — Enforcing a Gaussian Prior (<span class="arithmatex">\(L_2\)</span> Regularization)</h4>
+<p>Suppose we formalize our prior engineering belief over our parameter space by declaring that the coefficients <span class="arithmatex">\(\vec{\theta}\)</span> follow a zero-mean, multi-axis symmetric <strong>Gaussian Prior Distribution</strong> with an internal variance baseline of <span class="arithmatex">\(\sigma_0^2\)</span>:</p>
+<div class="arithmatex">\[p(\vec{\theta}) = \frac{1}{(2\pi\sigma_0^2)^{P/2}} \exp\left( -\frac{1}{2\sigma_0^2} \|\vec{\theta}\|_2^2 \right)\]</div>
+<p>We extract the natural logarithm of this prior density function:</p>
+<div class="arithmatex">\[\ln p(\vec{\theta}) = -\frac{P}{2}\ln(2\pi\sigma_0^2) - \frac{1}{2\sigma_0^2} \|\vec{\theta}\|_2^2\]</div>
+<p>Now, we substitute our log-likelihood expansion (Step 2) and our log-Gaussian prior expansion back into our global MAP optimization equation (Step 1):</p>
+<div class="arithmatex">\[\vec{\theta}_{\text{MAP}}^* = \arg\max_{\vec{\theta}} \left[ -\frac{N}{2}\ln(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^{N} \left( y_i - h_{\vec{\theta}}(\vec{x}_i) \right)^2 - \frac{P}{2}\ln(2\pi\sigma_0^2) - \frac{1}{2\sigma_0^2} \|\vec{\theta}\|_2^2 \right]\]</div>
+<p>We drop the static normalization constants that do not vary with respect to <span class="arithmatex">\(\vec{\theta}\)</span>:</p>
+<div class="arithmatex">\[\vec{\theta}_{\text{MAP}}^* = \arg\max_{\vec{\theta}} \left[ - \frac{1}{2\sigma^2} \sum_{i=1}^{N} \left( y_i - h_{\vec{\theta}}(\vec{x}_i) \right)^2 - \frac{1}{2\sigma_0^2} \|\vec{\theta}\|_2^2 \right]\]</div>
+<p>To convert this maximization objective into an exact ERM minimization routine, we invert the algebraic sign and scale the entire functional envelope by the positive factor <span class="arithmatex">\(2\sigma^2\)</span>:</p>
+<div class="arithmatex">\[\vec{\theta}_{\text{MAP}}^* = \arg\min_{\vec{\theta}} \left[ \sum_{i=1}^{N} \left( y_i - h_{\vec{\theta}}(\vec{x}_i) \right)^2 + \left( \frac{\sigma^2}{\sigma_0^2} \right) \|\vec{\theta}\|_2^2 \right]\]</div>
+<p>Look closely at this finalized probabilistic equation. It is identical to our deterministic <span class="arithmatex">\(L_2\)</span> Regularized ERM formula. The abstract regularization constant <span class="arithmatex">\(\lambda\)</span> has been resolved to a concrete ratio of physical variances:</p>
+<div class="arithmatex">\[\lambda = \frac{\sigma^2}{\sigma_0^2} = \frac{\text{Data Noise Variance}}{\text{Prior Parameter Variance}}\]</div>
+<p>This proves that <strong>running an <span class="arithmatex">\(L_2\)</span> parameter penalty (Ridge Regression) is the mathematically exact equivalent of executing a Bayesian MAP estimation loop under the explicit assumption that your parameter weights follow a zero-mean Gaussian distribution.</strong></p>
+<hr />
+<h4 id="step-4-case-study-b-enforcing-a-laplacian-prior-l_1-regularization">Step 4: Case Study B — Enforcing a Laplacian Prior (<span class="arithmatex">\(L_1\)</span> Regularization)</h4>
+<p>Now, let us alter our baseline prior assumption. Suppose we choose to model our parameters using a zero-mean continuous <strong>Laplacian Prior Distribution</strong> with a scale parameter of <span class="arithmatex">\(b\)</span>:</p>
+<div class="arithmatex">\[p(\vec{\theta}) = \prod_{j=1}^{P} \frac{1}{2b} \exp\left( -\frac{|\theta_j|}{b} \right) = \frac{1}{(2b)^P} \exp\left( -\frac{1}{b} \sum_{j=1}^{P} |\theta_j| \right) = \frac{1}{(2b)^P} \exp\left( -\frac{\|\vec{\theta}\|_1}{b} \right)\]</div>
+<p>We extract the natural logarithm of this Laplacian functional:</p>
+<div class="arithmatex">\[\ln p(\vec{\theta}) = -P\ln(2b) - \frac{1}{b}\|\vec{\theta}\|_1\]</div>
+<p>Substituting this log-prior along with our standard Gaussian log-likelihood back into our global MAP framework yields:</p>
+<div class="arithmatex">\[\vec{\theta}_{\text{MAP}}^* = \arg\max_{\vec{\theta}} \left[ - \frac{1}{2\sigma^2} \sum_{i=1}^{N} \left( y_i - h_{\vec{\theta}}(\vec{x}_i) \right)^2 - \frac{1}{b}\|\vec{\theta}\|_1 \right]\]</div>
+<p>Inverting the signs and scaling the objective function by <span class="arithmatex">\(2\sigma^2\)</span> isolates our final minimization criteria:</p>
+<div class="arithmatex">\[\vec{\theta}_{\text{MAP}}^* = \arg\min_{\vec{\theta}} \left[ \sum_{i=1}^{N} \left( y_i - h_{\vec{\theta}}(\vec{x}_i) \right)^2 + \left( \frac{2\sigma^2}{b} \right) \|\vec{\theta}\|_1 \right]\]</div>
+<p>This completes our second proof. <strong>Running an <span class="arithmatex">\(L_1\)</span> parameter penalty (Lasso) is the mathematically exact equivalent of executing a Bayesian MAP estimation loop under the explicit assumption that your parameters follow a zero-mean Laplacian distribution</strong>, where the regularization constant resolves to <span class="arithmatex">\(\lambda = \frac{2\sigma^2}{b}\)</span>.</p>
+<hr />
+<h3 id="273-probabilistic-vs-geometric-interpretations-of-sparsity">27.3 Probabilistic vs. Geometric Interpretations of Sparsity</h3>
+<p>The professor leverages these twin derivations to reconcile two different explanations for why <span class="arithmatex">\(L_1\)</span> regularization induces model sparsity much more aggressively than <span class="arithmatex">\(L_2\)</span>.</p>
+<h4 id="1-the-probabilistic-viewpoint-the-laplacian-peak">1. The Probabilistic Viewpoint (The Laplacian Peak)</h4>
+<p>If you plot a zero-mean Laplacian density curve alongside a standard normal Gaussian curve, the structural difference at the origin is stark. The Gaussian curve forms a smooth, rounded dome at its center.</p>
+<p>The Laplacian distribution, however, forms a sharp, steep spike right at zero (<span class="arithmatex">\(0.0\)</span>). This means that a Laplacian prior packs a massive amount of its probability mass directly onto zero. When you optimize under this prior, the model is exposed to an aggressive probabilistic force that drives parameters completely down to zero unless the empirical data evidence is strong enough to pull them away.</p>
+<h4 id="2-the-geometric-viewpoint-the-rhombus-vertices">2. The Geometric Viewpoint (The Rhombus Vertices)</h4>
+<p>If you translate this optimization into a constrained geometric space, your parameters are restricted to navigate inside an <span class="arithmatex">\(L_1\)</span> <strong>Rhombus</strong> (or cross-polytope in higher dimensions) instead of a smooth <span class="arithmatex">\(L_2\)</span> circle.</p>
+<p>When the expanding contours of your data loss function collide with this diamond boundary, the laws of geometry dictate that the first point of contact is highly likely to occur at one of the sharp <strong>vertices (corners)</strong>. Because these vertices sit directly on the coordinate axes by construction, the intersecting coordinate naturally locks one or more feature dimensions to exactly zero (<span class="arithmatex">\(0.0\)</span>). This geometric intersection performs automated feature selection.</p>
+<hr />
+<h3 id="274-optimization-driven-regularization-early-stopping">27.4 Optimization-Driven Regularization: Early Stopping</h3>
+<p>The professor expands our understanding of regularization by demonstrating that we do not need to alter our objective loss function to inject structural bias. We can enforce regularized constraints purely by changing how we run our <strong>numerical optimization algorithms</strong>.</p>
+<p>Suppose we train an overparameterized model using standard first-order Gradient Descent. We initialize our parameter vector at the origin (<span class="arithmatex">\(\vec{\theta}^{(0)} = \vec{0}\)</span>) and track our updates over time. Every single iteration step <span class="arithmatex">\(t\)</span> computes a new parameter configuration, which means <strong>every single clock tick of gradient descent yields a completely unique hypothesis model.</strong></p>
+<p>As the optimization path marches forward, the model gradually increases its capacity to fit complex variations in the data. If we let the algorithm run until complete numerical convergence (<span class="arithmatex">\(t \to \infty\)</span>), the parameters will navigate all the way to the unconstrained empirical minimum, causing the model to overfit.</p>
+<h4 id="the-checkpointing-and-early-stopping-protocol">The Checkpointing and Early Stopping Protocol</h4>
+<p>To prevent this, we deploy an infrastructure guardrail known as <strong>Early Stopping</strong>. We track our error metrics across both our training data split and our validation data split simultaneously at every step:</p>
+<p>As training progresses:</p>
+<ol>
+<li>The <strong>Training Error</strong> decreases continuously as the model fits the training coordinates.</li>
+<li>The <strong>Validation Error</strong> decreases initially, reaches a minimum point, and then begins to curve upward—marking the exact boundary where the model abandons global trends and begins to memorize localized training noise.</li>
+</ol>
+<p>Using a technique called <strong>Checkpointing</strong>, we save our parameter states at every epoch. The moment the validation error begins to rise, we halt the training loop and roll our parameters back to the checkpoint vector that achieved the lowest validation error.</p>
+<h4 id="the-mathematical-equivalence-to-l_2-decay">The Mathematical Equivalence to <span class="arithmatex">\(L_2\)</span> Decay</h4>
+<p>The professor delivers an essential theoretical punchline: <strong>Halting gradient descent early at a specific step <span class="arithmatex">\(\tau_0\)</span> is mathematically equivalent to running an unconstrained optimization loop to full completion under an explicit <span class="arithmatex">\(L_2\)</span> parameter penalty.</strong></p>
+<p>Because we initialize our weights at <span class="arithmatex">\(\vec{0}\)</span> and limit our total training duration to a finite number of steps, the parameters are physically restricted from traveling past a maximum distance boundary. The optimization step budget (<span class="arithmatex">\(\tau_0\)</span>) functions as an implicit radius constraint, bounding the parameter vector inside a safe hypervolume exactly like an <span class="arithmatex">\(L_2\)</span> norm threshold.</p>
+<hr />
+<h3 id="275-architectural-induction-models-as-implicit-filters">27.5 Architectural Induction: Models as Implicit Filters</h3>
+<p>Finally, the professor generalizes the definition of regularization to its absolute limit: <strong>Every single architectural choice you make when designing a machine learning model is an implicit regularizer.</strong></p>
+<p>When you choose a specific hypothesis class <span class="arithmatex">\(\mathcal{H}\)</span>, you are selecting a tiny subset of functions out of the infinite space of all possible mathematical relations.</p>
+<ul>
+<li>If you restrict your model to the <strong>Linear Family</strong> (<span class="arithmatex">\(h(\vec{x}) = \vec{\theta}^T \vec{x}\)</span>), you are applying a massive structural filter. This choice completely blocks the model from learning non-linear variations, which explains why linear models are prone to underfitting—they are heavily regularized by design.</li>
+<li>As we advance through the course, we will demonstrate that a <strong>Convolutional Neural Network (CNN)</strong> is simply a standard dense neural network that has been heavily regularized by forcing its weights to follow strict spatial translation symmetries.</li>
+</ul>
+<p>The master engineering strategy of modern machine learning is to avoid applying restrictive structural filters to your architecture from day one. Instead, you design a highly expressive, overparameterized hypothesis class (like a deep neural network or a high-degree polynomial expansion) to minimize structural bias. You then use parameter norm penalties (<span class="arithmatex">\(\text{L}_1/\text{L}_2\)</span>) and optimization constraints (Early Stopping) to tune the model's variance, sliding it smoothly along the generalization curve until it reaches peak performance.</p>
+<hr />
+<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
+<blockquote>
+<p><strong>The Generalist's Unifying Rules:</strong>
+1. <strong>The MAP-Regularization Duality:</strong> Adding a parameter penalty function to an ERM objective is the exact mathematical equivalent of running a Bayesian MAP optimization loop. An <span class="arithmatex">\(L_2\)</span> penalty maps to a zero-mean <strong>Gaussian Prior</strong>, while an <span class="arithmatex">\(L_1\)</span> penalty maps to a zero-mean <strong>Laplacian Prior</strong>.
+2. <strong>The Structural Sparsity Law:</strong> <span class="arithmatex">\(L_1\)</span> regularization induces sparse parameter configurations because its Laplacian prior concentrates massive probability mass right at zero, and its geometric cross-polytope boundary forces optimization intersections to land directly on the coordinate axes.
+3. <strong>The Early Stopping Radius:</strong> Halting numerical optimization early using a validation dataset tracking loop is mathematically equivalent to running an <span class="arithmatex">\(L_2\)</span> weight decay model to full convergence. Your step allocation acts as an implicit radius constraint that keeps parameters safely bounded around the origin.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

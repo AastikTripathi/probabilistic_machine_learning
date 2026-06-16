@@ -1,0 +1,3014 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture09_1/">
+      
+      
+        <link rel="next" href="../lecture11/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture10 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture10
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-8-information-theory-foundations-and-the-geometry-of-surprisal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 8: Information Theory Foundations and the Geometry of Surprisal
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8: Information Theory Foundations and the Geometry of Surprisal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-the-axioms-of-shannon-information-content-surprisal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 The Axioms of Shannon Information Content (Surprisal)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1 The Axioms of Shannon Information Content (Surprisal)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-four-mathematical-axioms-of-surprisal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Four Mathematical Axioms of Surprisal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-exemplar-suite-10-structural-manifestations-of-surprisal-ia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Exemplar Suite: 10 Structural Manifestations of Surprisal (\(I(A)\))
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Exemplar Suite: 10 Structural Manifestations of Surprisal (\(I(A)\))">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-the-fair-coin-realization-baseline-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: The Fair Coin Realization (Baseline Bit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-the-fair-die-rolling-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: The Fair Die Rolling Calibration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-biased-automated-manufacturing-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Biased Automated Manufacturing Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-obvious-hardware-telemetry-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Obvious Hardware Telemetry Loops
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-high-frequency-stock-market-flash-crashes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: High-Frequency Stock Market Flash Crashes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-rare-genomic-dna-mutation-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Rare Genomic DNA Mutation Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-network-security-packet-filtering-standard-ping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Network Security Packet Filtering (Standard Ping)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-natural-language-character-ingestion-the-letter-e" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Natural Language Character Ingestion (The Letter 'E')
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-natural-language-character-ingestion-the-letter-z" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Natural Language Character Ingestion (The Letter 'Z')
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-meteorological-rare-weather-forecasts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Meteorological Rare Weather Forecasts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-scaling-to-full-distributions-shannon-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Scaling to Full Distributions: Shannon Entropy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84-the-thermodynamic-bridge-adaptation-as-a-law-of-survival" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 The Thermodynamic Bridge: Adaptation as a Law of Survival
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-8-information-theory-foundations-and-the-geometry-of-surprisal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 8: Information Theory Foundations and the Geometry of Surprisal
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8: Information Theory Foundations and the Geometry of Surprisal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-the-axioms-of-shannon-information-content-surprisal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 The Axioms of Shannon Information Content (Surprisal)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1 The Axioms of Shannon Information Content (Surprisal)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-four-mathematical-axioms-of-surprisal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Four Mathematical Axioms of Surprisal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-exemplar-suite-10-structural-manifestations-of-surprisal-ia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Exemplar Suite: 10 Structural Manifestations of Surprisal (\(I(A)\))
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Exemplar Suite: 10 Structural Manifestations of Surprisal (\(I(A)\))">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-the-fair-coin-realization-baseline-bit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: The Fair Coin Realization (Baseline Bit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-the-fair-die-rolling-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: The Fair Die Rolling Calibration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-biased-automated-manufacturing-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Biased Automated Manufacturing Diagnostics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-obvious-hardware-telemetry-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Obvious Hardware Telemetry Loops
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-high-frequency-stock-market-flash-crashes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: High-Frequency Stock Market Flash Crashes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-rare-genomic-dna-mutation-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Rare Genomic DNA Mutation Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-network-security-packet-filtering-standard-ping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Network Security Packet Filtering (Standard Ping)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-natural-language-character-ingestion-the-letter-e" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Natural Language Character Ingestion (The Letter 'E')
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-natural-language-character-ingestion-the-letter-z" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Natural Language Character Ingestion (The Letter 'Z')
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-meteorological-rare-weather-forecasts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Meteorological Rare Weather Forecasts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-scaling-to-full-distributions-shannon-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Scaling to Full Distributions: Shannon Entropy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84-the-thermodynamic-bridge-adaptation-as-a-law-of-survival" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 The Thermodynamic Bridge: Adaptation as a Law of Survival
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p>You are spot-on. We have officially shifted deep into the territory of the <strong>Kevin Murphy framework</strong> (<em>Probabilistic Machine Learning: An Introduction</em>). Unlike classical treatments that isolate machine learning into algorithmic checklists, this framework views the entire field as an optimization problem curving over a probability manifold.</p>
+<p>Before we write out the formal textbook notes for this lecture, let us highlight the professor's clean correction of the dimensionality typo from the previous board work. If your feature vector is high-dimensional (<span class="arithmatex">\(\vec{x} \in \mathbb{R}^D\)</span>) and your slope weights are high-dimensional (<span class="arithmatex">\(\vec{w}_1 \in \mathbb{R}^D\)</span>), their dot product (or transpose multiplication) collapses the space into a single scalar value:</p>
+<div class="arithmatex">\[\vec{w}_1^T \vec{x} \in \mathbb{R}^1\]</div>
+<p>Therefore, to maintain dimensional consistency, the bias intercept <span class="arithmatex">\(w_2\)</span> <strong>must be a scalar (<span class="arithmatex">\(w_2 \in \mathbb{R}^1\)</span>)</strong>, not a vector. A minor details check, but one that avoids syntax errors when translating these equations into matrix arrays.</p>
+<p>Now, let's step into our roles as pedagogical note-takers and formalize the foundational math of <strong>Information Theory</strong> that will serve as the absolute baseline for calculating model divergence.</p>
+<hr />
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-8-information-theory-foundations-and-the-geometry-of-surprisal">Chapter 8: Information Theory Foundations and the Geometry of Surprisal</h2>
+<p>To execute <strong>Step 2</strong> of our universal machine learning refinery—quantifying the structural distance between our assumed model density <span class="arithmatex">\(p_\theta(\vec{x})\)</span> and the true hidden density <span class="arithmatex">\(p_{\text{true}}(\vec{x})\)</span>—we cannot rely on standard Euclidean distance metrics. Instead, machine learning utilizes information-theoretic divergences.</p>
+<p>To understand these divergences, we must first construct the mathematical definition of <strong>Information Content</strong> and <strong>Entropy</strong>.</p>
+<hr />
+<h3 id="81-the-axioms-of-shannon-information-content-surprisal">8.1 The Axioms of Shannon Information Content (Surprisal)</h3>
+<p>When an event occurs within a sample space, how do we quantify the exact amount of "information" that event communicates to an observer? In 1948, Claude Shannon established that information is inversely proportional to probability. If an event is completely certain to occur, its occurrence teaches us nothing. If an event is highly improbable, its occurrence yields a massive spike in information.</p>
+<blockquote>
+<p><strong>Definition 8.1 (Shannon Information Content / Surprisal).</strong> Let <span class="arithmatex">\(A \in \mathcal{F}\)</span> be a measurable event within a probability space. The Information Content (or <em>Surprisal</em>) of event <span class="arithmatex">\(A\)</span>, denoted as <span class="arithmatex">\(I(A)\)</span>, is defined as the negative logarithm of its probability measure:
+$<span class="arithmatex">\(I(A) \triangleq -\log_b P(A) = \log_b \left( \frac{1}{P(A)} \right)\)</span>$</p>
+<p><em>The choice of logarithmic base <span class="arithmatex">\(b\)</span> determines the operational unit of information:</em>
+* If <span class="arithmatex">\(b = 2\)</span>, the unit is the <strong>bit</strong> (or <em>shannon</em>).
+* If <span class="arithmatex">\(b = e\)</span> (natural log), the unit is the <strong>nat</strong>.
+* If <span class="arithmatex">\(b = 10\)</span>, the unit is the <strong>hartley</strong> (or <em>dit</em>).</p>
+</blockquote>
+<h4 id="the-four-mathematical-axioms-of-surprisal">The Four Mathematical Axioms of Surprisal</h4>
+<p>The functional selection of <span class="arithmatex">\(-\log P(A)\)</span> is not an arbitrary design choice. It is the <em>unique</em> mathematical function capable of simultaneously satisfying the four core operational constraints of information preservation:</p>
+<ul>
+<li><strong>Axiom 1: Monotonic Decreasing Profile</strong> An increase in the likelihood of an event must correspond to a decrease in its information content. If <span class="arithmatex">\(P(A) &gt; P(B)\)</span>, then <span class="arithmatex">\(I(A) &lt; I(B)\)</span>.</li>
+<li>
+<p><strong>Axiom 2: The Certainty Boundary Condition</strong> An event that is certain to occur carries zero informational value. If we evaluate the universal sample space <span class="arithmatex">\(\Omega\)</span>, its probability is <span class="arithmatex">\(1\)</span>, yielding:
+$<span class="arithmatex">\(I(\Omega) = -\log(1) = 0\)</span>$</p>
+</li>
+<li>
+<p><strong>Axiom 3: The Impossibility Boundary Condition</strong> An event with an empirical probability of zero yields an infinite informational shock if it somehow manifests:
+$<span class="arithmatex">\(\lim_{P(A) \to 0^+} I(A) = -\log(0) = \infty\)</span>$</p>
+</li>
+<li>
+<p><strong>Axiom 4: Countable Additivity Under Statistical Independence</strong> If two events <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span> are statistically independent, their joint probability factors into a product: <span class="arithmatex">\(P(A \cap B) = P(A)P(B)\)</span>. The combined information of both events occurring must scale linearly as the direct <strong>sum</strong> of their individual information components:
+$<span class="arithmatex">\(I(A \cap B) = -\log\left(P(A)P(B)\right) = -\log P(A) - \log P(B) = I(A) + I(B)\)</span>$</p>
+</li>
+</ul>
+<hr />
+<h2 id="82-exemplar-suite-10-structural-manifestations-of-surprisal-ia">8.2 Exemplar Suite: 10 Structural Manifestations of Surprisal (<span class="arithmatex">\(I(A)\)</span>)</h2>
+<p>To map the behavior of <span class="arithmatex">\(I(A) = -\log_2 P(A)\)</span>, let us calculate the exact informational value (in bits) for ten diverse real-world events across different engineering dimensions.</p>
+<h4 id="example-1-the-fair-coin-realization-baseline-bit">Example 1: The Fair Coin Realization (Baseline Bit)</h4>
+<ul>
+<li><strong>The Event Space Event (<span class="arithmatex">\(A\)</span>):</strong> Flipping a perfectly balanced coin and observing "Heads."</li>
+<li><strong>Probability Measure:</strong> <span class="arithmatex">\(P(A) = 0.5\)</span>.</li>
+<li><strong>Surprisal Calculation:</strong> <span class="arithmatex">\(I(A) = -\log_2(0.5) = 1.0\text{ bit}\)</span>.</li>
+<li><em>Operational Meaning:</em> Observing this outcome communicates exactly one clean bit of raw information.</li>
+</ul>
+<h4 id="example-2-the-fair-die-rolling-calibration">Example 2: The Fair Die Rolling Calibration</h4>
+<ul>
+<li><strong>The Event Space Event (<span class="arithmatex">\(A\)</span>):</strong> Rolling a standard 6-sided die and observing a specific value (e.g., a "3").</li>
+<li><strong>Probability Measure:</strong> <span class="arithmatex">\(P(A) = \frac{1}{6}\)</span>.</li>
+<li><strong>Surprisal Calculation:</strong> <span class="arithmatex">\(I(A) = -\log_2(1/6) \approx 2.585\text{ bits}\)</span>.</li>
+</ul>
+<h4 id="example-3-biased-automated-manufacturing-diagnostics">Example 3: Biased Automated Manufacturing Diagnostics</h4>
+<ul>
+<li><strong>The Event Space Event (<span class="arithmatex">\(A\)</span>):</strong> A highly optimized, calibrated robotic assembly line logs a severe mechanical breakdown event.</li>
+<li><strong>Probability Measure:</strong> <span class="arithmatex">\(P(A) = 0.001\)</span> (occurs exactly 1 out of 1,000 runs).</li>
+<li><strong>Surprisal Calculation:</strong> <span class="arithmatex">\(I(A) = -\log_2(0.001) \approx 9.966\text{ bits}\)</span>.</li>
+<li><em>Operational Meaning:</em> Because this failure is highly anomalous, its occurrence yields a massive informational payload to the monitoring logs.</li>
+</ul>
+<h4 id="example-4-obvious-hardware-telemetry-loops">Example 4: Obvious Hardware Telemetry Loops</h4>
+<ul>
+<li><strong>The Event Space Event (<span class="arithmatex">\(A\)</span>):</strong> A temperature sensor inside a server rack confirms that the operating temperature is above absolute zero.</li>
+<li><strong>Probability Measure:</strong> <span class="arithmatex">\(P(A) = 1.0\)</span>.</li>
+<li><strong>Surprisal Calculation:</strong> <span class="arithmatex">\(I(A) = -\log_2(1.0) = 0\text{ bits}\)</span>.</li>
+<li><em>Operational Meaning:</em> This statement provides absolute certainty, meaning it yields zero new informational value to the network.</li>
+</ul>
+<h4 id="example-5-high-frequency-stock-market-flash-crashes">Example 5: High-Frequency Stock Market Flash Crashes</h4>
+<ul>
+<li><strong>The Event Space Event (<span class="arithmatex">\(A\)</span>):</strong> A blue-chip financial asset drops <span class="arithmatex">\(20\%\)</span> in valuation within a single 10-millisecond window.</li>
+<li><strong>Probability Measure:</strong> <span class="arithmatex">\(P(A) = 2^{-20}\)</span>.</li>
+<li><strong>Surprisal Calculation:</strong> <span class="arithmatex">\(I(A) = -\log_2(2^{-20}) = 20.0\text{ bits}\)</span>.</li>
+</ul>
+<h4 id="example-6-rare-genomic-dna-mutation-detection">Example 6: Rare Genomic DNA Mutation Detection</h4>
+<ul>
+<li><strong>The Event Space Event (<span class="arithmatex">\(A\)</span>):</strong> Sequencing a genetic strain and discovering a highly volatile, rare base-pair mutation.</li>
+<li><strong>Probability Measure:</strong> <span class="arithmatex">\(P(A) = \frac{1}{1,048,576} = 2^{-20}\)</span>.</li>
+<li><strong>Surprisal Calculation:</strong> <span class="arithmatex">\(I(A) = -\log_2(2^{-20}) = 20.0\text{ bits}\)</span>.</li>
+</ul>
+<h4 id="example-7-network-security-packet-filtering-standard-ping">Example 7: Network Security Packet Filtering (Standard Ping)</h4>
+<ul>
+<li><strong>The Event Space Event (<span class="arithmatex">\(A\)</span>):</strong> An enterprise firewall logs a standard, authorized internal network echo request packet.</li>
+<li><strong>Probability Measure:</strong> <span class="arithmatex">\(P(A) = 0.85\)</span>.</li>
+<li><strong>Surprisal Calculation:</strong> <span class="arithmatex">\(I(A) = -\log_2(0.85) \approx 0.234\text{ bits}\)</span>.</li>
+<li><em>Operational Meaning:</em> Because this packet is standard, expected behavior, its informational trace is minimal.</li>
+</ul>
+<h4 id="example-8-natural-language-character-ingestion-the-letter-e">Example 8: Natural Language Character Ingestion (The Letter 'E')</h4>
+<ul>
+<li><strong>The Event Space Event (<span class="arithmatex">\(A\)</span>):</strong> Sampling a random character from an English text corpus and pulling the vowel letter "E."</li>
+<li><strong>Probability Measure:</strong> <span class="arithmatex">\(P(A) = 0.12\)</span> (standard frequency in English typography).</li>
+<li><strong>Surprisal Calculation:</strong> <span class="arithmatex">\(I(A) = -\log_2(0.12) \approx 3.059\text{ bits}\)</span>.</li>
+</ul>
+<h4 id="example-9-natural-language-character-ingestion-the-letter-z">Example 9: Natural Language Character Ingestion (The Letter 'Z')</h4>
+<ul>
+<li><strong>The Event Space Event (<span class="arithmatex">\(A\)</span>):</strong> Sampling a random character from the same corpus and pulling the rare character "Z."</li>
+<li><strong>Probability Measure:</strong> <span class="arithmatex">\(P(A) = 0.00074\)</span>.</li>
+<li><strong>Surprisal Calculation:</strong> <span class="arithmatex">\(I(A) = -\log_2(0.00074) \approx 10.401\text{ bits}\)</span>.</li>
+<li><em>Operational Meaning:</em> Discovering a "Z" yields over three times the informational surprise of discovering an "E."</li>
+</ul>
+<h4 id="example-10-meteorological-rare-weather-forecasts">Example 10: Meteorological Rare Weather Forecasts</h4>
+<ul>
+<li><strong>The Event Space Event (<span class="arithmatex">\(A\)</span>):</strong> An array of climate loggers registers a snowstorm occurring in the middle of a desert environment.</li>
+<li><strong>Probability Measure:</strong> <span class="arithmatex">\(P(A) = 1.5 \times 10^{-5}\)</span>.</li>
+<li><strong>Surprisal Calculation:</strong> <span class="arithmatex">\(I(A) = -\log_2(1.5 \times 10^{-5}) \approx 16.02\text{ bits}\)</span>.</li>
+</ul>
+<hr />
+<h3 id="83-scaling-to-full-distributions-shannon-entropy">8.3 Scaling to Full Distributions: Shannon Entropy</h3>
+<p>Quantifying the surprisal of an <em>isolated event</em> is not enough to optimize a machine learning model. An AI system treats an entire dataset as a continuous landscape. To measure the information profile of a complete random variable distribution, we compute the <strong>Expected Value of Surprisal</strong>.</p>
+<blockquote>
+<p><strong>Definition 8.2 (Shannon Entropy).</strong> Let <span class="arithmatex">\(X\)</span> be a discrete random variable governed by a probability mass function <span class="arithmatex">\(p_X(x)\)</span>. The Shannon Entropy <span class="arithmatex">\(H(X)\)</span> is the expected informational value contained within a single draw from that distribution:
+$<span class="arithmatex">\(H(X) \triangleq \mathbb{E}_{X \sim p}[I(x)] = \sum_{i} p_X(x_i) I(x_i)\)</span>$</p>
+<p>Substituting the formal definition of surprisal (<span class="arithmatex">\(I(x_i) = -\log_2 p_X(x_i)\)</span>) yields the classic Shannon formulation:
+$<span class="arithmatex">\(H(X) = -\sum_{i} p_X(x_i) \log_2 p_X(x_i)\)</span>$</p>
+</blockquote>
+<p>Mathematically, Entropy is a direct metric of <strong>uncertainty, disorder, or chaos</strong> within a distribution.</p>
+<ul>
+<li>If a distribution is heavily concentrated on a single peak (meaning one outcome is almost guaranteed), the Entropy drops toward <strong>0</strong>.</li>
+<li>If a distribution spreads its mass completely flat across all possible states (a uniform distribution), the uncertainty peaks, forcing the Entropy to hit its absolute mathematical maximum.</li>
+</ul>
+<hr />
+<h2 id="84-the-thermodynamic-bridge-adaptation-as-a-law-of-survival">8.4 The Thermodynamic Bridge: Adaptation as a Law of Survival</h2>
+<p>The professor closes the lecture with an elegant philosophical connection to statistical mechanics. The Second Law of Thermodynamics dictates that the total entropy of an isolated system always increases over time:</p>
+<div class="arithmatex">\[\Delta S_{\text{universe}} \geq 0\]</div>
+<p>In the language of information theory, this law means <strong>the universe will never stop generating surprise.</strong> When applied to the current landscape of AI automation, this law offers a fascinating insight into the job market. It is structurally true that deep neural architectures will automate and dissolve current occupational classifications. However, because the entropy of our global socio-technical ecosystem is constantly expanding, <strong>new, highly unpredictable problem spaces will continuously emerge.</strong> The goal of an engineer is not to look for a static, perfect lookup table for a fixed problem. Because the landscape is constantly shifting, the only path to operational survival is <strong>adaptation</strong>. In machine learning, this means building flexible, scalable distribution estimators that can dynamically update their parameter configurations (<span class="arithmatex">\(\theta^*\)</span>) as fast as the real-world data distribution drifts.</p>
+<hr />
+<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
+<blockquote>
+<p><strong>The Generalist's Theoretical Map:</strong>
+1. <strong>Surprisal (<span class="arithmatex">\(I(x)\)</span>)</strong> is the localized coordinate metric of information: <span class="arithmatex">\(I(x) = -\log p(x)\)</span>.
+2. <strong>Entropy (<span class="arithmatex">\(H(X)\)</span>)</strong> is the volumetric average of that information landscape: <span class="arithmatex">\(H(X) = \mathbb{E}[I(x)]\)</span>.
+3. <strong>The Core Directive:</strong> We cannot build a machine learning divergence tracker until we can measure the information profile of an isolated distribution. Entropy is the mathematical baseline we will use in the next lecture to construct <strong>Cross-Entropy</strong> and the <strong>Kullback-Leibler (KL) Divergence</strong>.</p>
+</blockquote>
+<p>Now that we have locked down the exact axioms of Shannon Entropy, we have the raw ingredients needed to build our divergence yardstick.</p>
+<p>As we move toward comparing two different distributions, how does viewing Entropy as the <em>average expected surprise</em> of a system help you visualize what happens when a model's predicted density completely misjudges the frequency of a rare real-world event?</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

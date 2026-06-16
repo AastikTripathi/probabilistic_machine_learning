@@ -1,0 +1,3467 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture38/">
+      
+      
+        <link rel="next" href="../lecture40/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture39 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture39
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-33-non-linear-feature-mappings-the-kernel-trick-mercers-theorem-and-the-grand-hinge-loss-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 33: Non-Linear Feature Mappings, The Kernel Trick, Mercer's Theorem, and the Grand Hinge Loss Synthesis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 33: Non-Linear Feature Mappings, The Kernel Trick, Mercer&#39;s Theorem, and the Grand Hinge Loss Synthesis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-the-geometric-boundary-wall-non-linear-feature-mappings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33.1 The Geometric Boundary Wall: Non-Linear Feature Mappings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="33.1 The Geometric Boundary Wall: Non-Linear Feature Mappings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-the-escape-from-dimensionality-the-kernel-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        32.2 The Escape from Dimensionality: The Kernel Trick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333-validating-the-space-mercers-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33.3 Validating the Space: Mercer's Theorem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#334-classical-kernel-families" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33.4 Classical Kernel Families
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="33.4 Classical Kernel Families">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-polynomial-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Polynomial Kernel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-sigmoid-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Sigmoid Kernel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-gaussian-radial-basis-function-rbf-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Gaussian / Radial Basis Function (RBF) Kernel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#335-the-grand-unification-svm-as-regularized-hinge-loss-minimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33.5 The Grand Unification: SVM as Regularized Hinge Loss Minimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#336-the-scalability-wall-why-deep-learning-took-the-crown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33.6 The Scalability Wall: Why Deep Learning Took the Crown
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-can-data-truly-be-inseparable-in-infinite-dimensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Can Data Truly Be Inseparable in Infinite Dimensions?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Can Data Truly Be Inseparable in Infinite Dimensions?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-finite-training-dataset-case-the-math" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Finite Training Dataset Case (The Math)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-real-world-breakdown-the-sensory-data-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Real-World Breakdown (The Sensory Data Reality)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Real-World Breakdown (The Sensory Data Reality)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-the-overlapping-support-problem-bayes-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. The Overlapping Support Problem (Bayes Error)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-the-curse-of-overfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. The Curse of Overfitting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-is-this-c-the-exact-same-capacity-ceil-from-before" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Is this \(C\) the Exact Same Capacity Ceil from Before?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-paraboloid-illusion-2d-vs-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Paraboloid Illusion: 2D vs. 3D
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Paraboloid Illusion: 2D vs. 3D">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-the-linear-vs-non-linear-split-happens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where the "Linear" vs. "Non-Linear" Split Happens
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enter-the-kernel-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enter the Kernel Trick
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-blueprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary Blueprint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-path-a-the-hard-way-explicit-projection-dot-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Path A: The Hard Way (Explicit Projection &amp; Dot Product)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Path A: The Hard Way (Explicit Projection &amp; Dot Product)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-project-vector-veca-into-mathbbr3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Project vector \(\vec{a}\) into \(\mathbb{R}^3\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-project-vector-vecb-into-mathbbr3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Project vector \(\vec{b}\) into \(\mathbb{R}^3\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-compute-the-inner-product-in-mathbbr3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Compute the inner product in \(\mathbb{R}^3\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-path-b-the-kernel-trick-the-mathematical-shortcut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Path B: The Kernel Trick (The Mathematical Shortcut)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Path B: The Kernel Trick (The Mathematical Shortcut)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-compute-the-standard-dot-product-in-the-native-2d-space-mathbbr2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Compute the standard dot product in the native 2D space (\(\mathbb{R}^2\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-apply-the-kernels-squaring-envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Apply the kernel's squaring envelope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-works-the-algebraic-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Works: The Algebraic Proof
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-this-achieves-non-linear-separation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How This Achieves Non-Linear Separation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-33-non-linear-feature-mappings-the-kernel-trick-mercers-theorem-and-the-grand-hinge-loss-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 33: Non-Linear Feature Mappings, The Kernel Trick, Mercer's Theorem, and the Grand Hinge Loss Synthesis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 33: Non-Linear Feature Mappings, The Kernel Trick, Mercer&#39;s Theorem, and the Grand Hinge Loss Synthesis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-the-geometric-boundary-wall-non-linear-feature-mappings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33.1 The Geometric Boundary Wall: Non-Linear Feature Mappings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="33.1 The Geometric Boundary Wall: Non-Linear Feature Mappings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-the-escape-from-dimensionality-the-kernel-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        32.2 The Escape from Dimensionality: The Kernel Trick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333-validating-the-space-mercers-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33.3 Validating the Space: Mercer's Theorem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#334-classical-kernel-families" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33.4 Classical Kernel Families
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="33.4 Classical Kernel Families">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-polynomial-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Polynomial Kernel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-sigmoid-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Sigmoid Kernel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-gaussian-radial-basis-function-rbf-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Gaussian / Radial Basis Function (RBF) Kernel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#335-the-grand-unification-svm-as-regularized-hinge-loss-minimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33.5 The Grand Unification: SVM as Regularized Hinge Loss Minimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#336-the-scalability-wall-why-deep-learning-took-the-crown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33.6 The Scalability Wall: Why Deep Learning Took the Crown
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-can-data-truly-be-inseparable-in-infinite-dimensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Can Data Truly Be Inseparable in Infinite Dimensions?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Can Data Truly Be Inseparable in Infinite Dimensions?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-finite-training-dataset-case-the-math" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Finite Training Dataset Case (The Math)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-real-world-breakdown-the-sensory-data-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Real-World Breakdown (The Sensory Data Reality)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Real-World Breakdown (The Sensory Data Reality)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-the-overlapping-support-problem-bayes-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. The Overlapping Support Problem (Bayes Error)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-the-curse-of-overfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. The Curse of Overfitting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-is-this-c-the-exact-same-capacity-ceil-from-before" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Is this \(C\) the Exact Same Capacity Ceil from Before?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-paraboloid-illusion-2d-vs-3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Paraboloid Illusion: 2D vs. 3D
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Paraboloid Illusion: 2D vs. 3D">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-the-linear-vs-non-linear-split-happens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where the "Linear" vs. "Non-Linear" Split Happens
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enter-the-kernel-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enter the Kernel Trick
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-blueprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary Blueprint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-path-a-the-hard-way-explicit-projection-dot-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Path A: The Hard Way (Explicit Projection &amp; Dot Product)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Path A: The Hard Way (Explicit Projection &amp; Dot Product)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-project-vector-veca-into-mathbbr3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Project vector \(\vec{a}\) into \(\mathbb{R}^3\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-project-vector-vecb-into-mathbbr3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Project vector \(\vec{b}\) into \(\mathbb{R}^3\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-compute-the-inner-product-in-mathbbr3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Compute the inner product in \(\mathbb{R}^3\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-path-b-the-kernel-trick-the-mathematical-shortcut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Path B: The Kernel Trick (The Mathematical Shortcut)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Path B: The Kernel Trick (The Mathematical Shortcut)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-compute-the-standard-dot-product-in-the-native-2d-space-mathbbr2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Compute the standard dot product in the native 2D space (\(\mathbb{R}^2\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-apply-the-kernels-squaring-envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Apply the kernel's squaring envelope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-works-the-algebraic-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Works: The Algebraic Proof
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-this-achieves-non-linear-separation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How This Achieves Non-Linear Separation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-33-non-linear-feature-mappings-the-kernel-trick-mercers-theorem-and-the-grand-hinge-loss-synthesis">Chapter 33: Non-Linear Feature Mappings, The Kernel Trick, Mercer's Theorem, and the Grand Hinge Loss Synthesis</h2>
+<hr />
+<h3 id="331-the-geometric-boundary-wall-non-linear-feature-mappings">33.1 The Geometric Boundary Wall: Non-Linear Feature Mappings</h3>
+<p>In our previous explorations of max-margin architecture, we operated under a strict constraint: our decision boundaries were defined exclusively by linear discriminant functions (<span class="arithmatex">\(g(\vec{x}) = \vec{w}^T \vec{x} + b\)</span>). While our soft-margin expansion in Chapter 32 successfully introduced error tolerance (<span class="arithmatex">\(\xi_i\)</span>) to handle overlapping point distributions, a structural restriction remained—the core decision boundary was still forced to be a straight line or flat hyperplane.</p>
+<p>In real-world data environments, target categories are rarely separated by linear boundaries. To bypass this restriction without discarding our convex optimization algorithms, we deploy a technique identical to our generalized linear regression modules: <strong>Non-Linear Feature Mapping</strong>.</p>
+<p>We define an explicit, non-linear transformation functional denoted as <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span>, which acts as a coordinate bridge mapping our raw features from their native <span class="arithmatex">\(D\)</span>-dimensional input space up into a much higher <span class="arithmatex">\(D'\)</span>-dimensional feature space:</p>
+<div class="arithmatex">\[\vec{\phi}(\vec{x}): \mathbb{R}^D \to \mathbb{R}^{D'} \quad \text{where } D' \gg D\]</div>
+<h4 id="literal-variable-breakdown">Literal Variable Breakdown:</h4>
+<ul>
+<li><strong><span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span></strong>: The non-linear mapping vector function transforming an input sample coordinate.</li>
+<li><strong><span class="arithmatex">\(\mathbb{R}^D\)</span></strong>: The lower-dimensional input space hosting the raw measured data points.</li>
+<li><strong><span class="arithmatex">\(\mathbb{R}^{D'}\)</span></strong>: The higher-dimensional target feature space (often referred to as the <em>Hilbert Space</em>).</li>
+</ul>
+<p>By projecting data coordinates into this expanded space, patterns that were completely entangled and non-separable in their native lower-dimensional domain can naturally open up, making linear separability highly plausible.</p>
+<p>If we substitute this non-linear mapping directly into our soft-margin dual optimization problem derived in Chapter 32, the parameters adjust smoothly to the new dimensions:</p>
+<div class="arithmatex">\[\max_{\vec{\mu}} \left[ \sum_{i=1}^{N} \mu_i - \frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \mu_i \mu_j y_i y_j \vec{\phi}(\vec{x}_i)^T \vec{\phi}(\vec{x}_j) \right]\]</div>
+<div class="arithmatex">\[\text{subject to} \quad 0 \leq \mu_i \leq C \quad \forall \,\, i=1,\dots,N \quad \text{and} \quad \sum_{i=1}^{N} \mu_i y_i = 0\]</div>
+<hr />
+<h3 id="322-the-escape-from-dimensionality-the-kernel-trick">32.2 The Escape from Dimensionality: The Kernel Trick</h3>
+<p>While projecting features into a massive space (<span class="arithmatex">\(\mathbb{R}^{D'}\)</span>) resolves our non-linear boundary limits, it triggers a devastating computational bottleneck. If <span class="arithmatex">\(D'\)</span> scales to millions of dimensions, explicitly calculating the coordinate transformation vector <span class="arithmatex">\(\vec{\phi}(\vec{x}_i)\)</span> for every sample row in our matrix becomes computationally unsustainable. Storing these high-dimensional vectors would exhaust system memory, and computing their dot products (<span class="arithmatex">\(\vec{\phi}(\vec{x}_i)^T \vec{\phi}(\vec{x}_j)\)</span>) would freeze optimization loops.</p>
+<p>We bypass this computational bottleneck entirely by exploiting <strong>The Inner Product Principle</strong> isolated in Chapter 31. Look closely at the updated dual objective function: <em>the high-dimensional feature vectors never appear anywhere as isolated coordinates; they interact exclusively through a pairwise inner product.</em></p>
+<p>This structural alignment enables <strong>The Kernel Trick</strong>:</p>
+<blockquote>
+<p><strong>The Kernel Trick:</strong>
+If there exists a continuous scalar function <span class="arithmatex">\(K(\vec{x}_i, \vec{x}_j)\)</span> that operates entirely within the native, lower-dimensional input domain but calculates a value exactly equal to the inner product of those vectors after they have been projected into the high-dimensional feature space, we can swap it directly into our objective function:
+$<span class="arithmatex">\(K(\vec{x}_i, \vec{x}_j) \triangleq \vec{\phi}(\vec{x}_i)^T \vec{\phi}(\vec{x}_j)\)</span>$</p>
+</blockquote>
+<p>Enforcing this substitution collapses our dual optimization function into a clean, dimension-free layout:</p>
+<div class="arithmatex">\[\max_{\vec{\mu}} \left[ \sum_{i=1}^{N} \mu_i - \frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \mu_i \mu_j y_i y_j K(\vec{x}_i, \vec{x}_j) \right]\]</div>
+<p>This mathematical shortcut delivers an incredible architectural advantage: <strong>We can train a highly complex, non-linear classifier inside a massive high-dimensional space without ever calculating, storing, or even knowing the explicit mathematical formula for the transformation vector <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span> itself.</strong> This dimension-free property carries over into our finalized inference interface as well. When a new query coordinate <span class="arithmatex">\(\vec{x}\)</span> enters the system, we calculate its discriminant score by applying our kernel function directly against the sparse subset of historical support vectors (<span class="arithmatex">\(S\)</span>):</p>
+<div class="arithmatex">\[g(\vec{x}) = (\vec{w}^*)^T \vec{\phi}(\vec{x}) + b^* = \sum_{i \in S} \mu_i^* y_i \vec{\phi}(\vec{x}_i)^T \vec{\phi}(\vec{x}) + b^* \implies g(\vec{x}) = \sum_{i \in S} \mu_i^* y_i K(\vec{x}_i, \vec{x}) + b^*\]</div>
+<hr />
+<h3 id="333-validating-the-space-mercers-theorem">33.3 Validating the Space: Mercer's Theorem</h3>
+<p>The kernel trick introduces a core engineering challenge: <em>If we can design any arbitrary bivariate function <span class="arithmatex">\(K(\vec{x}, \vec{x}')\)</span> directly in our input space, how do we prove that it mathematically corresponds to a valid inner product inside a hidden higher-dimensional feature space?</em> We validate these functions using <strong>Mercer's Theorem</strong>.</p>
+<p>Let <span class="arithmatex">\(D = \{\vec{x}_1, \vec{x}_2, \dots, \vec{x}_N\}\)</span> represent an arbitrary collection of data instances. We pass these coordinates through our candidate kernel function to construct an <span class="arithmatex">\(N \times N\)</span> matrix known as the <strong>Gram Matrix</strong> (or Kernel Matrix), denoted as <span class="arithmatex">\(\mathbf{K}\)</span>:</p>
+<div class="arithmatex">\[\mathbf{K} = \begin{bmatrix} K(\vec{x}_1, \vec{x}_1) &amp; K(\vec{x}_1, \vec{x}_2) &amp; \dots &amp; K(\vec{x}_1, \vec{x}_N) \\ K(\vec{x}_2, \vec{x}_1) &amp; K(\vec{x}_2, \vec{x}_2) &amp; \dots &amp; K(\vec{x}_2, \vec{x}_N) \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ K(\vec{x}_N, \vec{x}_1) &amp; K(\vec{x}_N, \vec{x}_2) &amp; \dots &amp; K(\vec{x}_N, \vec{x}_N) \end{bmatrix}\]</div>
+<blockquote>
+<p><strong>Theorem 33.1 (Mercer's Core Condition).</strong> A candidate bivariate function <span class="arithmatex">\(K(\vec{x}, \vec{x}')\)</span> is a mathematically valid kernel function if and only if its associated Gram matrix <span class="arithmatex">\(\mathbf{K}\)</span> evaluates as <strong>Positive Semi-Definite (PSD)</strong> across every possible finite data configuration chosen from the input domain:
+$<span class="arithmatex">\(\vec{v}^T \mathbf{K} \vec{v} \geq 0 \quad \forall \,\, \vec{v} \in \mathbb{R}^N\)</span>$</p>
+</blockquote>
+<p>Mercer's theorem flips the entire feature engineering paradigm on its head. Instead of manually cooking up an incredibly complex coordinate transformation function <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span> and deriving its inner products, <strong>we can directly engineer novel kernel functions in our native input space.</strong> As long as our function satisfies Mercer's PSD condition, the laws of functional analysis guarantee that a valid, higher-dimensional feature space exists to back it up.</p>
+<hr />
+<h3 id="334-classical-kernel-families">33.4 Classical Kernel Families</h3>
+<p>The machine learning community relies on three standard, pre-validated kernel families that satisfy Mercer's criteria.</p>
+<h4 id="1-the-polynomial-kernel">1. The Polynomial Kernel</h4>
+<div class="arithmatex">\[\mathbf{K}_{\text{Poly}}(\vec{x}_1, \vec{x}_2) = \left( \vec{x}_1^T \vec{x}_2 + c \right)^p\]</div>
+<p>This function evaluates all pairwise feature combinations up to a specified polynomial degree <span class="arithmatex">\(p\)</span>. It allows the model to identify complex interactions between raw inputs without explicitly expanding the polynomial cross-terms.</p>
+<h4 id="2-the-sigmoid-kernel">2. The Sigmoid Kernel</h4>
+<div class="arithmatex">\[\mathbf{K}_{\text{Sigmoid}}(\vec{x}_1, \vec{x}_2) = \tanh\left( a \vec{x}_1^T \vec{x}_2 + b \right)\]</div>
+<p>When substituted into our final discriminant hyperplane interface, this function matches the exact mathematical structure of a <strong>single hidden-layer Neural Network</strong> utilizing a hyperbolic tangent activation link.</p>
+<h4 id="3-the-gaussian-radial-basis-function-rbf-kernel">3. The Gaussian / Radial Basis Function (RBF) Kernel</h4>
+<div class="arithmatex">\[\mathbf{K}_{\text{RBF}}(\vec{x}_1, \vec{x}_2) = \exp\left( -\frac{\|\vec{x}_1 - \vec{x}_2\|_2^2}{\sigma^2} \right)\]</div>
+<p>The RBF kernel functions as a localized similarity metric that decays exponentially based on the squared Euclidean distance separating two points.</p>
+<p>The most extraordinary property of the Gaussian kernel is that <strong>its implicit feature mapping function <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span> projects data coordinates into an infinite-dimensional space (<span class="arithmatex">\(D' \to \infty\)</span>).</strong> By running a Taylor series expansion over the exponential core (<span class="arithmatex">\(\exp(z) = \sum \frac{z^k}{k!}\)</span>), we reveal that the RBF kernel calculates the inner product of a feature map that contains an infinite string of polynomial expansions. Because its target space possesses infinite degrees of freedom, the RBF kernel provides an exceptionally powerful environment for isolating complex classification boundaries.</p>
+<hr />
+<h3 id="335-the-grand-unification-svm-as-regularized-hinge-loss-minimization">33.5 The Grand Unification: SVM as Regularized Hinge Loss Minimization</h3>
+<p>The professor concludes our exploration of max-margin learning by unifying our entire geometrical SVM architecture with our core baseline paradigm: <strong>Regularized Empirical Risk Minimization</strong>.</p>
+<p>Recall our primal soft-margin formulation derived in Chapter 32:</p>
+<div class="arithmatex">\[\min_{\vec{w}, b, \vec{\xi}} \left[ \frac{1}{2} \|\vec{w}\|_2^2 + C \sum_{i=1}^{N} \xi_i \right] \quad \text{subject to} \quad y_i\left(\vec{w}^T\vec{x}_i + b\right) \geq 1 - \xi_i \quad \text{and} \quad \xi_i \geq 0\]</div>
+<p>Let us mathematically isolate the behavior of our slack variable <span class="arithmatex">\(\xi_i\)</span> under these parallel inequality restrictions. We rearrange the terms to solve for our soft error values:</p>
+<div class="arithmatex">\[\xi_i \geq 1 - y_i\left(\vec{w}^T\vec{x}_i + b\right) \quad \text{and} \quad \xi_i \geq 0\]</div>
+<p>Because our objective function actively minimizes the sum of these slack components (<span class="arithmatex">\(\sum \xi_i\)</span>), the optimization loop will force <span class="arithmatex">\(\xi_i\)</span> to drop down until it hits the absolute lowest boundary value allowed by these inequality barriers. Therefore, at the optimum, the slack variable matches the maximum value of these two boundary constraints:</p>
+<div class="arithmatex">\[\xi_i = \max\left(0, \,\, 1 - y_i\left(\vec{w}^T\vec{x}_i + b\right)\right)\]</div>
+<p>We substitute this expression for <span class="arithmatex">\(\xi_i\)</span> directly back into our primal objective function:</p>
+<div class="arithmatex">\[\min_{\vec{w}, b} \left[ \frac{1}{2} \|\vec{w}\|_2^2 + C \sum_{i=1}^{N} \max\left(0, \,\, 1 - y_i\left(\vec{w}^T\vec{x}_i + b\right)\right) \right]\]</div>
+<p>To align this formulation with our standard regularized ERM blueprint, we divide the entire functional envelope by the positive hyperparameter constant <span class="arithmatex">\(C\)</span>:</p>
+<div class="arithmatex">\[\min_{\vec{w}, b} \left[ \sum_{i=1}^{N} \max\left(0, \,\, 1 - y_i\left(\vec{w}^T\vec{x}_i + b\right)\right) + \frac{1}{2C} \|\vec{w}\|_2^2 \right]\]</div>
+<p>The architecture is fully unified. Look at the resulting components under our ERM lens:</p>
+<ul>
+<li>The second term represents our standard quadratic <strong><span class="arithmatex">\(L_2\)</span> Regularization Penalty</strong> (<span class="arithmatex">\(\lambda \|\vec{w}\|_2^2\)</span>), where the regularization constant maps directly to our capacity ceiling: <span class="arithmatex">\(\lambda = \frac{1}{2C}\)</span>.</li>
+<li>The first term represents an explicit loss function known as the <strong>Hinge Loss Function</strong>:</li>
+</ul>
+<div class="arithmatex">\[L_{\text{Hinge}}\left(y_i, \,\, g(\vec{x}_i)\right) = \max\left(0, \,\, 1 - y_i g(\vec{x}_i)\right)\]</div>
+<p>The grand synthesis is complete. <strong>A Soft-Margin Support Vector Machine is not an arbitrary geometric heuristic. It is the exact mathematical equivalent of running Regularized Empirical Risk Minimization using a linear hypothesis space under a Hinge Loss penalty envelope coupled with an <span class="arithmatex">\(L_2\)</span> parameter norm constraint.</strong></p>
+<hr />
+<h3 id="336-the-scalability-wall-why-deep-learning-took-the-crown">33.6 The Scalability Wall: Why Deep Learning Took the Crown</h3>
+<p>The professor concludes the module with a historical perspective. In the late 1990s and early 2000s, SVMs reigned as the absolute state-of-the-art framework for predictive machine learning because they offered clean, convex optimization loops with provable generalization guarantees.</p>
+<p>However, as the digital era scaled, kernel machines hit a hard computing wall. Because the kernel trick requires evaluating a global Gram matrix <span class="arithmatex">\(\mathbf{K}\)</span> across every pairwise combination of training instances, <strong>the computational complexity of training an SVM scales quadratically with the sample size: <span class="arithmatex">\(\mathcal{O}(N^2)\)</span>.</strong> When your training folder scales from a few thousand samples to millions of entries, calculating and storing a massive <span class="arithmatex">\(N \times N\)</span> matrix breaks down completely. Furthermore, infinite-dimensional projection spaces do not guarantee linear separability when processing highly complex sensory data distributions. This scalability wall forced the industry to transition away from static kernel mappings and adopt the highly flexible, parameter-rich hierarchies of <strong>Deep Neural Networks</strong>.</p>
+<hr />
+<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
+<blockquote>
+<p><strong>The Generalist's Master Rules:</strong>
+1. <strong>The Kernel Shortcut Law:</strong> The Kernel Trick enables algorithms to evaluate inner products directly inside massive high-dimensional feature spaces (<span class="arithmatex">\(K(\vec{x}_i, \vec{x}_j) = \vec{\phi}(\vec{x}_i)^T \vec{\phi}(\vec{x}_j)\)</span>) using simple operations inside our native input space, entirely bypassing the curse of dimensionality.
+2. <strong>Mercer's Validation Criteria:</strong> A candidate bivariate function is a mathematically valid kernel if and only if its derived Gram matrix <span class="arithmatex">\(\mathbf{K}\)</span> evaluates as Positive Semi-Definite (<span class="arithmatex">\(\vec{v}^T \mathbf{K} \vec{v} \geq 0\)</span>) across all possible data configurations, guaranteeing the existence of a valid hidden projection space.
+3. <strong>The Hinge Loss Identity:</strong> A soft-margin SVM maps directly onto our foundational regularized ERM ledger. It minimizes an explicit piece-wise cost profile known as <strong>Hinge Loss</strong> (<span class="arithmatex">\(\max(0, 1 - y\cdot g(\vec{x}))\)</span>) under a standard <span class="arithmatex">\(L_2\)</span> parameter weight penalty.</p>
+</blockquote>
+<p>You are paying incredibly close attention, and these are two fantastic questions. Let’s address them directly, breaking down the deep theoretical reality of infinite-dimensional spaces first, and then confirming the algebraic hyperparameter connection.</p>
+<hr />
+<h2 id="1-can-data-truly-be-inseparable-in-infinite-dimensions">1. Can Data Truly Be Inseparable in Infinite Dimensions?</h2>
+<p>Yes, absolutely. To understand why, we have to look at the difference between a <strong>finite training sample</strong> and the <strong>true underlying probability distribution</strong> of real-world sensory data.</p>
+<h3 id="the-finite-training-dataset-case-the-math">The Finite Training Dataset Case (The Math)</h3>
+<p>If you have a finite training dataset of <span class="arithmatex">\(N\)</span> points, and every single input vector is unique (<span class="arithmatex">\(\vec{x}_i \neq \vec{x}_j\)</span> for all <span class="arithmatex">\(i \neq j\)</span>), then passing them through a Gaussian RBF kernel <strong>guarantees</strong> that the training data becomes perfectly linearly separable in that infinite-dimensional Hilbert space.</p>
+<p>Because the RBF kernel matrix is always full-rank under these conditions, the points become linearly independent vectors in the feature space. You can think of it like having <span class="arithmatex">\(N\)</span> points in an <span class="arithmatex">\(N\)</span>-dimensional space; you can always find a flat hyperplane to slice them into any binary combination you want.</p>
+<h3 id="the-real-world-breakdown-the-sensory-data-reality">The Real-World Breakdown (The Sensory Data Reality)</h3>
+<p>If infinite dimensions guarantee training separability, why do kernel machines fail on complex sensory data like natural images or speech audio? Two major reasons:</p>
+<h4 id="a-the-overlapping-support-problem-bayes-error">A. The Overlapping Support Problem (Bayes Error)</h4>
+<p>In complex sensory data, target classes routinely overlap in the input space. Imagine two real-world fields: Class <span class="arithmatex">\(+1\)</span> is "Images of Dogs" and Class <span class="arithmatex">\(-1\)</span> is "Images of Wolves." Because of camera noise, lighting variations, or genuine genetic similarities, there can be a specific pixel grid configuration <span class="arithmatex">\(\vec{x}_{\text{clash}}\)</span> that could realistically be either animal.</p>
+<p>In a massive dataset, you might encounter two independent historical instances where the feature coordinates are exactly identical, but their real-world labels are completely opposite:</p>
+<div class="arithmatex">\[\vec{x}_1 = \vec{x}_{\text{clash}} \to y_1 = +1\]</div>
+<div class="arithmatex">\[\vec{x}_2 = \vec{x}_{\text{clash}} \to y_2 = -1\]</div>
+<p>When you pass these points through a non-linear feature mapping <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span>, a deterministic function can only map a single input coordinate to a single output coordinate in the infinite-dimensional space:</p>
+<div class="arithmatex">\[\vec{\phi}(\vec{x}_1) \equiv \vec{\phi}(\vec{x}_2)\]</div>
+<p>You now have a single point in the infinite-dimensional Hilbert space holding two contradictory labels simultaneously. <strong>It is physically and mathematically impossible for any linear hyperplane to separate a point from itself.</strong> This boundary limit is known as the <strong>Bayes Error Rate</strong>—the irreducible noise ceiling of the environment.</p>
+<h4 id="b-the-curse-of-overfitting">B. The Curse of Overfitting</h4>
+<p>Even if your training points are slightly distinct and technically become linearly separable in infinite dimensions, forcing a straight line through that infinite space creates an incredibly jagged, volatile decision boundary back in the native input space. The model memorizes the training coordinates perfectly but completely fails to generalize to a validation split.</p>
+<hr />
+<h2 id="2-is-this-c-the-exact-same-capacity-ceil-from-before">2. Is this <span class="arithmatex">\(C\)</span> the Exact Same Capacity Ceil from Before?</h2>
+<p><strong>Yes, you nailed it.</strong> Your algebraic tracking is completely spot-on.</p>
+<p>The parameter <span class="arithmatex">\(C\)</span> in the final regularized Hinge Loss formulation:</p>
+<div class="arithmatex">\[\min_{\vec{w}, b} \left[ \sum_{i=1}^{N} \max\left(0, \,\, 1 - y_i\left(\vec{w}^T\vec{x}_i + b\right)\right) + \frac{1}{2C} \|\vec{w}\|_2^2 \right]\]</div>
+<p>...is the exact same structural hyperparameter <span class="arithmatex">\(C\)</span> introduced in the primal soft-margin objective function from the previous lecture:</p>
+<div class="arithmatex">\[\min_{\vec{w}, b, \vec{\xi}} \left[ \frac{1}{2} \|\vec{w}\|_2^2 + C \sum_{i=1}^{N} \xi_i \right]\]</div>
+<p>When we computed the Lagrangian partial derivative with respect to the slack variables (<span class="arithmatex">\(\xi_i\)</span>) and set it to zero, the calculus yielded the stationarity identity:</p>
+<div class="arithmatex">\[\frac{\partial \mathcal{L}}{\partial \xi_i} = 0 \implies C - \mu_i - \lambda_i = 0 \implies \mu_i + \lambda_i = C\]</div>
+<p>Because the Lagrange multipliers <span class="arithmatex">\(\mu_i\)</span> (governing the margin constraints) and <span class="arithmatex">\(\lambda_i\)</span> (governing the slack non-negativity constraints) are strictly non-negative by KKT demand (<span class="arithmatex">\(\mu_i \geq 0, \lambda_i \geq 0\)</span>), this identity forces a strict box boundary over our active dual variables:</p>
+<div class="arithmatex">\[0 \leq \mu_i \leq C\]</div>
+<p>By adjusting <span class="arithmatex">\(C\)</span> in your software package, you are simultaneously tuning the penalty weight assigned to slack errors in the primal domain, capping the maximum disruptive influence an individual support vector can exert in the dual domain (<span class="arithmatex">\(\mu_i \leq C\)</span>), and defining the scaling penalty of your <span class="arithmatex">\(L_2\)</span> weight decay regularizer (<span class="arithmatex">\(\lambda = \frac{1}{2C}\)</span>). It is a single structural dial operating across three distinct mathematical frameworks simultaneously.</p>
+<p>This is easily the most common point of confusion when studying Support Vector Machines, and it’s a brilliant paradox to wrap your head around.</p>
+<p>The short answer is: <strong>Both statements are true simultaneously.</strong> An SVM <em>only</em> knows how to draw a perfectly flat, straight, linear hyperplane. It is fundamentally incapable of bending a decision line.</p>
+<p>The magic of the kernel trick is that it lets the SVM draw a <strong>linear boundary in a hidden, high-dimensional space</strong>, which automatically translates to a <strong>non-linear boundary in your original input space</strong>.</p>
+<p>Here is exactly how this geometric illusion works.</p>
+<hr />
+<h2 id="the-paraboloid-illusion-2d-vs-3d">The Paraboloid Illusion: 2D vs. 3D</h2>
+<p>Let’s visualize a classic non-linearly separable dataset in your native 2D input space (<span class="arithmatex">\(\mathbb{R}^2\)</span>): a cluster of red dots in the center, completely surrounded by a ring of blue dots.</p>
+<p>There is absolutely no way to draw a straight line on this flat table to separate the red from the blue. You need a circle (a non-linear boundary).</p>
+<p>Now, let's apply a non-linear feature mapping, $ \vec{\phi}(\vec{x}) <span class="arithmatex">\(, to lift this data into a 3D feature space (\)</span>\mathbb{R}^3$). We will map the coordinates such that the <span class="arithmatex">\(z\)</span>-axis represents the distance of a point from the center: <span class="arithmatex">\(z = x_1^2 + x_2^2\)</span>.</p>
+<p>Look at what happens to the data geometry now:</p>
+<ul>
+<li>The red dots (close to the center) stay low, near the bottom.</li>
+<li>The blue dots (far from the center) get pushed up high into the air.</li>
+<li>Your flat 2D data has been warped into a 3D bowl (a paraboloid).</li>
+</ul>
+<h3 id="where-the-linear-vs-non-linear-split-happens">Where the "Linear" vs. "Non-Linear" Split Happens</h3>
+<p>Now, we unleash the SVM inside this new 3D space. Because the SVM is a <strong>linear classifier</strong>, it takes a flat, un-bent sheet of paper—a <strong>linear hyperplane</strong>—and slices straight through the empty space between the low red dots and the high blue dots.</p>
+<ul>
+<li><strong>In the 3D Feature Space:</strong> The decision boundary is <strong>100% linear</strong>. It is a completely flat plane. The equation is strictly linear with respect to the transformed coordinates: <span class="arithmatex">\(\vec{w}^T \vec{\phi}(\vec{x}) + b = 0\)</span>.</li>
+<li><strong>In the 2D Input Space:</strong> Look at the table beneath the bowl. Where that flat sheet of paper intersects the curved bowl, it casts a shadow back down onto the 2D floor. That shadow forms a <strong>perfect circle</strong>.</li>
+</ul>
+<p>To a two-dimensional observer trapped on the surface of the table, the boundary looks heavily <strong>curved and non-linear</strong>. But to the SVM operating in the higher-dimensional space, it is just a straight, flat line.</p>
+<hr />
+<h2 id="enter-the-kernel-trick">Enter the Kernel Trick</h2>
+<p>If we had to manually compute <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span> to lift every single data point into that higher dimension, it would be computationally brutal.</p>
+<p>The <strong>Kernel Trick</strong> is simply the mathematical shortcut that lets us calculate where that flat sheet of paper would intersect the data <em>without ever actually lifting the data into the higher dimension.</em> By substituting a kernel function like <span class="arithmatex">\(K(\vec{x}_i, \vec{x}_j)\)</span> into the dual objective, you are telling the model: <em>"Compute the relationships between these points as if they had been lifted into a hyper-dimensional space."</em></p>
+<div class="arithmatex">\[\text{Discriminant Interface: } \quad g(\vec{x}) = \sum_{i \in S} \mu_i^* y_i K(\vec{x}_i, \vec{x}) + b^*\]</div>
+<hr />
+<h2 id="summary-blueprint">Summary Blueprint</h2>
+<ul>
+<li><strong>The Architecture:</strong> The SVM engine remains stubbornly <strong>linear</strong>. It only optimizes a flat hyperplane.</li>
+<li><strong>The Geometry:</strong> By using a <strong>kernel</strong>, you warp the underlying space itself, not the classifier.</li>
+<li><strong>The Illusion:</strong> You are bending the data universe around a straight ruler, rather than trying to bend the ruler around the data. When you look at that straight ruler back in the unwarped universe, the ruler appears curved.</li>
+</ul>
+<p>Let's ground the geometric illusion of the kernel trick with actual numbers. We will pass two coordinate vectors through a quadratic mapping to prove exactly how the kernel function matches an explicit high-dimensional dot product down to the final decimal point, without ever computing a higher-dimensional coordinate.</p>
+<hr />
+<h2 id="1-the-setup">1. The Setup</h2>
+<p>We live in a 2D input space (<span class="arithmatex">\(\mathbb{R}^2\)</span>). We select two data vectors, <span class="arithmatex">\(\vec{a}\)</span> and <span class="arithmatex">\(\vec{b}\)</span>:</p>
+<div class="arithmatex">\[\vec{a} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \quad \vec{b} = \begin{bmatrix} 3 \\ 4 \end{bmatrix}\]</div>
+<p>We want to measure their similarity after projecting them into a 3D feature space (<span class="arithmatex">\(\mathbb{R}^3\)</span>) using a homogeneous quadratic mapping function, <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span>:</p>
+<div class="arithmatex">\[\vec{\phi}(\vec{x}) = \begin{bmatrix} x_1^2 \\ x_2^2 \\ \sqrt{2}x_1x_2 \end{bmatrix}\]</div>
+<hr />
+<h2 id="2-path-a-the-hard-way-explicit-projection-dot-product">2. Path A: The Hard Way (Explicit Projection &amp; Dot Product)</h2>
+<p>First, we will manually transform both vectors into 3D space using our mapping function and calculate their dot product.</p>
+<h3 id="step-1-project-vector-veca-into-mathbbr3">Step 1: Project vector <span class="arithmatex">\(\vec{a}\)</span> into <span class="arithmatex">\(\mathbb{R}^3\)</span></h3>
+<div class="arithmatex">\[\vec{\phi}(\vec{a}) = \vec{\phi}\left(\begin{bmatrix} 1 \\ 2 \end{bmatrix}\right) = \begin{bmatrix} 1^2 \\ 2^2 \\ \sqrt{2}(1)(2) \end{bmatrix} = \begin{bmatrix} 1 \\ 4 \\ 2\sqrt{2} \end{bmatrix}\]</div>
+<h3 id="step-2-project-vector-vecb-into-mathbbr3">Step 2: Project vector <span class="arithmatex">\(\vec{b}\)</span> into <span class="arithmatex">\(\mathbb{R}^3\)</span></h3>
+<div class="arithmatex">\[\vec{\phi}(\vec{b}) = \vec{\phi}\left(\begin{bmatrix} 3 \\ 4 \end{bmatrix}\right) = \begin{bmatrix} 3^2 \\ 4^2 \\ \sqrt{2}(3)(4) \end{bmatrix} = \begin{bmatrix} 9 \\ 16 \\ 12\sqrt{2} \end{bmatrix}\]</div>
+<h3 id="step-3-compute-the-inner-product-in-mathbbr3">Step 3: Compute the inner product in <span class="arithmatex">\(\mathbb{R}^3\)</span></h3>
+<div class="arithmatex">\[\vec{\phi}(\vec{a})^T \vec{\phi}(\vec{b}) = (1 \cdot 9) + (4 \cdot 16) + (2\sqrt{2} \cdot 12\sqrt{2})\]</div>
+<div class="arithmatex">\[\vec{\phi}(\vec{a})^T \vec{\phi}(\vec{b}) = 9 + 64 + (24 \cdot 2)\]</div>
+<div class="arithmatex">\[\vec{\phi}(\vec{a})^T \vec{\phi}(\vec{b}) = 9 + 64 + 48 = \mathbf{121}\]</div>
+<p>The explicit higher-dimensional calculation yields <strong>121</strong>. This required tracking non-linear cross-terms and computing square roots.</p>
+<hr />
+<h2 id="3-path-b-the-kernel-trick-the-mathematical-shortcut">3. Path B: The Kernel Trick (The Mathematical Shortcut)</h2>
+<p>Now, we bypass the mapping function entirely. We define a homogeneous quadratic kernel function, <span class="arithmatex">\(K(\vec{x}, \vec{x}')\)</span>, that operates exclusively on our original 2D coordinates:</p>
+<div class="arithmatex">\[K(\vec{x}, \vec{x}') = (\vec{x}^T \vec{x}')^2\]</div>
+<h3 id="step-1-compute-the-standard-dot-product-in-the-native-2d-space-mathbbr2">Step 1: Compute the standard dot product in the native 2D space (<span class="arithmatex">\(\mathbb{R}^2\)</span>)</h3>
+<div class="arithmatex">\[\vec{a}^T \vec{b} = (1 \cdot 3) + (2 \cdot 4) = 3 + 8 = 11\]</div>
+<h3 id="step-2-apply-the-kernels-squaring-envelope">Step 2: Apply the kernel's squaring envelope</h3>
+<div class="arithmatex">\[K(\vec{a}, \vec{b}) = (\vec{a}^T \vec{b})^2 = (11)^2 = \mathbf{121}\]</div>
+<p>The shortcut yields exactly <strong>121</strong>.</p>
+<hr />
+<h2 id="why-this-works-the-algebraic-proof">Why This Works: The Algebraic Proof</h2>
+<p>The reason Method B matches Method A perfectly is because the kernel function is the algebraic expansion of the dot product itself. Let's look at the general proof for any two 2D vectors <span class="arithmatex">\(\vec{x} = [x_1, x_2]^T\)</span> and <span class="arithmatex">\(\vec{z} = [z_1, z_2]^T\)</span>:</p>
+<div class="arithmatex">\[\text{Kernel Expansion: } \quad K(\vec{x}, \vec{z}) = (\vec{x}^T \vec{z})^2 = (x_1z_1 + x_2z_2)^2\]</div>
+<div class="arithmatex">\[K(\vec{x}, \vec{z}) = (x_1z_1)^2 + (x_2z_2)^2 + 2(x_1z_1)(x_2z_2)\]</div>
+<div class="arithmatex">\[K(\vec{x}, \vec{z}) = (x_1^2)(z_1^2) + (x_2^2)(z_2^2) + (\sqrt{2}x_1x_2)(\sqrt{2}z_1z_2)\]</div>
+<p>Now look at that final line. It is the exact definition of a dot product between two 3D vectors:</p>
+<div class="arithmatex">\[\begin{bmatrix} x_1^2 \\ x_2^2 \\ \sqrt{2}x_1x_2 \end{bmatrix} \cdot \begin{bmatrix} z_1^2 \\ z_2^2 \\ \sqrt{2}z_1z_2 \end{bmatrix} \equiv \vec{\phi}(\vec{x})^T \vec{\phi}(\vec{z})\]</div>
+<hr />
+<h2 id="how-this-achieves-non-linear-separation">How This Achieves Non-Linear Separation</h2>
+<p>To see how this specific calculation translates to a non-linear boundary, imagine a 2D dataset where Class <span class="arithmatex">\(+1\)</span> is a single point at the origin <span class="arithmatex">\([0, 0]^T\)</span>, and Class <span class="arithmatex">\(-1\)</span> consists of points sitting on a circle of radius 2 (such as <span class="arithmatex">\([2, 0]^T\)</span> and <span class="arithmatex">\([0, 2]^T\)</span>).</p>
+<p>If we pass these points through our 3D mapping <span class="arithmatex">\(\vec{\phi}(\vec{x}) = [x_1^2, x_2^2, \sqrt{2}x_1x_2]^T\)</span>:</p>
+<ul>
+<li>The origin point maps to: <span class="arithmatex">\(\vec{\phi}([0,0]) = [0, 0, 0]^T\)</span>.</li>
+<li>The circle points map to: <span class="arithmatex">\(\vec{\phi}([2,0]) = [4, 0, 0]^T\)</span> and <span class="arithmatex">\(\vec{\phi}([0,2]) = [0, 4, 0]^T\)</span>.</li>
+</ul>
+<p>In the original 2D space, you cannot separate the origin from the surrounding ring with a straight line. But in the 3D space, the origin stays at <span class="arithmatex">\(0\)</span> while the ring points are pushed out to a distance of <span class="arithmatex">\(4\)</span> along the axes.</p>
+<p>An SVM operating in 3D can cleanly draw a flat linear hyperplane—like <span class="arithmatex">\(w_1x_1 + w_2x_2 = 2\)</span>—to separate them. When you project the shadow of that flat 3D plane back down onto the 2D floor, it creates a circular decision boundary (<span class="arithmatex">\(x_1^2 + x_2^2 = 2\)</span>). The kernel trick handles all of this geometry using basic 2D multiplication.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

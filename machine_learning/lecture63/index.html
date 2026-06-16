@@ -1,0 +1,3806 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture62/">
+      
+      
+        <link rel="next" href="../lecture64/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture63 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-66-foundations-of-generative-modeling" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture63
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#661-from-discriminative-to-generative-a-shift-in-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.1 From Discriminative to Generative: A Shift in Goals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#662-taxonomy-explicit-vs-implicit-density-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.2 Taxonomy: Explicit vs. Implicit Density Estimation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#663-conditional-vs-unconditional-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.3 Conditional vs. Unconditional Generation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#664-the-sampling-problem-a-precise-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.4 The Sampling Problem: A Precise Formulation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#665-the-universal-starting-point-uniform-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.5 The Universal Starting Point: Uniform Sampling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#666-the-fundamental-theorem-of-generative-modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.6 The Fundamental Theorem of Generative Modeling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.6 The Fundamental Theorem of Generative Modeling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6661-the-push-forward-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.6.1 The Push-Forward Principle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6662-finding-theta-divergence-minimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.6.2 Finding \(\theta^*\): Divergence Minimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#667-the-inverse-cdf-method-a-first-concrete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.7 The Inverse CDF Method: A First Concrete Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.7 The Inverse CDF Method: A First Concrete Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6671-the-probability-integral-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.7.1 The Probability Integral Transform
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6672-the-inverse-transform-method-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.7.2 The Inverse Transform Method (Sampling)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6673-limitations-and-the-motivation-for-learned-g_theta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.7.3 Limitations and the Motivation for Learned \(G_\theta\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#668-generalization-of-the-inverse-cdf-learned-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.8 Generalization of the Inverse CDF: Learned Generators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.8 Generalization of the Inverse CDF: Learned Generators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6681-why-any-measurable-g_theta-works-in-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.8.1 Why Any Measurable \(G_\theta\) Works in Principle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6682-the-change-of-variables-formula-for-neural-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.8.2 The Change-of-Variables Formula for Neural Generators
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#669-generative-adversarial-networks-gans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.9 Generative Adversarial Networks (GANs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.9 Generative Adversarial Networks (GANs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6691-setup-and-motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.9.1 Setup and Motivation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6692-the-gan-objective-deriving-the-value-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.9.2 The GAN Objective: Deriving the Value Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6693-worked-example-gan-on-a-1d-gaussian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.9.3 Worked Example: GAN on a 1D Gaussian
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6694-training-procedure-and-practical-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.9.4 Training Procedure and Practical Considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6610-variational-autoencoders-vaes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.10 Variational Autoencoders (VAEs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.10 Variational Autoencoders (VAEs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#66101-the-problem-intractable-marginals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.10.1 The Problem: Intractable Marginals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66102-the-evidence-lower-bound-elbo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.10.2 The Evidence Lower Bound (ELBO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66103-the-reparameterization-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.10.3 The Reparameterization Trick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66104-closed-form-kl-for-gaussian-prior-and-posterior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.10.4 Closed-Form KL for Gaussian Prior and Posterior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66105-vae-sampling-at-test-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.10.5 VAE Sampling at Test Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6611-autoregressive-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.11 Autoregressive Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.11 Autoregressive Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#66111-the-chain-rule-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.11.1 The Chain Rule Decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66112-autoregressive-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.11.2 Autoregressive Sampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66113-language-models-as-autoregressive-samplers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.11.3 Language Models as Autoregressive Samplers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66114-example-next-token-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.11.4 Example: Next-Token Prediction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6612-evaluating-generative-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.12 Evaluating Generative Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.12 Evaluating Generative Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#66121-test-set-log-likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.12.1 Test Set Log-Likelihood
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66122-frechet-inception-distance-fid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.12.2 Fréchet Inception Distance (FID)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66123-overfitting-in-generative-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.12.3 Overfitting in Generative Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6613-connecting-the-three-families-a-unified-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.13 Connecting the Three Families: A Unified View
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6614-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.14 Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#661-from-discriminative-to-generative-a-shift-in-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.1 From Discriminative to Generative: A Shift in Goals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#662-taxonomy-explicit-vs-implicit-density-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.2 Taxonomy: Explicit vs. Implicit Density Estimation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#663-conditional-vs-unconditional-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.3 Conditional vs. Unconditional Generation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#664-the-sampling-problem-a-precise-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.4 The Sampling Problem: A Precise Formulation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#665-the-universal-starting-point-uniform-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.5 The Universal Starting Point: Uniform Sampling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#666-the-fundamental-theorem-of-generative-modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.6 The Fundamental Theorem of Generative Modeling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.6 The Fundamental Theorem of Generative Modeling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6661-the-push-forward-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.6.1 The Push-Forward Principle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6662-finding-theta-divergence-minimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.6.2 Finding \(\theta^*\): Divergence Minimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#667-the-inverse-cdf-method-a-first-concrete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.7 The Inverse CDF Method: A First Concrete Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.7 The Inverse CDF Method: A First Concrete Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6671-the-probability-integral-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.7.1 The Probability Integral Transform
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6672-the-inverse-transform-method-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.7.2 The Inverse Transform Method (Sampling)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6673-limitations-and-the-motivation-for-learned-g_theta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.7.3 Limitations and the Motivation for Learned \(G_\theta\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#668-generalization-of-the-inverse-cdf-learned-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.8 Generalization of the Inverse CDF: Learned Generators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.8 Generalization of the Inverse CDF: Learned Generators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6681-why-any-measurable-g_theta-works-in-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.8.1 Why Any Measurable \(G_\theta\) Works in Principle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6682-the-change-of-variables-formula-for-neural-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.8.2 The Change-of-Variables Formula for Neural Generators
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#669-generative-adversarial-networks-gans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.9 Generative Adversarial Networks (GANs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.9 Generative Adversarial Networks (GANs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6691-setup-and-motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.9.1 Setup and Motivation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6692-the-gan-objective-deriving-the-value-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.9.2 The GAN Objective: Deriving the Value Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6693-worked-example-gan-on-a-1d-gaussian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.9.3 Worked Example: GAN on a 1D Gaussian
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6694-training-procedure-and-practical-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.9.4 Training Procedure and Practical Considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6610-variational-autoencoders-vaes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.10 Variational Autoencoders (VAEs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.10 Variational Autoencoders (VAEs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#66101-the-problem-intractable-marginals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.10.1 The Problem: Intractable Marginals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66102-the-evidence-lower-bound-elbo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.10.2 The Evidence Lower Bound (ELBO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66103-the-reparameterization-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.10.3 The Reparameterization Trick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66104-closed-form-kl-for-gaussian-prior-and-posterior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.10.4 Closed-Form KL for Gaussian Prior and Posterior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66105-vae-sampling-at-test-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.10.5 VAE Sampling at Test Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6611-autoregressive-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.11 Autoregressive Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.11 Autoregressive Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#66111-the-chain-rule-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.11.1 The Chain Rule Decomposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66112-autoregressive-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.11.2 Autoregressive Sampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66113-language-models-as-autoregressive-samplers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.11.3 Language Models as Autoregressive Samplers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66114-example-next-token-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.11.4 Example: Next-Token Prediction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6612-evaluating-generative-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.12 Evaluating Generative Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="66.12 Evaluating Generative Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#66121-test-set-log-likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.12.1 Test Set Log-Likelihood
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66122-frechet-inception-distance-fid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.12.2 Fréchet Inception Distance (FID)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66123-overfitting-in-generative-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.12.3 Overfitting in Generative Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6613-connecting-the-three-families-a-unified-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.13 Connecting the Three Families: A Unified View
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6614-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        66.14 Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-66-foundations-of-generative-modeling">Chapter 66: Foundations of Generative Modeling</h1>
+<hr />
+<h2 id="661-from-discriminative-to-generative-a-shift-in-goals">66.1 From Discriminative to Generative: A Shift in Goals</h2>
+<p>Throughout this course, the central object of study has been a fixed but unknown probability distribution <span class="arithmatex">\(p(\mathbf{x})\)</span> defined over some space <span class="arithmatex">\(\mathcal{X} \subseteq \mathbb{R}^d\)</span>. We are never given <span class="arithmatex">\(p(\mathbf{x})\)</span> directly. What we are given is a dataset</p>
+<div class="arithmatex">\[\mathcal{D} = \{\mathbf{x}^{(1)}, \mathbf{x}^{(2)}, \ldots, \mathbf{x}^{(n)}\}\]</div>
+<p>where each <span class="arithmatex">\(\mathbf{x}^{(i)} \stackrel{\text{i.i.d.}}{\sim} p(\mathbf{x})\)</span>. Every method we have studied — maximum likelihood estimation, kernel density estimation, neural network classifiers, support vector machines — has been, at its mathematical core, an attempt to estimate <span class="arithmatex">\(p(\mathbf{x})\)</span> or some functional of it from these <span class="arithmatex">\(n\)</span> samples.</p>
+<p>Recall the two broad regimes we identified:</p>
+<p><strong>Supervised (discriminative) learning</strong> estimates the conditional distribution <span class="arithmatex">\(p(y \mid \mathbf{x})\)</span>. We observe pairs <span class="arithmatex">\((\mathbf{x}^{(i)}, y^{(i)})\)</span> and use them to construct an approximation <span class="arithmatex">\(p_\theta(y \mid \mathbf{x})\)</span>. A neural network trained with cross-entropy loss does this implicitly, without ever committing to a parametric family for the full joint <span class="arithmatex">\(p(\mathbf{x}, y)\)</span>.</p>
+<p><strong>Unsupervised learning</strong> estimates the marginal <span class="arithmatex">\(p(\mathbf{x})\)</span> — the distribution of the data itself, with no labels.</p>
+<p>Generative models live in the unsupervised regime, but they impose a strictly stronger requirement than mere distribution estimation:</p>
+<blockquote>
+<p><strong>Definition 66.1 (Goal of Generative Modeling).</strong> Given <span class="arithmatex">\(\mathcal{D} \stackrel{\text{i.i.d.}}{\sim} p(\mathbf{x})\)</span>, a generative model must:
+1. Estimate <span class="arithmatex">\(p(\mathbf{x})\)</span>, and
+2. Provide an efficient algorithm to draw new samples <span class="arithmatex">\(\tilde{\mathbf{x}} \sim p(\mathbf{x})\)</span>.</p>
+</blockquote>
+<p>The second requirement is what distinguishes generative models from the discriminative and density-estimation methods we have already studied. A kernel density estimator, for instance, gives us an estimate <span class="arithmatex">\(\hat{p}(\mathbf{x})\)</span> that we can evaluate at any point, but drawing a fresh sample from <span class="arithmatex">\(\hat{p}\)</span> requires additional work. A generative model, by definition, is constructed so that sampling is a first-class operation.</p>
+<hr />
+<h2 id="662-taxonomy-explicit-vs-implicit-density-estimation">66.2 Taxonomy: Explicit vs. Implicit Density Estimation</h2>
+<p>The same explicit/implicit dichotomy we introduced for discriminative models applies here.</p>
+<p><strong>Explicit generative models</strong> commit to a parametric family <span class="arithmatex">\(\{p_\theta(\mathbf{x}) : \theta \in \Theta\}\)</span> and fit <span class="arithmatex">\(\theta\)</span> by some form of divergence minimization (most commonly maximum likelihood, which minimizes the KL divergence from the empirical distribution to the model). Once <span class="arithmatex">\(\theta\)</span> is fit, sampling requires inverting or simulating the assumed family.</p>
+<p><em>Example.</em> A Gaussian mixture model (GMM) is an explicit generative model. We assume</p>
+<div class="arithmatex">\[p_\theta(\mathbf{x}) = \sum_{k=1}^K \pi_k \, \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)\]</div>
+<p>with <span class="arithmatex">\(\theta = \{\pi_k, \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k\}_{k=1}^K\)</span>. Maximum likelihood via the EM algorithm gives <span class="arithmatex">\(\hat\theta\)</span>. Sampling from <span class="arithmatex">\(p_{\hat\theta}\)</span> is easy: draw a component <span class="arithmatex">\(k \sim \text{Categorical}(\hat\pi_1, \ldots, \hat\pi_K)\)</span>, then draw <span class="arithmatex">\(\mathbf{x} \sim \mathcal{N}(\hat{\boldsymbol{\mu}}_k, \hat{\boldsymbol{\Sigma}}_k)\)</span>.</p>
+<p><strong>Implicit generative models</strong> never write down a tractable closed form for <span class="arithmatex">\(p_\theta(\mathbf{x})\)</span>. Instead, they define a <em>procedure</em> to generate samples, and the distribution that procedure induces on <span class="arithmatex">\(\mathcal{X}\)</span> is <span class="arithmatex">\(p_\theta(\mathbf{x})\)</span> — even if <span class="arithmatex">\(p_\theta\)</span> has no closed-form expression. We will see that the most powerful modern architectures — GANs, VAEs, and autoregressive models — are all, in different ways, implicit or semi-implicit.</p>
+<hr />
+<h2 id="663-conditional-vs-unconditional-generation">66.3 Conditional vs. Unconditional Generation</h2>
+<p>Just as supervised learning can be seen as conditional distribution estimation, generative models can operate conditionally or unconditionally.</p>
+<p><strong>Unconditional generation</strong> models and samples from the marginal <span class="arithmatex">\(p(\mathbf{x})\)</span>. The model receives no additional information specifying what kind of sample to produce. The website <code>thispersonisnotexist.com</code> is a canonical example: you send a random noise vector <span class="arithmatex">\(\mathbf{z}\)</span> and receive a photorealistic human face sampled from <span class="arithmatex">\(p(\mathbf{x})\)</span>, the marginal distribution of human face images.</p>
+<p><strong>Conditional generation</strong> models and samples from a conditional distribution <span class="arithmatex">\(p(\mathbf{x} \mid \mathbf{y})\)</span>, where <span class="arithmatex">\(\mathbf{y}\)</span> is some conditioning variable (a text prompt, a class label, a partially observed image, etc.). Mathematically:</p>
+<div class="arithmatex">\[\tilde{\mathbf{x}} \sim p(\mathbf{x} \mid \mathbf{y} = \mathbf{y}_0)\]</div>
+<p>where <span class="arithmatex">\(\mathbf{y}_0\)</span> is the specific conditioning value provided at inference time.</p>
+<p><em>Example: Text-to-image generation.</em> Here <span class="arithmatex">\(\mathbf{y}\)</span> is a text embedding (a vector representation of a caption such as "a cat sitting on a red sofa") and <span class="arithmatex">\(\mathbf{x}\)</span> is a high-dimensional image vector. The model learns <span class="arithmatex">\(p(\mathbf{x} \mid \mathbf{y})\)</span> from millions of (caption, image) pairs.</p>
+<p><em>Example: Large Language Models.</em> An LLM is a conditional generative model over token sequences. Given a prompt <span class="arithmatex">\(\mathbf{y} = (y_1, \ldots, y_t)\)</span>, it models</p>
+<div class="arithmatex">\[p(\mathbf{x} \mid \mathbf{y}) = p(x_{t+1}, x_{t+2}, \ldots \mid y_1, \ldots, y_t)\]</div>
+<p>and generates by sequentially sampling one token at a time:</p>
+<div class="arithmatex">\[x_{t+1} \sim p(x_{t+1} \mid y_1, \ldots, y_t), \quad x_{t+2} \sim p(x_{t+2} \mid y_1, \ldots, y_t, x_{t+1}), \quad \ldots\]</div>
+<p>This is the <strong>autoregressive sampling</strong> paradigm, and we will return to it in Section 66.8.</p>
+<p>The mathematical tools for unconditional generation are foundational and apply, with minor modifications, to the conditional case as well. We therefore develop the unconditional theory first.</p>
+<hr />
+<h2 id="664-the-sampling-problem-a-precise-formulation">66.4 The Sampling Problem: A Precise Formulation</h2>
+<p>Before we can build generative models, we need to be precise about what it means to "sample from a distribution."</p>
+<p>Recall from Chapter 1: a probability space is a triple <span class="arithmatex">\((\Omega, \mathcal{F}, \mathbb{P})\)</span>. A random variable <span class="arithmatex">\(X : \Omega \to \mathcal{X}\)</span> is a measurable function from the sample space <span class="arithmatex">\(\Omega\)</span> to the data space <span class="arithmatex">\(\mathcal{X}\)</span>. The distribution <span class="arithmatex">\(p(\mathbf{x})\)</span> is the pushforward of <span class="arithmatex">\(\mathbb{P}\)</span> through <span class="arithmatex">\(X\)</span>: for any measurable set <span class="arithmatex">\(A \subseteq \mathcal{X}\)</span>,</p>
+<div class="arithmatex">\[p(A) = \mathbb{P}(X^{-1}(A)) = \mathbb{P}(\{\omega \in \Omega : X(\omega) \in A\})\]</div>
+<p>Our data <span class="arithmatex">\(\mathbf{x}^{(i)} \in \mathcal{X}\)</span> are elements of the range of <span class="arithmatex">\(X\)</span>. They came from conducting the underlying random experiment <span class="arithmatex">\(n\)</span> times. To generate new data, we need to conduct that random experiment again — but we do not have access to <span class="arithmatex">\(\Omega\)</span>, to <span class="arithmatex">\(\mathbb{P}\)</span>, or to the experiment itself. All we have is <span class="arithmatex">\(\mathcal{D}\)</span>, the observed outputs <span class="arithmatex">\(\mathbf{x}^{(i)} \in \mathcal{X}\)</span>.</p>
+<blockquote>
+<p><strong>The sampling problem:</strong> Given <span class="arithmatex">\(\mathcal{D} = \{\mathbf{x}^{(i)}\}_{i=1}^n\)</span> drawn i.i.d. from an unknown <span class="arithmatex">\(p(\mathbf{x})\)</span>, produce new points <span class="arithmatex">\(\tilde{\mathbf{x}} \in \mathcal{X}\)</span> such that <span class="arithmatex">\(\tilde{\mathbf{x}} \sim p(\mathbf{x})\)</span> — that is, such that the law of <span class="arithmatex">\(\tilde{\mathbf{x}}\)</span> is <span class="arithmatex">\(p\)</span>.</p>
+</blockquote>
+<p>The phrase "such that the law of <span class="arithmatex">\(\tilde{\mathbf{x}}\)</span> is <span class="arithmatex">\(p\)</span>" is crucial. It is <em>not</em> sufficient that <span class="arithmatex">\(\tilde{\mathbf{x}} \in \mathcal{D}\)</span>; that would make the generative model a lookup table. We want the model to generalize: to produce points that <span class="arithmatex">\(p\)</span> assigns high probability to, including points never seen in <span class="arithmatex">\(\mathcal{D}\)</span>.</p>
+<p>The correct criterion is <strong>distributional</strong>: the empirical distribution of infinitely many samples from our model should converge to <span class="arithmatex">\(p(\mathbf{x})\)</span>. In other words, if <span class="arithmatex">\(\tilde{\mathbf{x}}^{(1)}, \tilde{\mathbf{x}}^{(2)}, \ldots\)</span> are generated by our model, then for any measurable <span class="arithmatex">\(A\)</span>,</p>
+<div class="arithmatex">\[\frac{1}{m}\sum_{j=1}^m \mathbf{1}[\tilde{\mathbf{x}}^{(j)} \in A] \xrightarrow{m \to \infty} p(A)\]</div>
+<p>This rules out trivial solutions (like memorizing <span class="arithmatex">\(\mathcal{D}\)</span>) and sets the correct target for learning.</p>
+<hr />
+<h2 id="665-the-universal-starting-point-uniform-sampling">66.5 The Universal Starting Point: Uniform Sampling</h2>
+<p>Every generative model, regardless of its architecture or family, rests on a single foundational assumption:</p>
+<blockquote>
+<p><strong>Assumption 66.1.</strong> We know how to sample from the uniform distribution <span class="arithmatex">\(\text{Uniform}[0,1]\)</span>.</p>
+</blockquote>
+<p>This assumption is taken as given. In practice, it is satisfied by pseudo-random number generators (PRNGs) — deterministic algorithms that produce sequences of numbers statistically indistinguishable from <span class="arithmatex">\(\text{Uniform}[0,1]\)</span> samples. The famous Mersenne Twister, linear congruential generators, and modern cryptographic PRNGs all serve this purpose. There is a deep irony here: we produce "randomness" using purely deterministic computation.</p>
+<p>Everything else — sampling from a Gaussian, a Gamma, a Dirichlet, or a learned neural network distribution — reduces to:
+1. Draw <span class="arithmatex">\(Z \sim \text{Uniform}[0,1]\)</span> (or a vector <span class="arithmatex">\(\mathbf{Z} \sim \text{Uniform}[0,1]^k\)</span>), and
+2. Apply a deterministic transformation <span class="arithmatex">\(G\)</span> to <span class="arithmatex">\(\mathbf{Z}\)</span> so that <span class="arithmatex">\(G(\mathbf{Z})\)</span> has the target distribution.</p>
+<p>The question is: what should <span class="arithmatex">\(G\)</span> be?</p>
+<hr />
+<h2 id="666-the-fundamental-theorem-of-generative-modeling">66.6 The Fundamental Theorem of Generative Modeling</h2>
+<p>We now state and prove the core result that underlies all generative modeling.</p>
+<h3 id="6661-the-push-forward-principle">66.6.1 The Push-Forward Principle</h3>
+<p><strong>Theorem 66.1 (Push-Forward Principle).</strong> Let <span class="arithmatex">\(\mathbf{Z} \sim p_Z(\mathbf{z})\)</span> be a random variable on <span class="arithmatex">\(\mathcal{Z}\)</span>, and let <span class="arithmatex">\(G_\theta : \mathcal{Z} \to \mathcal{X}\)</span> be a (measurable) deterministic function parameterized by <span class="arithmatex">\(\theta\)</span>. Define <span class="arithmatex">\(\tilde{\mathbf{X}} = G_\theta(\mathbf{Z})\)</span>. Then <span class="arithmatex">\(\tilde{\mathbf{X}}\)</span> is a random variable on <span class="arithmatex">\(\mathcal{X}\)</span>, and its distribution <span class="arithmatex">\(p_\theta(\mathbf{x})\)</span> — the <em>push-forward</em> of <span class="arithmatex">\(p_Z\)</span> through <span class="arithmatex">\(G_\theta\)</span> — is generally different from <span class="arithmatex">\(p_Z\)</span>.</p>
+<p><em>Proof sketch.</em> <span class="arithmatex">\(\tilde{X}\)</span> is a random variable because it is the composition of two measurable functions: <span class="arithmatex">\(\omega \mapsto Z(\omega)\)</span> and <span class="arithmatex">\(G_\theta\)</span>. The composite <span class="arithmatex">\(\omega \mapsto G_\theta(Z(\omega))\)</span> is measurable, hence a random variable. For any measurable <span class="arithmatex">\(A \subseteq \mathcal{X}\)</span>,</p>
+<div class="arithmatex">\[p_\theta(A) = \mathbb{P}(\tilde{X} \in A) = \mathbb{P}(Z \in G_\theta^{-1}(A)) = p_Z(G_\theta^{-1}(A))\]</div>
+<p>which in general differs from <span class="arithmatex">\(p_Z(A)\)</span> unless <span class="arithmatex">\(G_\theta\)</span> is the identity. <span class="arithmatex">\(\blacksquare\)</span></p>
+<p><strong>Consequence.</strong> If we can find <span class="arithmatex">\(\theta^*\)</span> such that the push-forward distribution <span class="arithmatex">\(p_{\theta^*}\)</span> matches the target <span class="arithmatex">\(p(\mathbf{x})\)</span>, then the following procedure samples from <span class="arithmatex">\(p(\mathbf{x})\)</span>:</p>
+<blockquote>
+<p><strong>Generative Sampling Procedure:</strong>
+1. Draw <span class="arithmatex">\(\mathbf{z} \sim p_Z(\mathbf{z})\)</span> (our known distribution, e.g. <span class="arithmatex">\(\text{Uniform}[0,1]^k\)</span> or <span class="arithmatex">\(\mathcal{N}(\mathbf{0}, \mathbf{I})\)</span>).
+2. Compute <span class="arithmatex">\(\tilde{\mathbf{x}} = G_{\theta^*}(\mathbf{z})\)</span>.
+3. Output <span class="arithmatex">\(\tilde{\mathbf{x}}\)</span>.</p>
+</blockquote>
+<p>This is the entire intellectual foundation of generative modeling.</p>
+<h3 id="6662-finding-theta-divergence-minimization">66.6.2 Finding <span class="arithmatex">\(\theta^*\)</span>: Divergence Minimization</h3>
+<p>How do we find <span class="arithmatex">\(\theta^*\)</span>? We minimize a divergence (or dissimilarity measure) between <span class="arithmatex">\(p_\theta\)</span> and <span class="arithmatex">\(p\)</span>:</p>
+<div class="arithmatex">\[\theta^* = \arg\min_\theta \, D(p \,\|\, p_\theta)\]</div>
+<p>where <span class="arithmatex">\(D(\cdot \,\|\, \cdot)\)</span> is some measure of discrepancy between distributions. Different choices of <span class="arithmatex">\(D\)</span> give different generative model families:</p>
+<table>
+<thead>
+<tr>
+<th>Choice of <span class="arithmatex">\(D\)</span></th>
+<th>Model Family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KL divergence <span class="arithmatex">\(D_{\text{KL}}(p \| p_\theta)\)</span></td>
+<td>Maximum Likelihood / VAE (ELBO)</td>
+</tr>
+<tr>
+<td>Jensen-Shannon divergence</td>
+<td>GAN (original formulation)</td>
+</tr>
+<tr>
+<td>Wasserstein distance</td>
+<td>Wasserstein GAN (WGAN)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f\)</span>-divergences</td>
+<td><span class="arithmatex">\(f\)</span>-GAN family</td>
+</tr>
+<tr>
+<td>Score matching</td>
+<td>Score-based / Diffusion models</td>
+</tr>
+</tbody>
+</table>
+<p>The design choices reduce to three fundamental questions:</p>
+<blockquote>
+<ol>
+<li><strong>What is <span class="arithmatex">\(G_\theta\)</span>?</strong> (Architecture of the generator)</li>
+<li><strong>What is <span class="arithmatex">\(D\)</span>?</strong> (Which divergence to minimize)</li>
+<li><strong>How do we solve <span class="arithmatex">\(\min_\theta D(p \| p_\theta)\)</span>?</strong> (Optimization, given that we cannot evaluate <span class="arithmatex">\(p\)</span>)</li>
+</ol>
+</blockquote>
+<p>The entire literature on generative models is, in a precise sense, a catalogue of different answers to these three questions.</p>
+<hr />
+<h2 id="667-the-inverse-cdf-method-a-first-concrete-example">66.7 The Inverse CDF Method: A First Concrete Example</h2>
+<p>To make the Push-Forward Principle concrete before we introduce neural networks, we examine the classical <strong>Inverse CDF (Probability Integral Transform)</strong> method. It is the simplest instance of the framework and illuminates why the general approach works.</p>
+<h3 id="6671-the-probability-integral-transform">66.7.1 The Probability Integral Transform</h3>
+<p><strong>Theorem 66.2 (Probability Integral Transform).</strong> Let <span class="arithmatex">\(X\)</span> be a continuous random variable with CDF <span class="arithmatex">\(F_X(x) = \mathbb{P}(X \leq x)\)</span>. Define <span class="arithmatex">\(U = F_X(X)\)</span>. Then <span class="arithmatex">\(U \sim \text{Uniform}[0,1]\)</span>.</p>
+<p><em>Proof.</em> For <span class="arithmatex">\(u \in [0,1]\)</span>:</p>
+<div class="arithmatex">\[\mathbb{P}(U \leq u) = \mathbb{P}(F_X(X) \leq u) = \mathbb{P}(X \leq F_X^{-1}(u)) = F_X(F_X^{-1}(u)) = u\]</div>
+<p>where the third equality uses the fact that <span class="arithmatex">\(F_X\)</span> is non-decreasing and the last equality uses the definition of the inverse. Since <span class="arithmatex">\(\mathbb{P}(U \leq u) = u\)</span> for all <span class="arithmatex">\(u \in [0,1]\)</span>, we have <span class="arithmatex">\(U \sim \text{Uniform}[0,1]\)</span>. <span class="arithmatex">\(\blacksquare\)</span></p>
+<h3 id="6672-the-inverse-transform-method-sampling">66.7.2 The Inverse Transform Method (Sampling)</h3>
+<p><strong>Corollary 66.1 (Inverse Transform Sampling).</strong> Let <span class="arithmatex">\(U \sim \text{Uniform}[0,1]\)</span> and define <span class="arithmatex">\(X = F^{-1}(U)\)</span>, where <span class="arithmatex">\(F\)</span> is the CDF of a target distribution. Then <span class="arithmatex">\(X\)</span> has CDF <span class="arithmatex">\(F\)</span>.</p>
+<p><em>Proof.</em></p>
+<div class="arithmatex">\[\mathbb{P}(X \leq x) = \mathbb{P}(F^{-1}(U) \leq x) = \mathbb{P}(U \leq F(x)) = F(x)\]</div>
+<p>where the last equality uses <span class="arithmatex">\(U \sim \text{Uniform}[0,1]\)</span>. <span class="arithmatex">\(\blacksquare\)</span></p>
+<p>This is exactly the Push-Forward Principle with <span class="arithmatex">\(\mathcal{Z} = [0,1]\)</span>, <span class="arithmatex">\(p_Z = \text{Uniform}[0,1]\)</span>, and <span class="arithmatex">\(G_\theta = F^{-1}\)</span> (the quantile function of the target).</p>
+<p><strong>Worked Example 66.1: Sampling from an Exponential Distribution.</strong></p>
+<p>Let the target be <span class="arithmatex">\(X \sim \text{Exponential}(\lambda)\)</span>, with PDF <span class="arithmatex">\(p(x) = \lambda e^{-\lambda x}\)</span> for <span class="arithmatex">\(x \geq 0\)</span>.</p>
+<p>Step 1: Compute the CDF.
+$<span class="arithmatex">\(F(x) = 1 - e^{-\lambda x}\)</span>$</p>
+<p>Step 2: Invert.
+$<span class="arithmatex">\(u = 1 - e^{-\lambda x} \implies e^{-\lambda x} = 1 - u \implies x = -\frac{1}{\lambda}\ln(1-u)\)</span>$</p>
+<p>So <span class="arithmatex">\(G = F^{-1}(u) = -\frac{1}{\lambda}\ln(1-u)\)</span>.</p>
+<p>Step 3: Sample. Draw <span class="arithmatex">\(U \sim \text{Uniform}[0,1]\)</span> and compute <span class="arithmatex">\(X = -\frac{1}{\lambda}\ln(1-U)\)</span>.</p>
+<p>Since <span class="arithmatex">\(1-U \stackrel{d}{=} U\)</span> for <span class="arithmatex">\(U \sim \text{Uniform}[0,1]\)</span>, in practice we use <span class="arithmatex">\(X = -\frac{1}{\lambda}\ln(U)\)</span> for simplicity.</p>
+<p><strong>Verification via Change of Variables.</strong> Let <span class="arithmatex">\(X = G(U) = -\frac{1}{\lambda}\ln(U)\)</span>. The PDF of <span class="arithmatex">\(X\)</span> is:
+$<span class="arithmatex">\(p_X(x) = p_U(G^{-1}(x)) \cdot \left|\frac{d}{dx}G^{-1}(x)\right|\)</span>$
+where <span class="arithmatex">\(G^{-1}(x) = e^{-\lambda x}\)</span> and <span class="arithmatex">\(\frac{d}{dx}e^{-\lambda x} = -\lambda e^{-\lambda x}\)</span>.</p>
+<div class="arithmatex">\[p_X(x) = 1 \cdot \lambda e^{-\lambda x} = \lambda e^{-\lambda x} \checkmark\]</div>
+<h3 id="6673-limitations-and-the-motivation-for-learned-g_theta">66.7.3 Limitations and the Motivation for Learned <span class="arithmatex">\(G_\theta\)</span></h3>
+<p>The inverse CDF method requires that we know <span class="arithmatex">\(F\)</span> (and therefore <span class="arithmatex">\(p\)</span>) in closed form, and that <span class="arithmatex">\(F^{-1}\)</span> is computable. Neither condition holds for high-dimensional data distributions like the distribution of natural images, text, or audio.</p>
+<p>For a <span class="arithmatex">\(512 \times 512\)</span> color image, <span class="arithmatex">\(\mathbf{x} \in \mathbb{R}^{786432}\)</span>. We have no formula for <span class="arithmatex">\(p(\mathbf{x})\)</span>. What we have is <span class="arithmatex">\(\mathcal{D}\)</span>. This is the gap that modern generative models bridge: they <em>learn</em> the function <span class="arithmatex">\(G_\theta\)</span> from data, using a parametric family (neural networks) flexible enough to approximate any measurable <span class="arithmatex">\(G\)</span>.</p>
+<hr />
+<h2 id="668-generalization-of-the-inverse-cdf-learned-generators">66.8 Generalization of the Inverse CDF: Learned Generators</h2>
+<p>The Inverse CDF method identified the right structure:
+- Start from a simple distribution <span class="arithmatex">\(p_Z\)</span> (Uniform).
+- Apply a deterministic function <span class="arithmatex">\(G\)</span> (the quantile function).
+- The result has the target distribution.</p>
+<p>The leap to modern generative models is to replace the analytically computed <span class="arithmatex">\(G = F^{-1}\)</span> with a learned function <span class="arithmatex">\(G_\theta\)</span>, parameterized by a deep neural network, trained to minimize <span class="arithmatex">\(D(p \| p_\theta)\)</span>.</p>
+<h3 id="6681-why-any-measurable-g_theta-works-in-principle">66.8.1 Why Any Measurable <span class="arithmatex">\(G_\theta\)</span> Works in Principle</h3>
+<p><strong>Theorem 66.3 (Universality).</strong> For any two distributions <span class="arithmatex">\(p_Z\)</span> on <span class="arithmatex">\(\mathcal{Z}\)</span> and <span class="arithmatex">\(p\)</span> on <span class="arithmatex">\(\mathcal{X}\)</span>, there exists a measurable function <span class="arithmatex">\(G^* : \mathcal{Z} \to \mathcal{X}\)</span> such that if <span class="arithmatex">\(\mathbf{Z} \sim p_Z\)</span>, then <span class="arithmatex">\(G^*(\mathbf{Z}) \sim p\)</span>.</p>
+<p>This is guaranteed by the universal property of measurable functions and the Borel isomorphism theorem for Polish spaces. It tells us that the space of measurable functions is rich enough — in principle, <span class="arithmatex">\(G^*\)</span> exists. The practical question is how to find it from data.</p>
+<p><strong>Remark.</strong> <span class="arithmatex">\(G_\theta\)</span> is typically chosen to be a neural network, because neural networks are <em>universal approximators</em>: they can approximate any continuous function on a compact domain to arbitrary precision (Hornik, 1991). Combined with Theorem 66.3, this means neural networks are expressive enough to represent any generator <span class="arithmatex">\(G^*\)</span>.</p>
+<h3 id="6682-the-change-of-variables-formula-for-neural-generators">66.8.2 The Change-of-Variables Formula for Neural Generators</h3>
+<p>When <span class="arithmatex">\(G_\theta : \mathbb{R}^k \to \mathbb{R}^d\)</span> is differentiable and bijective (with <span class="arithmatex">\(k = d\)</span>), the density of <span class="arithmatex">\(\tilde{\mathbf{X}} = G_\theta(\mathbf{Z})\)</span> is given exactly by the change-of-variables formula:</p>
+<div class="arithmatex">\[p_\theta(\mathbf{x}) = p_Z(G_\theta^{-1}(\mathbf{x})) \cdot \left|\det J_{G_\theta^{-1}}(\mathbf{x})\right|\]</div>
+<p>where <span class="arithmatex">\(J_{G_\theta^{-1}}\)</span> is the Jacobian matrix of <span class="arithmatex">\(G_\theta^{-1}\)</span>. This formula is the engine of the <strong>Normalizing Flows</strong> family of generative models (which we will not cover in this introductory chapter, but which appear in the full generative modeling course).</p>
+<p>When <span class="arithmatex">\(G_\theta\)</span> is not invertible or when <span class="arithmatex">\(k &lt; d\)</span> (the generator maps from a lower-dimensional latent space to a higher-dimensional data space), the change-of-variables formula does not apply directly, and we need alternative ways to define or approximate the divergence <span class="arithmatex">\(D(p \| p_\theta)\)</span>. This is precisely the setting where GANs and VAEs come in.</p>
+<hr />
+<h2 id="669-generative-adversarial-networks-gans">66.9 Generative Adversarial Networks (GANs)</h2>
+<p>We now introduce the first of the three major generative model families: Generative Adversarial Networks, proposed by Goodfellow et al. (2014).</p>
+<h3 id="6691-setup-and-motivation">66.9.1 Setup and Motivation</h3>
+<p>Let <span class="arithmatex">\(\mathbf{Z} \sim p_Z(\mathbf{z})\)</span>, typically <span class="arithmatex">\(\mathbf{Z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span> (a <span class="arithmatex">\(k\)</span>-dimensional standard normal, called the <em>latent space</em>). Let <span class="arithmatex">\(G_\theta : \mathbb{R}^k \to \mathbb{R}^d\)</span> be the <em>generator</em>, a neural network. The generator defines an implicit distribution <span class="arithmatex">\(p_\theta\)</span> on <span class="arithmatex">\(\mathbb{R}^d\)</span> via the push-forward.</p>
+<p>We want to find <span class="arithmatex">\(\theta\)</span> such that <span class="arithmatex">\(p_\theta \approx p\)</span>. The challenge: we cannot compute <span class="arithmatex">\(p_\theta\)</span> in closed form when <span class="arithmatex">\(G_\theta\)</span> is a deep network with <span class="arithmatex">\(k &lt; d\)</span>, so we cannot directly minimize <span class="arithmatex">\(D_{\text{KL}}(p \| p_\theta)\)</span> either.</p>
+<p><strong>The GAN Idea.</strong> Instead of estimating the density <span class="arithmatex">\(p_\theta\)</span> directly, train a second neural network — the <em>discriminator</em> <span class="arithmatex">\(D_\phi : \mathbb{R}^d \to [0,1]\)</span> — to distinguish samples from <span class="arithmatex">\(p_\theta\)</span> (fake) from samples from <span class="arithmatex">\(p\)</span> (real). Use the discriminator's signal to train the generator <span class="arithmatex">\(G_\theta\)</span>.</p>
+<h3 id="6692-the-gan-objective-deriving-the-value-function">66.9.2 The GAN Objective: Deriving the Value Function</h3>
+<p>We will derive the GAN objective from first principles, starting from the Jensen-Shannon divergence.</p>
+<p><strong>Definition 66.2 (Jensen-Shannon Divergence).</strong> For distributions <span class="arithmatex">\(p\)</span> and <span class="arithmatex">\(q\)</span>:</p>
+<div class="arithmatex">\[D_{\text{JS}}(p \| q) = \frac{1}{2} D_{\text{KL}}\!\left(p \,\Big\|\, \frac{p+q}{2}\right) + \frac{1}{2} D_{\text{KL}}\!\left(q \,\Big\|\, \frac{p+q}{2}\right)\]</div>
+<p><span class="arithmatex">\(D_{\text{JS}}\)</span> is symmetric, bounded in <span class="arithmatex">\([0, \ln 2]\)</span>, and equals <span class="arithmatex">\(0\)</span> if and only if <span class="arithmatex">\(p = q\)</span>.</p>
+<p><strong>Claim.</strong> The GAN minimax game is equivalent to minimizing <span class="arithmatex">\(D_{\text{JS}}(p \| p_\theta)\)</span>.</p>
+<p>To see this, consider the following minimax optimization:</p>
+<div class="arithmatex">\[\min_\theta \max_\phi \, V(G_\theta, D_\phi) = \mathbb{E}_{\mathbf{x} \sim p}[\ln D_\phi(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_Z}[\ln(1 - D_\phi(G_\theta(\mathbf{z})))]\]</div>
+<p><strong>Step 1: Optimal discriminator for fixed <span class="arithmatex">\(G_\theta\)</span>.</strong></p>
+<p>Fix <span class="arithmatex">\(G_\theta\)</span> and maximize <span class="arithmatex">\(V\)</span> over <span class="arithmatex">\(D_\phi\)</span>. The discriminator sees each point <span class="arithmatex">\(\mathbf{x} \in \mathbb{R}^d\)</span> and must output a value. The objective decomposes point-wise:</p>
+<div class="arithmatex">\[\max_{D_\phi} \int_{\mathcal{X}} \left[ p(\mathbf{x}) \ln D_\phi(\mathbf{x}) + p_\theta(\mathbf{x}) \ln(1 - D_\phi(\mathbf{x})) \right] d\mathbf{x}\]</div>
+<p>For a fixed <span class="arithmatex">\(\mathbf{x}\)</span>, maximizing <span class="arithmatex">\(a \ln y + b \ln(1-y)\)</span> over <span class="arithmatex">\(y \in [0,1]\)</span> gives:</p>
+<div class="arithmatex">\[\frac{d}{dy}[a \ln y + b \ln(1-y)] = \frac{a}{y} - \frac{b}{1-y} = 0 \implies y^* = \frac{a}{a+b}\]</div>
+<p>Therefore, the optimal discriminator is:</p>
+<div class="arithmatex">\[\boxed{D_{\phi^*}(\mathbf{x}) = \frac{p(\mathbf{x})}{p(\mathbf{x}) + p_\theta(\mathbf{x})}}\]</div>
+<p><strong>Interpretation.</strong> At the optimal discriminator, <span class="arithmatex">\(D_{\phi^*}(\mathbf{x})\)</span> is exactly the posterior probability that <span class="arithmatex">\(\mathbf{x}\)</span> came from <span class="arithmatex">\(p\)</span> (real) rather than <span class="arithmatex">\(p_\theta\)</span> (fake). If <span class="arithmatex">\(p = p_\theta\)</span>, then <span class="arithmatex">\(D_{\phi^*}(\mathbf{x}) = 1/2\)</span> everywhere — the discriminator cannot tell real from fake.</p>
+<p><strong>Step 2: Substituting <span class="arithmatex">\(D_{\phi^*}\)</span> into <span class="arithmatex">\(V\)</span>.</strong></p>
+<div class="arithmatex">\[V(G_\theta, D_{\phi^*}) = \mathbb{E}_{\mathbf{x} \sim p}\!\left[\ln \frac{p(\mathbf{x})}{p(\mathbf{x}) + p_\theta(\mathbf{x})}\right] + \mathbb{E}_{\mathbf{x} \sim p_\theta}\!\left[\ln \frac{p_\theta(\mathbf{x})}{p(\mathbf{x}) + p_\theta(\mathbf{x})}\right]\]</div>
+<p>Adding and subtracting <span class="arithmatex">\(\ln 2\)</span> inside each expectation:</p>
+<div class="arithmatex">\[= \mathbb{E}_{\mathbf{x} \sim p}\!\left[\ln \frac{p(\mathbf{x})}{\frac{p(\mathbf{x}) + p_\theta(\mathbf{x})}{2}} - \ln 2\right] + \mathbb{E}_{\mathbf{x} \sim p_\theta}\!\left[\ln \frac{p_\theta(\mathbf{x})}{\frac{p(\mathbf{x}) + p_\theta(\mathbf{x})}{2}} - \ln 2\right]\]</div>
+<div class="arithmatex">\[= D_{\text{KL}}\!\left(p \,\Big\|\, \frac{p + p_\theta}{2}\right) + D_{\text{KL}}\!\left(p_\theta \,\Big\|\, \frac{p + p_\theta}{2}\right) - 2\ln 2\]</div>
+<div class="arithmatex">\[= 2 \cdot D_{\text{JS}}(p \| p_\theta) - 2\ln 2\]</div>
+<p>Therefore:</p>
+<div class="arithmatex">\[\min_\theta \max_\phi V(G_\theta, D_\phi) = \min_\theta \left[2 \cdot D_{\text{JS}}(p \| p_\theta) - 2\ln 2\right]\]</div>
+<p>Minimizing over <span class="arithmatex">\(\theta\)</span> minimizes <span class="arithmatex">\(D_{\text{JS}}(p \| p_\theta)\)</span>, which achieves its minimum value of <span class="arithmatex">\(0\)</span> if and only if <span class="arithmatex">\(p_\theta = p\)</span>. At that point, <span class="arithmatex">\(V^* = -2\ln 2\)</span>.</p>
+<p><strong>Summary: The GAN framework in three lines.</strong></p>
+<div class="arithmatex">\[\max_\phi \, V = \mathbb{E}_{\mathbf{x} \sim p}[\ln D_\phi(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_Z}[\ln(1 - D_\phi(G_\theta(\mathbf{z})))] \quad \text{(Discriminator step)}\]</div>
+<div class="arithmatex">\[\min_\theta \, V = \mathbb{E}_{\mathbf{z} \sim p_Z}[\ln(1 - D_\phi(G_\theta(\mathbf{z})))] \quad \text{(Generator step)}\]</div>
+<div class="arithmatex">\[\tilde{\mathbf{x}} = G_{\theta^*}(\mathbf{z}), \quad \mathbf{z} \sim p_Z \quad \text{(Sampling)}\]</div>
+<h3 id="6693-worked-example-gan-on-a-1d-gaussian">66.9.3 Worked Example: GAN on a 1D Gaussian</h3>
+<p>To build intuition without high-dimensional complexity, consider <span class="arithmatex">\(p = \mathcal{N}(5, 1)\)</span> (target) and <span class="arithmatex">\(p_Z = \mathcal{N}(0, 1)\)</span> (latent). Let <span class="arithmatex">\(G_\theta(z) = \theta_1 z + \theta_2\)</span> (affine generator). Then:</p>
+<div class="arithmatex">\[p_\theta = \mathcal{N}(\theta_2, \theta_1^2)\]</div>
+<p>The true distribution is <span class="arithmatex">\(\mathcal{N}(5, 1)\)</span>, so we need <span class="arithmatex">\(\theta_1^* = 1\)</span> (scale) and <span class="arithmatex">\(\theta_2^* = 5\)</span> (shift).</p>
+<p>The GAN would train a discriminator <span class="arithmatex">\(D_\phi : \mathbb{R} \to [0,1]\)</span> to distinguish samples from <span class="arithmatex">\(\mathcal{N}(5,1)\)</span> from samples of <span class="arithmatex">\(G_\theta(z) = \theta_1 z + \theta_2\)</span> for <span class="arithmatex">\(z \sim \mathcal{N}(0,1)\)</span>. The generator <span class="arithmatex">\(G_\theta\)</span> is trained to fool <span class="arithmatex">\(D_\phi\)</span> — i.e., to make <span class="arithmatex">\(D_\phi(G_\theta(z)) \approx 1\)</span> for all <span class="arithmatex">\(z\)</span>.</p>
+<p>At convergence, <span class="arithmatex">\(D_\phi(x) = 1/2\)</span> for all <span class="arithmatex">\(x\)</span>, and <span class="arithmatex">\(\tilde{x} = G_{\theta^*}(z) = z + 5 \sim \mathcal{N}(5, 1) = p\)</span>. The generator has learned to sample from the target by learning the correct affine map from the known latent to the unknown target.</p>
+<h3 id="6694-training-procedure-and-practical-considerations">66.9.4 Training Procedure and Practical Considerations</h3>
+<p>In practice, we do not have access to <span class="arithmatex">\(p\)</span> or <span class="arithmatex">\(p_\theta\)</span> in closed form — only to finite samples. The GAN training loop approximates the expectations with mini-batch averages:</p>
+<hr />
+<p><strong>Algorithm 66.1: GAN Training (Mini-batch SGD)</strong></p>
+<p>For each training iteration:
+1. Sample a mini-batch of real data: <span class="arithmatex">\(\{\mathbf{x}^{(i)}\}_{i=1}^m \sim p\)</span>
+2. Sample a mini-batch of latent vectors: <span class="arithmatex">\(\{\mathbf{z}^{(i)}\}_{i=1}^m \sim p_Z\)</span>
+3. Compute discriminator loss:
+$<span class="arithmatex">\(\hat{L}_D = -\frac{1}{m}\sum_{i=1}^m \left[\ln D_\phi(\mathbf{x}^{(i)}) + \ln(1 - D_\phi(G_\theta(\mathbf{z}^{(i)})))\right]\)</span>$
+4. Update <span class="arithmatex">\(\phi\)</span> by gradient descent: <span class="arithmatex">\(\phi \leftarrow \phi - \eta \nabla_\phi \hat{L}_D\)</span>
+5. Sample fresh <span class="arithmatex">\(\{\mathbf{z}^{(i)}\}_{i=1}^m \sim p_Z\)</span>
+6. Compute generator loss (equivalently, use the non-saturating variant):
+$<span class="arithmatex">\(\hat{L}_G = -\frac{1}{m}\sum_{i=1}^m \ln D_\phi(G_\theta(\mathbf{z}^{(i)}))\)</span>$
+7. Update <span class="arithmatex">\(\theta\)</span> by gradient descent: <span class="arithmatex">\(\theta \leftarrow \theta - \eta \nabla_\theta \hat{L}_G\)</span></p>
+<hr />
+<p><strong>Remark on the non-saturating loss.</strong> The original generator loss <span class="arithmatex">\(\mathbb{E}[\ln(1 - D_\phi(G_\theta(\mathbf{z})))]\)</span> saturates early in training: when <span class="arithmatex">\(D_\phi\)</span> confidently rejects <span class="arithmatex">\(G_\theta\)</span>'s outputs, <span class="arithmatex">\(D_\phi(G_\theta(\mathbf{z})) \approx 0\)</span>, and <span class="arithmatex">\(\ln(1-0) = 0\)</span> produces vanishingly small gradients. The fix is to maximize <span class="arithmatex">\(\mathbb{E}[\ln D_\phi(G_\theta(\mathbf{z}))]\)</span> instead (equivalently, minimize the negative), which provides stronger gradients even when the discriminator is winning. This is the most common formulation in practice.</p>
+<hr />
+<h2 id="6610-variational-autoencoders-vaes">66.10 Variational Autoencoders (VAEs)</h2>
+<p>The second major family uses a different answer to our three questions: explicit density estimation via a lower bound, with a learned encoder-decoder architecture.</p>
+<h3 id="66101-the-problem-intractable-marginals">66.10.1 The Problem: Intractable Marginals</h3>
+<p>We want to model <span class="arithmatex">\(p(\mathbf{x})\)</span> using a latent variable <span class="arithmatex">\(\mathbf{z} \in \mathbb{R}^k\)</span>. The generative story is:</p>
+<div class="arithmatex">\[\mathbf{z} \sim p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I}) \quad \text{(prior on latent)}$$
+$$\mathbf{x} \mid \mathbf{z} \sim p_\theta(\mathbf{x} \mid \mathbf{z}) \quad \text{(decoder / likelihood)}\]</div>
+<p>The marginal likelihood is:</p>
+<div class="arithmatex">\[p_\theta(\mathbf{x}) = \int p_\theta(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z}) \, d\mathbf{z}\]</div>
+<p>This integral is intractable for deep neural network decoders <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z})\)</span>, because the latent space is high-dimensional and the integrand is not in closed form.</p>
+<p><strong>Direct maximum likelihood</strong> would require:</p>
+<div class="arithmatex">\[\max_\theta \sum_{i=1}^n \ln p_\theta(\mathbf{x}^{(i)}) = \max_\theta \sum_{i=1}^n \ln \int p_\theta(\mathbf{x}^{(i)} \mid \mathbf{z}) \, p(\mathbf{z}) \, d\mathbf{z}\]</div>
+<p>which is intractable. We need a surrogate.</p>
+<h3 id="66102-the-evidence-lower-bound-elbo">66.10.2 The Evidence Lower Bound (ELBO)</h3>
+<p>Introduce an approximate posterior <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x})\)</span> — a neural network that maps data <span class="arithmatex">\(\mathbf{x}\)</span> to a distribution over latent codes <span class="arithmatex">\(\mathbf{z}\)</span>. This is the <em>encoder</em>.</p>
+<p>For any <span class="arithmatex">\(q_\phi\)</span>, by Jensen's inequality:</p>
+<div class="arithmatex">\[\ln p_\theta(\mathbf{x}) = \ln \int p_\theta(\mathbf{x} \mid \mathbf{z}) p(\mathbf{z}) \, d\mathbf{z}\]</div>
+<div class="arithmatex">\[= \ln \int q_\phi(\mathbf{z} \mid \mathbf{x}) \cdot \frac{p_\theta(\mathbf{x} \mid \mathbf{z}) p(\mathbf{z})}{q_\phi(\mathbf{z} \mid \mathbf{x})} \, d\mathbf{z}\]</div>
+<div class="arithmatex">\[= \ln \mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}\!\left[\frac{p_\theta(\mathbf{x} \mid \mathbf{z}) p(\mathbf{z})}{q_\phi(\mathbf{z} \mid \mathbf{x})}\right]\]</div>
+<div class="arithmatex">\[\geq \mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}\!\left[\ln \frac{p_\theta(\mathbf{x} \mid \mathbf{z}) p(\mathbf{z})}{q_\phi(\mathbf{z} \mid \mathbf{x})}\right] \quad \text{(Jensen, since }\ln\text{ is concave)}\]</div>
+<p>This lower bound is the <strong>Evidence Lower Bound (ELBO)</strong>:</p>
+<div class="arithmatex">\[\mathcal{L}(\theta, \phi; \mathbf{x}) = \mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})] - D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \| p(\mathbf{z}))\]</div>
+<p><strong>Derivation of the KL form.</strong> Expand the expectation:</p>
+<div class="arithmatex">\[\mathbb{E}_{q_\phi}\!\left[\ln \frac{p_\theta(\mathbf{x} \mid \mathbf{z}) p(\mathbf{z})}{q_\phi(\mathbf{z} \mid \mathbf{x})}\right] = \mathbb{E}_{q_\phi}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})] + \mathbb{E}_{q_\phi}\!\left[\ln \frac{p(\mathbf{z})}{q_\phi(\mathbf{z} \mid \mathbf{x})}\right]\]</div>
+<div class="arithmatex">\[= \mathbb{E}_{q_\phi}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})] - D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \| p(\mathbf{z}))\]</div>
+<p><strong>Interpretation of the two terms:</strong></p>
+<p>The <strong>reconstruction term</strong> <span class="arithmatex">\(\mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}[\ln p_\theta(\mathbf{x} \mid \mathbf{z})]\)</span> measures how well the decoder <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{z})\)</span> can reconstruct <span class="arithmatex">\(\mathbf{x}\)</span> from latent codes sampled from the encoder. It rewards the encoder-decoder pair for faithfully representing the data.</p>
+<p>The <strong>regularization term</strong> <span class="arithmatex">\(-D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \| p(\mathbf{z}))\)</span> penalizes the encoder's posterior <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x})\)</span> for deviating from the prior <span class="arithmatex">\(p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I})\)</span>. This keeps the latent space well-organized and ensures that we can sample <span class="arithmatex">\(\mathbf{z} \sim p(\mathbf{z})\)</span> and decode it to a plausible <span class="arithmatex">\(\mathbf{x}\)</span>.</p>
+<p><strong>The exact gap.</strong> We can show:</p>
+<div class="arithmatex">\[\ln p_\theta(\mathbf{x}) = \mathcal{L}(\theta, \phi; \mathbf{x}) + D_{\text{KL}}(q_\phi(\mathbf{z} \mid \mathbf{x}) \| p_\theta(\mathbf{z} \mid \mathbf{x}))\]</div>
+<p>Since <span class="arithmatex">\(D_{\text{KL}} \geq 0\)</span>, we confirm <span class="arithmatex">\(\mathcal{L} \leq \ln p_\theta(\mathbf{x})\)</span>, with equality when <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x}) = p_\theta(\mathbf{z} \mid \mathbf{x})\)</span> (the approximate posterior equals the true posterior).</p>
+<h3 id="66103-the-reparameterization-trick">66.10.3 The Reparameterization Trick</h3>
+<p>To train both <span class="arithmatex">\(\theta\)</span> and <span class="arithmatex">\(\phi\)</span> jointly by gradient descent, we need <span class="arithmatex">\(\nabla_\phi \mathcal{L}\)</span>. The difficulty: the expectation <span class="arithmatex">\(\mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}[\cdot]\)</span> depends on <span class="arithmatex">\(\phi\)</span> (the distribution we sample from), so we cannot simply push the gradient through the expectation.</p>
+<p><strong>Solution: The Reparameterization Trick.</strong> Choose <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x}) = \mathcal{N}(\boldsymbol{\mu}_\phi(\mathbf{x}), \text{diag}(\boldsymbol{\sigma}^2_\phi(\mathbf{x})))\)</span>, where <span class="arithmatex">\(\boldsymbol{\mu}_\phi\)</span> and <span class="arithmatex">\(\boldsymbol{\sigma}_\phi\)</span> are outputs of the encoder neural network. Instead of sampling <span class="arithmatex">\(\mathbf{z} \sim q_\phi(\mathbf{z} \mid \mathbf{x})\)</span> directly, write:</p>
+<div class="arithmatex">\[\mathbf{z} = \boldsymbol{\mu}_\phi(\mathbf{x}) + \boldsymbol{\sigma}_\phi(\mathbf{x}) \odot \boldsymbol{\epsilon}, \quad \boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})\]</div>
+<p>Now <span class="arithmatex">\(\mathbf{z}\)</span> is a deterministic function of <span class="arithmatex">\(\phi\)</span>, <span class="arithmatex">\(\mathbf{x}\)</span>, and <span class="arithmatex">\(\boldsymbol{\epsilon}\)</span> (which does not depend on <span class="arithmatex">\(\phi\)</span>). Therefore:</p>
+<div class="arithmatex">\[\mathbb{E}_{q_\phi(\mathbf{z} \mid \mathbf{x})}[f(\mathbf{z})] = \mathbb{E}_{\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})}[f(\boldsymbol{\mu}_\phi(\mathbf{x}) + \boldsymbol{\sigma}_\phi(\mathbf{x}) \odot \boldsymbol{\epsilon})]\]</div>
+<p>and we can compute <span class="arithmatex">\(\nabla_\phi\)</span> by differentiating through <span class="arithmatex">\(\boldsymbol{\mu}_\phi\)</span> and <span class="arithmatex">\(\boldsymbol{\sigma}_\phi\)</span>.</p>
+<h3 id="66104-closed-form-kl-for-gaussian-prior-and-posterior">66.10.4 Closed-Form KL for Gaussian Prior and Posterior</h3>
+<p>When both prior <span class="arithmatex">\(p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I})\)</span> and posterior <span class="arithmatex">\(q_\phi(\mathbf{z} \mid \mathbf{x}) = \mathcal{N}(\boldsymbol{\mu}, \text{diag}(\boldsymbol{\sigma}^2))\)</span> are Gaussian, the KL term has a closed form:</p>
+<div class="arithmatex">\[D_{\text{KL}}(\mathcal{N}(\boldsymbol{\mu}, \text{diag}(\boldsymbol{\sigma}^2)) \| \mathcal{N}(\mathbf{0}, \mathbf{I})) = \frac{1}{2}\sum_{j=1}^k \left(\mu_j^2 + \sigma_j^2 - 1 - \ln \sigma_j^2\right)\]</div>
+<p><strong>Derivation (for scalar case, <span class="arithmatex">\(k=1\)</span>).</strong> Let <span class="arithmatex">\(q = \mathcal{N}(\mu, \sigma^2)\)</span> and <span class="arithmatex">\(p = \mathcal{N}(0, 1)\)</span>.</p>
+<div class="arithmatex">\[D_{\text{KL}}(q \| p) = \int q(z) \ln \frac{q(z)}{p(z)} \, dz = \mathbb{E}_q\!\left[\ln q(z) - \ln p(z)\right]\]</div>
+<div class="arithmatex">\[= \mathbb{E}_q\!\left[-\frac{(z-\mu)^2}{2\sigma^2} - \frac{1}{2}\ln(2\pi\sigma^2) + \frac{z^2}{2} + \frac{1}{2}\ln(2\pi)\right]\]</div>
+<div class="arithmatex">\[= -\frac{1}{2} + \frac{1}{2}\ln\frac{1}{\sigma^2} + \frac{\mathbb{E}_q[z^2]}{2}\]</div>
+<p>Since <span class="arithmatex">\(\mathbb{E}_q[z^2] = \text{Var}_q(z) + (\mathbb{E}_q[z])^2 = \sigma^2 + \mu^2\)</span>:</p>
+<div class="arithmatex">\[D_{\text{KL}}(q \| p) = \frac{1}{2}\left(\mu^2 + \sigma^2 - 1 - \ln\sigma^2\right) \checkmark\]</div>
+<p>The vector case follows by independence across dimensions.</p>
+<h3 id="66105-vae-sampling-at-test-time">66.10.5 VAE Sampling at Test Time</h3>
+<p>Once training is complete, to generate a new sample <span class="arithmatex">\(\tilde{\mathbf{x}}\)</span>:</p>
+<ol>
+<li>Draw <span class="arithmatex">\(\mathbf{z} \sim p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I})\)</span> (no encoder needed at test time).</li>
+<li>Decode: <span class="arithmatex">\(\tilde{\mathbf{x}} \sim p_\theta(\mathbf{x} \mid \mathbf{z})\)</span>.</li>
+</ol>
+<p>This is exactly the Push-Forward framework: a noise vector <span class="arithmatex">\(\mathbf{z}\)</span> from a known distribution is passed through a learned deterministic function (the decoder) to produce a sample from (approximately) <span class="arithmatex">\(p(\mathbf{x})\)</span>.</p>
+<hr />
+<h2 id="6611-autoregressive-models">66.11 Autoregressive Models</h2>
+<p>The third family approaches the problem from a completely different direction: explicit density estimation using the <strong>chain rule of probability</strong>.</p>
+<h3 id="66111-the-chain-rule-decomposition">66.11.1 The Chain Rule Decomposition</h3>
+<p>Any joint distribution over <span class="arithmatex">\(d\)</span> variables can be factored as:</p>
+<div class="arithmatex">\[p(\mathbf{x}) = p(x_1) \cdot p(x_2 \mid x_1) \cdot p(x_3 \mid x_1, x_2) \cdots p(x_d \mid x_1, \ldots, x_{d-1}) = \prod_{j=1}^d p(x_j \mid x_1, \ldots, x_{j-1})\]</div>
+<p>This is not an approximation — it is an exact identity from the definition of conditional probability. It holds for any ordering of the variables and any distribution <span class="arithmatex">\(p\)</span>.</p>
+<p>An <strong>autoregressive model</strong> parameterizes each conditional:</p>
+<div class="arithmatex">\[p_\theta(x_j \mid x_1, \ldots, x_{j-1}) = f_\theta^{(j)}(x_1, \ldots, x_{j-1})\]</div>
+<p>where <span class="arithmatex">\(f_\theta^{(j)}\)</span> is a neural network that takes the previous <span class="arithmatex">\(j-1\)</span> variables as input and outputs a distribution over <span class="arithmatex">\(x_j\)</span>.</p>
+<h3 id="66112-autoregressive-sampling">66.11.2 Autoregressive Sampling</h3>
+<p>Sampling from an autoregressive model is sequential:</p>
+<ol>
+<li>Sample <span class="arithmatex">\(x_1 \sim p_\theta(x_1)\)</span> (an unconditional distribution).</li>
+<li>Sample <span class="arithmatex">\(x_2 \sim p_\theta(x_2 \mid x_1)\)</span>.</li>
+<li>Sample <span class="arithmatex">\(x_j \sim p_\theta(x_j \mid x_1, \ldots, x_{j-1})\)</span> for <span class="arithmatex">\(j = 3, \ldots, d\)</span>.</li>
+<li>Return <span class="arithmatex">\(\tilde{\mathbf{x}} = (x_1, x_2, \ldots, x_d)\)</span>.</li>
+</ol>
+<p>Each step uses the Push-Forward principle: given <span class="arithmatex">\(u \sim \text{Uniform}[0,1]\)</span>, apply the inverse CDF of <span class="arithmatex">\(p_\theta(x_j \mid x_1, \ldots, x_{j-1})\)</span> to get <span class="arithmatex">\(x_j\)</span>.</p>
+<h3 id="66113-language-models-as-autoregressive-samplers">66.11.3 Language Models as Autoregressive Samplers</h3>
+<p>In the language modeling setting, <span class="arithmatex">\(\mathbf{x} = (x_1, x_2, \ldots, x_T)\)</span> is a sequence of tokens (subword units) from a vocabulary <span class="arithmatex">\(\mathcal{V}\)</span> with <span class="arithmatex">\(|\mathcal{V}| \approx 50{,}000\)</span>. The model factorizes:</p>
+<div class="arithmatex">\[p_\theta(x_1, \ldots, x_T) = \prod_{t=1}^T p_\theta(x_t \mid x_1, \ldots, x_{t-1})\]</div>
+<p>Each conditional <span class="arithmatex">\(p_\theta(x_t \mid x_1, \ldots, x_{t-1})\)</span> is a categorical distribution over <span class="arithmatex">\(|\mathcal{V}|\)</span> tokens, output by a Transformer network.</p>
+<p><strong>Training objective.</strong> Maximize the log-likelihood over the training corpus:</p>
+<div class="arithmatex">\[\max_\theta \frac{1}{N}\sum_{i=1}^N \sum_{t=1}^{T_i} \ln p_\theta(x_t^{(i)} \mid x_1^{(i)}, \ldots, x_{t-1}^{(i)})\]</div>
+<p>This is equivalent to minimizing the cross-entropy between the empirical distribution of the corpus and <span class="arithmatex">\(p_\theta\)</span>, which in turn minimizes <span class="arithmatex">\(D_{\text{KL}}(p_{\text{data}} \| p_\theta)\)</span>.</p>
+<p><strong>Conditional generation.</strong> A prompted LLM computes <span class="arithmatex">\(p_\theta(\mathbf{x} \mid \mathbf{y})\)</span> where <span class="arithmatex">\(\mathbf{y}\)</span> is the prompt. The factorization continues from position <span class="arithmatex">\(T_y + 1\)</span>:</p>
+<div class="arithmatex">\[p_\theta(\mathbf{x} \mid \mathbf{y}) = \prod_{t=T_y+1}^{T} p_\theta(x_t \mid y_1, \ldots, y_{T_y}, x_{T_y+1}, \ldots, x_{t-1})\]</div>
+<p>Each call to the model is still a categorical distribution over <span class="arithmatex">\(|\mathcal{V}|\)</span> tokens, and sampling is just drawing from that categorical.</p>
+<h3 id="66114-example-next-token-prediction">66.11.4 Example: Next-Token Prediction</h3>
+<p>Suppose <span class="arithmatex">\(\mathcal{V} = \{A, B, C\}\)</span> and we observe the corpus <span class="arithmatex">\(\mathcal{D} = \{\text{"ABACABA"}\}\)</span> (treated as 7 tokens: <span class="arithmatex">\(A, B, A, C, A, B, A\)</span>).</p>
+<p>A perfect autoregressive model would learn:</p>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th>Next token distribution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(none)</td>
+<td><span class="arithmatex">\(p(x_1 = A) = 1\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(A\)</span></td>
+<td><span class="arithmatex">\(p(B \mid A) = 2/3, \; p(C \mid A) = 1/3\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(AB\)</span></td>
+<td><span class="arithmatex">\(p(A \mid AB) = 1\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(ABA\)</span></td>
+<td><span class="arithmatex">\(p(C \mid ABA) = 1\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(ABAC\)</span></td>
+<td><span class="arithmatex">\(p(A \mid ABAC) = 1\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(ABACA\)</span></td>
+<td><span class="arithmatex">\(p(B \mid ABACA) = 1\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(ABACAB\)</span></td>
+<td><span class="arithmatex">\(p(A \mid ABACAB) = 1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Sampling from this model: Draw <span class="arithmatex">\(x_1 = A\)</span>. Draw <span class="arithmatex">\(x_2 \sim p(\cdot \mid A) = \text{Categorical}(B: 2/3, C: 1/3)\)</span>. If <span class="arithmatex">\(x_2 = B\)</span>: draw <span class="arithmatex">\(x_3 = A\)</span>. Etc. This produces sequences that follow the statistical patterns of the training corpus, but generalizes beyond it (e.g., could generate "ABACA" which was not explicitly a training sequence).</p>
+<hr />
+<h2 id="6612-evaluating-generative-models">66.12 Evaluating Generative Models</h2>
+<p>A critical subtlety: unlike discriminative models, we cannot evaluate a generative model by prediction accuracy on a held-out test set, because there are no labels. How do we measure whether <span class="arithmatex">\(p_\theta \approx p\)</span>?</p>
+<h3 id="66121-test-set-log-likelihood">66.12.1 Test Set Log-Likelihood</h3>
+<p>For explicit models (autoregressive, VAE), we can evaluate the held-out log-likelihood:</p>
+<div class="arithmatex">\[\text{NLL} = -\frac{1}{|\mathcal{D}_{\text{test}}|} \sum_{\mathbf{x} \in \mathcal{D}_{\text{test}}} \ln p_\theta(\mathbf{x})\]</div>
+<p>This is the gold standard when tractable. A lower NLL indicates <span class="arithmatex">\(p_\theta\)</span> assigns higher probability to real data — it has learned the distribution better. Note that the NLL minimization target is exactly <span class="arithmatex">\(D_{\text{KL}}(p_{\text{data}} \| p_\theta)\)</span> up to a constant (the entropy of <span class="arithmatex">\(p_{\text{data}}\)</span>):</p>
+<div class="arithmatex">\[D_{\text{KL}}(p_{\text{data}} \| p_\theta) = H(p_{\text{data}}) + \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}}[-\ln p_\theta(\mathbf{x})] = \text{const} + \text{NLL}\]</div>
+<p>For implicit models like GANs, there is no tractable <span class="arithmatex">\(\ln p_\theta(\mathbf{x})\)</span>, so NLL is unavailable.</p>
+<h3 id="66122-frechet-inception-distance-fid">66.12.2 Fréchet Inception Distance (FID)</h3>
+<p>FID is the most common quantitative metric for image generative models. The idea: embed both real and generated images into a feature space using a pretrained Inception network, and measure the distance between the two distributions of embeddings.</p>
+<p>Formally, let <span class="arithmatex">\(\boldsymbol{\mu}_r, \boldsymbol{\Sigma}_r\)</span> be the mean and covariance of real image features and <span class="arithmatex">\(\boldsymbol{\mu}_g, \boldsymbol{\Sigma}_g\)</span> for generated features. The FID is the Fréchet (Wasserstein-2) distance between two Gaussians fit to these embeddings:</p>
+<div class="arithmatex">\[\text{FID} = \|\boldsymbol{\mu}_r - \boldsymbol{\mu}_g\|^2 + \text{Tr}\!\left(\boldsymbol{\Sigma}_r + \boldsymbol{\Sigma}_g - 2(\boldsymbol{\Sigma}_r \boldsymbol{\Sigma}_g)^{1/2}\right)\]</div>
+<p>FID equals <span class="arithmatex">\(0\)</span> when <span class="arithmatex">\(p_\theta = p\)</span> (in the feature space). Lower is better. It can be computed for any model from which samples can be drawn, including GANs.</p>
+<p><strong>Caveat.</strong> FID measures distributional similarity in a particular feature space (Inception features). A model could have low FID while still producing artifacts invisible to that feature extractor. It is a practical proxy, not a perfect measure of <span class="arithmatex">\(D(p \| p_\theta)\)</span>.</p>
+<h3 id="66123-overfitting-in-generative-models">66.12.3 Overfitting in Generative Models</h3>
+<p>Recall the overfitting problem in discriminative models: a model that memorizes the training set achieves zero training loss but fails on new data. The analog in generative models is a model that simply stores <span class="arithmatex">\(\mathcal{D}\)</span> and returns a random <span class="arithmatex">\(\mathbf{x}^{(i)}\)</span> when asked to sample.</p>
+<p>Such a model would have very low (or zero) NLL on training data, but:
+- Would never generalize to points not in <span class="arithmatex">\(\mathcal{D}\)</span>.
+- Would assign zero probability to any <span class="arithmatex">\(\mathbf{x} \notin \mathcal{D}\)</span>.
+- In a continuous space, every sample from a good <span class="arithmatex">\(p_\theta\)</span> should have <span class="arithmatex">\(\mathbb{P}(\tilde{\mathbf{x}} = \mathbf{x}^{(i)}) = 0\)</span> for any specific <span class="arithmatex">\(\mathbf{x}^{(i)} \in \mathcal{D}\)</span> (since the probability of a single point under a continuous distribution is zero).</p>
+<p>The correct behavior is distributional: the model should put high density in regions where <span class="arithmatex">\(p(\mathbf{x})\)</span> is high, not just on the specific samples it has seen. A held-out test set helps detect this, as a memorizing model will assign low likelihood to test points.</p>
+<hr />
+<h2 id="6613-connecting-the-three-families-a-unified-view">66.13 Connecting the Three Families: A Unified View</h2>
+<p>All three families — GANs, VAEs, and autoregressive models — instantiate the same underlying framework:</p>
+<div class="arithmatex">\[\theta^* = \arg\min_\theta D(p \| p_\theta), \quad \tilde{\mathbf{x}} = G_{\theta^*}(\mathbf{z}), \quad \mathbf{z} \sim p_Z\]</div>
+<p>They differ in the choices of <span class="arithmatex">\(G_\theta\)</span>, <span class="arithmatex">\(D\)</span>, and how the optimization is carried out:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>GAN</th>
+<th>VAE</th>
+<th>Autoregressive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(p_Z\)</span></td>
+<td><span class="arithmatex">\(\mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span></td>
+<td><span class="arithmatex">\(\mathcal{N}(\mathbf{0}, \mathbf{I}_k)\)</span></td>
+<td><span class="arithmatex">\(\text{Uniform}[0,1]^d\)</span> (via inverse CDF at each step)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(G_\theta\)</span></td>
+<td>Deep network (implicit)</td>
+<td>Decoder network</td>
+<td>Sequential conditionals</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(D\)</span></td>
+<td>Jensen-Shannon (approximated adversarially)</td>
+<td>KL (bounded via ELBO)</td>
+<td>KL (exact, via log-likelihood)</td>
+</tr>
+<tr>
+<td>Density <span class="arithmatex">\(p_\theta(\mathbf{x})\)</span> tractable?</td>
+<td>No</td>
+<td>No (ELBO is a bound)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Sampling</td>
+<td>One forward pass</td>
+<td>One forward pass</td>
+<td><span class="arithmatex">\(d\)</span> sequential forward passes</td>
+</tr>
+<tr>
+<td>Training stability</td>
+<td>Challenging (minimax)</td>
+<td>Stable (ELBO gradient)</td>
+<td>Stable (cross-entropy)</td>
+</tr>
+</tbody>
+</table>
+<p>This table is not just a summary — it reflects deep mathematical trade-offs. Explicit density estimation (autoregressive) gives tractable likelihoods but requires sequential sampling, which is slow for long sequences. Implicit estimation (GAN) enables fast one-shot sampling but provides no likelihood and is notoriously difficult to train due to the minimax objective. VAEs occupy a middle ground: they provide a tractable lower bound on the likelihood and fast sampling, but the bound is loose when the approximate posterior <span class="arithmatex">\(q_\phi\)</span> is far from the true posterior.</p>
+<hr />
+<h2 id="6614-summary">66.14 Summary</h2>
+<p>This chapter established the mathematical foundations of generative modeling. The key ideas are:</p>
+<p>The <strong>goal</strong> of generative modeling is strictly stronger than density estimation: we must not only approximate <span class="arithmatex">\(p(\mathbf{x})\)</span>, but also be able to sample from it efficiently.</p>
+<p>The <strong>fundamental principle</strong> is the Push-Forward: learn a function <span class="arithmatex">\(G_{\theta^*} : \mathcal{Z} \to \mathcal{X}\)</span> such that <span class="arithmatex">\(G_{\theta^*}(\mathbf{Z}) \sim p(\mathbf{x})\)</span> for <span class="arithmatex">\(\mathbf{Z} \sim p_Z\)</span>, where <span class="arithmatex">\(p_Z\)</span> is a known, easy-to-sample distribution. Finding <span class="arithmatex">\(\theta^*\)</span> is cast as divergence minimization: <span class="arithmatex">\(\theta^* = \arg\min_\theta D(p \| p_\theta)\)</span>.</p>
+<p>The <strong>Inverse CDF method</strong> is the simplest concrete instance: <span class="arithmatex">\(G = F^{-1}\)</span> (the quantile function). It works for known 1D distributions but fails for unknown high-dimensional distributions, motivating learned generators.</p>
+<p><strong>GANs</strong> use an adversarial discriminator to approximate the Jensen-Shannon divergence without needing to compute <span class="arithmatex">\(p_\theta\)</span> in closed form. The minimax game yields <span class="arithmatex">\(D_{\phi^*}(\mathbf{x}) = p(\mathbf{x})/(p(\mathbf{x}) + p_\theta(\mathbf{x}))\)</span>, and optimizing the generator is equivalent to minimizing <span class="arithmatex">\(D_{\text{JS}}(p \| p_\theta)\)</span>.</p>
+<p><strong>VAEs</strong> use a latent variable model with an approximate posterior (encoder) and a decoder, trained by maximizing the ELBO — a tractable lower bound on <span class="arithmatex">\(\ln p_\theta(\mathbf{x})\)</span> derived via Jensen's inequality. The reparameterization trick enables gradient flow through the sampling operation.</p>
+<p><strong>Autoregressive models</strong> exploit the exact chain rule factorization <span class="arithmatex">\(p(\mathbf{x}) = \prod_j p(x_j \mid x_{&lt; j})\)</span>, modeling each conditional with a neural network and sampling sequentially. Language models are the preeminent example.</p>
+<p>All three families answer the same three questions differently: what is <span class="arithmatex">\(G_\theta\)</span>, what is <span class="arithmatex">\(D\)</span>, and how is the optimization solved. The field of deep generative modeling is, in essence, the study of increasingly sophisticated answers to these three questions.</p>
+<hr />
+<p><em>End of Chapter 66. The following chapter examines training instabilities in GANs and the Wasserstein GAN formulation, which replaces the Jensen-Shannon divergence with the Wasserstein-1 distance to address the vanishing gradient problem.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

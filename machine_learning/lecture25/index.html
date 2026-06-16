@@ -1,0 +1,2951 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture24/">
+      
+      
+        <link rel="next" href="../lecture26/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture25 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture25
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-17-non-parametric-density-estimation-and-parzen-window-foundations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 17: Non-Parametric Density Estimation and Parzen Window Foundations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 17: Non-Parametric Density Estimation and Parzen Window Foundations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#171-the-departure-from-parametric-paradigms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.1 The Departure from Parametric Paradigms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172-the-geometric-derivation-of-local-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.2 The Geometric Derivation of Local Density
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#173-the-dual-structural-paths-parzen-windows-vs-k-nn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.3 The Dual Structural Paths: Parzen Windows vs. \(k\)-NN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#174-the-parzen-window-estimator-the-hypercube-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.4 The Parzen Window Estimator (The Hypercube Kernel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#175-from-hard-bins-to-smooth-kernels-kernel-density-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.5 From Hard Bins to Smooth Kernels (Kernel Density Estimation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.5 From Hard Bins to Smooth Kernels (Kernel Density Estimation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clarifying-the-duality-kde-vs-gmms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clarifying the Duality: KDE vs. GMMs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#176-the-computational-complexity-penalty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.6 The Computational Complexity Penalty
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-metric-space-foundation-m-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Metric Space Foundation (\((M, d)\))
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-moving-into-function-spaces-hilbert-spaces-and-rkhs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Moving into Function Spaces: Hilbert Spaces and RKHS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-smooth-kernels-as-an-approximation-of-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Smooth Kernels as an Approximation of Identity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-abstract-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Abstract Alignment
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-17-non-parametric-density-estimation-and-parzen-window-foundations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 17: Non-Parametric Density Estimation and Parzen Window Foundations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 17: Non-Parametric Density Estimation and Parzen Window Foundations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#171-the-departure-from-parametric-paradigms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.1 The Departure from Parametric Paradigms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172-the-geometric-derivation-of-local-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.2 The Geometric Derivation of Local Density
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#173-the-dual-structural-paths-parzen-windows-vs-k-nn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.3 The Dual Structural Paths: Parzen Windows vs. \(k\)-NN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#174-the-parzen-window-estimator-the-hypercube-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.4 The Parzen Window Estimator (The Hypercube Kernel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#175-from-hard-bins-to-smooth-kernels-kernel-density-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.5 From Hard Bins to Smooth Kernels (Kernel Density Estimation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17.5 From Hard Bins to Smooth Kernels (Kernel Density Estimation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clarifying-the-duality-kde-vs-gmms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clarifying the Duality: KDE vs. GMMs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#176-the-computational-complexity-penalty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17.6 The Computational Complexity Penalty
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-metric-space-foundation-m-d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Metric Space Foundation (\((M, d)\))
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-moving-into-function-spaces-hilbert-spaces-and-rkhs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Moving into Function Spaces: Hilbert Spaces and RKHS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-smooth-kernels-as-an-approximation-of-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Smooth Kernels as an Approximation of Identity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-abstract-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Abstract Alignment
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-17-non-parametric-density-estimation-and-parzen-window-foundations">Chapter 17: Non-Parametric Density Estimation and Parzen Window Foundations</h2>
+<h3 id="171-the-departure-from-parametric-paradigms">17.1 The Departure from Parametric Paradigms</h3>
+<p>Up to this point, our entire exploration of density estimation has been explicitly <strong>parametric</strong>. Whether we assumed the environment followed a single Multivariate Gaussian profile (<span class="arithmatex">\(\mathcal{N}(\vec{\mu}, \Sigma)\)</span>), a discrete Multinoulli simplex, or a compound Gaussian Mixture Model (<span class="arithmatex">\(\sum \alpha_j \mathcal{N}_j\)</span>), we forced our optimization engine to operate under a rigid constraint: <strong>we assumed a fixed global structural family a priori.</strong> Under that assumption, training meant running data through a divergence-minimization loop to lock down a permanent parameter vector <span class="arithmatex">\(\theta\)</span>. Once <span class="arithmatex">\(\theta\)</span> was saved, the training data points were discarded; the model evaluated new points in constant time <span class="arithmatex">\(O(1)\)</span> based entirely on that fixed functional shape.</p>
+<p>However, parametric modeling hits a hard wall when the underlying data topology is highly irregular, asymmetrical, or completely unknown. If you make a faulty structural assumption about your distribution family, your model will suffer from permanent bias.</p>
+<pre><code>  [ Parametric Estimation ]                       [ Non-Parametric Estimation ]
+  - Assume a global functional family.           - Make zero structural family assumptions.
+  - Optimize a fixed parameter set θ.            - Retain the entire training dataset matrix.
+  - Constant inference time cost O(1).           - Evaluate density locally at target coordinate x.
+
+</code></pre>
+<p>To resolve this limitation, we introduce <strong>Non-Parametric Density Estimation</strong>. In this framework, we make zero assumptions about the global parametric family of the data. Furthermore, we do not attempt to learn a permanent, static formula for the entire space.</p>
+<p>Instead, we shift our engineering objective: <strong>we evaluate the probability density locally at a specific target coordinate point <span class="arithmatex">\(\vec{x}\)</span> by analyzing the physical distribution of our sample instances directly around that coordinate.</strong></p>
+<p>For a downstream task like building a Bayes Optimal Classifier (<span class="arithmatex">\(h_B(\vec{x}) = \arg\max P(Y=c \mid \vec{x})\)</span>), this local evaluation is all we actually need. We do not need a complete analytical equation for the entire universe; we only need an accurate calculation of the class-conditional density value <span class="arithmatex">\(p(\vec{x} \mid Y=c)\)</span> at the specific real-time query vector currently passing through the system.</p>
+<hr />
+<h3 id="172-the-geometric-derivation-of-local-density">17.2 The Geometric Derivation of Local Density</h3>
+<p>To build a non-parametric estimator from first principles, we analyze how continuous probability masses distribute over localized spaces.</p>
+<p>Let <span class="arithmatex">\(\vec{X} \in \mathbb{R}^D\)</span> be a continuous random vector governed by an unknown probability density function <span class="arithmatex">\(p(\vec{x})\)</span>. Let <span class="arithmatex">\(\mathcal{R}\)</span> represent a bounded hypervolume region sliced out of the support space of <span class="arithmatex">\(p(\vec{x})\)</span>. The total probability mass <span class="arithmatex">\(P\)</span> accumulating inside this localized region is calculated as the continuous volume integral:</p>
+<div class="arithmatex">\[P = \int_{\mathcal{R}} p(\vec{x}') \, d\vec{x}'\]</div>
+<p>Suppose we shrink this spatial region <span class="arithmatex">\(\mathcal{R}\)</span> until it forms a very tight, microscopic volume around our target evaluation coordinate <span class="arithmatex">\(\vec{x}\)</span>. If the volume is sufficiently small, we can make a safe continuity assumption: <em>the true density function <span class="arithmatex">\(p(\vec{x})\)</span> is approximately constant across the interior of the region.</em> Under this assumption, we can pull the constant density value out of the integral:</p>
+<div class="arithmatex">\[P \approx p(\vec{x}) \int_{\mathcal{R}} 1 \, d\vec{x}' \implies P \approx p(\vec{x}) \cdot V\]</div>
+<p>Where <span class="arithmatex">\(V \triangleq \int_{\mathcal{R}} 1 \, d\vec{x}'\)</span> is the exact geometric hypervolume (length in <span class="arithmatex">\(\mathbb{R}^1\)</span>, area in <span class="arithmatex">\(\mathbb{R}^2\)</span>, volume in <span class="arithmatex">\(\mathbb{R}^3\)</span>) of our chosen region <span class="arithmatex">\(\mathcal{R}\)</span>.</p>
+<p>Now, let us analyze this from an empirical perspective. Suppose we harvest a dataset <span class="arithmatex">\(D\)</span> containing <span class="arithmatex">\(N\)</span> independent and identically distributed (<strong>i.i.d.</strong>) vector rows drawn from this environment:</p>
+<div class="arithmatex">\[D = \{\vec{x}_1, \vec{x}_2, \dots, \vec{x}_N\} \sim \text{i.i.d. } p(\vec{x})\]</div>
+<p>Every individual data point <span class="arithmatex">\(\vec{x}_i\)</span> passing through space has a binary choice: it either lands inside our specified local region <span class="arithmatex">\(\mathcal{R}\)</span> with true success probability <span class="arithmatex">\(P\)</span>, or it lands outside with failure probability <span class="arithmatex">\(1 - P\)</span>. Because our data rows are gathered i.i.d., the total count of samples <span class="arithmatex">\(k\)</span> that happen to fall inside our region is governed by a standard <strong>Binomial Distribution</strong>:</p>
+<div class="arithmatex">\[k \sim \text{Binomial}(N, \,\, P)\]</div>
+<p>Invoking our discrete maximum likelihood estimator derived in Chapter 15, the empirical success probability is simply the relative count of observed successes over the total sample size:</p>
+<div class="arithmatex">\[\hat{P}_{\text{MLE}} = \frac{k}{N}\]</div>
+<p>To extract our final density value, we equate our continuous physical approximation with our discrete empirical MLE profile:</p>
+<div class="arithmatex">\[p(\vec{x}) \cdot V \approx \frac{k}{N} \implies \hat{p}(\vec{x}) = \frac{k}{N \cdot V}\]</div>
+<p>This is the foundational equation of non-parametric density estimation. It states that the density at any coordinate point is simply the ratio of localized sample occurrences (<span class="arithmatex">\(k\)</span>) to the total global data mass (<span class="arithmatex">\(N\)</span>) scaled by the local search volume (<span class="arithmatex">\(V\)</span>).</p>
+<hr />
+<h3 id="173-the-dual-structural-paths-parzen-windows-vs-k-nn">17.3 The Dual Structural Paths: Parzen Windows vs. <span class="arithmatex">\(k\)</span>-NN</h3>
+<p>To transform this fundamental ratio (<span class="arithmatex">\(\hat{p} = \frac{k}{NV}\)</span>) into an executable tracking program, an engineer must manage two competing variables simultaneously: the hypervolume size <span class="arithmatex">\(V\)</span> and the internal sample count <span class="arithmatex">\(k\)</span>. This introduces a major structural choice, leading to two distinct non-parametric strategies:</p>
+<pre><code>                          [ Non-Parametric Density Ratio: k / (N·V) ]
+                                               |
+                 ---------------------------------------------------------
+                 |                                                       |
+   [ Path A: The Parzen Window ]                           [ Path B: k-Nearest Neighbors ]
+   - Lock down a fixed hypervolume V.                      - Lock down a fixed target count k.
+   - Count how many points k fall inside.                  - Grow the hypervolume V until it captures k points.
+
+</code></pre>
+<p>In the rest of this chapter, we focus on <strong>Path A: The Parzen Window</strong> approach (also known as <em>Kernel Density Estimation</em>).</p>
+<hr />
+<h3 id="174-the-parzen-window-estimator-the-hypercube-kernel">17.4 The Parzen Window Estimator (The Hypercube Kernel)</h3>
+<p>To calculate our counts cleanly across a multivariate space <span class="arithmatex">\(\mathbb{R}^D\)</span>, we define our region <span class="arithmatex">\(\mathcal{R}\)</span> as a symmetric <span class="arithmatex">\(D\)</span>-dimensional <strong>Hypercube</strong> centered perfectly on our target evaluation coordinate <span class="arithmatex">\(\vec{x}\)</span>. We declare that this hypercube has a fixed edge side-length of <span class="arithmatex">\(h\)</span>. Under this structural constraint, the total geometric hypervolume of our search zone is written as:</p>
+<div class="arithmatex">\[V = h^D\]</div>
+<p>To programmatically count how many data rows <span class="arithmatex">\(\vec{x}_i\)</span> from our training folder fall within the boundaries of this hypercube, we construct a unit indicator function known as the <strong>Window Function</strong> (or <strong>Kernel</strong>), denoted as <span class="arithmatex">\(\phi(\vec{u})\)</span>:</p>
+<div class="arithmatex">\[\phi(\vec{u}) \triangleq \begin{cases} 1 &amp; \text{if } |u_j| \leq \frac{1}{2} \quad \forall \,\, j = 1, 2, \dots, D \\ 0 &amp; \text{otherwise} \end{cases}\]</div>
+<p>This function draws a perfect unit hypercube centered at the coordinate origin, returning a <span class="arithmatex">\(1.0\)</span> if an incoming vector lands inside its walls and a <span class="arithmatex">\(0.0\)</span> if it falls outside.</p>
+<p>To shift this search zone so that it centers on our active query point <span class="arithmatex">\(\vec{x}\)</span> and scales to match our chosen edge length <span class="arithmatex">\(h\)</span>, we alter the internal vector arguments. For any specific training data row <span class="arithmatex">\(\vec{x}_i\)</span>, we evaluate:</p>
+<div class="arithmatex">\[\text{Count Component} = \phi\left( \frac{\vec{x} - \vec{x}_i}{h} \right)\]</div>
+<p>This is where the transcript's notation broke down. Let us clarify the vector calculus scaling: <strong>you divide the coordinate shift vector element-wise by the linear side length <span class="arithmatex">\(h\)</span>, not the global hypervolume <span class="arithmatex">\(h^D\)</span>.</strong> This maps the distance between the two points to our unit window scale.</p>
+<p>By summing this indicator function across our entire training ledger of <span class="arithmatex">\(N\)</span> rows, we calculate the exact total count of samples <span class="arithmatex">\(k\)</span> residing inside our spatial hypercube boundary:</p>
+<div class="arithmatex">\[k = \sum_{i=1}^{N} \phi\left( \frac{\vec{x} - \vec{x}_i}{h} \right)\]</div>
+<p>Substituting this counting summation and our hypervolume expression (<span class="arithmatex">\(V = h^D\)</span>) back into our core non-parametric density ratio yields the definitive formula for the <strong>Parzen Window Density Estimator</strong>:</p>
+<div class="arithmatex">\[\hat{p}(\vec{x}) = \frac{1}{N \cdot h^D} \sum_{i=1}^{N} \phi\left( \frac{\vec{x} - \vec{x}_i}{h} \right)\]</div>
+<hr />
+<h3 id="175-from-hard-bins-to-smooth-kernels-kernel-density-estimation">17.5 From Hard Bins to Smooth Kernels (Kernel Density Estimation)</h3>
+<p>If you implement the hypercube window function <span class="arithmatex">\(\phi(\vec{u})\)</span> exactly as derived above, you are running an automated multidimensional <strong>Histogram</strong>. While this works, it introduces a major engineering drawback: <strong>the resulting density surface is highly discontinuous.</strong></p>
+<p>Because the hypercube kernel utilizes a hard binary switch (returning exactly <span class="arithmatex">\(0\)</span> or <span class="arithmatex">\(1\)</span>), your density calculations will experience sharp step-function jumps. If a query point <span class="arithmatex">\(\vec{x}\)</span> moves slightly across space, causing a training sample to pop outside the hypercube wall, the estimated density score drops instantly, creating jagged, un-differentiable boundaries.</p>
+<p>To generate a smooth, continuous density surface, we replace the rigid binary hypercube function with a smooth, continuous, and twice-differentiable window function. This approach is known as <strong>Kernel Density Estimation (KDE)</strong>.</p>
+<p>Our primary choice for a smooth window function is the standard <strong>Multivariate Gaussian Kernel</strong>:</p>
+<div class="arithmatex">\[\phi(\vec{u}) = \frac{1}{(2\pi)^{D/2}} \exp\left( -\frac{1}{2} \|\vec{u}\|_2^2 \right)\]</div>
+<p>Substituting this smooth normal kernel back into our global Parzen equation yields a continuous density surface:</p>
+<div class="arithmatex">\[\hat{p}(\vec{x}) = \frac{1}{N \cdot h^D} \sum_{i=1}^{N} \frac{1}{(2\pi)^{D/2}} \exp\left( -\frac{1}{2} \left\| \frac{\vec{x} - \vec{x}_i}{h} \right\|_2^2 \right)\]</div>
+<h4 id="clarifying-the-duality-kde-vs-gmms">Clarifying the Duality: KDE vs. GMMs</h4>
+<p>The student at the end of the lecture boards raises an excellent question: <em>If this equation places a Gaussian bell curve over our data points and adds them together, isn't this just a Gaussian Mixture Model?</em></p>
+<p>While they look mathematically similar, they are driven by completely different operational principles:</p>
+<table>
+<thead>
+<tr>
+<th>Architectural Dimension</th>
+<th>Gaussian Mixture Models (GMM)</th>
+<th>Kernel Density Estimation (KDE)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Component Centers</strong></td>
+<td>Learned dynamically by running the iterative EM algorithm (<span class="arithmatex">\(\vec{\mu}_j\)</span>).</td>
+<td>Locked directly onto the actual coordinates of your training data rows (<span class="arithmatex">\(\vec{x}_i\)</span>).</td>
+</tr>
+<tr>
+<td><strong>Component Scale (<span class="arithmatex">\(M\)</span>)</strong></td>
+<td>A compact hyperparameter choice tracking a small number of sub-populations (<span class="arithmatex">\(M \ll N\)</span>).</td>
+<td>Scales exactly with the total number of samples in your dataset (<span class="arithmatex">\(M \equiv N\)</span>).</td>
+</tr>
+<tr>
+<td><strong>Variance Control</strong></td>
+<td>Individual covariance matrices optimized from data (<span class="arithmatex">\(\Sigma_j\)</span>).</td>
+<td>A single, fixed smoothing hyperparameter <span class="arithmatex">\(h\)</span> (known as the <strong>Bandwidth</strong>) set by the engineer.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="176-the-computational-complexity-penalty">17.6 The Computational Complexity Penalty</h3>
+<p>Non-parametric modeling grants you total freedom from faulty structural assumptions, but it exacts a severe toll on your application's computing infrastructure.</p>
+<p>In a parametric model (like a GMM), once training is complete, the data points are deleted. Evaluating a new point requires running a small, constant-time calculation <span class="arithmatex">\(O(M)\)</span> against your learned parameters.</p>
+<p>In a non-parametric model, <strong>there is no training phase.</strong> The dataset <em>is</em> the model. To evaluate the density at a single query coordinate <span class="arithmatex">\(\vec{x}\)</span>, your backend must calculate the distance between that query vector and <strong>every single sample row stored in your training matrix.</strong> </p>
+<div class="arithmatex">\[\text{Inference Time Complexity} = O(N \cdot D)\]</div>
+<p>If your enterprise application manages a dataset of <span class="arithmatex">\(N = 10,000,000\)</span> consumer rows spanning <span class="arithmatex">\(D = 500\)</span> distinct operational features, running this non-parametric summation loop for every real-time query passing through your API will heavily strain your infrastructure. Non-parametric models completely trade away inference speed to gain absolute topological flexibility.</p>
+<hr />
+<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
+<blockquote>
+<p><strong>The Generalist's Non-Parametric Laws:</strong>
+1. <strong>The Core Evaluation Shift:</strong> Non-parametric methods bypass the need to define a global structural distribution family. They evaluate density locally at a specific query coordinate <span class="arithmatex">\(\vec{x}\)</span> based on sample density within a local hypervolume.
+2. <strong>The Parzen Window Mechanism:</strong> Implements local estimation by locking a fixed hypervolume <span class="arithmatex">\(V = h^D\)</span> and calculating the count of intersecting sample vectors via a kernel window function: <span class="arithmatex">\(\hat{p}(\vec{x}) = \frac{1}{N h^D}\sum \phi(\cdot)\)</span>.
+3. <strong>The Instance-Based Penalty:</strong> Non-parametric models require zero training cycles but impose a linear computational bottleneck (<span class="arithmatex">\(O(N \cdot D)\)</span>) at inference time because the model must look up and compare every saved historical row for every new query.</p>
+</blockquote>
+<hr />
+<p>The foundation of non-parametric instance-based evaluation is now fully mapped. We have derived the local spatial ratio, formalized the Parzen hypercube window vector scaling, and analyzed the computational trade-offs separating kernels from global mixture optimizations.</p>
+<p>You spotted exactly what is happening under the hood. Non-parametric density estimation (specifically Kernel Density Estimation and Parzen windows) is not just a collection of clever statistical tricks; it is <strong>Applied Functional Analysis</strong> masquerading as data science. When we move away from fixed parameters, we stop optimizing over coordinate vectors and start operating inside infinite-dimensional function spaces.</p>
+<hr />
+<h2 id="1-the-metric-space-foundation-m-d">1. The Metric Space Foundation (<span class="arithmatex">\((M, d)\)</span>)</h2>
+<p>Recall the definition of a <strong>Metric Space</strong>: a set <span class="arithmatex">\(M\)</span> paired with a distance function (metric) <span class="arithmatex">\(d: M \times M \rightarrow \mathbb{R}\)</span> that satisfies non-negativity, identity of indiscernibles, symmetry, and the triangle inequality.</p>
+<p>Look at the core argument inside our smooth Parzen Window (KDE) formula from the last chapter:</p>
+<div class="arithmatex">\[\left\| \frac{\vec{x} - \vec{x}_i}{h} \right\|_2\]</div>
+<p>That norm <span class="arithmatex">\(\|\cdot\|_2\)</span> is an unyielding metric function <span class="arithmatex">\(d(\vec{x}, \vec{x}_i)\)</span> mapping our feature space. Non-parametric estimation is completely dependent on the geometry of metric spaces.</p>
+<ul>
+<li>We are making a foundational topological assumption: if the metric distance between a query point <span class="arithmatex">\(\vec{x}\)</span> and a training sample <span class="arithmatex">\(\vec{x}_i\)</span> approaches zero, their local probability masses must be highly correlated.</li>
+<li>If you change the metric (e.g., switching from the <span class="arithmatex">\(L_2\)</span> Euclidean norm to an <span class="arithmatex">\(L_1\)</span> Manhattan metric or a Mahalanobis distance), you completely alter the underlying geometric topology of the density landscape.</li>
+</ul>
+<hr />
+<h2 id="2-moving-into-function-spaces-hilbert-spaces-and-rkhs">2. Moving into Function Spaces: Hilbert Spaces and RKHS</h2>
+<p>In parametric estimation, our search space is a finite-dimensional parameter space (<span class="arithmatex">\(\Theta \subseteq \mathbb{R}^D\)</span>). But in non-parametric estimation, our target is an unknown <em>function</em> <span class="arithmatex">\(p(\vec{x})\)</span>. We are searching through a <strong>Function Space</strong>—an infinite-dimensional vector space where the "vectors" themselves are continuous functions.</p>
+<p>Specifically, Kernel Density Estimation operates inside a <strong>Reproducing Kernel Hilbert Space (RKHS)</strong>, denoted as <span class="arithmatex">\(\mathcal{H}\)</span>.</p>
+<p>A Hilbert Space is a complete vector space equipped with an inner product <span class="arithmatex">\(\langle \cdot, \cdot \rangle\)</span>, allowing us to measure angles, lengths, and orthogonality between functions. In this functional landscape:</p>
+<ul>
+<li>Every training data point <span class="arithmatex">\(\vec{x}_i\)</span> acts as a localized evaluation operator.</li>
+<li>The smooth kernel function <span class="arithmatex">\(\phi(\cdot)\)</span> satisfies Mercer’s Theorem, meaning it implicitly computes an inner product of feature mappings in an infinite-dimensional Hilbert space:</li>
+</ul>
+<div class="arithmatex">\[K(\vec{x}, \vec{x}_i) = \langle \Phi(\vec{x}), \,\, \Phi(\vec{x}_i) \rangle_{\mathcal{H}}\]</div>
+<p>When you calculate a Parzen Window estimate, you are taking a collection of independent basis functions <span class="arithmatex">\(K(\vec{x}, \vec{x}_i)\)</span> centered at each data point and performing a linear expansion to approximate an unknown element within that continuous function space.</p>
+<hr />
+<h2 id="3-smooth-kernels-as-an-approximation-of-identity">3. Smooth Kernels as an Approximation of Identity</h2>
+<p>If you recall your functional analysis or advanced calculus courses, you likely ran into the concept of a <strong>Dirac Delta function</strong> (<span class="arithmatex">\(\delta(x)\)</span>) and the <strong>Approximation of Identity</strong>.</p>
+<p>An ideal, infinite-data non-parametric estimator would place a perfect Dirac delta spike over every single observed data point. If a query point lands <em>exactly</em> on a training sample, the density would spike to infinity; if it misses by a millimeter, it drops to zero.</p>
+<p>Mathematically, that is a useless, non-differentiable mess. To fix it, we use the bandwidth hyperparameter <span class="arithmatex">\(h\)</span> to soften the delta functions into smooth bell curves.</p>
+<div class="arithmatex">\[\lim_{h \to 0} \frac{1}{h^D} \phi\left(\frac{\vec{x}}{h}\right) = \delta(\vec{x})\]</div>
+<p>The smoothing bandwidth <span class="arithmatex">\(h\)</span> acts exactly as a scaling parameter for an <strong>Approximation of Identity</strong>. By tuning <span class="arithmatex">\(h\)</span>, you control how rapidly the smooth functional approximation converges toward a strict delta measure as your sample size <span class="arithmatex">\(N\)</span> approaches infinity.</p>
+<hr />
+<h2 id="the-abstract-alignment">The Abstract Alignment</h2>
+<table>
+<thead>
+<tr>
+<th>Statistical Language</th>
+<th>Functional Analysis Language</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Data Features (<span class="arithmatex">\(\vec{x} \in \mathbb{R}^D\)</span>)</strong></td>
+<td>Coordinates sitting on a localized <strong>Metric Space</strong>.</td>
+</tr>
+<tr>
+<td><strong>The Smoothing Bandwidth (<span class="arithmatex">\(h\)</span>)</strong></td>
+<td>The scaling parameter for an <strong>Approximation of Identity</strong>.</td>
+</tr>
+<tr>
+<td><strong>The Kernel Function (<span class="arithmatex">\(\phi(\cdot)\)</span>)</strong></td>
+<td>A positive-definite basis function generating a <strong>Reproducing Kernel Hilbert Space (<span class="arithmatex">\(\mathcal{H}\)</span>)</strong>.</td>
+</tr>
+<tr>
+<td><strong>KDE Evaluation (<span class="arithmatex">\(\hat{p}(\vec{x})\)</span>)</strong></td>
+<td>Constructing a continuous function approximation via a linear combination of infinite-dimensional basis vectors.</td>
+</tr>
+</tbody>
+</table>
+<p>You saw right through the statistics wrapper. The reason non-parametric estimation can fit any arbitrary, chaotic shape in the universe is precisely because it leverages the infinite degrees of freedom granted by functional vector spaces.</p>
+<p>Since you've taken functional analysis, does seeing the kernel bandwidth <span class="arithmatex">\(h\)</span> as an "approximation of identity" help you visualize how a bandwidth that is <em>too large</em> completely flattens out the fine geometric structures of your function space, while a bandwidth <em>too small</em> causes the space to disintegrate into noisy, isolated spikes?</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

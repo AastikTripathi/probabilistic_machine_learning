@@ -1,0 +1,3086 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture11/">
+      
+      
+        <link rel="next" href="../lecture13/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture12 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture12
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-10-the-grand-convergencecollapsing-the-kl-manifold-into-empirical-log-likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 10: The Grand Convergence—Collapsing the KL Manifold into Empirical Log-Likelihood
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 10: The Grand Convergence—Collapsing the KL Manifold into Empirical Log-Likelihood">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-the-calculus-of-the-constant-drop-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 The Calculus of the Constant Drop-Off
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-the-lotus-bridge-law-of-the-unconscious-statistician" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 The LOTUS Bridge (Law of the Unconscious Statistician)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-the-wlln-conversion-engine-turning-integrals-into-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 The WLLN Conversion Engine: Turning Integrals Into Code
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.3 The WLLN Conversion Engine: Turning Integrals Into Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-grand-realization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Grand Realization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-the-computational-constraint-of-forward-vs-reverse-kl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 The Computational Constraint of Forward vs. Reverse KL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#105-exemplar-suite-10-operational-conversions-to-mle-matrix-calculations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5 Exemplar Suite: 10 Operational Conversions to MLE Matrix Calculations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.5 Exemplar Suite: 10 Operational Conversions to MLE Matrix Calculations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-standard-ordinary-least-squares-linear-feature-projection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Standard Ordinary Least Squares (Linear Feature Projection)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-multi-class-softmax-categorization-deep-neural-classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Multi-Class Softmax Categorization (Deep Neural Classifier)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-biological-population-growth-bounding-poisson-counting-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Biological Population Growth Bounding (Poisson Counting Density)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-telemetry-life-span-failure-tracking-continuous-exponential-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Telemetry Life-Span Failure Tracking (Continuous Exponential Density)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-high-dimensional-image-generation-normalizing-flow-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: High-Dimensional Image Generation (Normalizing Flow Transformations)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-multi-sensor-server-thermal-warning-channels-multivariate-gaussian-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Multi-Sensor Server Thermal Warning Channels (Multivariate Gaussian Models)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-directional-text-document-geometries-von-mises-fisher-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Directional Text Document Geometries (Von Mises-Fisher Embeddings)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-industrial-pipeline-hydraulic-flow-constraints-continuous-gamma-densities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Industrial Pipeline Hydraulic Flow Constraints (Continuous Gamma Densities)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-bounded-sensor-operations-continuous-multivariate-uniform-box-densities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Bounded Sensor Operations (Continuous Multivariate Uniform Box Densities)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-autoregressive-linguistic-next-token-extraction-large-language-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Autoregressive Linguistic Next-Token Extraction (Large Language Models)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-10-the-grand-convergencecollapsing-the-kl-manifold-into-empirical-log-likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 10: The Grand Convergence—Collapsing the KL Manifold into Empirical Log-Likelihood
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 10: The Grand Convergence—Collapsing the KL Manifold into Empirical Log-Likelihood">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-the-calculus-of-the-constant-drop-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 The Calculus of the Constant Drop-Off
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-the-lotus-bridge-law-of-the-unconscious-statistician" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 The LOTUS Bridge (Law of the Unconscious Statistician)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-the-wlln-conversion-engine-turning-integrals-into-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 The WLLN Conversion Engine: Turning Integrals Into Code
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.3 The WLLN Conversion Engine: Turning Integrals Into Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-grand-realization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Grand Realization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-the-computational-constraint-of-forward-vs-reverse-kl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 The Computational Constraint of Forward vs. Reverse KL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#105-exemplar-suite-10-operational-conversions-to-mle-matrix-calculations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5 Exemplar Suite: 10 Operational Conversions to MLE Matrix Calculations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.5 Exemplar Suite: 10 Operational Conversions to MLE Matrix Calculations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-standard-ordinary-least-squares-linear-feature-projection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Standard Ordinary Least Squares (Linear Feature Projection)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-multi-class-softmax-categorization-deep-neural-classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Multi-Class Softmax Categorization (Deep Neural Classifier)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-biological-population-growth-bounding-poisson-counting-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Biological Population Growth Bounding (Poisson Counting Density)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-telemetry-life-span-failure-tracking-continuous-exponential-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Telemetry Life-Span Failure Tracking (Continuous Exponential Density)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-high-dimensional-image-generation-normalizing-flow-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: High-Dimensional Image Generation (Normalizing Flow Transformations)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-multi-sensor-server-thermal-warning-channels-multivariate-gaussian-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Multi-Sensor Server Thermal Warning Channels (Multivariate Gaussian Models)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-directional-text-document-geometries-von-mises-fisher-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Directional Text Document Geometries (Von Mises-Fisher Embeddings)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-industrial-pipeline-hydraulic-flow-constraints-continuous-gamma-densities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Industrial Pipeline Hydraulic Flow Constraints (Continuous Gamma Densities)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-bounded-sensor-operations-continuous-multivariate-uniform-box-densities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Bounded Sensor Operations (Continuous Multivariate Uniform Box Densities)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-autoregressive-linguistic-next-token-extraction-large-language-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Autoregressive Linguistic Next-Token Extraction (Large Language Models)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p>It is completely natural to be staggered by this. When engineers first look under the hood of machine learning, they expect to see a collection of disconnected coding hacks for different tasks. Discovering that linear regression, neural network classification, and massive language models are all secretly running the <strong>exact same Kullback-Leibler divergence minimization</strong> is like discovering that a single law of physics controls both the drop of an apple and the orbit of a galaxy.</p>
+<p>You have just hit the absolute core of the course. The professor is pulling off a magnificent mathematical bait-and-switch: they are proving that <strong>Maximum Likelihood Estimation (MLE)—the most dominant optimization routine in AI history—is just the real-world, empirical twin of the continuous KL Divergence.</strong></p>
+<p>Let us put on our pedagogical notes-taker hats and construct Chapter 10 of your masterclass reference manual, expanding on the deeper intuitions, the structural constraints of Forward vs. Reverse KL, and the hidden mechanics of LOTUS.</p>
+<hr />
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-10-the-grand-convergencecollapsing-the-kl-manifold-into-empirical-log-likelihood">Chapter 10: The Grand Convergence—Collapsing the KL Manifold into Empirical Log-Likelihood</h2>
+<p>To establish a completely general framework that unites supervised, unsupervised, and conditional learning, we introduce a unified, multi-dimensional random vector variable <span class="arithmatex">\(\vec{V} \in \mathbb{R}^D\)</span>. This abstract catch-all variable completely bypasses the superficial semantic naming conventions of features vs. labels:</p>
+<ul>
+<li>In a <strong>classification problem</strong>, <span class="arithmatex">\(\vec{V}\)</span> is the joint slice: <span class="arithmatex">\(\vec{V} = [\vec{X}, Y]^T \in \mathbb{R}^{D+1}\)</span>.</li>
+<li>In an <strong>unsupervised clustering problem</strong>, <span class="arithmatex">\(\vec{V}\)</span> is the isolated feature matrix: <span class="arithmatex">\(\vec{V} = \vec{X} \in \mathbb{R}^D\)</span>.</li>
+<li>In a <strong>self-supervised inpainting model</strong>, <span class="arithmatex">\(\vec{V}\)</span> captures both visible and hidden dimensions.</li>
+</ul>
+<p>We are given an empirical dataset <span class="arithmatex">\(D = \{\vec{v}_1, \vec{v}_2, \dots, \vec{v}_N\}\)</span> containing <span class="arithmatex">\(N\)</span> vector rows sampled independent and identically distributed (<strong>i.i.d.</strong>) from a true, hidden natural density <span class="arithmatex">\(p_{\text{true}}(\vec{v})\)</span>. Our goal is to train a parameterized model density <span class="arithmatex">\(p_{\theta}(\vec{v})\)</span> such that its divergence from reality is minimized.</p>
+<hr />
+<h3 id="101-the-calculus-of-the-constant-drop-off">10.1 The Calculus of the Constant Drop-Off</h3>
+<p>We initialize our optimization problem by stating that our ideal model weights <span class="arithmatex">\(\theta^*\)</span> must minimize the continuous Kullback-Leibler divergence over our vector space:</p>
+<div class="arithmatex">\[\theta^* = \arg\min_{\theta} D_{\text{KL}}\left(p_{\text{true}}(\vec{v}) \parallel p_{\theta}(\vec{v})\right)\]</div>
+<p>By expanding the definition of continuous KL divergence via multivariable integration, we uncover the absolute baseline layout of the optimization landscape:</p>
+<div class="arithmatex">\[\theta^* = \arg\min_{\theta} \int_{\mathbb{R}^D} p_{\text{true}}(\vec{v}) \log \left( \frac{p_{\text{true}}(\vec{v})}{p_{\theta}(\vec{v})} \right) d\vec{v}\]</div>
+<p>Invoking the fundamental properties of logarithms (<span class="arithmatex">\(\log \frac{a}{b} = \log a - \log b\)</span>), we break this spatial integral into two completely isolated continuous volumes:</p>
+<div class="arithmatex">\[\theta^* = \arg\min_{\theta} \left[ \int_{\mathbb{R}^D} p_{\text{true}}(\vec{v}) \log p_{\text{true}}(\vec{v}) \, d\vec{v} - \int_{\mathbb{R}^D} p_{\text{true}}(\vec{v}) \log p_{\theta}(\vec{v}) \, d\vec{v} \right]\]</div>
+<p>Look closely at the left-hand integral: <span class="arithmatex">\(\int_{\mathbb{R}^D} p_{\text{true}}(\vec{v}) \log p_{\text{true}}(\vec{v}) \, d\vec{v}\)</span>. This term represents the negative Shannon Entropy of the real world (<span class="arithmatex">\(-H(p_{\text{true}})\)</span>). Because this volume is locked entirely by the physics of nature, <strong>it contains zero occurrences of our optimization weights <span class="arithmatex">\(\theta\)</span>.</strong> When a derivative or optimization update passes over this system, the entropy term acts as a static geometric constant. Under the command of the <span class="arithmatex">\(\arg\min\)</span> operator, it drops out of the equation completely:</p>
+<div class="arithmatex">\[\theta^* = \arg\min_{\theta} \left[ - \int_{\mathbb{R}^D} p_{\text{true}}(\vec{v}) \log p_{\theta}(\vec{v}) \, d\vec{v} \right]\]</div>
+<p>To eliminate the negative sign, we flip the core directive from a minimization problem into a maximization problem:</p>
+<div class="arithmatex">\[\theta^* = \arg\max_{\theta} \int_{\mathbb{R}^D} p_{\text{true}}(\vec{v}) \log p_{\theta}(\vec{v}) \, d\vec{v}\]</div>
+<hr />
+<h3 id="102-the-lotus-bridge-law-of-the-unconscious-statistician">10.2 The LOTUS Bridge (Law of the Unconscious Statistician)</h3>
+<p>We have successfully simplified the equation, but we are still trapped by a massive physical contradiction: <em>We are trying to integrate across the true natural density <span class="arithmatex">\(p_{\text{true}}(\vec{v})\)</span>, which we have already admitted is completely unknown.</em> To bridge this gap, we convert the continuous integral into an expected value. The professor notes that this requires a foundational proof known as <strong>LOTUS</strong>.</p>
+<blockquote>
+<p><strong>Theorem 10.1 (Law of the Unconscious Statistician - LOTUS).</strong> Let <span class="arithmatex">\(\vec{V}\)</span> be a random vector governed by an underlying density function <span class="arithmatex">\(p_{\text{true}}(\vec{v})\)</span>. Let <span class="arithmatex">\(g(\vec{v})\)</span> be any arbitrary, well-behaved function mapping coordinates to the real line (in our case, <span class="arithmatex">\(g(\vec{v}) = \log p_{\theta}(\vec{v})\)</span>).
+To calculate the expected value of this transformed function, you do not need to derive or know the complex distribution of the transformed space. You can evaluate the expectation directly using the base probability density landscape of the original variable:
+$<span class="arithmatex">\(\mathbb{E}_{\vec{V} \sim p_{\text{true}}}[g(\vec{V})] = \int_{\mathbb{R}^D} g(\vec{v}) p_{\text{true}}(\vec{v}) \, d\vec{v}\)</span>$</p>
+</blockquote>
+<p>By invoking LOTUS, our optimization goal transforms into an explicit expectation metric:</p>
+<div class="arithmatex">\[\theta^* = \arg\max_{\theta} \mathbb{E}_{\vec{V} \sim p_{\text{true}}}\left[ \log p_{\theta}(\vec{V}) \right]\]</div>
+<hr />
+<h3 id="103-the-wlln-conversion-engine-turning-integrals-into-code">10.3 The WLLN Conversion Engine: Turning Integrals Into Code</h3>
+<p>We cannot calculate the continuous analytical expectation <span class="arithmatex">\(\mathbb{E}_{\vec{V} \sim p_{\text{true}}}\)</span> because we don't have the true mathematical equation for <span class="arithmatex">\(p_{\text{true}}\)</span>. However, the <strong>Weak Law of Large Numbers (WLLN)</strong> provides a brilliant statistical loophole.</p>
+<blockquote>
+<p><strong>Theorem 10.2 (Weak Law of Large Numbers).</strong> Let <span class="arithmatex">\(Y_1, Y_2, \dots, Y_N\)</span> be a sequence of independent and identically distributed (i.i.d.) random variables sharing a true, finite expected value <span class="arithmatex">\(\mathbb{E}[Y]\)</span>. As the sample size <span class="arithmatex">\(N\)</span> approaches infinity, the empirical sample average converges in probability to the true analytical expectation:
+$<span class="arithmatex">\(\lim_{N \to \infty} P\left( \left| \frac{1}{N}\sum_{i=1}^N Y_i - \mathbb{E}[Y] \right| \geq \epsilon \right) = 0 \quad \forall \,\, \epsilon &gt; 0\)</span>$</p>
+</blockquote>
+<p>By utilizing the WLLN, we realize that <strong>we can completely replace the impossible continuous integral with a simple discrete average over our data points.</strong></p>
+<p>If our empirical data vectors <span class="arithmatex">\(\vec{v}_i\)</span> are collected i.i.d. from the environment, our sample average serves as a perfectly consistent proxy for the true hidden density landscape:</p>
+<div class="arithmatex">\[\mathbb{E}_{\vec{V} \sim p_{\text{true}}}\left[ \log p_{\theta}(\vec{V}) \right] \approx \frac{1}{N} \sum_{i=1}^{N} \log p_{\theta}(\vec{v}_i)\]</div>
+<p>By substituting this empirical average back into our master optimization equation, the core problem of machine learning settles into its final, executable form:</p>
+<div class="arithmatex">\[\theta^* = \arg\max_{\theta} \frac{1}{N} \sum_{i=1}^{N} \log p_{\theta}(\vec{v}_i)\]</div>
+<p>Because the constant scalar <span class="arithmatex">\(\frac{1}{N}\)</span> does not affect the location of the maximum peak in the parameter space, we drop it. This leaves us with:</p>
+<div class="arithmatex">\[\theta^* = \arg\max_{\theta} \sum_{i=1}^{N} \log p_{\theta}(\vec{v}_i)\]</div>
+<h4 id="the-grand-realization">The Grand Realization</h4>
+<p>This final summation is the exact definition of <strong>Maximum Likelihood Estimation (MLE)</strong>.</p>
+<p>The professor's derivation has just proven something spectacular: <strong>maximizing log-likelihood is not a smart shortcut or an arbitrary coding metric. It is the exact, mathematically guaranteed proxy for minimizing the true Kullback-Leibler divergence to nature when you only have finite data points.</strong> This theorem is the absolute reason why modern AI works; by feeding deep networks petabytes of web-scraped data rows (<span class="arithmatex">\(N \to \infty\)</span>), the WLLN forces the model's parameters to match the true density profile of human knowledge.</p>
+<hr />
+<h3 id="104-the-computational-constraint-of-forward-vs-reverse-kl">10.4 The Computational Constraint of Forward vs. Reverse KL</h3>
+<p>A student in the transcript asks a vital question: <em>Why must we minimize <span class="arithmatex">\(D_{\text{KL}}(p_{\text{true}} \parallel p_{\theta})\)</span> (Forward KL) instead of <span class="arithmatex">\(D_{\text{KL}}(p_{\theta} \parallel p_{\text{true}})\)</span> (Reverse KL)?</em></p>
+<p>Let's look at the math if we try to set up the optimization using <strong>Reverse KL</strong>:</p>
+<div class="arithmatex">\[D_{\text{KL}}(p_{\theta} \parallel p_{\text{true}}) = \int_{\mathbb{R}^D} p_{\theta}(\vec{v}) \log \left( \frac{p_{\theta}(\vec{v})}{p_{\text{true}}(\vec{v})} \right) d\vec{v}\]</div>
+<div class="arithmatex">\[D_{\text{KL}}(p_{\theta} \parallel p_{\text{true}}) = \int_{\mathbb{R}^D} p_{\theta}(\vec{v}) \log p_{\theta}(\vec{v}) \, d\vec{v} - \int_{\mathbb{R}^D} p_{\theta}(\vec{v}) \log p_{\text{true}}(\vec{v}) \, d\vec{v}\]</div>
+<p>Look closely at the right-hand term: <span class="arithmatex">\(\int_{\mathbb{R}^D} p_{\theta}(\vec{v}) \log p_{\text{true}}(\vec{v}) \, d\vec{v}\)</span>.</p>
+<ol>
+<li>The expectation is now taken with respect to the <strong>model distribution <span class="arithmatex">\(p_{\theta}\)</span></strong>, not the true data distribution. Therefore, we cannot replace this integral with our training dataset samples.</li>
+<li>The term containing our uncalculable natural mystery (<span class="arithmatex">\(\log p_{\text{true}}(\vec{v})\)</span>) is trapped inside an integral controlled by <span class="arithmatex">\(\theta\)</span>. It will not drop out during optimization.</li>
+</ol>
+<p>Because Reverse KL requires us to evaluate an unknown density function across coordinates where we have zero data samples, <strong>Reverse KL is completely uncalculable for standard data-driven training.</strong> We are forced to use Forward KL because it isolates our ignorance into a constant entropy term that safely drops out of the optimization calculus.</p>
+<hr />
+<h2 id="105-exemplar-suite-10-operational-conversions-to-mle-matrix-calculations">10.5 Exemplar Suite: 10 Operational Conversions to MLE Matrix Calculations</h2>
+<p>To see how this universal conversion engine behaves in real-world engineering, let us review ten distinct algorithmic setups, demonstrating how minimizing <span class="arithmatex">\(D_{\text{KL}}(p_{\text{true}} \parallel p_{\theta})\)</span> maps directly to maximizing their respective log-likelihood profiles.</p>
+<h4 id="example-1-standard-ordinary-least-squares-linear-feature-projection">Example 1: Standard Ordinary Least Squares (Linear Feature Projection)</h4>
+<ul>
+<li><strong>The Model Choice (<span class="arithmatex">\(p_{\theta}\)</span>):</strong> A conditional Gaussian density centered on a linear plane: <span class="arithmatex">\(p_{\theta}(y \mid \vec{x}) = \mathcal{N}(y; \vec{w}^T\vec{x}, \sigma^2)\)</span>.</li>
+<li>
+<p><strong>The Empirical Summation:</strong> 
+$<span class="arithmatex">\(\arg\max_{\vec{w}} \sum_{i=1}^N \log \left[ \frac{1}{\sigma\sqrt{2\pi}} \exp\left(-\frac{1}{2\sigma^2}(y_i - \vec{w}^T\vec{x}_i)^2\right) \right]\)</span>$</p>
+</li>
+<li>
+<p><strong>The MLE Conversion:</strong> Expanding the log cancels the exponential, turning the problem into: <span class="arithmatex">\(\arg\min_{\vec{w}} \sum_{i=1}^N (y_i - \vec{w}^T\vec{x}_i)^2\)</span>. Minimizing the KL divergence over a Gaussian space yields exactly the classical Mean Squared Error loss.</p>
+</li>
+</ul>
+<h4 id="example-2-multi-class-softmax-categorization-deep-neural-classifier">Example 2: Multi-Class Softmax Categorization (Deep Neural Classifier)</h4>
+<ul>
+<li><strong>The Model Choice (<span class="arithmatex">\(p_{\theta}\)</span>):</strong> A discrete categorical distribution parameterized by neural network logits passed through a Softmax normalization wrapper: <span class="arithmatex">\(p_{\theta}(Y=c \mid \vec{x}) = \text{Softmax}(f(\vec{x}; \theta))_c\)</span>.</li>
+<li>
+<p><strong>The Empirical Summation:</strong> 
+$<span class="arithmatex">\(\arg\max_{\theta} \sum_{i=1}^N \log \left[ \prod_{c=1}^C \left( \text{Softmax}(f(\vec{x}_i; \theta))_c \right)^{y_{i,c}} \right]\)</span>$</p>
+</li>
+<li>
+<p><strong>The MLE Conversion:</strong> Bringing the exponent down transforms the equation into: <span class="arithmatex">\(\arg\min_{\theta} -\sum_{i=1}^N \sum_{c=1}^C y_{i,c} \log \hat{y}_{i,c}\)</span>. This is the exact definition of Categorical Cross-Entropy loss.</p>
+</li>
+</ul>
+<h4 id="example-3-biological-population-growth-bounding-poisson-counting-density">Example 3: Biological Population Growth Bounding (Poisson Counting Density)</h4>
+<ul>
+<li><strong>The Model Choice (<span class="arithmatex">\(p_{\theta}\)</span>):</strong> A discrete Poisson distribution modeling the count of cellular mutations <span class="arithmatex">\(Y\)</span> based on exposure features <span class="arithmatex">\(\vec{x}\)</span>: <span class="arithmatex">\(p_{\theta}(y \mid \vec{x}) = \frac{\lambda_i^{y_i} e^{-\lambda_i}}{y_i!}\)</span>, where <span class="arithmatex">\(\lambda_i = \exp(\vec{w}^T\vec{x}_i)\)</span>.</li>
+<li>
+<p><strong>The Empirical Summation:</strong> 
+$<span class="arithmatex">\(\arg\max_{\vec{w}} \sum_{i=1}^N \left[ y_i \log \lambda_i - \lambda_i - \log(y_i!) \right]\)</span>$</p>
+</li>
+<li>
+<p><strong>The MLE Conversion:</strong> Dropping the constant factorial term leaves: <span class="arithmatex">\(\arg\max_{\vec{w}} \sum_{i=1}^N \left[ y_i (\vec{w}^T\vec{x}_i) - \exp(\vec{w}^T\vec{x}_i) \right]\)</span>. This is the exact loss routine used to optimize Poisson regression channels.</p>
+</li>
+</ul>
+<h4 id="example-4-telemetry-life-span-failure-tracking-continuous-exponential-density">Example 4: Telemetry Life-Span Failure Tracking (Continuous Exponential Density)</h4>
+<ul>
+<li><strong>The Model Choice (<span class="arithmatex">\(p_{\theta}\)</span>):</strong> A continuous exponential density tracking mechanical runtime failure latency <span class="arithmatex">\(T\)</span>: <span class="arithmatex">\(p_{\theta}(t \mid \vec{x}) = \lambda_i e^{-\lambda_i t_i}\)</span>, where <span class="arithmatex">\(\lambda_i = \exp(\vec{w}^T\vec{x}_i)\)</span>.</li>
+<li>
+<p><strong>The Empirical Summation:</strong> 
+$<span class="arithmatex">\(\arg\max_{\vec{w}} \sum_{i=1}^N \log \left[ \exp(\vec{w}^T\vec{x}_i) \cdot \exp\left(-\exp(\vec{w}^T\vec{x}_i)t_i\right) \right]\)</span>$</p>
+</li>
+<li>
+<p><strong>The MLE Conversion:</strong> Simplifying the log transforms the system into: <span class="arithmatex">\(\arg\max_{\vec{w}} \sum_{i=1}^N \left[ \vec{w}^T\vec{x}_i - t_i \exp(\vec{w}^T\vec{x}_i) \right]\)</span>.</p>
+</li>
+</ul>
+<h4 id="example-5-high-dimensional-image-generation-normalizing-flow-transformations">Example 5: High-Dimensional Image Generation (Normalizing Flow Transformations)</h4>
+<ul>
+<li><strong>The Model Choice (<span class="arithmatex">\(p_{\theta}\)</span>):</strong> An explicit joint density computed via an invertible bijective neural layer mapping <span class="arithmatex">\(\vec{z} = f_{\theta}(\vec{x})\)</span>.</li>
+<li>
+<p><strong>The Empirical Summation:</strong> 
+$<span class="arithmatex">\(\arg\max_{\theta} \sum_{i=1}^N \log \left[ p_{\vec{Z}}(f_{\theta}(\vec{x}_i)) \cdot \left| \det \nabla_{\vec{x}} f_{\theta}(\vec{x}_i) \right| \right]\)</span>$</p>
+</li>
+<li>
+<p><strong>The MLE Conversion:</strong> Splitting the log over the multiplication components yields: <span class="arithmatex">\(\arg\min_{\theta} \sum_{i=1}^N \left[ \frac{1}{2}\|f_{\theta}(\vec{x}_i)\|^2 - \log \left| \det \nabla_{\vec{x}} f_{\theta}(\vec{x}_i) \right| \right]\)</span>. This forms the exact continuous loss loop used to train high-fidelity normalizing flows.</p>
+</li>
+</ul>
+<h4 id="example-6-multi-sensor-server-thermal-warning-channels-multivariate-gaussian-models">Example 6: Multi-Sensor Server Thermal Warning Channels (Multivariate Gaussian Models)</h4>
+<ul>
+<li><strong>The Model Choice (<span class="arithmatex">\(p_{\theta}\)</span>):</strong> A continuous high-dimensional multivariate Gaussian density tracking temperature feature vectors: <span class="arithmatex">\(\vec{X} \sim \mathcal{N}(\vec{\mu}, \Sigma)\)</span>.</li>
+<li>
+<p><strong>The Empirical Summation:</strong> 
+$<span class="arithmatex">\(\arg\max_{\vec{\mu}, \Sigma} \sum_{i=1}^N \log \left[ \frac{1}{(2\pi)^{D/2}|\Sigma|^{1/2}} \exp\left(-\frac{1}{2}(\vec{x}_i - \vec{\mu})^T \Sigma^{-1} (\vec{x}_i - \vec{\mu})\right) \right]\)</span>$</p>
+</li>
+<li>
+<p><strong>The MLE Conversion:</strong> Expanding this system across the entire data matrix yields the classical analytical estimators for parameters: <span class="arithmatex">\(\vec{\mu}^* = \frac{1}{N}\sum \vec{x}_i\)</span> and <span class="arithmatex">\(\Sigma^* = \frac{1}{N}\sum (\vec{x}_i - \vec{\mu}^*)(\vec{x}_i - \vec{\mu}^*)^T\)</span>.</p>
+</li>
+</ul>
+<h4 id="example-7-directional-text-document-geometries-von-mises-fisher-embeddings">Example 7: Directional Text Document Geometries (Von Mises-Fisher Embeddings)</h4>
+<ul>
+<li><strong>The Model Choice (<span class="arithmatex">\(p_{\theta}\)</span>):</strong> A continuous directional density over a hypersphere surface: <span class="arithmatex">\(p_{\theta}(\vec{x}) = C_D(\kappa) \exp(\kappa \vec{\mu}^T\vec{x})\)</span>.</li>
+<li>
+<p><strong>The Empirical Summation:</strong> 
+$<span class="arithmatex">\(\arg\max_{\vec{\mu}} \sum_{i=1}^N \log \left[ C_D(\kappa) \exp\left(\kappa \vec{\mu}^T \vec{x}_i\right) \right]\)</span>$</p>
+</li>
+<li>
+<p><strong>The MLE Conversion:</strong> Dropping the structural constant scale modifiers leaves: <span class="arithmatex">\(\arg\max_{\vec{\mu}} \vec{\mu}^T \left( \sum_{i=1}^N \vec{x}_i \right)\)</span>. This directly proves that the optimal orientation vector aligns perfectly with the normalized mean direction of the data points.</p>
+</li>
+</ul>
+<h4 id="example-8-industrial-pipeline-hydraulic-flow-constraints-continuous-gamma-densities">Example 8: Industrial Pipeline Hydraulic Flow Constraints (Continuous Gamma Densities)</h4>
+<ul>
+<li><strong>The Model Choice (<span class="arithmatex">\(p_{\theta}\)</span>):</strong> A heavy-tailed continuous Gamma density monitoring pipeline flow variance: <span class="arithmatex">\(p_{\theta}(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}\)</span>.</li>
+<li>
+<p><strong>The Empirical Summation:</strong> 
+$<span class="arithmatex">\(\arg\max_{\alpha, \beta} \sum_{i=1}^N \left[ \alpha \log \beta - \log \Gamma(\alpha) + (\alpha - 1)\log x_i - \beta x_i \right]\)</span>$</p>
+</li>
+<li>
+<p><strong>The MLE Conversion:</strong> The optimization engine calculates partial derivatives across the data matrix rows, utilizing digamma functions to iteratively tune the shape parameters.</p>
+</li>
+</ul>
+<h4 id="example-9-bounded-sensor-operations-continuous-multivariate-uniform-box-densities">Example 9: Bounded Sensor Operations (Continuous Multivariate Uniform Box Densities)</h4>
+<ul>
+<li><strong>The Model Choice (<span class="arithmatex">\(p_{\theta}\)</span>):</strong> A continuous multi-axis uniform box distribution bounding normal engineering telemetry parameters: <span class="arithmatex">\(p_{\theta}(\vec{x}) = \prod_{d=1}^D \frac{1}{b_d - a_d} \cdot \mathbb{I}(a_d \leq x_d \leq b_d)\)</span>.</li>
+<li>
+<p><strong>The Empirical Summation:</strong> 
+$<span class="arithmatex">\(\arg\max_{\vec{a}, \vec{b}} \sum_{i=1}^N \log \left[ \prod_{d=1}^D \frac{1}{b_d - a_d} \cdot \mathbb{I}(a_{d} \leq x_{i,d} \leq b_{d}) \right]\)</span>$</p>
+</li>
+<li>
+<p><strong>The MLE Conversion:</strong> To maximize the likelihood without dropping the indicator function to zero, the boundaries are tightly locked to the empirical extremes of the data rows: <span class="arithmatex">\(a_d^* = \min_{i} x_{i,d}\)</span> and <span class="arithmatex">\(b_d^* = \max_{i} x_{i,d}\)</span>.</p>
+</li>
+</ul>
+<h4 id="example-10-autoregressive-linguistic-next-token-extraction-large-language-models">Example 10: Autoregressive Linguistic Next-Token Extraction (Large Language Models)</h4>
+<ul>
+<li><strong>The Model Choice (<span class="arithmatex">\(p_{\theta}\)</span>):</strong> A discrete conditional sequence distribution parameterized by a multi-layer Transformer model outputting a Softmax distribution over words.</li>
+<li>
+<p><strong>The Empirical Summation:</strong> 
+$<span class="arithmatex">\(\arg\max_{\theta} \sum_{i=1}^N \sum_{t=1}^T \log p_{\theta}(x_{i,t} \mid x_{i,1}, x_{i,2}, \dots, x_{i,t-1})\)</span>$</p>
+</li>
+<li>
+<p><strong>The MLE Conversion:</strong> This converts directly to the standard autoregressive language modeling loss used to train generative text architectures.</p>
+</li>
+</ul>
+<hr />
+<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
+<blockquote>
+<p><strong>The Generalist's Mathematical Blueprint:</strong>
+1. <strong>The Constant Entropy Drop-Off:</strong> Minimizing Forward KL divergence (<span class="arithmatex">\(D_{\text{KL}}(p_{\text{true}} \parallel p_{\theta})\)</span>) is mathematically identical to maximizing the continuous expectation <span class="arithmatex">\(\mathbb{E}_{p_{\text{true}}}[\log p_{\theta}(\vec{V})]\)</span>.
+2. <strong>The Sampling Bridge:</strong> Because we cannot calculate analytical continuous integrals over an unknown universe, the <strong>Weak Law of Large Numbers</strong> allows us to replace the expectation with a discrete summation over our collected i.i.d. data rows.
+3. <strong>The Definition of Training:</strong> Training an AI model means running first-order gradient descent to find the exact parameter coordinate values (<span class="arithmatex">\(\theta^*\)</span>) that maximize this empirical summation ledger.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3018 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture14/">
+      
+      
+        <link rel="next" href="../lecture16/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture15 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture15
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-12-the-bayes-optimal-classifier-and-the-spatial-calculus-of-minimal-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 12: The Bayes Optimal Classifier and the Spatial Calculus of Minimal Risk
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-comprehensive-notation-glossary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Comprehensive Notation Glossary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-setting-the-true-risk-framework-for-0-1-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Setting the True Risk Framework for 0-1 Loss
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-defining-the-bayes-optimal-classifier-h_bvecx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Defining the Bayes Optimal Classifier (\(h_B(\vec{x})\))
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-geometry-of-space-partitioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Geometry of Space Partitioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-step-by-step-rigorous-mathematical-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Step-by-Step Rigorous Mathematical Proof
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Step-by-Step Rigorous Mathematical Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-51-expand-the-global-probability-of-misclassification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5.1: Expand the Global Probability of Misclassification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-52-map-the-functional-conditions-to-spatial-regions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5.2: Map the Functional Conditions to Spatial Regions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-53-convert-to-continuous-density-integrals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5.3: Convert to Continuous Density Integrals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-54-analyze-the-integrand-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5.4: Analyze the Integrand Mechanics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-55-inject-the-bayes-classifier-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5.5: Inject the Bayes Classifier Criteria
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-56-construct-the-global-minimum-risk-integral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5.6: Construct the Global Minimum Risk Integral
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-structural-extensions-to-multi-class-and-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Structural Extensions to Multi-Class and Regression
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Structural Extensions to Multi-Class and Regression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-multi-class-classification-k-discrete-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Multi-Class Classification (\(K\) Discrete Categories)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-continuous-regression-l_2-squared-error-manifolds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Continuous Regression (\(L_2\) Squared Error Manifolds)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-the-core-practical-insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. The Core Practical Insight
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-12-the-bayes-optimal-classifier-and-the-spatial-calculus-of-minimal-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 12: The Bayes Optimal Classifier and the Spatial Calculus of Minimal Risk
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-comprehensive-notation-glossary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Comprehensive Notation Glossary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-setting-the-true-risk-framework-for-0-1-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Setting the True Risk Framework for 0-1 Loss
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-defining-the-bayes-optimal-classifier-h_bvecx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Defining the Bayes Optimal Classifier (\(h_B(\vec{x})\))
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-geometry-of-space-partitioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Geometry of Space Partitioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-step-by-step-rigorous-mathematical-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Step-by-Step Rigorous Mathematical Proof
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Step-by-Step Rigorous Mathematical Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-51-expand-the-global-probability-of-misclassification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5.1: Expand the Global Probability of Misclassification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-52-map-the-functional-conditions-to-spatial-regions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5.2: Map the Functional Conditions to Spatial Regions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-53-convert-to-continuous-density-integrals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5.3: Convert to Continuous Density Integrals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-54-analyze-the-integrand-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5.4: Analyze the Integrand Mechanics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-55-inject-the-bayes-classifier-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5.5: Inject the Bayes Classifier Criteria
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-56-construct-the-global-minimum-risk-integral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5.6: Construct the Global Minimum Risk Integral
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-structural-extensions-to-multi-class-and-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Structural Extensions to Multi-Class and Regression
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Structural Extensions to Multi-Class and Regression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-multi-class-classification-k-discrete-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Multi-Class Classification (\(K\) Discrete Categories)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-continuous-regression-l_2-squared-error-manifolds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Continuous Regression (\(L_2\) Squared Error Manifolds)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-the-core-practical-insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. The Core Practical Insight
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-12-the-bayes-optimal-classifier-and-the-spatial-calculus-of-minimal-risk">Chapter 12: The Bayes Optimal Classifier and the Spatial Calculus of Minimal Risk</h2>
+<hr />
+<h2 id="1-comprehensive-notation-glossary">1. Comprehensive Notation Glossary</h2>
+<p>To prevent losing track of the mathematical entities moving through this chapter, use this glossary table as a continuous lookup key. The symbols strictly preserve the division between random variables (uppercase), specific coordinate realizations (lowercase), and spatial point sets (script).</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Mathematical Object</th>
+<th>Structural Identity / Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\vec{X}\)</span></td>
+<td>Random Vector</td>
+<td>The continuous random variable representing input features; <span class="arithmatex">\(\vec{X}: \Omega \rightarrow \mathbb{R}^D\)</span>.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(Y\)</span></td>
+<td>Random Variable</td>
+<td>The discrete random variable representing the ground-truth targets; <span class="arithmatex">\(Y: \Omega \rightarrow \mathcal{Y}\)</span>.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\vec{x}\)</span></td>
+<td>Real Vector</td>
+<td>A specific, fixed numeric coordinate point in the feature space; <span class="arithmatex">\(\vec{x} \in \mathbb{R}^D\)</span>.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(y\)</span></td>
+<td>Scalar Constant</td>
+<td>A specific target class assignment value; <span class="arithmatex">\(y \in \{0, 1\}\)</span>.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(h(\vec{x})\)</span></td>
+<td>Function Mapping</td>
+<td>An arbitrary hypothesis function (classifier) mapping features to targets; <span class="arithmatex">\(h: \mathbb{R}^D \rightarrow \mathcal{Y}\)</span>.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{H}\)</span></td>
+<td>Function Set</td>
+<td>The universal hypothesis space containing all legally patchable mapping functions.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(L\left(h(\vec{x}), y\right)\)</span></td>
+<td>Scalar Operator</td>
+<td>The loss function evaluating the isolated penalty of a single coordinate prediction.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathbb{I}(\cdot)\)</span></td>
+<td>Indicator Function</td>
+<td>A binary switch operator returning <span class="arithmatex">\(1\)</span> if its inner condition is true, and <span class="arithmatex">\(0\)</span> if false.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(R(h)\)</span></td>
+<td>Scalar Functional</td>
+<td>The <strong>True Risk</strong> (Population Risk); the analytical expected error across the universe.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathcal{S}_c(h)\)</span></td>
+<td>Spatial Set</td>
+<td>The explicit <strong>Decision Region</strong> in <span class="arithmatex">\(\mathbb{R}^D\)</span> where classifier <span class="arithmatex">\(h\)</span> predicts class <span class="arithmatex">\(c\)</span>.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(h_B(\vec{x})\)</span></td>
+<td>Mapping Function</td>
+<td>The <strong>Bayes Optimal Classifier</strong> boundary mapping line.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(p(\vec{x} \mid Y=c)\)</span></td>
+<td>Probability Density</td>
+<td>The continuous class-conditional probability density function (<strong>PDF</strong>) evaluated at <span class="arithmatex">\(\vec{x}\)</span>.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(P(Y=c)\)</span></td>
+<td>Probability Mass</td>
+<td>The discrete prior baseline probability (<strong>PMF</strong>) of class <span class="arithmatex">\(c\)</span> occurring natively.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(P(Y=c \mid \vec{X}=\vec{x})\)</span></td>
+<td>Probability Mass</td>
+<td>The conditional <strong>Posterior Probability</strong> that the true class is <span class="arithmatex">\(c\)</span> given features <span class="arithmatex">\(\vec{x}\)</span>.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-setting-the-true-risk-framework-for-0-1-loss">2. Setting the True Risk Framework for 0-1 Loss</h2>
+<p>We are analyzing a supervised binary classification environment. Our variables are governed by the following structural dimensions:</p>
+<ul>
+<li><strong>The Input Feature Space:</strong> <span class="arithmatex">\(\vec{X} \in \mathbb{R}^D\)</span> (Continuous vector space)</li>
+<li><strong>The Target Output Space:</strong> <span class="arithmatex">\(Y \in \{0, 1\}\)</span> (Discrete binary space)</li>
+<li><strong>The Ground Truth Manifold:</strong> A true, hidden joint distribution <span class="arithmatex">\(P(\vec{X}, Y)\)</span> from which our environment generates historical data points.</li>
+</ul>
+<p>We select the strict <strong>0-1 Loss Function</strong> to score individual prediction checkpoints:</p>
+<div class="arithmatex">\[L\left(h(\vec{x}), \,\, y\right) = \mathbb{I}\left(h(\vec{x}) \neq y\right) = \begin{cases} 0 &amp; \text{if } h(\vec{x}) = y \\ 1 &amp; \text{if } h(\vec{x}) \neq y \end{cases}\]</div>
+<p>By substituting this specific loss parameter into our universal definition of <strong>True Risk</strong> (<span class="arithmatex">\(R(h) \triangleq \mathbb{E}[L(h(\vec{X}), Y)]\)</span>), the population-wide error collapses into a single continuous expectation calculation:</p>
+<div class="arithmatex">\[R(h) = \mathbb{E}_{(\vec{X}, Y) \sim P}\left[ \mathbb{I}\left(h(\vec{X}) \neq Y\right) \right]\]</div>
+<p>Because the expected value of an indicator function is exactly equal to the probability of its underlying condition holding true (<span class="arithmatex">\(\mathbb{E}[\mathbb{I}(A)] = P(A)\)</span>), the True Risk simplifies to the global probability of misclassification:</p>
+<div class="arithmatex">\[R(h) = P\left(h(\vec{X}) \neq Y\right)\]</div>
+<hr />
+<h2 id="3-defining-the-bayes-optimal-classifier-h_bvecx">3. Defining the Bayes Optimal Classifier (<span class="arithmatex">\(h_B(\vec{x})\)</span>)</h2>
+<p>The professor introduces the <strong>Bayes Classifier</strong> (<span class="arithmatex">\(h_B\)</span>) as a logical decision rule. If an engineer has access to the true background probability landscape of nature, the most rational prediction path at any specific coordinate <span class="arithmatex">\(\vec{x}\)</span> is to evaluate the conditional posterior profiles for both classes and select whichever class contains the dominant probability mass.</p>
+<div class="arithmatex">\[h_B(\vec{x}) \triangleq \begin{cases} 0 &amp; \text{if } P(Y=0 \mid \vec{X}=\vec{x}) &gt; P(Y=1 \mid \vec{X}=\vec{x}) \\ 1 &amp; \text{if } P(Y=1 \mid \vec{X}=\vec{x}) \geq P(Y=0 \mid \vec{X}=\vec{x}) \end{cases}\]</div>
+<p>Using the compact notation of optimization bounds, this entire piece-wise condition compresses into a single statement:</p>
+<div class="arithmatex">\[h_B(\vec{x}) = \arg\max_{c \in \{0, 1\}} P(Y=c \mid \vec{X}=\vec{x})\]</div>
+<blockquote>
+<p><strong>The Central Optimality Claim:</strong> &gt; The True Risk of the Bayes classifier bounds the absolute theoretical floor of classification error. No function <span class="arithmatex">\(h\)</span> chosen from the universal hypothesis class <span class="arithmatex">\(\mathcal{H}\)</span> can ever out-optimize its performance:
+$<span class="arithmatex">\(R(h_B) \leq R(h) \quad \forall \,\, h \in \mathcal{H}\)</span>$</p>
+</blockquote>
+<hr />
+<h2 id="4-the-geometry-of-space-partitioning">4. The Geometry of Space Partitioning</h2>
+<p>To prove this optimality without needing complex variational calculus, we map out how <em>any</em> arbitrary classifier <span class="arithmatex">\(h(\vec{x})\)</span> views the high-dimensional feature domain <span class="arithmatex">\(\mathbb{R}^D\)</span>.</p>
+<p>A binary classifier acts as a spatial partition. By deciding whether an incoming coordinate vector is a <span class="arithmatex">\(0\)</span> or a <span class="arithmatex">\(1\)</span>, it slices the continuous space <span class="arithmatex">\(\mathbb{R}^D\)</span> into two distinct <strong>Decision Regions</strong>, denoted as <span class="arithmatex">\(\mathcal{S}_0(h)\)</span> and <span class="arithmatex">\(\mathcal{S}_1(h)\)</span>:</p>
+<div class="arithmatex">\[\mathcal{S}_0(h) \triangleq \{\vec{x} \in \mathbb{R}^D \mid h(\vec{x}) = 0\}\]</div>
+<div class="arithmatex">\[\mathcal{S}_1(h) \triangleq \{\vec{x} \in \mathbb{R}^D \mid h(\vec{x}) = 1\}\]</div>
+<p>By mathematical construction, these spatial decision regions must satisfy two strict properties for every model:</p>
+<ol>
+<li>
+<p><strong>Mutually Exclusive Intersections:</strong> No coordinate can belong to both decision pools simultaneously:
+$<span class="arithmatex">\(\mathcal{S}_0(h) \cap \mathcal{S}_1(h) = \emptyset\)</span>$</p>
+</li>
+<li>
+<p><strong>Universal Space Conservation:</strong> The combined union of both sets perfectly reconstructs the complete real coordinate continuum:
+$<span class="arithmatex">\(\mathcal{S}_0(h) \cup \mathcal{S}_1(h) = \mathbb{R}^D\)</span>$</p>
+</li>
+</ol>
+<hr />
+<h2 id="5-step-by-step-rigorous-mathematical-proof">5. Step-by-Step Rigorous Mathematical Proof</h2>
+<p>We now expand the global True Risk equation into continuous multivariate integrals across these spatial partitions to track the calculation of minimal error.</p>
+<h3 id="step-51-expand-the-global-probability-of-misclassification">Step 5.1: Expand the Global Probability of Misclassification</h3>
+<p>A classification failure can manifest in exactly two disjoint joint scenarios: our model predicts class <span class="arithmatex">\(1\)</span> when the true status is <span class="arithmatex">\(0\)</span>, or our model predicts class <span class="arithmatex">\(0\)</span> when the true status is <span class="arithmatex">\(1\)</span>. Because these joint conditions are mutually exclusive, their probabilities sum linearly:</p>
+<div class="arithmatex">\[R(h) = P\left(h(\vec{X}) = 1 \,\,\cap\,\, Y = 0\right) + P\left(h(\vec{X}) = 0 \,\,\cap\,\, Y = 1\right)\]</div>
+<h3 id="step-52-map-the-functional-conditions-to-spatial-regions">Step 5.2: Map the Functional Conditions to Spatial Regions</h3>
+<p>Using our definitions for <span class="arithmatex">\(\mathcal{S}_0(h)\)</span> and <span class="arithmatex">\(\mathcal{S}_1(h)\)</span>, we replace the abstract functional declarations <span class="arithmatex">\(h(\vec{X}) = c\)</span> with their exact spatial coordinate equivalents <span class="arithmatex">\(\vec{X} \in \mathcal{S}_c(h)\)</span>:</p>
+<div class="arithmatex">\[R(h) = P\left(\vec{X} \in \mathcal{S}_1(h) \,\,\cap\,\, Y = 0\right) + P\left(\vec{X} \in \mathcal{S}_0(h) \,\,\cap\,\, Y = 1\right)\]</div>
+<h3 id="step-53-convert-to-continuous-density-integrals">Step 5.3: Convert to Continuous Density Integrals</h3>
+<p>Because our features <span class="arithmatex">\(\vec{X}\)</span> form a continuous random vector, we expand these joint probability statements into formal calculus volumes. We use Bayes' chain rule to multiply the continuous class-conditional densities by their discrete prior base rates:</p>
+<div class="arithmatex">\[R(h) = \int_{\mathcal{S}_1(h)} p(\vec{x} \mid Y=0) P(Y=0) \, d\vec{x} + \int_{\mathcal{S}_0(h)} p(\vec{x} \mid Y=1) P(Y=1) \, d\vec{x}\]</div>
+<h3 id="step-54-analyze-the-integrand-mechanics">Step 5.4: Analyze the Integrand Mechanics</h3>
+<p>Every coordinate point <span class="arithmatex">\(\vec{x} \in \mathbb{R}^D\)</span> must be evaluated. The total risk is simply a running tally across the entire volume of our feature space. For any individual coordinate checkpoint <span class="arithmatex">\(\vec{x}\)</span>, the exact error value added to our total risk depends entirely on which region our classifier chooses to place it in:</p>
+<ul>
+<li>If <span class="arithmatex">\(h(\vec{x}) = 1\)</span>, the point enters the <span class="arithmatex">\(\mathcal{S}_1(h)\)</span> integral, adding an error value of: <span class="arithmatex">\(p(\vec{x} \mid Y=0) P(Y=0)\)</span>.</li>
+<li>If <span class="arithmatex">\(h(\vec{x}) = 0\)</span>, the point enters the <span class="arithmatex">\(\mathcal{S}_0(h)\)</span> integral, adding an error value of: <span class="arithmatex">\(p(\vec{x} \mid Y=1) P(Y=1)\)</span>.</li>
+</ul>
+<h3 id="step-55-inject-the-bayes-classifier-criteria">Step 5.5: Inject the Bayes Classifier Criteria</h3>
+<p>Now, let let us look at the explicit behavior of the <strong>Bayes Classifier (<span class="arithmatex">\(h_B\)</span>)</strong>. By expanding Bayes' theorem, we can scale our core posterior mapping logic (Section 3) directly into the language of joint densities:</p>
+<div class="arithmatex">\[P(Y=1 \mid \vec{X}=\vec{x}) \geq P(Y=0 \mid \vec{X}=\vec{x}) \iff p(\vec{x} \mid Y=1)P(Y=1) \geq p(\vec{x} \mid Y=0)P(Y=0)\]</div>
+<p>Look closely at this behavioral relationship alongside our integration paths:</p>
+<ul>
+<li>At any coordinate <span class="arithmatex">\(\vec{x}\)</span> where the Bayes rules dictates predicting class <span class="arithmatex">\(1\)</span> (<span class="arithmatex">\(h_B(\vec{x}) = 1\)</span>), it is because the joint density for class <span class="arithmatex">\(1\)</span> is dominant. This places the point in the <span class="arithmatex">\(\mathcal{S}_1\)</span> region, forcing the error integrand to record the alternative component: <span class="arithmatex">\(p(\vec{x} \mid Y=0) P(Y=0)\)</span>. This is <strong>strictly the smaller (minimum) of the two possible error components.</strong></li>
+<li>At any coordinate <span class="arithmatex">\(\vec{x}\)</span> where the Bayes rule dictates predicting class <span class="arithmatex">\(0\)</span> (<span class="arithmatex">\(h_B(\vec{x}) = 0\)</span>), it is because the joint density for class <span class="arithmatex">\(0\)</span> is dominant. This places the point in the <span class="arithmatex">\(\mathcal{S}_0\)</span> region, forcing the error integrand to record the alternative component: <span class="arithmatex">\(p(\vec{x} \mid Y=1) P(Y=1)\)</span>. This is <strong>also strictly the smaller (minimum) of the two possible error components.</strong></li>
+</ul>
+<h3 id="step-56-construct-the-global-minimum-risk-integral">Step 5.6: Construct the Global Minimum Risk Integral</h3>
+<p>Because the Bayes classifier systematically isolates the lowest possible penalty score at every single coordinate point across the continuum, we can collapse its total risk calculation into a single, global volume integrated over the entire space <span class="arithmatex">\(\mathbb{R}^D\)</span>:</p>
+<div class="arithmatex">\[R(h_B) = \int_{\mathbb{R}^D} \min \Big[ p(\vec{x} \mid Y=0) P(Y=0), \,\,\,\, p(\vec{x} \mid Y=1) P(Y=1) \Big] \, d\vec{x}\]</div>
+<p>Because any alternative hypothesis function <span class="arithmatex">\(h(\vec{x})\)</span> will occasionally deviate from this boundary over certain regions of space, its integrated penalty density at those coordinates will pull from the maximum option instead of the minimum. Thus, its total accumulated error volume can never drop below the Bayes threshold:</p>
+<div class="arithmatex">\[R(h_B) \leq R(h) \quad \forall \,\, h \in \mathcal{H}\]</div>
+<p>The proof is complete. The Bayes Classifier is the unique, absolute risk-minimizing solution over a binary 0-1 loss manifold.</p>
+<hr />
+<h2 id="6-structural-extensions-to-multi-class-and-regression">6. Structural Extensions to Multi-Class and Regression</h2>
+<p>The professor notes that this property of posterior-driven optimization scales consistently across all target space profiles.</p>
+<h3 id="61-multi-class-classification-k-discrete-categories">6.1 Multi-Class Classification (<span class="arithmatex">\(K\)</span> Discrete Categories)</h3>
+<p>If our target space expands to manage <span class="arithmatex">\(K\)</span> distinct classification categories (<span class="arithmatex">\(\mathcal{Y} \in \{1, 2, \dots, K\}\)</span>) scored under a generalized multi-class 0-1 loss metric (<span class="arithmatex">\(L(h(\vec{x}), y) = \mathbb{I}(h(\vec{x}) \neq y)\)</span>), the same spatial minimization applies. The optimal Bayes decision rule assigns coordinates directly to the class that holds the highest localized posterior probability mass:</p>
+<div class="arithmatex">\[h_B^*(\vec{x}) = \arg\max_{c \in \{1, 2, \dots, K\}} P(Y=c \mid \vec{X}=\vec{x})\]</div>
+<h3 id="62-continuous-regression-l_2-squared-error-manifolds">6.2 Continuous Regression (<span class="arithmatex">\(L_2\)</span> Squared Error Manifolds)</h3>
+<p>If our target space transitions to a continuous real line (<span class="arithmatex">\(\mathcal{Y} \in \mathbb{R}^1\)</span>) evaluated under a <strong>Squared Error Loss Function</strong>, our risk functional measures the continuous expected squared deviation of our predictions from reality:</p>
+<div class="arithmatex">\[R(h) = \mathbb{E}_{(\vec{X},Y)}\left[ \left( h(\vec{X}) - Y \right)^2 \right]\]</div>
+<p>By expanding this expectation via conditional integration, it can be proven that the absolute risk-minimizing function is the <strong>Conditional Expectation</strong>—the running mathematical mean center of the target space conditioned on your features:</p>
+<div class="arithmatex">\[h_{\text{optimal}}^*(\vec{x}) = \mathbb{E}[Y \mid \vec{X}=\vec{x}] = \int_{-\infty}^{\infty} y \cdot p(y \mid \vec{x}) \, dy\]</div>
+<hr />
+<h2 id="7-the-core-practical-insight">7. The Core Practical Insight</h2>
+<p>This proof establishes a flawless theoretical baseline, but it exposes a major practical challenge: <strong>we cannot build a perfect Bayes Classifier because the true conditional posteriors <span class="arithmatex">\(P(Y=c \mid \vec{X}=\vec{x})\)</span> are completely unknown.</strong> To build a useful classifier in the real world, you must solve a <strong>Density Estimation Problem</strong>. You use your training dataset points to estimate an approximation of the posterior landscape, either directly through discriminative parameter estimation (<span class="arithmatex">\(p_\theta(Y \mid X)\)</span>) or indirectly through generative class-conditional mapping architectures (<span class="arithmatex">\(p_\theta(X \mid Y)\)</span> and <span class="arithmatex">\(P(Y)\)</span>). Every line of code you write to tune a machine learning model is simply a practical attempt to approximate the shape of this optimal Bayes boundary.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

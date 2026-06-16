@@ -1,0 +1,3180 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture43/">
+      
+      
+        <link rel="next" href="../lecture45/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture44 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture44
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-37-sequential-topologies-parameter-sharing-across-time-and-the-recurrent-engine-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 37: Sequential Topologies, Parameter Sharing Across Time, and the Recurrent Engine (RNN)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 37: Sequential Topologies, Parameter Sharing Across Time, and the Recurrent Engine (RNN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#371-the-fluidity-of-tensors-defining-sequential-topologies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37.1 The Fluidity of Tensors: Defining Sequential Topologies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="37.1 The Fluidity of Tensors: Defining Sequential Topologies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-balance-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Balance Sheet:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#372-the-structural-limitations-of-the-vanilla-multi-layer-perceptron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37.2 The Structural Limitations of the Vanilla Multi-Layer Perceptron
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="37.2 The Structural Limitations of the Vanilla Multi-Layer Perceptron">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-variable-length-invariance-delta-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Variable-Length Invariance (\(\Delta T\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-shuffling-anonymity-the-loss-of-ordinality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Shuffling Anonymity (The Loss of Ordinality)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#373-the-twin-blueprint-parameter-sharing-across-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37.3 The Twin Blueprint: Parameter Sharing Across Time
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="37.3 The Twin Blueprint: Parameter Sharing Across Time">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-dimension-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Dimension Analysis:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#374-operational-taxonomies-and-task-formations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37.4 Operational Taxonomies and Task Formations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="37.4 Operational Taxonomies and Task Formations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-sequence-classification-many-to-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Sequence Classification (Many-to-One)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sequence-to-sequence-many-to-many-seq2seq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Sequence-to-Sequence (Many-to-Many / Seq2Seq)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#375-the-algebraic-identity-rnn-as-a-highly-regularized-mlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37.5 The Algebraic Identity: RNN as a Highly Regularized MLP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-recurrent-state-engine-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Recurrent State Engine Equations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-review-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Review Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-primal-problem-statement-the-three-crises-of-the-mlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Primal Problem Statement: The Three Crises of the MLP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The Primal Problem Statement: The Three Crises of the MLP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crisis-a-the-variable-length-nightmare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crisis A: The Variable-Length Nightmare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crisis-b-the-shuffling-anonymity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crisis B: The Shuffling Anonymity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crisis-c-the-parameter-explosion-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crisis C: The Parameter Explosion of Memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-arriving-at-the-architecture-the-state-machine-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Arriving at the Architecture: The State Machine Solution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-defining-vecz_t-the-information-mixer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Defining \(\vec{z}_t\): The Information Mixer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Defining \(\vec{z}_t\): The Information Mixer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-vecz_t-literally-doing-under-the-hood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is \(\vec{z}_t\) literally doing under the hood?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-37-sequential-topologies-parameter-sharing-across-time-and-the-recurrent-engine-rnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 37: Sequential Topologies, Parameter Sharing Across Time, and the Recurrent Engine (RNN)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 37: Sequential Topologies, Parameter Sharing Across Time, and the Recurrent Engine (RNN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#371-the-fluidity-of-tensors-defining-sequential-topologies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37.1 The Fluidity of Tensors: Defining Sequential Topologies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="37.1 The Fluidity of Tensors: Defining Sequential Topologies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-balance-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Balance Sheet:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#372-the-structural-limitations-of-the-vanilla-multi-layer-perceptron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37.2 The Structural Limitations of the Vanilla Multi-Layer Perceptron
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="37.2 The Structural Limitations of the Vanilla Multi-Layer Perceptron">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-variable-length-invariance-delta-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Variable-Length Invariance (\(\Delta T\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-shuffling-anonymity-the-loss-of-ordinality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Shuffling Anonymity (The Loss of Ordinality)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#373-the-twin-blueprint-parameter-sharing-across-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37.3 The Twin Blueprint: Parameter Sharing Across Time
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="37.3 The Twin Blueprint: Parameter Sharing Across Time">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-dimension-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Dimension Analysis:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#374-operational-taxonomies-and-task-formations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37.4 Operational Taxonomies and Task Formations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="37.4 Operational Taxonomies and Task Formations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-sequence-classification-many-to-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Sequence Classification (Many-to-One)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sequence-to-sequence-many-to-many-seq2seq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Sequence-to-Sequence (Many-to-Many / Seq2Seq)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#375-the-algebraic-identity-rnn-as-a-highly-regularized-mlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37.5 The Algebraic Identity: RNN as a Highly Regularized MLP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-recurrent-state-engine-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Recurrent State Engine Equations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-review-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Review Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-primal-problem-statement-the-three-crises-of-the-mlp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Primal Problem Statement: The Three Crises of the MLP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The Primal Problem Statement: The Three Crises of the MLP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crisis-a-the-variable-length-nightmare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crisis A: The Variable-Length Nightmare
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crisis-b-the-shuffling-anonymity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crisis B: The Shuffling Anonymity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crisis-c-the-parameter-explosion-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crisis C: The Parameter Explosion of Memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-arriving-at-the-architecture-the-state-machine-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Arriving at the Architecture: The State Machine Solution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-defining-vecz_t-the-information-mixer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Defining \(\vec{z}_t\): The Information Mixer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Defining \(\vec{z}_t\): The Information Mixer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-vecz_t-literally-doing-under-the-hood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is \(\vec{z}_t\) literally doing under the hood?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-37-sequential-topologies-parameter-sharing-across-time-and-the-recurrent-engine-rnn">Chapter 37: Sequential Topologies, Parameter Sharing Across Time, and the Recurrent Engine (RNN)</h2>
+<hr />
+<h3 id="371-the-fluidity-of-tensors-defining-sequential-topologies">37.1 The Fluidity of Tensors: Defining Sequential Topologies</h3>
+<p>We now shift our focus from spatial grid environments to a fundamentally different data arrangement: <strong>Sequential Topologies</strong>.</p>
+<p>A sequence is an ordered set of data vectors characterized by a distinct directional timeline or ordinal ranking. Formally, we define a single multi-dimensional sequential data instance <span class="arithmatex">\(\vec{x}\)</span> as a collection of vectors ordered across <span class="arithmatex">\(T\)</span> discrete time steps:</p>
+<div class="arithmatex">\[\vec{x} = \Big[ \vec{x}_1, \,\, \vec{x}_2, \,\, \dots, \,\, \vec{x}_t, \,\, \dots, \,\, \vec{x}_T \Big]\]</div>
+<h4 id="literal-variable-balance-sheet">Literal Variable Balance Sheet:</h4>
+<ul>
+<li><span class="arithmatex">\(T\)</span>: The total sequence length tracking the temporal duration of the instance.</li>
+<li><span class="arithmatex">\(t\)</span>: The active sequence index or temporal cursor (<span class="arithmatex">\(1 \leq t \leq T\)</span>).</li>
+<li><span class="arithmatex">\(\vec{x}_t \in \mathbb{R}^D\)</span>: The <span class="arithmatex">\(D\)</span>-dimensional feature vector captured at time step <span class="arithmatex">\(t\)</span>.</li>
+</ul>
+<p>The professor highlights a foundational rule of representation learning: <strong>data topology is fluid, not fixed.</strong> Tensors can be reshaped, flattened, or swapped across architectures at will. You can slice an image into sequential patches and feed them to a transformer, or map a time-series wave into a 2D spectrogram grid to process it with a CNN.</p>
+<p>We choose specific architectures not because they possess unique theoretical permissions, but because their structural constraints match the natural physics of our domain. This matching limits our optimization footprint and smoothly navigates the bias-variance trade-off.</p>
+<hr />
+<h3 id="372-the-structural-limitations-of-the-vanilla-multi-layer-perceptron">37.2 The Structural Limitations of the Vanilla Multi-Layer Perceptron</h3>
+<p>If we attempt to process an unconstrained sequence using a standard fully connected Multi-Layer Perceptron (MLP), we hit two structural limitations:</p>
+<h4 id="a-variable-length-invariance-delta-t">A. Variable-Length Invariance (<span class="arithmatex">\(\Delta T\)</span>)</h4>
+<p>In real-world sequences—such as sentences in natural language processing or measurements in clinical health tracking—<strong>the total sequence duration (<span class="arithmatex">\(T\)</span>) varies wildly from sample to sample.</strong> A standard MLP requires a fixed, unalterable input dimension size by construction. To bypass this, we could pad every sequence with zeros up to a maximum threshold (<span class="arithmatex">\(T_{\max}\)</span>), but this is mathematically inefficient and wastes memory.</p>
+<h4 id="b-shuffling-anonymity-the-loss-of-ordinality">B. Shuffling Anonymity (The Loss of Ordinality)</h4>
+<p>If you flatten a sequence to feed it to a dense matrix layer, the model treats every input index independently. If you shuffle the temporal order of the vectors (<span class="arithmatex">\(\vec{x}_2 \leftrightarrow \vec{x}_1\)</span>), the unconstrained MLP performs the exact same mathematical operations, completely ignoring the temporal dependency structure of the data stream.</p>
+<p>To preserve sequentiality efficiently, we must build a regularizer that natively handles changing lengths while respecting temporal order. This requirement brings us directly to <strong>Recurrent Neural Networks (RNNs)</strong>.</p>
+<hr />
+<h3 id="373-the-twin-blueprint-parameter-sharing-across-time">37.3 The Twin Blueprint: Parameter Sharing Across Time</h3>
+<p>To handle sequential data efficiently, an RNN adapts the exact same probabilistic strategy we applied to spatial data in Chapter 35. Instead of sharing parameters across <em>space</em> using a sliding spatial filter, <strong>an RNN enforces Parameter Sharing Across Time.</strong></p>
+<p>We define a recurring computational node known as an <strong>RNN Cell</strong>. As our temporal cursor <span class="arithmatex">\(t\)</span> steps forward through the sequence, the inner calculations of this cell are governed by an alternating sequence of linear matrix projections and non-linear transformations:</p>
+<div class="arithmatex">\[\vec{z}_t = \mathbf{W}_1 \vec{h}_{t-1} + \mathbf{W}_2 \vec{x}_t + \vec{b}_1\]</div>
+<div class="arithmatex">\[\vec{h}_t = \sigma\left( \vec{z}_t \right)\]</div>
+<div class="arithmatex">\[\vec{y}_t = \mathbf{W}_3 \vec{h}_t + \vec{b}_2\]</div>
+<h4 id="precise-dimension-analysis">Precise Dimension Analysis:</h4>
+<ul>
+<li><span class="arithmatex">\(\vec{x}_t \in \mathbb{R}^{D \times 1}\)</span>: The current input feature vector at time <span class="arithmatex">\(t\)</span>.</li>
+<li><span class="arithmatex">\(\vec{h}_t \in \mathbb{R}^{M \times 1}\)</span>: The <strong>Hidden State Vector</strong> at time <span class="arithmatex">\(t\)</span>, acting as the cell's internal memory bank that tracks historical contexts.</li>
+<li><span class="arithmatex">\(\mathbf{W}_1 \in \mathbb{R}^{M \times M}\)</span>: The recurrent transition matrix mapping the historical hidden state (<span class="arithmatex">\(\vec{h}_{t-1}\)</span>) to the current calculation.</li>
+<li><span class="arithmatex">\(\mathbf{W}_2 \in \mathbb{R}^{M \times D}\)</span>: The input projection matrix mapping incoming raw features directly into the hidden dimension space.</li>
+<li><span class="arithmatex">\(\mathbf{W}_3 \in \mathbb{R}^{K \times M}\)</span>: The output projection matrix mapping the hidden space to a target prediction channel.</li>
+</ul>
+<blockquote>
+<p><strong>The Structural Invariance Law:</strong>
+The weight parameters <span class="arithmatex">\(\vec{\theta} = \{\mathbf{W}_1, \mathbf{W}_2, \mathbf{W}_3, \vec{b}_1, \vec{b}_2\}\)</span> <strong>stay perfectly constant across every single time step <span class="arithmatex">\(t\)</span>.</strong> Whether your input sequence spans 5 steps or 5,000 steps, the network runs the exact same projection rules. This structural invariance provides a hard Bayesian prior, treating the underlying rules of data progression as stationary over time.</p>
+</blockquote>
+<hr />
+<h3 id="374-operational-taxonomies-and-task-formations">37.4 Operational Taxonomies and Task Formations</h3>
+<p>Because the recurrent hidden state updates continuously at each step while parameters remain constant, we can arrange these cells like Lego blocks to map different real-world task configurations.</p>
+<h4 id="1-sequence-classification-many-to-one">1. Sequence Classification (Many-to-One)</h4>
+<ul>
+<li><strong>The Task:</strong> Processing an entire sequence to emit a singular static scalar or categorical classification vector (e.g., extracting sentiment polarities from a text paragraph).</li>
+<li><strong>The Mechanics:</strong> We feed the inputs <span class="arithmatex">\(\vec{x}_t\)</span> step-by-step to update the hidden vector <span class="arithmatex">\(\vec{h}_t\)</span>. We ignore the intermediate outputs <span class="arithmatex">\(\vec{y}_t\)</span> for all steps up to <span class="arithmatex">\(T-1\)</span>. We evaluate our global loss function and compute empirical risk <strong>exclusively at the absolute final terminal cell (<span class="arithmatex">\(t = T\)</span>)</strong>, using <span class="arithmatex">\(\vec{h}_T\)</span> as a summary representation of the entire historical sequence.</li>
+</ul>
+<h4 id="2-sequence-to-sequence-many-to-many-seq2seq">2. Sequence-to-Sequence (Many-to-Many / Seq2Seq)</h4>
+<ul>
+<li><strong>The Task:</strong> Translating an input sequence in one language into an output sequence in a completely different language, where the input and output lengths can differ.</li>
+<li><strong>The Mechanics:</strong> This requires a dual-stage <strong>Encoder-Decoder Architecture</strong>:</li>
+<li><strong>The Encoder Stage:</strong> Processes the input string step-by-step up to time <span class="arithmatex">\(T\)</span>, packing the global historical context directly into the terminal hidden memory node <span class="arithmatex">\(\vec{h}_T\)</span>.</li>
+<li><strong>The Decoder Stage:</strong> Takes that final context vector <span class="arithmatex">\(\vec{h}_T\)</span> as its initial state and switches to <strong>Auto-Regressive Generation</strong>. It produces its first token output (<span class="arithmatex">\(\vec{y}_1\)</span>), and then pipes that prediction back into the subsequent cell as the next step's input vector (<span class="arithmatex">\(\vec{x}_2 = \vec{y}_1\)</span>). This generation chain continues recursively until the model generates a special structural marker known as the <strong>End of Sequence (EOS)</strong> token.</li>
+</ul>
+<hr />
+<h3 id="375-the-algebraic-identity-rnn-as-a-highly-regularized-mlp">37.5 The Algebraic Identity: RNN as a Highly Regularized MLP</h3>
+<p>The professor leaves a deep question for reflection: <em>How do we mathematically interpret an RNN cell as a modified multi-layer perceptron?</em></p>
+<p>To see this connection clearly, imagine unrolling an RNN across a fixed sequence length <span class="arithmatex">\(T\)</span>. If you stack all the temporal inputs into a single giant vector <span class="arithmatex">\(\vec{X} = [\vec{x}_1^T, \dots, \vec{x}_T^T]^T\)</span>, a vanilla MLP would process them using an unconstrained block matrix:</p>
+<div class="arithmatex">\[\mathbf{W}_{\text{MLP}} = \begin{bmatrix} \mathbf{\Omega}_{11} &amp; \mathbf{\Omega}_{12} &amp; \dots &amp; \mathbf{\Omega}_{1T} \\ \mathbf{\Omega}_{21} &amp; \mathbf{\Omega}_{22} &amp; \dots &amp; \mathbf{\Omega}_{2T} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ \mathbf{\Omega}_{T1} &amp; \mathbf{\Omega}_{T2} &amp; \dots &amp; \mathbf{\Omega}_{TT} \end{bmatrix}\]</div>
+<p>An RNN transforms this massive matrix by slamming a hard structural constraint onto its components. Because an RNN can only pass information forward step-by-step and must share its weights over time, its block matrix structure becomes strictly <strong>Lower Block-Tridiagonal and Toeplitz</strong>:</p>
+<div class="arithmatex">\[\mathbf{W}_{\text{RNN}} = \begin{bmatrix} \mathbf{W}_2 &amp; \mathbf{0} &amp; \mathbf{0} &amp; \dots &amp; \mathbf{0} \\ \mathbf{W}_1\mathbf{W}_2 &amp; \mathbf{W}_2 &amp; \mathbf{0} &amp; \dots &amp; \mathbf{0} \\ \mathbf{W}_1^2\mathbf{W}_2 &amp; \mathbf{W}_1\mathbf{W}_2 &amp; \mathbf{W}_2 &amp; \dots &amp; \mathbf{0} \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ \mathbf{W}_1^{T-1}\mathbf{W}_2 &amp; \dots &amp; \dots &amp; \mathbf{W}_1\mathbf{W}_2 &amp; \mathbf{W}_2 \end{bmatrix}\]</div>
+<p>Every element above the main diagonal is locked to absolute zero (<span class="arithmatex">\(\mathbf{0}\)</span>), preventing future information from altering past states. Meanwhile, the sub-diagonal blocks are strictly bound to repeating combinations of our shared weights <span class="arithmatex">\(\mathbf{W}_1\)</span> and <span class="arithmatex">\(\mathbf{W}_2\)</span>.</p>
+<p>This reveals that an RNN is not a separate species of model. It is simply a giant MLP with an aggressive, hard-coded spatial-temporal regularizer that protects the model against parameter explosion and preserves temporal order across varying sequence lengths.</p>
+<hr />
+<h2 id="textbook-notes-core-reference-sheet">Textbook Notes Core Reference Sheet</h2>
+<h3 id="the-recurrent-state-engine-equations">The Recurrent State Engine Equations</h3>
+<div class="arithmatex">\[\text{The Pre-Activation: } \quad \vec{z}_t = \mathbf{W}_1 \vec{h}_{t-1} + \mathbf{W}_2 \vec{x}_t + \vec{b}_1\]</div>
+<div class="arithmatex">\[\text{The Hidden State Memory: } \quad \vec{h}_t = \sigma\left( \vec{z}_t \right)\]</div>
+<div class="arithmatex">\[\text{The Inference Output: } \quad \vec{y}_t = \mathbf{W}_3 \vec{h}_t + \vec{b}_2\]</div>
+<hr />
+<h3 id="core-review-milestones">Core Review Milestones</h3>
+<ol>
+<li><strong>The Invariance Prior:</strong> An RNN models sequential systems by enforcing parameter sharing across time, which assumes the underlying rules governing temporal transitions stay stationary over the sequence duration.</li>
+<li><strong>The Auto-Regressive Factored Identity:</strong> By passing previous step predictions back into subsequent cells as inputs (<span class="arithmatex">\(\vec{x}_t = \vec{y}_{t-1}\)</span>), the decoder factorizes the complex joint sequence distribution <span class="arithmatex">\(p(\vec{y} \mid \vec{x})\)</span> into a clean product of conditional steps:</li>
+</ol>
+<div class="arithmatex">\[p(\vec{y} \mid \vec{x}) = \prod_{t=1}^{T_{\text{out}}} p\left(\vec{y}_t \mid \vec{y}_{t-1}, \dots, \vec{y}_1, \vec{h}_T\right)\]</div>
+<ol>
+<li><strong>The Hidden Capacity Constraint:</strong> Because a Seq2Seq encoder forces an entire input sequence to squeeze into a single final hidden vector <span class="arithmatex">\(\vec{h}_T\)</span>, this vector acts as an information bottleneck. This bottleneck presents an optimization challenge for long sequences, which eventually led to the development of modern attention mechanisms.</li>
+</ol>
+<p>You are calling me out exactly where the lecture notes glossed over the blueprints. Let’s slow down, strip away the hand-waving, and build the recurrent engine from absolute first principles.</p>
+<p>To understand why an RNN looks the way it does, we have to look at the massive engineering crisis that hit the machine learning community when they tried to process sequential data using vanilla Multi-Layer Perceptrons (MLPs).</p>
+<hr />
+<h2 id="1-the-primal-problem-statement-the-three-crises-of-the-mlp">1. The Primal Problem Statement: The Three Crises of the MLP</h2>
+<p>Before RNNs existed, the only tool in our pocket was the fully connected MLP. If you want to build an AI that can read a sentence, predict a stock price, or track a patient's heart rate over time, you encounter three fundamental roadblocks:</p>
+<h3 id="crisis-a-the-variable-length-nightmare">Crisis A: The Variable-Length Nightmare</h3>
+<p>A standard MLP layer is defined by a fixed weight matrix <span class="arithmatex">\(\mathbf{W}\)</span> of size <span class="arithmatex">\((M \times D)\)</span>. This means it mathematically demands an input vector <span class="arithmatex">\(\vec{x}\)</span> that is <em>always</em> exactly <span class="arithmatex">\(D\)</span> dimensions wide.</p>
+<ul>
+<li>If you are processing text, one sentence might have 3 words ("I love math"), and the next might have 30 words.</li>
+<li>If you flatten the text into a single giant vector, what size do you pick for <span class="arithmatex">\(D\)</span>? If you pick a maximum size of 100 words and zero-pad the rest, your network wastes memory on empty zeros. Even worse, if a user inputs a sentence with 101 words, the matrix multiplication physically breaks down. <strong>We needed an architecture where the number of parameters is completely independent of the input sequence length.</strong></li>
+</ul>
+<h3 id="crisis-b-the-shuffling-anonymity">Crisis B: The Shuffling Anonymity</h3>
+<p>In an MLP, every input coordinate is assigned its own dedicated weight parameter. If you feed a 2-word sequence into an MLP, pixel/feature 1 gets multiplied by <span class="arithmatex">\(w_1\)</span> and feature 2 gets multiplied by <span class="arithmatex">\(w_2\)</span>.
+If you swap the order of the inputs, the MLP treats them with total isolation. But in sequential data, <strong>order alters meaning completely</strong>:</p>
+<ul>
+<li><code>"Dog bites man"</code> vs. <code>"Man bites dog"</code></li>
+</ul>
+<p>An MLP lacks any structural concept of "time directional flow." It doesn't know that word 2 came <em>after</em> word 1.</p>
+<h3 id="crisis-c-the-parameter-explosion-of-memory">Crisis C: The Parameter Explosion of Memory</h3>
+<p>If you want a standard feedforward network to remember the past, you have to hard-wire connections from every single historical time step to the current time step.</p>
+<p>If you track a sequence over 1,000 time steps, the number of connection paths explodes quadratically (<span class="arithmatex">\(\mathcal{O}(T^2)\)</span>). The model becomes too massive to store in memory, and it completely overfits.</p>
+<hr />
+<h2 id="2-arriving-at-the-architecture-the-state-machine-solution">2. Arriving at the Architecture: The State Machine Solution</h2>
+<p>To solve these three crises simultaneously, computer scientists borrowed an old concept from hardware design: <strong>The Finite State Machine (or the Accumulator Loop).</strong></p>
+<p>Instead of building a massive network that tries to look at the entire sequence all at once, what if we design a tiny, highly efficient computational cell that processes the sequence <strong>one single step at a time</strong>, running inside a recursive loop?</p>
+<p>To make this loop work, the cell needs to carry a running memory budget across time. We call this memory the <strong>Hidden State vector (<span class="arithmatex">\(\vec{h}_t\)</span>)</strong>.</p>
+<p>Think of <span class="arithmatex">\(\vec{h}_t\)</span> as a mental scratchpad. When the cell encounters the word at time step <span class="arithmatex">\(t\)</span>, it reads its current scratchpad (<span class="arithmatex">\(\vec{h}_{t-1}\)</span>), looks at the current input token (<span class="arithmatex">\(\vec{x}_t\)</span>), updates the scratchpad, and passes that updated scratchpad forward to the next step.</p>
+<p>Because the cell repeats the exact same mathematical rules at step 1, step 50, and step 10,000:</p>
+<ol>
+<li>The total parameter count stays perfectly constant, bypassing <strong>Crisis A</strong>.</li>
+<li>The sequence order is natively preserved by the directional arrow of the loop, bypassing <strong>Crisis B</strong>.</li>
+<li>Memory is compressed into a fixed-size vector rather than an expanding web of historical paths, bypassing <strong>Crisis C</strong>.</li>
+</ol>
+<hr />
+<h2 id="3-defining-vecz_t-the-information-mixer">3. Defining <span class="arithmatex">\(\vec{z}_t\)</span>: The Information Mixer</h2>
+<p>This brings us directly to the variable you highlighted: <strong><span class="arithmatex">\(\vec{z}_t\)</span>, the Pre-Activation Vector</strong>.</p>
+<p>Let's look at the exact math running inside that sliding temporal cell at time step <span class="arithmatex">\(t\)</span>:</p>
+<div class="arithmatex">\[\vec{z}_t = \mathbf{W}_1 \vec{h}_{t-1} + \mathbf{W}_2 \vec{x}_t + \vec{b}_1\]</div>
+<div class="arithmatex">\[\vec{h}_t = \sigma\left( \vec{z}_t \right)\]</div>
+<h3 id="what-is-vecz_t-literally-doing-under-the-hood">What is <span class="arithmatex">\(\vec{z}_t\)</span> literally doing under the hood?</h3>
+<p><span class="arithmatex">\(\vec{z}_t\)</span> is the <strong>fusion center</strong>. It is the raw, un-filtered linear combination of two completely different physical worlds:</p>
+<ol>
+<li><strong>The Entire Summarized Past (<span class="arithmatex">\(\mathbf{W}_1 \vec{h}_{t-1}\)</span>):</strong> The transition matrix <span class="arithmatex">\(\mathbf{W}_1\)</span> takes the historical memory scratchpad from the previous step and rotates/scales it into alignment.</li>
+<li><strong>The Immediate Present (<span class="arithmatex">\(\mathbf{W}_2 \vec{x}_t\)</span>):</strong> The projection matrix <span class="arithmatex">\(\mathbf{W}_2\)</span> takes the incoming raw data vector from the active time step and projects it into that same hidden dimension space.</li>
+</ol>
+<p>We call <span class="arithmatex">\(\vec{z}_t\)</span> the <em>pre-activation</em> vector because it is the raw, unbounded sum of the past and the present <strong>before</strong> it passes through the non-linear activation gate (<span class="arithmatex">\(\sigma\)</span>, which is typically a <span class="arithmatex">\(\tanh\)</span> or Sigmoid function).</p>
+<p>If you skipped <span class="arithmatex">\(\vec{z}_t\)</span> and didn't apply the non-linear activation function, the hidden state updates would just be a string of linear matrix additions. The entire deep network would mathematically collapse into a simple linear model, destroying its ability to learn complex long-term dependencies.</p>
+<p>By calculating <span class="arithmatex">\(\vec{z}_t\)</span> and squeezing it through <span class="arithmatex">\(\sigma\)</span>, the network creates a stable, bounded new memory vector <span class="arithmatex">\(\vec{h}_t\)</span> that carries the distilled essence of the sequence forward.</p>
+<p>Does tracking the architecture from the failure of the MLP down to the linear fusion of <span class="arithmatex">\(\vec{z}_t\)</span> give you the structural intuition you were looking for?</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

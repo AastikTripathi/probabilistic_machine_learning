@@ -1,0 +1,3083 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture51/">
+      
+      
+        <link rel="next" href="../lecture53/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture52 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture52
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-44-first-order-adaptive-optimizers-dimensional-units-balancing-and-the-stochastic-geometry-of-high-dimensional-non-convex-landscapes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 44: First-Order Adaptive Optimizers, Dimensional Units Balancing, and the Stochastic Geometry of High-Dimensional Non-Convex Landscapes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 44: First-Order Adaptive Optimizers, Dimensional Units Balancing, and the Stochastic Geometry of High-Dimensional Non-Convex Landscapes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-first-order-descent-and-stochastic-mini-batch-dynamics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.1 First-Order Descent and Stochastic Mini-Batch Dynamics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.1 First-Order Descent and Stochastic Mini-Batch Dynamics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-variable-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Variable Ledger:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stochastic-mini-batch-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stochastic Mini-Batch Sampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operational-nomenclature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational Nomenclature:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-sgd-with-momentum-first-order-temporal-averaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.2 SGD with Momentum: First-Order Temporal Averaging
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.2 SGD with Momentum: First-Order Temporal Averaging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-friction-hyperparameter-beta_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Friction Hyperparameter (\(\beta_1\)):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-physical-acceleration-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Physical Acceleration Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443-rmsprop-second-order-variance-and-dimensional-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.3 RMSprop: Second-Order Variance and Dimensional Consistency
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.3 RMSprop: Second-Order Variance and Dimensional Consistency">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strict-parameter-level-vector-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strict Parameter-Level Vector Definitions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-mathematical-proof-of-dimensional-balancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Mathematical Proof of Dimensional Balancing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-damping-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Damping Mechanics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444-adam-the-unified-coordinate-tracker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.4 Adam: The Unified Coordinate Tracker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#445-the-spectral-geometry-of-high-dimensional-non-convex-optimization-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.5 The Spectral Geometry of High-Dimensional Non-Convex Optimization Surfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.5 The Spectral Geometry of High-Dimensional Non-Convex Optimization Surfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-bernoulli-eigenvalue-sign-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Bernoulli Eigenvalue Sign Proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-reality-of-local-minima" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Reality of Local Minima
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unified-optimization-protocol-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unified Optimization Protocol Equations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-conceptual-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Conceptual Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-44-first-order-adaptive-optimizers-dimensional-units-balancing-and-the-stochastic-geometry-of-high-dimensional-non-convex-landscapes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 44: First-Order Adaptive Optimizers, Dimensional Units Balancing, and the Stochastic Geometry of High-Dimensional Non-Convex Landscapes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 44: First-Order Adaptive Optimizers, Dimensional Units Balancing, and the Stochastic Geometry of High-Dimensional Non-Convex Landscapes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-first-order-descent-and-stochastic-mini-batch-dynamics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.1 First-Order Descent and Stochastic Mini-Batch Dynamics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.1 First-Order Descent and Stochastic Mini-Batch Dynamics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-variable-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Variable Ledger:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stochastic-mini-batch-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stochastic Mini-Batch Sampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operational-nomenclature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational Nomenclature:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-sgd-with-momentum-first-order-temporal-averaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.2 SGD with Momentum: First-Order Temporal Averaging
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.2 SGD with Momentum: First-Order Temporal Averaging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-friction-hyperparameter-beta_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Friction Hyperparameter (\(\beta_1\)):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-physical-acceleration-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Physical Acceleration Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443-rmsprop-second-order-variance-and-dimensional-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.3 RMSprop: Second-Order Variance and Dimensional Consistency
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.3 RMSprop: Second-Order Variance and Dimensional Consistency">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strict-parameter-level-vector-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strict Parameter-Level Vector Definitions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-mathematical-proof-of-dimensional-balancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Mathematical Proof of Dimensional Balancing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-damping-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Damping Mechanics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444-adam-the-unified-coordinate-tracker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.4 Adam: The Unified Coordinate Tracker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#445-the-spectral-geometry-of-high-dimensional-non-convex-optimization-surfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.5 The Spectral Geometry of High-Dimensional Non-Convex Optimization Surfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.5 The Spectral Geometry of High-Dimensional Non-Convex Optimization Surfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-bernoulli-eigenvalue-sign-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Bernoulli Eigenvalue Sign Proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-reality-of-local-minima" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Reality of Local Minima
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unified-optimization-protocol-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unified Optimization Protocol Equations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-conceptual-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Conceptual Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-44-first-order-adaptive-optimizers-dimensional-units-balancing-and-the-stochastic-geometry-of-high-dimensional-non-convex-landscapes">Chapter 44: First-Order Adaptive Optimizers, Dimensional Units Balancing, and the Stochastic Geometry of High-Dimensional Non-Convex Landscapes</h2>
+<hr />
+<h3 id="441-first-order-descent-and-stochastic-mini-batch-dynamics">44.1 First-Order Descent and Stochastic Mini-Batch Dynamics</h3>
+<p>Up to this point, our structural analysis of deep topologies has focused on restricting the model's hypothesis class (<span class="arithmatex">\(\mathcal{H}\)</span>) using architectural regularizers—such as local receptive fields in CNNs or parameter sharing across time in RNNs. We now shift our focus to the computational engine that drives these architectures: <strong>Empirical Risk Minimization (ERM) via First-Order Gradient Descent</strong>.</p>
+<p>Let us define our global parameter state space as a multi-dimensional vector <span class="arithmatex">\(\vec{\theta} \in \mathbb{R}^{P \times 1}\)</span>, where <span class="arithmatex">\(P\)</span> represents the total count of trainable weight parameters. Our optimization loop seeks to discover an optimal parameter configuration <span class="arithmatex">\(\vec{\theta}^*\)</span> that minimizes the global empirical risk function <span class="arithmatex">\(\hat{R}(\vec{\theta})\)</span> across a training dataset <span class="arithmatex">\(D\)</span>:</p>
+<div class="arithmatex">\[\vec{\theta}_{t+1} = \vec{\theta}_t - \alpha \nabla_{\vec{\theta}} \hat{R}(\vec{\theta}_t)\]</div>
+<h4 id="precise-variable-ledger">Precise Variable Ledger:</h4>
+<ul>
+<li><span class="arithmatex">\(\vec{\theta}_t\)</span>: The active parameter coordinate configuration vector at training step <span class="arithmatex">\(t\)</span>.</li>
+<li><span class="arithmatex">\(\alpha\)</span>: The <strong>Learning Rate</strong> hyperparameter, defining the non-negotiable scalar step size along the negative gradient vector.</li>
+<li><span class="arithmatex">\(\nabla_{\vec{\theta}} \hat{R}(\vec{\theta}_t) \in \mathbb{R}^{P \times 1}\)</span>: The first-order gradient vector, tracking the directional derivative of the loss surface across all <span class="arithmatex">\(P\)</span> parameter dimensions simultaneously.</li>
+</ul>
+<h4 id="stochastic-mini-batch-sampling">Stochastic Mini-Batch Sampling</h4>
+<p>Evaluating the true gradient <span class="arithmatex">\(\nabla_{\vec{\theta}} \hat{R}(\vec{\theta}_t)\)</span> requires running a full forward and backward pass across every single sample inside the massive global training dataset <span class="arithmatex">\(D\)</span>. For modern large-scale applications, this full-batch calculation is computationally impossible.</p>
+<p>To resolve this bottleneck, we transition to <strong>Stochastic Gradient Descent (SGD)</strong>. At each step <span class="arithmatex">\(t\)</span>, we randomly sample a tiny subset of our data, known as a <strong>Mini-Batch (<span class="arithmatex">\(B \subset D\)</span>)</strong>, and evaluate a localized stochastic approximation of the risk landscape:</p>
+<div class="arithmatex">\[\hat{R}_B(\vec{\theta}_t) = \frac{1}{|B|} \sum_{i \in B} L\big(h_{\vec{\theta}_t}(\vec{x}_i), \,\, y_i\big)\]</div>
+<div class="arithmatex">\[\vec{\theta}_{t+1} = \vec{\theta}_t - \alpha \vec{g}_t \quad \text{where} \quad \vec{g}_t = \nabla_{\vec{\theta}} \hat{R}_B(\vec{\theta}_t)\]</div>
+<h4 id="operational-nomenclature">Operational Nomenclature:</h4>
+<ul>
+<li><strong>Iteration:</strong> A single complete forward pass, loss calculation, and backward backpropagation step executed over one isolated mini-batch <span class="arithmatex">\(B\)</span>.</li>
+<li><strong>Epoch:</strong> One complete chronological pass through the entire global training dataset <span class="arithmatex">\(D\)</span>. If a dataset contains 1,000 total samples and we configure our batch size to <span class="arithmatex">\(|B| = 32\)</span>, one full epoch requires <span class="arithmatex">\(\lceil 1000 / 32 \rceil = 32\)</span> independent optimization iterations.</li>
+</ul>
+<p>While standard mini-batch SGD injects helpful stochastic noise that acts as an implicit regularizer to help the model escape shallow local traps, it exhibits a critical operational flaw: <strong>the learning rate <span class="arithmatex">\(\alpha\)</span> is a rigid, unalterable constant applied uniformly across all <span class="arithmatex">\(P\)</span> dimensions.</strong> Real-world loss surfaces are rarely uniform; they are filled with steep, narrow canyons and wide, flat plateaus. A fixed step size that is small enough to avoid oscillating violently in steep dimensions will make zero progress across flat dimensions. To optimize effectively in complex topologies, we must build an <strong>Adaptive Learning Rate Engine</strong>.</p>
+<hr />
+<h3 id="442-sgd-with-momentum-first-order-temporal-averaging">44.2 SGD with Momentum: First-Order Temporal Averaging</h3>
+<p>Our first major evolutionary leap in adaptive optimization is <strong>Stochastic Gradient Descent with Momentum</strong>. This technique modifies the step trajectory by incorporating a historical memory of preceding gradient directions.</p>
+<p>We define a running velocity tracker known as the <strong>Momentum Vector (<span class="arithmatex">\(\vec{m}_t \in \mathbb{R}^{P \times 1}\)</span>)</strong>. At each optimization step <span class="arithmatex">\(t\)</span>, this vector calculates an exponentially decaying moving average of our first-order stochastic gradients:</p>
+<div class="arithmatex">\[\vec{m}_t = \beta_1 \vec{m}_{t-1} + (1 - \beta_1) \vec{g}_t\]</div>
+<div class="arithmatex">\[\vec{\theta}_{t+1} = \vec{\theta}_t - \alpha \vec{m}_t\]</div>
+<h4 id="the-friction-hyperparameter-beta_1">The Friction Hyperparameter (<span class="arithmatex">\(\beta_1\)</span>):</h4>
+<p>The coefficient <span class="arithmatex">\(\beta_1 \in [0, \,\, 1)\)</span> functions as a temporal decay factor (typically locked at an industry standard of <span class="arithmatex">\(0.9\)</span>).</p>
+<ul>
+<li>At the first initialization step (<span class="arithmatex">\(t=1\)</span>, assuming <span class="arithmatex">\(\vec{m}_0 = \vec{0}\)</span>), the velocity vector matches the current gradient exactly: <span class="arithmatex">\(\vec{m}_1 = (1-\beta_1)\vec{g}_1\)</span>.</li>
+<li>As the temporal index <span class="arithmatex">\(t\)</span> steps forward, the momentum buffer accumulates historical direction vectors while systematically dampening distant past states.</li>
+</ul>
+<h4 id="the-physical-acceleration-intuition">The Physical Acceleration Intuition</h4>
+<p>Momentum models the physics of a heavy ball rolling down a complex loss surface. If a dimension exhibits a high-frequency, oscillating gradient (such as a steep canyon wall where the gradient bounces violently between positive and negative signs), the historical accumulation step causes these opposing vectors to cancel each other out over time.</p>
+<p>Conversely, if a dimension exhibits a consistent directional gradient (such as a long, gentle valley slope), the momentum buffer sums these vectors together, accelerating progress down the slope. This allows the model to use larger effective step sizes along consistent paths while dampening erratic oscillations across steep ridges.</p>
+<hr />
+<h3 id="443-rmsprop-second-order-variance-and-dimensional-consistency">44.3 RMSprop: Second-Order Variance and Dimensional Consistency</h3>
+<p>While momentum stabilizes the directional trajectory of our steps, it does not customize the step size for individual parameters. To achieve true coordinate-level adaptation, we must track the local acceleration of individual dimensions. This strategy brings us directly to <strong>Root Mean Square Propagation (RMSprop)</strong>.</p>
+<p>Instead of tracking the raw gradient vector, RMSprop tracks an exponentially decaying moving average of the <strong>squared gradient coordinates</strong>, creating a variance accumulator vector denoted as <span class="arithmatex">\(\vec{v}_t \in \mathbb{R}^{P \times 1}\)</span>:</p>
+<div class="arithmatex">\[\vec{v}_t = \beta_2 \vec{v}_{t-1} + (1 - \beta_2) \vec{g}_t^2\]</div>
+<div class="arithmatex">\[\vec{\theta}_{t+1} = \vec{\theta}_t - \frac{\alpha}{\sqrt{\vec{v}_t} + \epsilon} \odot \vec{g}_t\]</div>
+<h4 id="strict-parameter-level-vector-definitions">Strict Parameter-Level Vector Definitions:</h4>
+<ul>
+<li><span class="arithmatex">\(\vec{g}_t^2 \equiv \vec{g}_t \odot \vec{g}_t\)</span>: The element-wise Hadamard squaring of the first-order gradient vector.</li>
+<li><span class="arithmatex">\(\odot\)</span>: The Hadamard operator, executing explicit element-wise vector operations.</li>
+<li><span class="arithmatex">\(\beta_2 \in [0, \,\, 1)\)</span>: The second-order decay hyperparameter (typically locked at <span class="arithmatex">\(0.99\)</span> or <span class="arithmatex">\(0.999\)</span>).</li>
+<li><span class="arithmatex">\(\epsilon\)</span>: A tiny scalar safety constant (e.g., <span class="arithmatex">\(10^{-8}\)</span>) to guarantee the denominator never encounters a division-by-zero catastrophe.</li>
+</ul>
+<h4 id="the-mathematical-proof-of-dimensional-balancing">The Mathematical Proof of Dimensional Balancing</h4>
+<p>The professor delivers an elegant analysis of why the square root operation (<span class="arithmatex">\(\sqrt{\vec{v}_t}\)</span>) is an absolute physical necessity for coordinate updates.</p>
+<p>Let us analyze the native physical dimensions (units of measure) of our vector components. Suppose our parameter vector <span class="arithmatex">\(\vec{\theta}\)</span> tracks a spatial coordinate measured in units of <span class="arithmatex">\(U_{\theta}\)</span>, and our empirical risk loss <span class="arithmatex">\(\hat{R}\)</span> outputs a scalar scalar measured in units of <span class="arithmatex">\(U_{L}\)</span>.</p>
+<ol>
+<li>The first-order gradient vector <span class="arithmatex">\(\vec{g}_t = \frac{\partial \hat{R}}{\partial \vec{\theta}}\)</span> inherits the physical dimensions of:</li>
+</ol>
+<div class="arithmatex">\[\text{Units}(\vec{g}_t) = \frac{U_{L}}{U_{\theta}}\]</div>
+<ol>
+<li>The variance accumulator vector <span class="arithmatex">\(\vec{v}_t\)</span> tracks squared gradients, meaning its dimensions scale as:</li>
+</ol>
+<div class="arithmatex">\[\text{Units}(\vec{v}_t) = \left(\frac{U_{L}}{U_{\theta}}\right)^2\]</div>
+<ol>
+<li>Taking the square root of this accumulator maps its dimensions back to:</li>
+</ol>
+<div class="arithmatex">\[\text{Units}\left(\sqrt{\vec{v}_t}\right) = \sqrt{\left(\frac{U_{L}}{U_{\theta}}\right)^2} = \frac{U_{L}}{U_{\theta}}\]</div>
+<p>Now look at the dimensional tracking of our complete adaptive parameter update step:</p>
+<div class="arithmatex">\[\Delta \vec{\theta} = \frac{\alpha}{\sqrt{\vec{v}_t}} \cdot \vec{g}_t \implies \text{Units}(\Delta \vec{\theta}) = \text{Units}(\alpha) \cdot \frac{\frac{U_{L}}{U_{\theta}}}{\frac{U_{L}}{U_{\theta}}} = \text{Units}(\alpha) \cdot 1\]</div>
+<p>Because the units of the gradient and the square-root variance cancel each other out perfectly, the updating step scales cleanly to match the native physical dimensions of our parameters (<span class="arithmatex">\(\text{Units}(\alpha) \equiv U_{\theta}\)</span>). This dimensional consistency ensures that parameter updates are numerically compatible across all coordinate spaces in the network.</p>
+<h4 id="the-damping-mechanics">The Damping Mechanics</h4>
+<p>By dividing our active gradient by the square root of its historical variance (<span class="arithmatex">\(\frac{\vec{g}_t}{\sqrt{\vec{v}_t}}\)</span>), RMSprop introduces an element-wise damping effect:</p>
+<ul>
+<li><strong>High-Variance Dimensions:</strong> If a parameter coordinate has a history of massive, high-amplitude gradients, its accumulator value <span class="arithmatex">\(v_{t, j}\)</span> spikes. Dividing by this large number scales down the effective learning rate, preventing the parameter from oscillating out of control.</li>
+<li><strong>Low-Variance Dimensions:</strong> If a parameter coordinate has a history of tiny, near-zero gradients (such as a flat plateau), its accumulator value <span class="arithmatex">\(v_{t, j}\)</span> drops. Dividing by this small number amplifies the effective learning rate, forcing the network to take bolder steps to traverse the plateau.</li>
+</ul>
+<hr />
+<h3 id="444-adam-the-unified-coordinate-tracker">44.4 Adam: The Unified Coordinate Tracker</h3>
+<p>The modern standard optimization engine, <strong>Adaptive Momentum Estimation (Adam)</strong>, unifies these two approaches. Developed by Kingma and Ba, Adam combines the directional stabilization of momentum with the coordinate-level scaling of RMSprop into a single system.</p>
+<p>We maintain both a first-order moving average vector (<span class="arithmatex">\(\vec{m}_t\)</span>) and a second-order variance tracker (<span class="arithmatex">\(\vec{v}_t\)</span>) simultaneously, running both updates in parallel at each step:</p>
+<div class="arithmatex">\[\vec{m}_t = \beta_1 \vec{m}_{t-1} + (1 - \beta_1) \vec{g}_t \quad \text{(First-Order Momentum Vector)}\]</div>
+<div class="arithmatex">\[\vec{v}_t = \beta_2 \vec{v}_{t-1} + (1 - \beta_2) \vec{g}_t^2 \quad \text{(Second-Order Variance Vector)}\]</div>
+<div class="arithmatex">\[\vec{\theta}_{t+1} = \vec{\theta}_t - \frac{\alpha}{\sqrt{\vec{v}_t} + \epsilon} \odot \vec{m}_t \quad \text{(Unified Coordinate Weight Update)}\]</div>
+<blockquote>
+<p><strong>The Coordinate Autonomy Law:</strong>
+Because every operation within the Adam update equation is executed using element-wise Hadamard math, <strong>the optimization engine effectively tracks a completely independent, dynamically shifting learning rate for each of the <span class="arithmatex">\(P\)</span> parameters inside the network.</strong> Highly active parameters are scaled down to protect the system, while sluggish, low-gradient parameters are scaled up to accelerate convergence.</p>
+</blockquote>
+<hr />
+<h3 id="445-the-spectral-geometry-of-high-dimensional-non-convex-optimization-surfaces">44.5 The Spectral Geometry of High-Dimensional Non-Convex Optimization Surfaces</h3>
+<p>To conclude this chapter, we transition from first-order calculus equations to analyze the global geometry of high-dimensional optimization surfaces.</p>
+<p>Every deep neural network architecture maps out a highly <strong>non-convex global empirical risk landscape</strong> <span class="arithmatex">\(\hat{R}(\vec{\theta})\)</span>. First-order gradient updates offer zero theoretical guarantees of discovering a global optimum. To prove exactly how difficult it is to land on a true global minimum in a high-dimensional space, we derive a strict spectral proof using the <strong>Hessian Matrix</strong>.</p>
+<p>Suppose our optimization loop navigates the landscape and arrives at a critical point where the first-order gradient vector vanishes completely:</p>
+<div class="arithmatex">\[\nabla_{\vec{\theta}} \hat{R}(\vec{\theta}_{\text{critical}}) = \vec{0}\]</div>
+<p>To determine whether this critical point is a local maximum, a local minimum, or a saddle point, we must evaluate the second-order derivative test in vector space by computing the <strong>Hessian Matrix (<span class="arithmatex">\(\mathbf{H} \in \mathbb{R}^{P \times P}\)</span>)</strong>:</p>
+<div class="arithmatex">\[\mathbf{H}_{ij} = \frac{\partial^2 \hat{R}}{\partial \theta_i \partial \theta_j}\]</div>
+<p>From multi-variable calculus, for a critical point to qualify as a valid local minimum, the Hessian matrix must be strictly <strong>positive definite (<span class="arithmatex">\(\mathbf{H} \succ \mathbf{0}\)</span>)</strong>. This requires every single one of its <span class="arithmatex">\(P\)</span> independent <strong>eigenvalues</strong> (<span class="arithmatex">\(\lambda_1, \lambda_2, \dots, \lambda_P\)</span>) to be strictly greater than zero:</p>
+<div class="arithmatex">\[\lambda_k &gt; 0 \quad \forall \quad k \in \{1, \,\, 2, \,\, \dots, \,\, P\}\]</div>
+<h4 id="the-bernoulli-eigenvalue-sign-proof">The Bernoulli Eigenvalue Sign Proof</h4>
+<p>Let us evaluate this eigenvalue constraint using a simple probabilistic model. Suppose we are optimizing a small neural network operating in a modest <span class="arithmatex">\(P = 1,000\)</span> dimensional parameter space. The resulting Hessian matrix contains <span class="arithmatex">\(1,000\)</span> independent eigenvalues.</p>
+<p>Let us model the sign of each independent eigenvalue as a simple <strong>Bernoulli Random Variable</strong> with a success probability of <span class="arithmatex">\(p\)</span>. To make our proof highly conservative, we assume the landscape is heavily skewed toward positive eigenvalues, setting the probability of any single eigenvalue being positive to an exceptionally high threshold:</p>
+<div class="arithmatex">\[p = P(\lambda_k &gt; 0) = 0.99999\]</div>
+<p>For our critical point to become a true local minimum, <strong>all 1,000 eigenvalues must evaluate as positive simultaneously.</strong> Assuming independence across these spectral dimensions, the joint probability of this happening collapses via a strict product power rule:</p>
+<div class="arithmatex">\[P(\mathbf{H} \succ \mathbf{0}) = \prod_{k=1}^{1000} P(\lambda_k &gt; 0) = p^P = (0.99999)^{1000} \approx 0.99005\]</div>
+<p>For 1,000 parameters under an ultra-optimistic <span class="arithmatex">\(99.999\%\)</span> positive bias, the odds remain strong. But let us scale this proof up to match the physical realities of modern machine learning architectures. Even a basic multi-layer network tracks over a million parameters (<span class="arithmatex">\(P = 10^6\)</span>), and state-of-the-art Large Language Models (LLMs) track hundreds of billions of parameters (<span class="arithmatex">\(P = 10^{11}\)</span>).</p>
+<p>Let us re-evaluate our joint probability ceiling as <span class="arithmatex">\(P\)</span> scales up to a million dimensions under our ultra-optimistic <span class="arithmatex">\(99.999\%\)</span> bias assumption:</p>
+<div class="arithmatex">\[\lim_{P \to 10^6} (0.99999)^{1000000} \approx 0.0000454 \quad \implies \quad 0.0045\%\]</div>
+<p>If we scale the dimension count further to evaluate a standard production checkpoint of a few billion parameters, the joint probability approaches absolute zero:</p>
+<div class="arithmatex">\[\lim_{P \to 10^9} (0.99999)^{10^9} \to 0.0000000000\%\]</div>
+<h4 id="the-reality-of-local-minima">The Reality of Local Minima</h4>
+<p>This spectral proof exposes the true nature of high-dimensional non-convex optimization. <strong>The mathematical probability of ever landing on a true global minimum in a high-dimensional parameter space is practically zero.</strong> The optimization landscape is instead dominated by a chaotic web of local minima, valleys, ridges, and saddle points. When you run an optimizer like Adam, the gradient updates will almost never guide the model to a global optimum.</p>
+<p>Therefore, our goal during training is not to discover a perfect global optimum. Instead, we use <strong>Validation Data</strong> as our practical truth standard. We save periodic snapshots of our parameter weights across the optimization journey—known as <strong>Model Checkpoints</strong>—and evaluate them directly on a validation set. We stop training when a checkpoint's validation performance stabilizes, accepting that a high-quality local minimum that generalizes well is all we need to solve real-world problems.</p>
+<hr />
+<h2 id="textbook-notes-core-reference-sheet">Textbook Notes Core Reference Sheet</h2>
+<h3 id="unified-optimization-protocol-equations">Unified Optimization Protocol Equations</h3>
+<div class="arithmatex">\[\text{SGD with Momentum: } \quad \vec{m}_t = \beta_1 \vec{m}_{t-1} + (1 - \beta_1) \vec{g}_t \quad \implies \quad \vec{\theta}_{t+1} = \vec{\theta}_t - \alpha \vec{m}_t\]</div>
+<div class="arithmatex">\[\text{RMSprop Engine: } \quad \vec{v}_t = \beta_2 \vec{v}_{t-1} + (1 - \beta_2) \vec{g}_t^2 \quad \implies \quad \vec{\theta}_{t+1} = \vec{\theta}_t - \frac{\alpha}{\sqrt{\vec{v}_t} + \epsilon} \odot \vec{g}_t\]</div>
+<div class="arithmatex">\[\text{Adam Optimizer: } \quad \vec{\theta}_{t+1} = \vec{\theta}_t - \frac{\alpha}{\sqrt{\vec{v}_t} + \epsilon} \odot \vec{m}_t\]</div>
+<hr />
+<h3 id="core-conceptual-milestones">Core Conceptual Milestones</h3>
+<ol>
+<li><strong>The Dimensional Balance Invariance:</strong> RMSprop and Adam preserve dimensional units consistency by dividing the first-order gradient vector by the square root of its historical variance. This cancels out the dimensions of the gradient, ensuring that the final update step matches the physical dimensions of the parameter space.</li>
+<li><strong>The Spectral Deficit of High Dimensions:</strong> Because verifying a local minimum requires all <span class="arithmatex">\(P\)</span> eigenvalues of the Hessian matrix to be strictly positive simultaneously, the joint probability of achieving a global minimum approaches absolute zero as the parameter space expands to millions or billions of dimensions.</li>
+<li><strong>The Checkpoint Validation Standard:</strong> Because finding a global optimum is mathematically impossible in high-dimensional non-convex landscapes, we evaluate training success empirically. We save snapshots of our parameter vector (<span class="arithmatex">\(\vec{\theta}\)</span>) as model checkpoints and select the configuration that achieves the lowest error on validation data.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

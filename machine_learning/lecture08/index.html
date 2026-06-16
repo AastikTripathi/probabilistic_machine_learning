@@ -1,0 +1,3085 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture07_1/">
+      
+      
+        <link rel="next" href="../lecture09/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture08 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture08
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-6-continuous-support-manifolds-probability-density-functions-and-the-likelihood-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6: Continuous Support Manifolds, Probability Density Functions, and the Likelihood Space
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6: Continuous Support Manifolds, Probability Density Functions, and the Likelihood Space">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-the-mathematical-shift-from-distributions-cdf-to-densities-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 The Mathematical Shift: From Distributions (CDF) to Densities (PDF)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1 The Mathematical Shift: From Distributions (CDF) to Densities (PDF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-high-dimensional-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The High-Dimensional Extension
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-the-core-axioms-of-density-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 The Core Axioms of Density Spaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-the-fundamental-trap-density-is-not-probability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 The Fundamental Trap: Density Is Not Probability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3 The Fundamental Trap: Density Is Not Probability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-professors-uniform-counter-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Professor’s Uniform Counter-Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-discrete-exception-pmf-vs-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Discrete Exception: PMF vs. PDF
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-exemplar-suite-10-operational-density-alignments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Exemplar Suite: 10 Operational Density Alignments
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4 Exemplar Suite: 10 Operational Density Alignments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-the-single-pixel-grayscale-camera-sensor-uniform-continuum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: The Single-Pixel Grayscale Camera Sensor (Uniform Continuum)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-normalizing-fluid-mechanics-the-standard-gaussian-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Normalizing Fluid Mechanics (The Standard Gaussian Metric)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-clinical-blood-ingestion-latency-exponential-decay-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Clinical Blood Ingestion Latency (Exponential Decay Density)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-multimodal-feature-clustering-gaussian-mixture-densities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Multimodal Feature Clustering (Gaussian Mixture Densities)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-continuous-document-text-embedding-alignments-von-mises-fisher-orientation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Continuous Document Text Embedding Alignments (Von Mises-Fisher Orientation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-multi-sensor-server-thermal-logs-multivariate-gaussian-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Multi-Sensor Server Thermal Logs (Multivariate Gaussian Topology)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-wireless-telecom-channel-distortion-rayleigh-amplitude-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Wireless Telecom Channel Distortion (Rayleigh Amplitude Profiles)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-financial-portfolio-asset-volatility-log-normal-asset-pricing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Financial Portfolio Asset Volatility (Log-Normal Asset Pricing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-industrial-fluid-valve-leakage-velocities-gamma-heavy-tail-layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Industrial Fluid Valve Leakage Velocities (Gamma Heavy-Tail Layouts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-deep-image-synthesis-normalizing-flow-vector-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Deep Image Synthesis (Normalizing Flow Vector Transformation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-the-unified-problem-re-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 The Unified Problem Re-Formulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-6-continuous-support-manifolds-probability-density-functions-and-the-likelihood-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6: Continuous Support Manifolds, Probability Density Functions, and the Likelihood Space
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6: Continuous Support Manifolds, Probability Density Functions, and the Likelihood Space">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-the-mathematical-shift-from-distributions-cdf-to-densities-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 The Mathematical Shift: From Distributions (CDF) to Densities (PDF)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.1 The Mathematical Shift: From Distributions (CDF) to Densities (PDF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-high-dimensional-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The High-Dimensional Extension
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-the-core-axioms-of-density-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 The Core Axioms of Density Spaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-the-fundamental-trap-density-is-not-probability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 The Fundamental Trap: Density Is Not Probability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3 The Fundamental Trap: Density Is Not Probability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-professors-uniform-counter-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Professor’s Uniform Counter-Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-discrete-exception-pmf-vs-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Discrete Exception: PMF vs. PDF
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-exemplar-suite-10-operational-density-alignments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Exemplar Suite: 10 Operational Density Alignments
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4 Exemplar Suite: 10 Operational Density Alignments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-the-single-pixel-grayscale-camera-sensor-uniform-continuum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: The Single-Pixel Grayscale Camera Sensor (Uniform Continuum)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-normalizing-fluid-mechanics-the-standard-gaussian-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Normalizing Fluid Mechanics (The Standard Gaussian Metric)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-clinical-blood-ingestion-latency-exponential-decay-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Clinical Blood Ingestion Latency (Exponential Decay Density)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-multimodal-feature-clustering-gaussian-mixture-densities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Multimodal Feature Clustering (Gaussian Mixture Densities)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-continuous-document-text-embedding-alignments-von-mises-fisher-orientation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Continuous Document Text Embedding Alignments (Von Mises-Fisher Orientation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-multi-sensor-server-thermal-logs-multivariate-gaussian-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Multi-Sensor Server Thermal Logs (Multivariate Gaussian Topology)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-wireless-telecom-channel-distortion-rayleigh-amplitude-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Wireless Telecom Channel Distortion (Rayleigh Amplitude Profiles)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-financial-portfolio-asset-volatility-log-normal-asset-pricing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Financial Portfolio Asset Volatility (Log-Normal Asset Pricing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-industrial-fluid-valve-leakage-velocities-gamma-heavy-tail-layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Industrial Fluid Valve Leakage Velocities (Gamma Heavy-Tail Layouts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-deep-image-synthesis-normalizing-flow-vector-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Deep Image Synthesis (Normalizing Flow Vector Transformation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-the-unified-problem-re-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 The Unified Problem Re-Formulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-6-continuous-support-manifolds-probability-density-functions-and-the-likelihood-space">Chapter 6: Continuous Support Manifolds, Probability Density Functions, and the Likelihood Space</h2>
+<hr />
+<h3 id="61-the-mathematical-shift-from-distributions-cdf-to-densities-pdf">6.1 The Mathematical Shift: From Distributions (CDF) to Densities (PDF)</h3>
+<p>Up to this point, our mathematical framework has relied on the <strong>Cumulative Distribution Function (CDF)</strong>, denoted as <span class="arithmatex">\(F_X(x)\)</span>, to translate abstract events into real numbers. While the CDF is mathematically robust and always guaranteed to exist, it is incredibly cumbersome to manipulate when training machine learning models.</p>
+<p>To make optimization, gradient descent, and parameter tuning tractably calculable, we transition from distribution functions to <strong>Probability Density Functions (PDFs)</strong>.</p>
+<blockquote>
+<p><strong>Definition 6.1 (Probability Density Function).</strong> Let <span class="arithmatex">\(X: \Omega \rightarrow \mathbb{R}\)</span> be a continuous random variable governed by a cumulative distribution function <span class="arithmatex">\(F_X(x)\)</span>. If <span class="arithmatex">\(F_X(x)\)</span> is absolutely continuous and differentiable, there exists a non-negative, integrable function <span class="arithmatex">\(p_X(x)\)</span> such that the CDF can be expressed as its running integral:
+$<span class="arithmatex">\(F_X(x) = \int_{-\infty}^{x} p_X(t) \, dt\)</span>$</p>
+<p>By the Fundamental Theorem of Calculus, the density function is the exact first derivative of the distribution function:
+$<span class="arithmatex">\(p_X(x) = \frac{d}{dx} F_X(x)\)</span>$</p>
+</blockquote>
+<h4 id="the-high-dimensional-extension">The High-Dimensional Extension</h4>
+<p>When scaling to a <span class="arithmatex">\(D\)</span>-dimensional feature space <span class="arithmatex">\(\mathbb{R}^D\)</span> (such as flat vector images or multi-sensor logs), the single derivative scales into a divergence wrapper, and the single integral transforms into a <span class="arithmatex">\(D\)</span>-fold multivariate volume integral:</p>
+<div class="arithmatex">\[F_X(x_1, x_2, \dots, x_D) = \int_{-\infty}^{x_1} \int_{-\infty}^{x_2} \dots \int_{-\infty}^{x_D} p_X(t_1, t_2, \dots, t_D) \, dt_D \dots dt_2 dt_1\]</div>
+<hr />
+<h3 id="62-the-core-axioms-of-density-spaces">6.2 The Core Axioms of Density Spaces</h3>
+<p>For a function <span class="arithmatex">\(p_X: \mathbb{R}^D \rightarrow \mathbb{R}\)</span> to be recognized as a valid probability density function, it must satisfy two foundational properties:</p>
+<ul>
+<li><strong>Property 1: Absolute Non-Negativity</strong> 
+$<span class="arithmatex">\(p_X(\vec{x}) \geq 0 \quad \forall \,\, \vec{x} \in \mathbb{R}^D\)</span>$</li>
+</ul>
+<p>The range of a PDF maps strictly to the non-negative real half-line <span class="arithmatex">\(\mathbb{R}^+\)</span>. It can be zero, and it can be arbitrarily large, but it can never be negative.
+* <strong>Property 2: Total Unit Normalization</strong> 
+$<span class="arithmatex">\(\int_{\mathbb{R}^D} p_X(\vec{x}) \, d\vec{x} = 1\)</span>$</p>
+<p>The total volume trapped beneath the multi-dimensional geometric surface of a density function must sum to exactly <span class="arithmatex">\(1\)</span>.</p>
+<hr />
+<h3 id="63-the-fundamental-trap-density-is-not-probability">6.3 The Fundamental Trap: Density Is Not Probability</h3>
+<p>The professor highlights the single most common pitfall in data science: <strong>Evaluating a continuous density function at a specific coordinate does <em>not</em> give you a probability.</strong></p>
+<div class="arithmatex">\[p_X(x) \neq P(X = x)\]</div>
+<p>For any continuous random variable, the exact probability of hitting an infinitely precise scalar coordinate is always zero (<span class="arithmatex">\(P(X = 4.23948...) = 0\)</span>). The scalar value returned when you plug an input vector into a density function <span class="arithmatex">\(p_X(\vec{x})\)</span> is a <strong>Likelihood Score</strong>, not a probability.</p>
+<h4 id="the-professors-uniform-counter-example">The Professor’s Uniform Counter-Example</h4>
+<p>To prove that densities are not probabilities, consider a continuous uniform random variable <span class="arithmatex">\(X\)</span> bounded tightly on the fractional interval <span class="arithmatex">\([0, \,\, 0.5]\)</span>.</p>
+<p>[Image comparing a probability mass function with a continuous uniform probability density function exceeding 1]</p>
+<p>By the normalization axiom, the area under the density curve must equal <span class="arithmatex">\(1\)</span>. Because the width of the support interval is <span class="arithmatex">\(0.5\)</span>, the height of the density function must compensate:</p>
+<div class="arithmatex">\[p_X(x) = \begin{cases} \frac{1}{0.5 - 0} = 2 &amp; \text{if } x \in [0, 0.5] \\ 0 &amp; \text{otherwise} \end{cases}\]</div>
+<p>If you evaluate this density function at the point <span class="arithmatex">\(x = 0.2\)</span>, the function returns <strong><span class="arithmatex">\(2.0\)</span></strong>. Because valid probability measures are strictly upper-bounded by <span class="arithmatex">\(1.0\)</span>, this cleanly demonstrates that a raw density output is not a probability.</p>
+<p>To recover a real probability measure from a continuous density, you must integrate the function over a localized region:</p>
+<div class="arithmatex">\[P(0.19 \leq X \leq 0.21) = \int_{0.19}^{0.11} 2 \, dt = 2 \times (0.21 - 0.19) = 0.04\]</div>
+<h4 id="the-discrete-exception-pmf-vs-pdf">The Discrete Exception: PMF vs. PDF</h4>
+<p>This rule splits completely along coordinate types:</p>
+<ul>
+<li><strong>Continuous Variables (<span class="arithmatex">\(\mathbb{R}^D\)</span>):</strong> Governed by a <strong>PDF</strong> (<span class="arithmatex">\(p_X(x)\)</span>). Point evaluations yield continuous <em>likelihoods</em>. You must integrate over an interval to calculate a probability.</li>
+<li><strong>Discrete Variables (<span class="arithmatex">\(\mathbb{Z}^1\)</span>):</strong> Governed by a <strong>Probability Mass Function (PMF)</strong>, typically written as <span class="arithmatex">\(P(X = x)\)</span>. Point evaluations <em>are</em> completely valid, direct probability measures.</li>
+</ul>
+<hr />
+<h2 id="64-exemplar-suite-10-operational-density-alignments">6.4 Exemplar Suite: 10 Operational Density Alignments</h2>
+<p>To fully understand the shift to density calculus, let us examine ten distinct mathematical models where continuous density evaluations (<span class="arithmatex">\(p_X(x)\)</span> or <span class="arithmatex">\(p(y|x)\)</span>) serve as the absolute core of machine learning computations.</p>
+<h4 id="example-1-the-single-pixel-grayscale-camera-sensor-uniform-continuum">Example 1: The Single-Pixel Grayscale Camera Sensor (Uniform Continuum)</h4>
+<ul>
+<li><strong>Physical System:</strong> A toy light sensor maps light reflecting off a card into a continuous voltage spectrum on the interval <span class="arithmatex">\([0, \theta]\)</span>.</li>
+<li><strong>The Density Function:</strong> <span class="arithmatex">\(p_X(x) = \frac{1}{\theta}\)</span> for <span class="arithmatex">\(x \in [0, \theta]\)</span>.</li>
+<li><strong>Machine Evaluation:</strong> If a model checks an anomaly threshold, it verifies if an input coordinate falls inside the positive support window of this uniform box density.</li>
+</ul>
+<h4 id="example-2-normalizing-fluid-mechanics-the-standard-gaussian-metric">Example 2: Normalizing Fluid Mechanics (The Standard Gaussian Metric)</h4>
+<ul>
+<li><strong>Physical System:</strong> Normal, uncorrupted baseline pixel noise variations distributed symmetrically around a neutral focal center.</li>
+<li>
+<p><strong>The Density Function:</strong> 
+$<span class="arithmatex">\(p_X(x) = \frac{1}{\sigma \sqrt{2\pi}} \exp\left(-\frac{1}{2}\left(\frac{x - \mu}{\sigma}\right)^2\right)\)</span>$</p>
+</li>
+<li>
+<p><strong>Machine Evaluation:</strong> The network evaluates the exponential distance of coordinates from the mean vector <span class="arithmatex">\(\mu\)</span> to optimize spatial weights.</p>
+</li>
+</ul>
+<h4 id="example-3-clinical-blood-ingestion-latency-exponential-decay-density">Example 3: Clinical Blood Ingestion Latency (Exponential Decay Density)</h4>
+<ul>
+<li><strong>Physical System:</strong> Tracking the elapsed time <span class="arithmatex">\(T\)</span> in hours until a biological blood sample degrades inside a microfluidic transport track.</li>
+<li><strong>The Density Function:</strong> <span class="arithmatex">\(p_T(t) = \lambda e^{-\lambda t}\)</span> for <span class="arithmatex">\(t \geq 0\)</span>.</li>
+<li><strong>Machine Evaluation:</strong> A monitoring system evaluates the likelihood score of a time log to flag delayed processing pipelines before sample spoilage.</li>
+</ul>
+<h4 id="example-4-multimodal-feature-clustering-gaussian-mixture-densities">Example 4: Multimodal Feature Clustering (Gaussian Mixture Densities)</h4>
+<ul>
+<li><strong>Physical System:</strong> An unlabeled dataset containing human height and weight vectors, forming separate structural clusters for children and adults.</li>
+<li>
+<p><strong>The Density Function:</strong> 
+$<span class="arithmatex">\(p_{\vec{X}}(\vec{x}) = \pi_1 \mathcal{N}(\vec{x}; \vec{\mu}_1, \Sigma_1) + \pi_2 \mathcal{N}(\vec{x}; \vec{\mu}_2, \Sigma_2)\)</span>$</p>
+</li>
+<li>
+<p><strong>Machine Evaluation:</strong> An unsupervised clustering algorithm optimizes the mixing weights (<span class="arithmatex">\(\pi_k\)</span>) to maximize the combined log-density across the dataset.</p>
+</li>
+</ul>
+<h4 id="example-5-continuous-document-text-embedding-alignments-von-mises-fisher-orientation">Example 5: Continuous Document Text Embedding Alignments (Von Mises-Fisher Orientation)</h4>
+<ul>
+<li><strong>Physical System:</strong> Directional semantic vectors tracking document meaning mapped entirely onto a hyperspherical manifold surface.</li>
+<li><strong>The Density Function:</strong> <span class="arithmatex">\(p_{\vec{X}}(\vec{x}) = C_d(\kappa) \exp(\kappa \vec{\mu}^T \vec{x})\)</span>.</li>
+<li><strong>Machine Evaluation:</strong> An NLP algorithm tracks the angular concentration parameter <span class="arithmatex">\(\kappa\)</span> to verify if a text patch aligns with a target thematic vector <span class="arithmatex">\(\vec{\mu}\)</span>.</li>
+</ul>
+<h4 id="example-6-multi-sensor-server-thermal-logs-multivariate-gaussian-topology">Example 6: Multi-Sensor Server Thermal Logs (Multivariate Gaussian Topology)</h4>
+<ul>
+<li><strong>Physical System:</strong> Tracking continuous temperature lines across <span class="arithmatex">\(D\)</span> independent nodes inside an enterprise datacenter rack.</li>
+<li>
+<p><strong>The Density Function:</strong> 
+$<span class="arithmatex">\(p_{\vec{X}}(\vec{x}) = \frac{1}{(2\pi)^{D/2} |\Sigma|^{1/2}} \exp\left(-\frac{1}{2}(\vec{x}-\vec{\mu})^T \Sigma^{-1} (\vec{x}-\vec{\mu})\right)\)</span>$</p>
+</li>
+<li>
+<p><strong>Machine Evaluation:</strong> An automated system monitors the inverse covariance matrix <span class="arithmatex">\(\Sigma^{-1}\)</span> to calculate the joint density score of multi-node telemetry.</p>
+</li>
+</ul>
+<h4 id="example-7-wireless-telecom-channel-distortion-rayleigh-amplitude-profiles">Example 7: Wireless Telecom Channel Distortion (Rayleigh Amplitude Profiles)</h4>
+<ul>
+<li><strong>Physical System:</strong> Continuous radio signal fading amplitudes passing through dense urban architectural barriers.</li>
+<li><strong>The Density Function:</strong> <span class="arithmatex">\(p_R(r) = \frac{r}{\sigma^2} e^{-r^2 / (2\sigma^2)}\)</span> for <span class="arithmatex">\(r \geq 0\)</span>.</li>
+<li><strong>Machine Evaluation:</strong> A deep communication pipeline computes channel estimation corrections by evaluating the continuous scaling parameter <span class="arithmatex">\(\sigma\)</span>.</li>
+</ul>
+<h4 id="example-8-financial-portfolio-asset-volatility-log-normal-asset-pricing">Example 8: Financial Portfolio Asset Volatility (Log-Normal Asset Pricing)</h4>
+<ul>
+<li><strong>Physical System:</strong> Modeling the continuous, non-negative future price distribution of an equity asset fluctuating over time.</li>
+<li><strong>The Density Function:</strong> <span class="arithmatex">\(p_S(s) = \frac{1}{s \sigma \sqrt{2\pi}} \exp\left(-\frac{(\ln s - \mu)^2}{2\sigma^2}\right)\)</span>.</li>
+<li><strong>Machine Evaluation:</strong> An automated trade execution script evaluates the tail density to hedge risk profiles across volatile options markets.</li>
+</ul>
+<h4 id="example-9-industrial-fluid-valve-leakage-velocities-gamma-heavy-tail-layouts">Example 9: Industrial Fluid Valve Leakage Velocities (Gamma Heavy-Tail Layouts)</h4>
+<ul>
+<li><strong>Physical System:</strong> Continuous pressure drops tracked across structural fittings inside an automated petrochemical refinery line.</li>
+<li><strong>The Density Function:</strong> <span class="arithmatex">\(p_X(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1} e^{-\beta x}\)</span> for <span class="arithmatex">\(x &gt; 0\)</span>.</li>
+<li><strong>Machine Evaluation:</strong> A predictive maintenance algorithm fits the shape parameter <span class="arithmatex">\(\alpha\)</span> to estimate when a valve will degrade.</li>
+</ul>
+<h4 id="example-10-deep-image-synthesis-normalizing-flow-vector-transformation">Example 10: Deep Image Synthesis (Normalizing Flow Vector Transformation)</h4>
+<ul>
+<li><strong>Physical System:</strong> A complex, highly non-linear vector mapping that projects raw pixel coordinates down into a clean Gaussian latent space.</li>
+<li>
+<p><strong>The Density Function:</strong> 
+$<span class="arithmatex">\(p_{\vec{X}}(\vec{x}) = p_{\vec{Z}}(f(\vec{x})) \cdot \left| \det \nabla_{\vec{x}} f(\vec{x}) \right|\)</span>$</p>
+</li>
+<li>
+<p><strong>Machine Evaluation:</strong> A generative vision network computes exact continuous pixel density values by running forward passes through invertible neural layers.</p>
+</li>
+</ul>
+<hr />
+<h3 id="65-the-unified-problem-re-formulation">6.5 The Unified Problem Re-Formulation</h3>
+<p>Now that we have established that all well-behaved real-world data distributions possess valid continuous density expressions, we can officially update our global machine learning objective.</p>
+<p>We discard the bulky CDF notation (<span class="arithmatex">\(F_X\)</span>) and re-state the universal problem statement of machine learning entirely in the clean language of <strong>Density Estimation</strong>.</p>
+<pre><code>                [ Classical Curve Fitting ]                    [ Probabilistic Density Estimation ]
+             Given points, draw a line through:                 Given samples, recover the hidden shape:
+                       y = f(x)                                              p(x, y)
+
+</code></pre>
+<blockquote>
+<p><strong>The Definitive Paradigm Shift.</strong> Given an empirical training ledger <span class="arithmatex">\(D = \{\vec{z}_1, \vec{z}_2, \dots, \vec{z}_N\}\)</span> sampled independent and identically distributed from an unknown, true natural density <span class="arithmatex">\(p_{\text{true}}(\vec{z})\)</span>, the absolute objective of machine learning is to recover an estimated density function <span class="arithmatex">\(p_{\theta}(\vec{z})\)</span> that mimics the data-generating landscape as closely as possible:
+$<span class="arithmatex">\(\text{Optimize } \theta \quad \text{such that} \quad p_{\theta}(\vec{z}) \approx p_{\text{true}}(\vec{z})\)</span>$</p>
+</blockquote>
+<p>Depending on your specific task, you extract different slices of this estimated density function:</p>
+<ol>
+<li><strong>Discriminative Classification / Regression:</strong> You learn the parameters <span class="arithmatex">\(\theta\)</span> to isolate the <strong>Conditional Density Function</strong> <span class="arithmatex">\(p_{\theta}(y \mid \vec{x})\)</span>.</li>
+<li><strong>Generative Data Modeling:</strong> You learn the parameters <span class="arithmatex">\(\theta\)</span> to recover the full <strong>Joint Density Function</strong> <span class="arithmatex">\(p_{\theta}(\vec{x}, y)\)</span> or the <strong>Marginal Density Function</strong> <span class="arithmatex">\(p_{\theta}(\vec{x})\)</span>, unlocking the ability to synthesize brand-new coordinates from the estimated space.</li>
+</ol>
+<p>The professor closes the lecture with a massive cliffhanger: <em>How do we actually solve this non-trivial estimation problem in practice?</em> The upcoming lectures will officially introduce the <strong>Empirical Risk Minimization (ERM)</strong> framework—the practical algorithmic vehicle we use to turn these density equations into real-world, executable code.</p>
+<hr />
+<p>The shift from distributions to densities is now complete. The professor explicitly noted that the next step is looking at the actual <em>challenges</em> of machine learning and deploying the ERM framework to solve them.</p>
+<p>As we move toward the mechanics of optimization, how does the realization that a continuous model output is a <em>likelihood density</em> rather than a <em>discrete probability mass</em> impact your understanding of how neural networks calculate classification loss?</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

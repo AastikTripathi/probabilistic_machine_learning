@@ -1,0 +1,3039 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture40/">
+      
+      
+        <link rel="next" href="../lecture42/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture41 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture41
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-34-empirical-risk-minimization-on-neural-networks-scalar-derivation-of-error-backpropagation-and-the-computational-engine-of-modern-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 34: Empirical Risk Minimization on Neural Networks, Scalar Derivation of Error Backpropagation, and the Computational Engine of Modern AI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 34: Empirical Risk Minimization on Neural Networks, Scalar Derivation of Error Backpropagation, and the Computational Engine of Modern AI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341-the-gradient-challenge-in-deep-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.1 The Gradient Challenge in Deep Architectures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-the-scalar-notation-blueprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.2 The Scalar Notation Blueprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343-the-forward-pass-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.3 The Forward Pass Mechanics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="34.3 The Forward Pass Mechanics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-boundary-conditions-of-the-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Boundary Conditions of the Pass
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#344-the-foundational-error-term-definition-delta_jl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.4 The Foundational Error Term Definition (\(\delta_j^l\))
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="34.4 The Foundational Error Term Definition (\(\delta_j^l\))">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-final-output-layer-boundary-delta_jl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: The Final Output Layer Boundary (\(\delta_j^L\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#345-the-recursive-backward-pass-derivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.5 The Recursive Backward Pass Derivation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#346-calculating-the-final-parameter-gradients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.6 Calculating the Final Parameter Gradients
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="34.6 Calculating the Final Parameter Gradients">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-weight-gradients-fracpartial-hatrpartial-w_jkl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Weight Gradients (\(\frac{\partial \hat{R}}{\partial w_{jk}^l}\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-bias-gradients-fracpartial-hatrpartial-b_jl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Bias Gradients (\(\frac{\partial \hat{R}}{\partial b_j^l}\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#347-the-dual-pass-training-protocol-and-hardware-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.7 The Dual-Pass Training Protocol and Hardware Constraints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="34.7 The Dual-Pass Training Protocol and Hardware Constraints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-hardware-monopoly-bottleneck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Hardware Monopoly Bottleneck
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-summary-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Summary Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Summary Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-backpropagation-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Backpropagation Equations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaway-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaway Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-34-empirical-risk-minimization-on-neural-networks-scalar-derivation-of-error-backpropagation-and-the-computational-engine-of-modern-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 34: Empirical Risk Minimization on Neural Networks, Scalar Derivation of Error Backpropagation, and the Computational Engine of Modern AI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 34: Empirical Risk Minimization on Neural Networks, Scalar Derivation of Error Backpropagation, and the Computational Engine of Modern AI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341-the-gradient-challenge-in-deep-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.1 The Gradient Challenge in Deep Architectures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-the-scalar-notation-blueprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.2 The Scalar Notation Blueprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343-the-forward-pass-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.3 The Forward Pass Mechanics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="34.3 The Forward Pass Mechanics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-boundary-conditions-of-the-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Boundary Conditions of the Pass
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#344-the-foundational-error-term-definition-delta_jl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.4 The Foundational Error Term Definition (\(\delta_j^l\))
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="34.4 The Foundational Error Term Definition (\(\delta_j^l\))">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-final-output-layer-boundary-delta_jl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: The Final Output Layer Boundary (\(\delta_j^L\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#345-the-recursive-backward-pass-derivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.5 The Recursive Backward Pass Derivation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#346-calculating-the-final-parameter-gradients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.6 Calculating the Final Parameter Gradients
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="34.6 Calculating the Final Parameter Gradients">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-weight-gradients-fracpartial-hatrpartial-w_jkl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Weight Gradients (\(\frac{\partial \hat{R}}{\partial w_{jk}^l}\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-bias-gradients-fracpartial-hatrpartial-b_jl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Bias Gradients (\(\frac{\partial \hat{R}}{\partial b_j^l}\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#347-the-dual-pass-training-protocol-and-hardware-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34.7 The Dual-Pass Training Protocol and Hardware Constraints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="34.7 The Dual-Pass Training Protocol and Hardware Constraints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-hardware-monopoly-bottleneck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Hardware Monopoly Bottleneck
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-summary-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Summary Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Summary Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-backpropagation-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Backpropagation Equations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaway-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaway Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-34-empirical-risk-minimization-on-neural-networks-scalar-derivation-of-error-backpropagation-and-the-computational-engine-of-modern-ai">Chapter 34: Empirical Risk Minimization on Neural Networks, Scalar Derivation of Error Backpropagation, and the Computational Engine of Modern AI</h2>
+<hr />
+<h3 id="341-the-gradient-challenge-in-deep-architectures">34.1 The Gradient Challenge in Deep Architectures</h3>
+<p>We have finalized our exploration of linear and non-linear classification landscapes using specialized structural boundaries like Support Vector Machines. We now scale our focus to the standard workflow driving modern artificial intelligence: <strong>Empirical Risk Minimization (ERM) on Deep Neural Networks</strong>.</p>
+<p>Mathematically, given a training dataset <span class="arithmatex">\(D = \{(\vec{x}_1, \vec{y}_1), \dots, (\vec{x}_N, \vec{y}_N)\} \sim \text{i.i.d. } p(x, y)\)</span>, where <span class="arithmatex">\(\vec{x}_i \in \mathbb{R}^D\)</span> and <span class="arithmatex">\(\vec{y}_i \in \mathbb{R}^K\)</span>, our optimization objective is to find a global parameter configuration <span class="arithmatex">\(\vec{\theta}^*\)</span> that minimizes our empirical sample risk surrogate <span class="arithmatex">\(\hat{R}(\vec{\theta})\)</span>:</p>
+<div class="arithmatex">\[\vec{\theta}^* = \arg\min_{\vec{\theta}} \hat{R}(\vec{\theta}) = \arg\min_{\vec{\theta}} \left[ \frac{1}{N} \sum_{i=1}^{N} L\left( h_{\vec{\theta}}(\vec{x}_i), \,\, \vec{y}_i \right) \right]\]</div>
+<p>To minimize this loss landscape over a massive pool of continuous parameters, we rely on first-order numerical optimization via <strong>Gradient Descent</strong>:</p>
+<div class="arithmatex">\[\vec{\theta}^{(t+1)} = \vec{\theta}^{(t)} - \beta \nabla_{\vec{\theta}} \hat{R}\left(\vec{\theta}^{(t)}\right)\]</div>
+<p>Because a deep neural network is constructed as a heavily nested, multi-layered composition of alternating linear transformations and activation functions, calculating the partial derivatives of our empirical risk with respect to parameters trapped deep inside the early layers of the network presents a massive calculus bookkeeping challenge.</p>
+<p>To solve this cleanly, we invoke the multi-variable <strong>Chain Rule</strong>. In the machine learning community, this sequential application of the chain rule over a neural matrix graph is formalized as the <strong>Error Backpropagation Algorithm</strong> (popularized by Geoffrey Hinton and colleagues).</p>
+<p>While modern production code bases vectorize these operations into unified matrix tensors to maximize hardware performance, the professor intentionally drops vector notation in this module. To expose the underlying physical beauty of the algorithm—where errors flow backward along the exact same pathways that data travels forward—we map the entire derivation using <strong>scalar calculus notation</strong>.</p>
+<hr />
+<h3 id="342-the-scalar-notation-blueprint">34.2 The Scalar Notation Blueprint</h3>
+<p>To map out the partial derivatives of our network without getting tangled in indices, we establish a strict coordinate notation tracking three adjacent layers inside a fully connected matrix graph.</p>
+<p>Let us define our structural indices across the network layers:</p>
+<ul>
+<li><span class="arithmatex">\(l\)</span>: The active hidden layer under evaluation.</li>
+<li><span class="arithmatex">\(l-1\)</span>: The preceding layer feeding data forward into the active layer.</li>
+<li><span class="arithmatex">\(l+1\)</span>: The subsequent layer receiving activations from the active layer.</li>
+<li><span class="arithmatex">\(j\)</span>: The index tracking an individual neuron operating inside our active layer <span class="arithmatex">\(l\)</span>.</li>
+<li><span class="arithmatex">\(k\)</span>: The index tracking an individual neuron operating inside the preceding layer <span class="arithmatex">\(l-1\)</span>.</li>
+<li><span class="arithmatex">\(i\)</span>: The index tracking an individual neuron operating inside the subsequent layer <span class="arithmatex">\(l+1\)</span>.</li>
+</ul>
+<p>Using these indices, we formalize our structural parameters and functional components:</p>
+<table>
+<thead>
+<tr>
+<th>Mathematical Symbol</th>
+<th>Precise Scalar Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(w_{jk}^l\)</span></td>
+<td>The learnable scalar weight parameter connecting the output of neuron <span class="arithmatex">\(k\)</span> in layer <span class="arithmatex">\(l-1\)</span> to the input of neuron <span class="arithmatex">\(j\)</span> in layer <span class="arithmatex">\(l\)</span>.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(b_j^l\)</span></td>
+<td>The learnable scalar intercept bias allocated to neuron <span class="arithmatex">\(j\)</span> inside layer <span class="arithmatex">\(l\)</span>.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(z_j^l\)</span></td>
+<td>The <strong>pre-activation output</strong> of neuron <span class="arithmatex">\(j\)</span> in layer <span class="arithmatex">\(l\)</span>, tracking the raw weighted linear sum before the activation function is applied.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(a_j^l\)</span></td>
+<td>The <strong>activation output</strong> of neuron <span class="arithmatex">\(j\)</span> in layer <span class="arithmatex">\(l\)</span>, tracking the finalized non-linear signal passed forward to the next layer.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\sigma(\cdot)\)</span></td>
+<td>The continuous, differentiable element-wise activation function.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="343-the-forward-pass-mechanics">34.3 The Forward Pass Mechanics</h3>
+<p>Before computing our backpropagation gradients, a training data vector must execute a complete <strong>Forward Pass</strong> through the system. At every individual layer <span class="arithmatex">\(l\)</span>, each neuron aggregates the signals computed by the preceding layer, scales them by its parameter weights, injects its intercept bias, and passes the total through the non-linear activation filter.</p>
+<div class="arithmatex">\[\text{The Pre-Activation Equation: } \quad z_j^l = \sum_{k} w_{jk}^l a_k^{l-1} + b_j^l\]</div>
+<div class="arithmatex">\[\text{The Activation Equation: } \quad a_j^l = \sigma\left( z_j^l \right)\]</div>
+<h4 id="the-boundary-conditions-of-the-pass">The Boundary Conditions of the Pass</h4>
+<p>This sequential evaluation loop runs continuously from the input layer to the final output layer. The boundaries of this feedforward pass are pinned directly to our data arrays:</p>
+<ul>
+<li>At the initial input layer (<span class="arithmatex">\(l = 0\)</span>), the activations are simply the raw coordinates of our input feature vector: <span class="arithmatex">\(a_k^0 \equiv x_k\)</span>.</li>
+<li>At the final output layer (<span class="arithmatex">\(l = L\)</span>), the activations match the completed prediction scores of our neural hypothesis function: <span class="arithmatex">\(a_j^L \equiv \left(h_{\vec{\theta}}(\vec{x})\right)_j\)</span>.</li>
+</ul>
+<hr />
+<h3 id="344-the-foundational-error-term-definition-delta_jl">34.4 The Foundational Error Term Definition (<span class="arithmatex">\(\delta_j^l\)</span>)</h3>
+<p>The core optimization metric driving the backpropagation algorithm is a localized auxiliary variable known as the <strong>Neuron Error Term</strong>, denoted as <span class="arithmatex">\(\delta_j^l\)</span>.</p>
+<blockquote>
+<p><strong>Definition 34.1 (The Neuron Error Term).</strong> The error term <span class="arithmatex">\(\delta_j^l\)</span> of neuron <span class="arithmatex">\(j\)</span> operating inside layer <span class="arithmatex">\(l\)</span> is defined as the partial derivative of the empirical risk <span class="arithmatex">\(\hat{R}\)</span> with respect to that specific neuron's localized scalar pre-activation output <span class="arithmatex">\(z_j^l\)</span>:
+$<span class="arithmatex">\(\delta_j^l \triangleq \frac{\partial \hat{R}}{\partial z_j^l}\)</span>$</p>
+</blockquote>
+<p>The error term measures the sensitivity of our global empirical cost to fractional changes in a neuron's raw linear calculation. We derive these error terms layer-by-layer, beginning at the final output boundary and marching backward.</p>
+<h4 id="step-1-the-final-output-layer-boundary-delta_jl">Step 1: The Final Output Layer Boundary (<span class="arithmatex">\(\delta_j^L\)</span>)</h4>
+<p>At the final layer of our network (<span class="arithmatex">\(l = L\)</span>), the pre-activations <span class="arithmatex">\(z_j^L\)</span> map to our final predictions through our terminal activation functions (<span class="arithmatex">\(a_j^L = \sigma(z_j^L)\)</span>). Applying a standard single-variable chain rule isolates the boundary error:</p>
+<div class="arithmatex">\[\delta_j^L = \frac{\partial \hat{R}}{\partial z_j^L} = \frac{\partial \hat{R}}{\partial a_j^L} \cdot \frac{\partial a_j^L}{\partial z_j^L}\]</div>
+<p>Evaluating the second partial derivative yields the direct slope of our activation function (<span class="arithmatex">\(\sigma'(z_j^L)\)</span>). This isolates our finalized formula for the <strong>Final Output Layer Error</strong>:</p>
+<div class="arithmatex">\[\delta_j^L = \frac{\partial \hat{R}}{\partial a_j^L} \cdot \sigma'\left( z_j^L \right)\]</div>
+<p>The first term (<span class="arithmatex">\(\frac{\partial \hat{R}}{\partial a_j^L}\)</span>) is calculated directly by taking the derivative of your chosen global loss function wrapper evaluated at index <span class="arithmatex">\(j\)</span>. For instance, under a standard squared error loss metric (<span class="arithmatex">\(L_2 = \frac{1}{2}\sum(a_j^L - y_j)^2\)</span>), this derivative evaluates cleanly to the simple error difference: <span class="arithmatex">\((a_j^L - y_j)\)</span>.</p>
+<hr />
+<h3 id="345-the-recursive-backward-pass-derivation">34.5 The Recursive Backward Pass Derivation</h3>
+<p>To compute our error terms for the hidden internal layers of our network (<span class="arithmatex">\(l &lt; L\)</span>), we deploy a multi-variable chain rule expansion.</p>
+<p>Consider an intermediate pre-activation scalar <span class="arithmatex">\(z_j^l\)</span>. When this signal is passed forward, it fans out across the network architecture, directly influencing the calculation of <strong>every single pre-activation neuron operating in the subsequent layer <span class="arithmatex">\(l+1\)</span></strong>.</p>
+<p>Therefore, to calculate the global derivative with respect to <span class="arithmatex">\(z_j^l\)</span>, we must sum the partial derivatives along every single parallel path that diverges from our active neuron into layer <span class="arithmatex">\(l+1\)</span>:</p>
+<div class="arithmatex">\[\delta_j^l = \frac{\partial \hat{R}}{\partial z_j^l} = \sum_{i} \frac{\partial \hat{R}}{\partial z_i^{l+1}} \cdot \frac{\partial z_i^{l+1}}{\partial z_j^l}\]</div>
+<p>We substitute our foundational definition of the subsequent layer's error term directly into this summation (<span class="arithmatex">\(\delta_i^{l+1} \equiv \frac{\partial \hat{R}}{\partial z_i^{l+1}}\)</span>):</p>
+<div class="arithmatex">\[\delta_j^l = \sum_{i} \delta_i^{l+1} \cdot \frac{\partial z_i^{l+1}}{\partial z_j^l} \quad \mathbf{(Eq. \,\, 34.1)}\]</div>
+<p>To resolve the remaining partial derivative term (<span class="arithmatex">\(\frac{\partial z_i^{l+1}}{\partial z_j^l}\)</span>), we write out the explicit forward pass equation tracking how neuron <span class="arithmatex">\(i\)</span> in layer <span class="arithmatex">\(l+1\)</span> aggregates its incoming inputs:</p>
+<div class="arithmatex">\[z_i^{l+1} = \sum_{m} w_{im}^{l+1} a_m^l + b_i^{l+1} \implies z_i^{l+1} = \sum_{m} w_{im}^{l+1} \sigma\left( z_m^l \right) + b_i^{l+1}\]</div>
+<p>We compute the partial derivative of this sum with respect to our target layer pre-activation <span class="arithmatex">\(z_j^l\)</span>. Because every single coordinate index in the summation where <span class="arithmatex">\(m \neq j\)</span> has zero functional relationship with <span class="arithmatex">\(z_j^l\)</span>, those terms drop out of our calculus completely. Only the single coordinate index matching our target neuron (<span class="arithmatex">\(m = j\)</span>) survives:</p>
+<div class="arithmatex">\[\frac{\partial z_i^{l+1}}{\partial z_j^l} = \frac{\partial}{\partial z_j^l} \left[ w_{ij}^{l+1} \sigma\left( z_j^l \right) + b_i^{l+1} \right] = w_{ij}^{l+1} \cdot \sigma'\left( z_j^l \right)\]</div>
+<p>Finally, we substitute this localized derivative back into our multi-variable summation (<span class="arithmatex">\(\mathbf{(Eq. \,\, 34.1)}\)</span>):</p>
+<div class="arithmatex">\[\delta_j^l = \sum_{i} \delta_i^{l+1} \cdot w_{ij}^{l+1} \cdot \sigma'\left( z_j^l \right)\]</div>
+<p>We factor out the static scalar activation slope <span class="arithmatex">\(\sigma'(z_j^l)\)</span> to isolate the core mathematical formula for the <strong>Backpropagation Recurrence Relation</strong>:</p>
+<div class="arithmatex">\[\delta_j^l = \left( \sum_{i} \delta_i^{l+1} w_{ij}^{l+1} \right) \cdot \sigma'\left( z_j^l \right)\]</div>
+<blockquote>
+<p><strong>The Structural Symmetry of Backpropagation:</strong>
+This equation reveals the deep structural elegance of the backpropagation algorithm. Look at the term trapped inside the large parenthesis: <span class="arithmatex">\(\sum \delta_i^{l+1} w_{ij}^{l+1}\)</span>.
+During the forward pass, data coordinates flow from left to right, combining linearly via our weight matrices. During the backward pass, <strong>the exact same weight parameters (<span class="arithmatex">\(w_{ij}^{l+1}\)</span>) are used to propagate our error terms from right to left.</strong> The error of our active neuron is calculated simply by taking a linear combination of the errors computed in the subsequent layer, scaled directly by the weights connecting those units.</p>
+</blockquote>
+<hr />
+<h3 id="346-calculating-the-final-parameter-gradients">34.6 Calculating the Final Parameter Gradients</h3>
+<p>Now that our recursive error terms <span class="arithmatex">\(\delta_j^l\)</span> are secured across every hidden neuron layer, calculating our actual parameter gradients requires a final application of the single-variable chain rule.</p>
+<h4 id="1-the-weight-gradients-fracpartial-hatrpartial-w_jkl">1. The Weight Gradients (<span class="arithmatex">\(\frac{\partial \hat{R}}{\partial w_{jk}^l}\)</span>)</h4>
+<p>A parameter weight coefficient <span class="arithmatex">\(w_{jk}^l\)</span> influences our global empirical risk exclusively through its localized impact on the pre-activation calculation <span class="arithmatex">\(z_j^l\)</span>. We expand its derivative chain:</p>
+<div class="arithmatex">\[\frac{\partial \hat{R}}{\partial w_{jk}^l} = \frac{\partial \hat{R}}{\partial z_j^l} \cdot \frac{\partial z_j^l}{\partial w_{jk}^l} = \delta_j^l \cdot \frac{\partial z_j^l}{\partial w_{jk}^l}\]</div>
+<p>We evaluate the remaining derivative using our pre-activation equation (<span class="arithmatex">\(z_j^l = \sum w_{jm}^l a_m^{l-1} + b_j^l\)</span>):</p>
+<div class="arithmatex">\[\frac{\partial z_j^l}{\partial w_{jk}^l} = \frac{\partial}{\partial w_{jk}^l} \left[ \sum_{m} w_{jm}^l a_m^{l-1} + b_j^l \right] = a_k^{l-1}\]</div>
+<p>Substituting this coordinate back yields our definitive parameter update equation:</p>
+<div class="arithmatex">\[\frac{\partial \hat{R}}{\partial w_{jk}^l} = \delta_j^l \cdot a_k^{l-1}\]</div>
+<h4 id="2-the-bias-gradients-fracpartial-hatrpartial-b_jl">2. The Bias Gradients (<span class="arithmatex">\(\frac{\partial \hat{R}}{\partial b_j^l}\)</span>)</h4>
+<p>We repeat this exact step for our standalone intercept bias values:</p>
+<div class="arithmatex">\[\frac{\partial \hat{R}}{\partial b_j^l} = \frac{\partial \hat{R}}{\partial z_j^l} \cdot \frac{\partial z_j^l}{\partial b_j^l} = \delta_j^l \cdot \frac{\partial}{\partial b_j^l} \left[ \sum_{m} w_{jm}^l a_m^{l-1} + b_j^l \right] = \delta_j^l \cdot 1 \implies \frac{\partial \hat{R}}{\partial b_j^l} = \delta_j^l\]</div>
+<hr />
+<h3 id="347-the-dual-pass-training-protocol-and-hardware-constraints">34.7 The Dual-Pass Training Protocol and Hardware Constraints</h3>
+<p>This complete mathematical derivation establishes the standard training protocol required to execute a single gradient update step over a deep neural network architecture:</p>
+<ol>
+<li><strong>The Forward Propagation Pass:</strong> We feed a raw feature training vector <span class="arithmatex">\(\vec{x}\)</span> into the initial layer and evaluate our equations sequentially from left to right, storing every intermediate pre-activation <span class="arithmatex">\(z_j^l\)</span> and activation <span class="arithmatex">\(a_j^l\)</span> inside our system's memory slots.</li>
+<li><strong>The Backward Propagation Pass:</strong> We evaluate our predictions against our target labels at the output boundary, calculate our terminal error terms <span class="arithmatex">\(\delta_j^L\)</span>, and use our recurrence relation to propagate those error values systematically from right to left across our hidden layers.</li>
+<li><strong>The Parameter Gradient Update:</strong> We combine the activations preserved during our forward pass with the error terms calculated during our backward pass to compute our definitive parameter gradients (<span class="arithmatex">\(\delta_j^l a_k^{l-1}\)</span>), updating our parameter matrices along the steepest downward slope of the risk landscape.</li>
+</ol>
+<pre><code>  [ Forward Pass: Left ──&gt; Right ]   ====&gt; Calculates and saves activations (a_k)
+  [ Backward Pass: Right ──&gt; Left ]  ====&gt; Propagates error terms (δ_j) layer-by-layer
+  [ Gradient Synthesis: δ_j × a_k ]  ====&gt; Computes parameter updates for Gradient Descent
+
+</code></pre>
+<h4 id="the-hardware-monopoly-bottleneck">The Hardware Monopoly Bottleneck</h4>
+<p>The professor concludes the lecture by highlighting a major infrastructure property of modern deep learning: <strong>every single operation embedded inside this dual-pass protocol is fundamentally a matrix-vector multiplication or addition field.</strong></p>
+<p>Because these equations consist entirely of massive, parallel linear combinations, training deep learning systems maps perfectly onto the architecture of Graphics Processing Units (GPUs). GPUs are highly specialized hardware systems designed explicitly to execute millions of parallel vector dot products simultaneously.</p>
+<p>The professor notes with a touch of wit that the massive hardware monopolies dominant across today's technology market are <strong>fundamentally one elegant, non-matrix-multiplication-based learning algorithm away from total bankruptcy.</strong> If a computer scientist formulates an alternative ERM optimization framework that bypasses linear matrix cascades entirely, the massive computing infrastructure currently driving the AI ecosystem would become obsolete overnight. Until that day arrives, the error backpropagation algorithm remains the definitive computational engine of modern artificial intelligence.</p>
+<hr />
+<h2 id="textbook-notes-summary-reference-sheet">Textbook Notes Summary Reference Sheet</h2>
+<h3 id="the-core-backpropagation-equations">The Core Backpropagation Equations</h3>
+<div class="arithmatex">\[\text{Forward Step: } \quad z_j^l = \sum_{k} w_{jk}^l a_k^{l-1} + b_j^l \quad \text{and} \quad a_j^l = \sigma\left( z_j^l \right)\]</div>
+<div class="arithmatex">\[\text{Output Layer Error: } \quad \delta_j^L = \frac{\partial \hat{R}}{\partial a_j^L} \cdot \sigma'\left( z_j^L \right)\]</div>
+<div class="arithmatex">\[\text{Hidden Layer Error Recurrence: } \quad \delta_j^l = \left( \sum_{i} \delta_i^{l+1} w_{ij}^{l+1} \right) \cdot \sigma'\left( z_j^l \right)\]</div>
+<div class="arithmatex">\[\text{Final Weight Gradient: } \quad \frac{\partial \hat{R}}{\partial w_{jk}^l} = \delta_j^l \cdot a_k^{l-1}\]</div>
+<div class="arithmatex">\[\text{Final Bias Gradient: } \quad \frac{\partial \hat{R}}{\partial b_j^l} = \delta_j^l\]</div>
+<hr />
+<h3 id="key-takeaway-milestones">Key Takeaway Milestones</h3>
+<ol>
+<li><strong>The Chain Rule Framework:</strong> Backpropagation is not a unique or separate optimization theory; it is simply a highly organized application of the multi-variable chain rule designed to calculate exact parameter gradients over deeply nested functional compositions.</li>
+<li><strong>The Dual-Pass Requirement:</strong> Computing parameter gradients requires executing a complete forward pass to collect feature activations, followed by a backward pass to distribute localized error sensitivities. This dual pass doubles the baseline computational footprint of network training.</li>
+<li><strong>The Linearity Duality:</strong> While neural networks are deployed to model highly intricate, non-linear global environments, their internal backpropagation dynamics are completely governed by linear combinations of error vectors running backward along our forward parameter channels.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

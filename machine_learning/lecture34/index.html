@@ -1,0 +1,3169 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture33/">
+      
+      
+        <link rel="next" href="../lecture35/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture34 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture34
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-28-data-perturbation-equivalence-stochastic-gradient-descent-sgd-and-the-unified-mid-course-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 28: Data Perturbation Equivalence, Stochastic Gradient Descent (SGD), and the Unified Mid-Course Synthesis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 28: Data Perturbation Equivalence, Stochastic Gradient Descent (SGD), and the Unified Mid-Course Synthesis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#281-regularization-via-data-perturbation-noise-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.1 Regularization via Data Perturbation (Noise Injection)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="28.1 Regularization via Data Perturbation (Noise Injection)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-core-equivalence-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Equivalence Theorem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#282-topological-interpretation-manifold-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.2 Topological Interpretation: Manifold Expansion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="28.2 Topological Interpretation: Manifold Expansion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-risk-of-critical-flooding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Risk of Critical Flooding
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#283-revisiting-optimization-stochastic-gradient-descent-sgd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.3 Revisiting Optimization: Stochastic Gradient Descent (SGD)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="28.3 Revisiting Optimization: Stochastic Gradient Descent (SGD)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-sgd-mini-batch-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The SGD Mini-Batch Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-of-an-epoch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition of an Epoch
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#284-the-implicit-regularization-of-optimization-noise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.4 The Implicit Regularization of Optimization Noise
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#285-the-mid-course-rosetta-stone-the-grand-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.5 The Mid-Course Rosetta Stone: The Grand Synthesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#286-the-road-ahead-transitioning-to-kernel-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.6 The Road Ahead: Transitioning to Kernel Machines
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-mathematical-mechanics-of-the-batchnorm-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Mathematical Mechanics of the BatchNorm Layer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The Mathematical Mechanics of the BatchNorm Layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-compute-mini-batch-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Compute Mini-Batch Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-spatial-standardization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Spatial Standardization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-affine-scaling-and-shifting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Affine Scaling and Shifting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-source-of-stochasticity-why-batchnorm-regularizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Source of Stochasticity: Why BatchNorm Regularizes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Source of Stochasticity: Why BatchNorm Regularizes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-perturbation-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Perturbation Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-structural-batch-size-dependence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Structural Batch Size Dependence
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-28-data-perturbation-equivalence-stochastic-gradient-descent-sgd-and-the-unified-mid-course-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 28: Data Perturbation Equivalence, Stochastic Gradient Descent (SGD), and the Unified Mid-Course Synthesis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 28: Data Perturbation Equivalence, Stochastic Gradient Descent (SGD), and the Unified Mid-Course Synthesis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#281-regularization-via-data-perturbation-noise-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.1 Regularization via Data Perturbation (Noise Injection)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="28.1 Regularization via Data Perturbation (Noise Injection)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-core-equivalence-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Equivalence Theorem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#282-topological-interpretation-manifold-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.2 Topological Interpretation: Manifold Expansion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="28.2 Topological Interpretation: Manifold Expansion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-risk-of-critical-flooding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Risk of Critical Flooding
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#283-revisiting-optimization-stochastic-gradient-descent-sgd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.3 Revisiting Optimization: Stochastic Gradient Descent (SGD)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="28.3 Revisiting Optimization: Stochastic Gradient Descent (SGD)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-sgd-mini-batch-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The SGD Mini-Batch Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definition-of-an-epoch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition of an Epoch
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#284-the-implicit-regularization-of-optimization-noise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.4 The Implicit Regularization of Optimization Noise
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#285-the-mid-course-rosetta-stone-the-grand-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.5 The Mid-Course Rosetta Stone: The Grand Synthesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#286-the-road-ahead-transitioning-to-kernel-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.6 The Road Ahead: Transitioning to Kernel Machines
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-mathematical-mechanics-of-the-batchnorm-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Mathematical Mechanics of the BatchNorm Layer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The Mathematical Mechanics of the BatchNorm Layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-compute-mini-batch-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Compute Mini-Batch Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-spatial-standardization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Spatial Standardization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-affine-scaling-and-shifting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Affine Scaling and Shifting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-source-of-stochasticity-why-batchnorm-regularizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Source of Stochasticity: Why BatchNorm Regularizes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The Source of Stochasticity: Why BatchNorm Regularizes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-perturbation-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Perturbation Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-structural-batch-size-dependence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Structural Batch Size Dependence
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-28-data-perturbation-equivalence-stochastic-gradient-descent-sgd-and-the-unified-mid-course-synthesis">Chapter 28: Data Perturbation Equivalence, Stochastic Gradient Descent (SGD), and the Unified Mid-Course Synthesis</h2>
+<hr />
+<h3 id="281-regularization-via-data-perturbation-noise-injection">28.1 Regularization via Data Perturbation (Noise Injection)</h3>
+<p>Up to this point, we have treated regularization either as a geometric restriction on the parameter search space (<span class="arithmatex">\(\Omega(\vec{\theta}) \leq K\)</span>) or as the injection of a structural Bayesian prior distribution over the parameter matrix (<span class="arithmatex">\(p(\vec{\theta})\)</span>). The professor now introduces a third operational path to induce structural bias: <strong>Data Perturbation</strong>.</p>
+<p>Instead of altering our optimization loss function or changing our neural architecture, we perturb our raw input coordinates natively during training.</p>
+<p>Let a standard training dataset be defined as <span class="arithmatex">\(D = \{(\vec{x}_1, y_1), (\vec{x}_2, y_2), \dots, (\vec{x}_N, y_N)\} \sim \text{i.i.d. } p(x, y)\)</span>, where <span class="arithmatex">\(\vec{x}_i \in \mathbb{R}^D\)</span> and <span class="arithmatex">\(y_i \in \mathbb{R}\)</span>. We construct a synthetic, perturbed dataset denoted as <span class="arithmatex">\(\tilde{D}\)</span> by applying a random localized transformation to every independent feature vector:</p>
+<div class="arithmatex">\[\text{For every } \vec{x}_i \in D: \quad \tilde{\vec{x}}_i = \vec{x}_i + \vec{\epsilon}_i\]</div>
+<div class="arithmatex">\[\text{Where: } \quad \vec{\epsilon}_i \sim \mathcal{N}(\vec{0}, \,\, \alpha^2 \mathbf{I})\]</div>
+<h4 id="literal-variable-breakdown">Literal Variable Breakdown:</h4>
+<ul>
+<li><strong><span class="arithmatex">\(\tilde{\vec{x}}_i\)</span></strong>: The synthesized, perturbed feature vector coordinate.</li>
+<li><strong><span class="arithmatex">\(\vec{x}_i\)</span></strong>: The original, uncorrupted feature vector drawn from the true data folder.</li>
+<li><strong><span class="arithmatex">\(\vec{\epsilon}_i\)</span></strong>: A random multidimensional noise vector sampled from a zero-mean isotropic Gaussian distribution.</li>
+<li><strong><span class="arithmatex">\(\alpha^2\)</span></strong>: A positive scalar variance hyperparameter that scales the magnitude of the coordinate perturbation.</li>
+<li><strong><span class="arithmatex">\(\mathbf{I}\)</span></strong>: The identity matrix establishing multi-axis independence across all feature dimensions.</li>
+</ul>
+<p>This yields a new, corrupted training repository: <span class="arithmatex">\(\tilde{D} = \{(\tilde{\vec{x}}_1, y_1), (\tilde{\vec{x}}_2, y_2), \dots, (\tilde{\vec{x}}_N, y_N)\}\)</span>. Because our feature coordinates have been shifted by a random variable, the underlying joint probability density of this new repository diverges from the natural environment: <span class="arithmatex">\(p_{\tilde{D}}(x, y) \neq p_{\text{true}}(x, y)\)</span>.</p>
+<h4 id="the-core-equivalence-theorem">The Core Equivalence Theorem</h4>
+<p>The professor states a foundational mathematical connection linking data corruption to weight decay:</p>
+<blockquote>
+<p><strong>Theorem 28.1 (Perturbation-Regularization Duality).</strong> Executing unconstrained Empirical Risk Minimization (ERM) over a randomly perturbed dataset <span class="arithmatex">\(\tilde{D}\)</span> is mathematically equivalent to executing a Regularized Empirical Risk Minimization routine over the original uncorrupted dataset <span class="arithmatex">\(D\)</span> using an <span class="arithmatex">\(L_2\)</span> parameter penalty:
+$<span class="arithmatex">\(\arg\min_{\vec{\theta}} \frac{1}{N} \sum_{i=1}^{N} L\left(h_{\vec{\theta}}(\tilde{\vec{x}}_i), \,\, y_i\right) \equiv \arg\min_{\vec{\theta}} \left[ \frac{1}{N} \sum_{i=1}^{N} L\left(h_{\vec{\theta}}(\vec{x}_i), \,\, y_i\right) + \lambda \|\vec{\theta}\|_2^2 \right]\)</span>$</p>
+</blockquote>
+<p>The input noise variance coefficient <span class="arithmatex">\(\alpha^2\)</span> maps directly to the deterministic regularization constant <span class="arithmatex">\(\lambda\)</span>. Under standard squared error regression, taking a first-order Taylor series expansion of the non-linear network output <span class="arithmatex">\(h_{\vec{\theta}}(\vec{x} + \vec{\epsilon})\)</span> causes the noise expectations to decouple, revealing that the variance of the input noise acts as an implicit penalty that scales the magnitude of the parameter weights.</p>
+<hr />
+<h3 id="282-topological-interpretation-manifold-expansion">28.2 Topological Interpretation: Manifold Expansion</h3>
+<p>To see why this mathematical equivalence occurs, we return to <strong>The Manifold Hypothesis</strong> established in Chapter 26.</p>
+<p>Real-world datasets occupy incredibly narrow, low-dimensional topological surfaces embedded inside massive high-dimensional ambient feature fields. When our dataset is small, our training instances exist as isolated, sparse coordinate points separated by vast regions of empty space. An unconstrained model overfits by drawing highly complex, unstable decision hyperplanes that snake precisely between those empty spaces to isolate the training nodes.</p>
+<p>When we add isotropic Gaussian noise (<span class="arithmatex">\(\vec{\epsilon} \sim \mathcal{N}(\vec{0}, \alpha^2\mathbf{I})\)</span>) to our feature coordinates, we are physically <strong>thickening the manifold</strong>. Because a Gaussian distribution spans infinite support, adding it to our training coordinates expands each sparse point out into a continuous spatial cloud that spills into the empty ambient space.</p>
+<p>This topological expansion changes the optimization dynamics:</p>
+<ul>
+<li>The model can no longer minimize its loss by drawing a sharp, jagged decision wall right next to a training coordinate, because the random noise perturbation will routinely throw the point across that jagged line, triggering a massive loss penalty.</li>
+<li>To achieve low error over this continuous data cloud, the optimizer is forced to find a smooth, flat, and stable decision surface. Input coordinate noise automatically smooths out the model's sensitivity to spatial variations, dampening its variance.</li>
+</ul>
+<h4 id="the-risk-of-critical-flooding">The Risk of Critical Flooding</h4>
+<p>As a hyperparameter, the noise variance <span class="arithmatex">\(\alpha^2\)</span> controls where your model sits on the global bias-variance continuum.</p>
+<ul>
+<li>If you set <span class="arithmatex">\(\alpha^2\)</span> too low, the data clouds remain tightly clustered around the training nodes, failing to fill the empty space, and the model remains in the high-variance overfitting zone.</li>
+<li>If you scale <span class="arithmatex">\(\alpha^2\)</span> too high, the data clouds expand excessively until they flood the entire ambient space. The unique structural geometry of the underlying true manifold is completely drowned out by noise. The model is forced to minimize its error by simply predicting a flat global average across a chaotic blur of coordinates—trapping the system in the high-bias <strong>underfitting regime</strong>.</li>
+</ul>
+<hr />
+<h3 id="283-revisiting-optimization-stochastic-gradient-descent-sgd">28.3 Revisiting Optimization: Stochastic Gradient Descent (SGD)</h3>
+<p>Having proven that injecting noise into our feature data acts as a powerful regularizer, the professor introduces a parallel breakthrough: <strong>we can inject noise directly into our optimization gradients to regularize our models.</strong> This method is known as <strong>Stochastic Gradient Descent (SGD)</strong>.</p>
+<p>Recall our standard <strong>Batch Gradient Descent</strong> protocol derived in Chapter 24. To execute a single parameter update step, the algorithm must compute the explicit gradient vector across every single instance stored in our entire training matrix:</p>
+<div class="arithmatex">\[\vec{\theta}^{(t+1)} = \vec{\theta}^{(t)} - \beta \cdot \nabla_{\vec{\theta}} \left[ \frac{1}{N} \sum_{i=1}^{N} L\left(h_{\vec{\theta}}(\vec{x}_i), \,\, y_i\right) \right]\]</div>
+<p>Where <span class="arithmatex">\(\beta\)</span> is our learning rate hyperparameter. While mathematically clean, this approach hits a severe processing bottleneck when your dataset matrix scales to millions of rows. Computing a full dataset summation for every single step of your optimization loop is computationally inefficient.</p>
+<h4 id="the-sgd-mini-batch-protocol">The SGD Mini-Batch Protocol</h4>
+<p>Stochastic Gradient Descent resolves this compute bottleneck by applying a random subsampling routine at every time step.</p>
+<p>Let <span class="arithmatex">\(D_B\)</span> represent a <strong>Mini-Batch</strong> randomly sampled from our global training dataset <span class="arithmatex">\(D\)</span>. The number of instances captured inside this subset is defined by a fixed hyperparameter known as the <strong>Batch Size</strong>, denoted as <span class="arithmatex">\(B\)</span> (typically set in code to standard computer memory blocks like <strong>32</strong>, <strong>64</strong>, or <strong>128</strong>):</p>
+<div class="arithmatex">\[D_B \subset D, \quad \text{where } |D_B| = B \ll N\]</div>
+<p>We isolate this mini-batch and formulate a localized surrogate of our empirical cost function, computing the average loss exclusively over our <span class="arithmatex">\(B\)</span> sampled vectors:</p>
+<div class="arithmatex">\[\hat{R}_B(\vec{\theta}) = \frac{1}{B} \sum_{i \in D_B} L\left(h_{\vec{\theta}}(\vec{x}_i), \,\, y_i\right)\]</div>
+<p>We pass this mini-batch surrogate directly into our gradient operator. The recursive update rule for Stochastic Gradient Descent is written as:</p>
+<div class="arithmatex">\[\vec{\theta}^{(t+1)} = \vec{\theta}^{(t)} - \beta \cdot \nabla_{\vec{\theta}} \hat{R}_B\left(\vec{\theta}^{(t)}\right) \implies \vec{\theta}^{(t+1)} = \vec{\theta}^{(t)} - \beta \cdot \left[ \frac{1}{B} \sum_{i \in D_B} \nabla_{\vec{\theta}} L\left(h_{\vec{\theta}}(\vec{x}_i), \,\, y_i\right) \right]\]</div>
+<h4 id="definition-of-an-epoch">Definition of an Epoch</h4>
+<p>To ensure the network evaluates every single available data instance systematically, the algorithm cuts the global dataset matrix <span class="arithmatex">\(D\)</span> into a series of non-overlapping mini-batches. The system iterates through these mini-batches sequentially, executing a parameter update step at each block.</p>
+<p>Once the algorithm completes this loop and processes every single data row exactly once, it completes <strong>One Epoch</strong> of training. The dataset is then randomly shuffled, and the process repeats for the subsequent epoch.</p>
+<hr />
+<h3 id="284-the-implicit-regularization-of-optimization-noise">28.4 The Implicit Regularization of Optimization Noise</h3>
+<p>While engineers originally deployed SGD as a purely practical trick to speed up computation over large datasets, the professor highlights its true theoretical value: <strong>SGD is empirically superior to Batch Gradient Descent because the mini-batch sampling process injects a powerful regularization effect.</strong></p>
+<p>Because each mini-batch <span class="arithmatex">\(D_B\)</span> contains a different random subset of coordinates, the mini-batch gradient <span class="arithmatex">\(\nabla_{\vec{\theta}} \hat{R}_B(\vec{\theta})\)</span> is not the absolute true gradient of the universal empirical risk. Instead, probability theory confirms that it functions as a <strong>Noisy Stochastic Estimator</strong> of the true global batch gradient:</p>
+<div class="arithmatex">\[\mathbb{E}_{D_B \sim D}\left[ \nabla_{\vec{\theta}} \hat{R}_B(\vec{\theta}) \right] = \nabla_{\vec{\theta}} \hat{R}_N(\vec{\theta})\]</div>
+<p>Because it is a stochastic estimator, the path taken by SGD is not a smooth, direct line down the center of the loss bowl. It is a noisy, fluctuating, zig-zagging trajectory.</p>
+<p>Every time a new mini-batch clocks in, it introduces an unexpected gradient perturbation. This optimization noise acts as an implicit regularizer.</p>
+<ul>
+<li>It prevents the parameters from getting trapped in shallow, un-differentiable local minima or narrow saddle points that happen to exist in a specific data split.</li>
+<li>The noise pushes the model out of volatile, sharp error valleys and coaxes the parameters to settle inside deep, broad, and stable global minima that generalize robustly to unseen coordinate testing fields.</li>
+</ul>
+<hr />
+<h3 id="285-the-mid-course-rosetta-stone-the-grand-synthesis">28.5 The Mid-Course Rosetta Stone: The Grand Synthesis</h3>
+<p>This lecture marks our official completion of the foundational modules of machine learning. We have unified our parallel paths, proving that our probabilistic tools and empirical risk minimization pipelines are simply two sides of the exact same mathematical coins.</p>
+<p>Use this master blueprint to trace how every core concept maps seamlessly across both worlds:</p>
+<table>
+<thead>
+<tr>
+<th>Conceptual Pillar</th>
+<th>The Probabilistic Worldview (Density Estimation Lens)</th>
+<th>The Empirical Risk Minimization Worldview (Functional Lens)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Data Vector Model</strong></td>
+<td>A random variable realization point sampled from a measurable space: <span class="arithmatex">\(\vec{x} \sim p(x)\)</span>.</td>
+<td>A static multi-axis coordinate row vector stacked inside a global design matrix: <span class="arithmatex">\(\vec{x}_i \in \mathbf{X}\)</span>.</td>
+</tr>
+<tr>
+<td><strong>Objective Engine</strong></td>
+<td>Minimize Kullback-Leibler Divergence / Maximize the Log-Likelihood Function (<span class="arithmatex">\(\arg\max \sum \ln p_\theta\)</span>).</td>
+<td>Minimize the arithmetic average of a loss function over historical rows (<span class="arithmatex">\(\arg\min \frac{1}{N}\sum L\)</span>).</td>
+</tr>
+<tr>
+<td><strong>Baseline Regression</strong></td>
+<td>Continuous Gaussian conditional distribution assumption with moving mean center <span class="arithmatex">\(\mu = h(\vec{x})\)</span>.</td>
+<td>Ordinary Least Squares (OLS) optimization utilizing a <strong>Squared Error Loss</strong> metric (<span class="arithmatex">\(L_2\)</span>).</td>
+</tr>
+<tr>
+<td><strong>Baseline Classification</strong></td>
+<td>Categorical/Multinoulli conditional distribution assumption over discrete indicator states.</td>
+<td>Neural output links (Sigmoid/Softmax) optimized via a <strong>Categorical Cross-Entropy Loss</strong> function.</td>
+</tr>
+<tr>
+<td><strong>Algorithmic Search</strong></td>
+<td>The iterative <strong>Expectation-Maximization (EM)</strong> loop for latent tracking models.</td>
+<td>First-order <strong>Gradient Descent</strong> or <strong>Stochastic Gradient Descent (SGD)</strong> mini-batch iterations.</td>
+</tr>
+<tr>
+<td><strong>Injecting Bias</strong></td>
+<td>Enforcing a parameter distribution choice: a <strong>Gaussian Prior</strong> or a <strong>Laplacian Prior</strong> (MAP estimation).</td>
+<td>Adding a structural complexity penalty function to our unconstrained loss: <strong>L2 Ridge</strong> or <strong>L1 Lasso</strong>.</td>
+</tr>
+<tr>
+<td><strong>Optimization Noise</strong></td>
+<td>Perturbing data vectors with random noise fields to artificially expand the support space of a manifold.</td>
+<td>Mini-batch sub-sampling to inject stochastic noise directly into our gradient descent updates.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="286-the-road-ahead-transitioning-to-kernel-machines">28.6 The Road Ahead: Transitioning to Kernel Machines</h3>
+<p>With this unified framework completely locked down, the professor outlines the upcoming phase of the course.</p>
+<p>We will step out of classical linear expansions and enter the domain of <strong>Kernel Methods</strong>, focusing explicitly on the architecture of <strong>Support Vector Machines (SVMs)</strong>.</p>
+<p>To ensure your mathematical pipeline is ready for the upcoming lectures, you must review your optimization fundamentals before next week, focusing tightly on these three structural landmarks:</p>
+<ol>
+<li><strong>Primal-Dual Formulations:</strong> Understanding how a constrained optimization problem can be completely inverted into its dual representation space by tracking its Lagrange multipliers.</li>
+<li><strong>The Karush-Kuhn-Tucker (KKT) Conditions:</strong> The foundational first-derivative, primal feasibility, dual feasibility, and complementary slackness constraints required to prove convergence along inequality boundaries.</li>
+<li><strong>The Kernel Trick:</strong> Proving how we can compute inner products directly inside infinite-dimensional Hilbert spaces without ever explicitly calculating the high-dimensional feature transformations (<span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span>) themselves.</li>
+</ol>
+<hr />
+<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
+<blockquote>
+<p><strong>The Generalist's Theoretical Map:</strong>
+1. <strong>The Perturbation Identity:</strong> Injecting random Gaussian noise into your training feature vectors (<span class="arithmatex">\(\tilde{\vec{x}} = \vec{x} + \vec{\epsilon}\)</span>) is mathematically equivalent to adding an explicit <span class="arithmatex">\(L_2\)</span> weight decay penalty to your loss function. Both methods regularize the model by artificially expanding and thickening the underlying lower-dimensional data manifold.
+2. <strong>The Stochastic Gradient Protocol:</strong> SGD alters the optimization pipeline by calculating its vector gradients exclusively over a randomly sampled mini-batch subset (<span class="arithmatex">\(D_B\)</span>) of size <span class="arithmatex">\(B\)</span>. This speeds up computation and forces updates to follow a noisy, fluctuating trajectory.
+3. <strong>The Gradient Regularization Law:</strong> The mini-batch sub-sampling process injects structured optimization noise into your parameter updates. This gradient noise behaves as an implicit regularizer, preventing your parameters from getting trapped in volatile local minima and coaxing the model to settle inside deep, broad global minima that generalize robustly to testing data splits.</p>
+</blockquote>
+<p>You have pulled on a thread that ties directly into our last lecture on <strong>Data Perturbation</strong> and <strong>SGD stochastic noise</strong>. The short answer is <strong>yes, whoever told you that was entirely correct.</strong> Batch Normalization (BatchNorm) was originally engineered to solve "internal covariate shift" by stabilizing the distribution of layer inputs during training. However, an unavoidable mathematical byproduct of its architecture is that it injects continuous stochastic noise into the model's internal activations. This hidden noise channel acts as a highly effective <strong>implicit regularizer</strong>.</p>
+<p>Let let us break down the mathematics of this mechanism using strict, literal variables to see exactly how this regularization effect comes about.</p>
+<hr />
+<h2 id="1-the-mathematical-mechanics-of-the-batchnorm-layer">1. The Mathematical Mechanics of the BatchNorm Layer</h2>
+<p>Let a mini-batch <span class="arithmatex">\(B\)</span> contain a collection of activation vectors passed from a hidden layer for <span class="arithmatex">\(B\)</span> independent training instances. For a single feature dimension channel, let the activation scalar for instance <span class="arithmatex">\(i\)</span> be denoted as <span class="arithmatex">\(x_i\)</span>.</p>
+<p>The BatchNorm transformation executes the following sequential operations during the training phase:</p>
+<h3 id="step-1-compute-mini-batch-statistics">Step 1: Compute Mini-Batch Statistics</h3>
+<div class="arithmatex">\[\mu_B = \frac{1}{B} \sum_{i=1}^{B} x_i\]</div>
+<div class="arithmatex">\[\sigma_B^2 = \frac{1}{B} \sum_{i=1}^{B} (x_i - \mu_B)^2\]</div>
+<ul>
+<li><strong><span class="arithmatex">\(\mu_B\)</span></strong>: The empirical mean of the feature activation calculated exclusively across the <span class="arithmatex">\(B\)</span> instances contained inside the active mini-batch.</li>
+<li><strong><span class="arithmatex">\(\sigma_B^2\)</span></strong>: The empirical variance of the feature activation calculated exclusively across the active mini-batch.</li>
+<li><strong><span class="arithmatex">\(B\)</span></strong>: The integer scalar tracking the mini-batch size hyperparameter.</li>
+</ul>
+<h3 id="step-2-spatial-standardization">Step 2: Spatial Standardization</h3>
+<div class="arithmatex">\[\hat{x}_i = \frac{x_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}\]</div>
+<ul>
+<li><strong><span class="arithmatex">\(\hat{x}_i\)</span></strong>: The zero-mean, unit-variance standardized activation scalar for instance <span class="arithmatex">\(i\)</span>.</li>
+<li><strong><span class="arithmatex">\(\epsilon\)</span></strong>: A microscopic positive real constant (e.g., <span class="arithmatex">\(10^{-5}\)</span>) added solely to prevent a division-by-zero numerical error if <span class="arithmatex">\(\sigma_B^2 \to 0\)</span>.</li>
+</ul>
+<h3 id="step-3-affine-scaling-and-shifting">Step 3: Affine Scaling and Shifting</h3>
+<div class="arithmatex">\[y_i = \gamma \hat{x}_i + \beta\]</div>
+<ul>
+<li><strong><span class="arithmatex">\(y_i\)</span></strong>: The finalized normalized output activation passed forward to the subsequent layer or activation function.</li>
+<li><strong><span class="arithmatex">\(\gamma\)</span></strong>: A learnable scale parameter weight optimized via backpropagation.</li>
+<li><strong><span class="arithmatex">\(\beta\)</span></strong>: A learnable shift parameter bias optimized via backpropagation.</li>
+</ul>
+<hr />
+<h2 id="2-the-source-of-stochasticity-why-batchnorm-regularizes">2. The Source of Stochasticity: Why BatchNorm Regularizes</h2>
+<p>Now, look at these equations through the lens of <strong>Chapter 28 (Stochastic Noise Injection)</strong>.</p>
+<p>Because we use Stochastic Gradient Descent (SGD), the mini-batch <span class="arithmatex">\(B\)</span> is a <strong>randomly sampled subset</strong> drawn from our global dataset matrix <span class="arithmatex">\(D\)</span>. Consequently, the calculated values <span class="arithmatex">\(\mu_B\)</span> and <span class="arithmatex">\(\sigma_B^2\)</span> are not fixed, permanent constants of the universe. They are <strong>stochastic estimators</strong> that fluctuate randomly at every single time step <span class="arithmatex">\(t\)</span> depending entirely on which specific data rows happened to get bundled together into that active batch.</p>
+<p>When you normalize an individual instance's activation <span class="arithmatex">\(x_i\)</span>, its output <span class="arithmatex">\(y_i\)</span> is bound to the scaling commands of <span class="arithmatex">\(\mu_B\)</span> and <span class="arithmatex">\(\sigma_B^2\)</span>:</p>
+<div class="arithmatex">\[y_i = \gamma \left( \frac{x_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}} \right) + \beta\]</div>
+<p>Because the denominator and numerator contain random variables (<span class="arithmatex">\(\mu_B, \sigma_B^2\)</span>), <strong>the exact same data row <span class="arithmatex">\(\vec{x}_i\)</span> passing through the network will yield a completely different activation output <span class="arithmatex">\(y_i\)</span> every single epoch.</strong></p>
+<h3 id="the-perturbation-connection">The Perturbation Connection</h3>
+<p>Mathematically, this means the normalization step injects a random perturbation directly into the intermediate layers of the hypothesis function. We can express this activation shift as an additive noise vector:</p>
+<div class="arithmatex">\[y_i = \bar{y}_i + \vec{\epsilon}_{\text{batch}}\]</div>
+<p>Where <span class="arithmatex">\(\bar{y}_i\)</span> is the deterministic activation value under the true global dataset statistics, and <span class="arithmatex">\(\vec{\epsilon}_{\text{batch}}\)</span> is a zero-mean random noise vector whose variance is inversely proportional to the batch size <span class="arithmatex">\(B\)</span>.</p>
+<p>As proven in our derivation of <strong>Theorem 28.1</strong>, <em>any random coordinate perturbation of a model's internal data representation layers forces an implicit regularization effect.</em> * Because the activation coordinates are constantly jittering and shifting from batch to batch, the downstream layers are blocked from tuning their parameters to fit highly volatile, hyper-localized variations in individual training nodes.</p>
+<ul>
+<li>The optimizer cannot build a fragile, jagged decision boundary, because the batch-induced noise will routinely throw the activations across that boundary, triggering a massive loss penalty.</li>
+</ul>
+<p>To minimize the regularized risk, the network is forced to find a smooth, robust, and stable mapping function across the feature space, reducing overall model <strong>variance</strong>.</p>
+<hr />
+<h2 id="3-the-structural-batch-size-dependence">3. The Structural Batch Size Dependence</h2>
+<p>This architectural layout introduces an explicit rule governing the strength of BatchNorm's regularization effect: <strong>The smaller your batch size <span class="arithmatex">\(B\)</span>, the more powerful the regularization penalty becomes.</strong></p>
+<ul>
+<li><strong>Small Batch Size (<span class="arithmatex">\(B = 16\)</span> or <span class="arithmatex">\(32\)</span>):</strong> The statistical estimates <span class="arithmatex">\(\mu_B\)</span> and <span class="arithmatex">\(\sigma_B^2\)</span> are computed over a tiny sample pool, making them highly volatile. The random fluctuations from batch to batch are massive, injecting high-variance noise (<span class="arithmatex">\(\vec{\epsilon}_{\text{batch}}\)</span>) into the layer. This forces heavy regularization.</li>
+<li><strong>Large Batch Size (<span class="arithmatex">\(B \to N\)</span>):</strong> As the batch size scales upward toward full batch gradient descent, the local sample statistics converge directly on the true static global dataset parameters (<span class="arithmatex">\(\mu_B \to \mu_X\)</span> and <span class="arithmatex">\(\sigma_B^2 \to \sigma_X^2\)</span>). The stochastic fluctuations collapse to zero, the noise channel shuts down, and <strong>the implicit regularization effect vanishes entirely.</strong></li>
+</ul>
+<p>This is why modern deep neural architectures that rely heavily on BatchNorm for training stabilization often experience a sudden degradation in generalization metrics if the compute infrastructure scales up to massive batch footprints (like <span class="arithmatex">\(B = 2048\)</span> or <span class="arithmatex">\(4096\)</span>) without adding alternative explicit parameter penalties like <span class="arithmatex">\(L_2\)</span> weight decay to pick up the slack.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

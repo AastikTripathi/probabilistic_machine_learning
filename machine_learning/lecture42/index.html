@@ -1,0 +1,4607 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture41/">
+      
+      
+        <link rel="next" href="../lecture43/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture42 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture42
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-35-architectural-induction-inductive-biases-as-bayesian-priors-and-the-twin-regularizers-of-convolutional-networks-cnns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 35: Architectural Induction, Inductive Biases as Bayesian Priors, and the Twin Regularizers of Convolutional Networks (CNNs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 35: Architectural Induction, Inductive Biases as Bayesian Priors, and the Twin Regularizers of Convolutional Networks (CNNs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#351-the-optimization-paradox-reconciling-uat-with-structural-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.1 The Optimization Paradox: Reconciling UAT with Structural Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#352-architectural-choices-as-hard-bayesian-priors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.2 Architectural Choices as Hard Bayesian Priors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#353-grid-like-topologies-and-the-genesis-of-cnns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.3 Grid-Like Topologies and the Genesis of CNNs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#354-regularizer-1-local-receptive-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.4 Regularizer 1: Local Receptive Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="35.4 Regularizer 1: Local Receptive Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-and-domain-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable and Domain Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-hierarchical-semantic-progression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Hierarchical Semantic Progression
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#355-regularizer-2-parameter-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.5 Regularizer 2: Parameter Sharing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="35.5 Regularizer 2: Parameter Sharing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-dual-meanings-of-parameter-replications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Dual Meanings of Parameter Replications
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#356-managing-the-capacity-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.6 Managing the Capacity Filter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#357-algorithmic-implications-for-the-backpropagation-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.7 Algorithmic Implications for the Backpropagation Pass
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-a-local-receptive-fields-only-no-parameter-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario A: Local Receptive Fields ONLY (No Parameter Sharing)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario A: Local Receptive Fields ONLY (No Parameter Sharing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-training-on-image-1-edge-is-on-the-left" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Training on Image 1 (Edge is on the Left)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-testing-on-image-2-the-edge-shifts-right" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Testing on Image 2 (The Edge Shifts Right)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-b-enforcing-parameter-sharing-the-cnn-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario B: Enforcing Parameter Sharing (The CNN Way)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario B: Enforcing Parameter Sharing (The CNN Way)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-training-on-image-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Training on Image 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-evaluating-the-shifted-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Evaluating the Shifted Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-kernel-is-the-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Kernel IS the Weights
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-parameter-sharing-literally-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. What "Parameter Sharing" Literally Means
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-final-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Final Synthesis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-erm-connection-restricting-the-hypothesis-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The ERM Connection: Restricting the Hypothesis Class
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-probabilistic-connection-the-hard-bayesian-prior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Probabilistic Connection: The Hard Bayesian Prior
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-resolving-the-paradox-kernels-vs-layer-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Resolving the Paradox: Kernels vs. Layer Hierarchy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Resolving the Paradox: Kernels vs. Layer Hierarchy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#layer-1-localized-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer 1: Localized Primitives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layer-2-geometric-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer 2: Geometric Composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-layers-semantic-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final Layers: Semantic Structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-layer-1-turning-a-flat-image-into-a-3d-tensor-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Layer 1: Turning a Flat Image into a 3D Tensor Stack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Layer 1: Turning a Flat Image into a 3D Tensor Stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-resulting-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Resulting Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-layer-2-operating-across-the-entire-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Layer 2: Operating Across the Entire Stack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Layer 2: Operating Across the Entire Stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-mathematical-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Mathematical Composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-grand-matrix-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Grand Matrix View
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-random-initialization-the-act-of-symmetry-breaking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Random Initialization (The Act of Symmetry Breaking)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Random Initialization (The Act of Symmetry Breaking)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-resulting-geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Resulting Geometry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-divergent-trajectories-in-a-non-convex-loss-landscape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Divergent Trajectories in a Non-Convex Loss Landscape
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-pressure-of-global-empirical-risk-minimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Pressure of Global Empirical Risk Minimization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-convolution-is-a-structural-filter-not-a-classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Convolution is a Structural Filter, Not a Classifier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-running-erm-without-labels-unsupervised-cnns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Running ERM without Labels: Unsupervised CNNs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Running ERM without Labels: Unsupervised CNNs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-reconstruction-loss-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Reconstruction Loss Engine
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-self-supervised-learning-creating-labels-from-the-data-itself" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Self-Supervised Learning: Creating Labels from the Data Itself
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-grand-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Grand Synthesis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-anatomy-of-the-pull-the-deltal_j-valve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Anatomy of the "Pull": The \(\delta^L_j\) Valve
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-labeled-optimization-the-discriminative-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Labeled Optimization: The Discriminative Filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-unlabeled-optimization-the-maximum-variance-collector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Unlabeled Optimization: The Maximum Variance Collector
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-where-the-hierarchy-diverges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Where the Hierarchy Diverges
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Where the Hierarchy Diverges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-layer-1-phenomenon-where-they-match" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Layer 1 Phenomenon (Where they match)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-deep-layer-divergence-where-they-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Deep Layer Divergence (Where they split)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-takeaway_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-anatomy-of-the-pull-the-deltal_j-valve_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Anatomy of the "Pull": The \(\delta^L_j\) Valve
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-labeled-optimization-the-discriminative-filter_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Labeled Optimization: The Discriminative Filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-unlabeled-optimization-the-maximum-variance-collector_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Unlabeled Optimization: The Maximum Variance Collector
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-where-the-hierarchy-diverges_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Where the Hierarchy Diverges
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Where the Hierarchy Diverges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-layer-1-phenomenon-where-they-match_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Layer 1 Phenomenon (Where they match)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-deep-layer-divergence-where-they-split_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Deep Layer Divergence (Where they split)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-takeaway_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-literally-inside-your-pocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is Literally Inside Your "Pocket"?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-using-the-keys-the-static-inference-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Using the Keys: The Static Inference Pass
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-final-handshake-feature-extractor-vs-classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Final Handshake: Feature Extractor vs. Classifier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-literally-inside-your-pocket_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is Literally Inside Your "Pocket"?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-using-the-keys-the-static-inference-pass_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Using the Keys: The Static Inference Pass
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-final-handshake-feature-extractor-vs-classifier_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Final Handshake: Feature Extractor vs. Classifier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-output-layer-shift-from-classification-to-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Output Layer Shift: From Classification to Regression
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-spatial-grid-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Spatial Grid Strategy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-unpacking-the-bounding-box-tensor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Unpacking the Bounding Box Tensor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-multi-task-loss-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Multi-Task Loss Engine
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-35-architectural-induction-inductive-biases-as-bayesian-priors-and-the-twin-regularizers-of-convolutional-networks-cnns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 35: Architectural Induction, Inductive Biases as Bayesian Priors, and the Twin Regularizers of Convolutional Networks (CNNs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 35: Architectural Induction, Inductive Biases as Bayesian Priors, and the Twin Regularizers of Convolutional Networks (CNNs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#351-the-optimization-paradox-reconciling-uat-with-structural-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.1 The Optimization Paradox: Reconciling UAT with Structural Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#352-architectural-choices-as-hard-bayesian-priors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.2 Architectural Choices as Hard Bayesian Priors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#353-grid-like-topologies-and-the-genesis-of-cnns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.3 Grid-Like Topologies and the Genesis of CNNs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#354-regularizer-1-local-receptive-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.4 Regularizer 1: Local Receptive Fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="35.4 Regularizer 1: Local Receptive Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-and-domain-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable and Domain Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-hierarchical-semantic-progression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Hierarchical Semantic Progression
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#355-regularizer-2-parameter-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.5 Regularizer 2: Parameter Sharing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="35.5 Regularizer 2: Parameter Sharing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-dual-meanings-of-parameter-replications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Dual Meanings of Parameter Replications
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#356-managing-the-capacity-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.6 Managing the Capacity Filter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#357-algorithmic-implications-for-the-backpropagation-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35.7 Algorithmic Implications for the Backpropagation Pass
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-a-local-receptive-fields-only-no-parameter-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario A: Local Receptive Fields ONLY (No Parameter Sharing)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario A: Local Receptive Fields ONLY (No Parameter Sharing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-training-on-image-1-edge-is-on-the-left" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Training on Image 1 (Edge is on the Left)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-testing-on-image-2-the-edge-shifts-right" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Testing on Image 2 (The Edge Shifts Right)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-b-enforcing-parameter-sharing-the-cnn-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario B: Enforcing Parameter Sharing (The CNN Way)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario B: Enforcing Parameter Sharing (The CNN Way)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-training-on-image-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Training on Image 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-evaluating-the-shifted-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Evaluating the Shifted Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-kernel-is-the-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Kernel IS the Weights
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-parameter-sharing-literally-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. What "Parameter Sharing" Literally Means
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-final-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Final Synthesis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-erm-connection-restricting-the-hypothesis-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The ERM Connection: Restricting the Hypothesis Class
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-probabilistic-connection-the-hard-bayesian-prior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Probabilistic Connection: The Hard Bayesian Prior
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-resolving-the-paradox-kernels-vs-layer-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Resolving the Paradox: Kernels vs. Layer Hierarchy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Resolving the Paradox: Kernels vs. Layer Hierarchy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#layer-1-localized-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer 1: Localized Primitives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layer-2-geometric-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer 2: Geometric Composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-layers-semantic-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Final Layers: Semantic Structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-layer-1-turning-a-flat-image-into-a-3d-tensor-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Layer 1: Turning a Flat Image into a 3D Tensor Stack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Layer 1: Turning a Flat Image into a 3D Tensor Stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-resulting-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Resulting Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-layer-2-operating-across-the-entire-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Layer 2: Operating Across the Entire Stack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Layer 2: Operating Across the Entire Stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-mathematical-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Mathematical Composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-grand-matrix-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Grand Matrix View
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-random-initialization-the-act-of-symmetry-breaking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Random Initialization (The Act of Symmetry Breaking)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Random Initialization (The Act of Symmetry Breaking)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-resulting-geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Resulting Geometry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-divergent-trajectories-in-a-non-convex-loss-landscape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Divergent Trajectories in a Non-Convex Loss Landscape
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-pressure-of-global-empirical-risk-minimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Pressure of Global Empirical Risk Minimization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-convolution-is-a-structural-filter-not-a-classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Convolution is a Structural Filter, Not a Classifier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-running-erm-without-labels-unsupervised-cnns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Running ERM without Labels: Unsupervised CNNs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Running ERM without Labels: Unsupervised CNNs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-reconstruction-loss-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Reconstruction Loss Engine
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-self-supervised-learning-creating-labels-from-the-data-itself" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Self-Supervised Learning: Creating Labels from the Data Itself
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-grand-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Grand Synthesis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-anatomy-of-the-pull-the-deltal_j-valve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Anatomy of the "Pull": The \(\delta^L_j\) Valve
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-labeled-optimization-the-discriminative-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Labeled Optimization: The Discriminative Filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-unlabeled-optimization-the-maximum-variance-collector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Unlabeled Optimization: The Maximum Variance Collector
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-where-the-hierarchy-diverges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Where the Hierarchy Diverges
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Where the Hierarchy Diverges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-layer-1-phenomenon-where-they-match" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Layer 1 Phenomenon (Where they match)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-deep-layer-divergence-where-they-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Deep Layer Divergence (Where they split)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-takeaway_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-anatomy-of-the-pull-the-deltal_j-valve_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Anatomy of the "Pull": The \(\delta^L_j\) Valve
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-labeled-optimization-the-discriminative-filter_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Labeled Optimization: The Discriminative Filter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-unlabeled-optimization-the-maximum-variance-collector_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Unlabeled Optimization: The Maximum Variance Collector
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-where-the-hierarchy-diverges_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Where the Hierarchy Diverges
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Where the Hierarchy Diverges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-layer-1-phenomenon-where-they-match_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Layer 1 Phenomenon (Where they match)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-deep-layer-divergence-where-they-split_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Deep Layer Divergence (Where they split)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-takeaway_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-literally-inside-your-pocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is Literally Inside Your "Pocket"?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-using-the-keys-the-static-inference-pass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Using the Keys: The Static Inference Pass
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-final-handshake-feature-extractor-vs-classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Final Handshake: Feature Extractor vs. Classifier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-literally-inside-your-pocket_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is Literally Inside Your "Pocket"?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-using-the-keys-the-static-inference-pass_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Using the Keys: The Static Inference Pass
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-final-handshake-feature-extractor-vs-classifier_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Final Handshake: Feature Extractor vs. Classifier
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-output-layer-shift-from-classification-to-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Output Layer Shift: From Classification to Regression
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-spatial-grid-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Spatial Grid Strategy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-unpacking-the-bounding-box-tensor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Unpacking the Bounding Box Tensor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-multi-task-loss-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Multi-Task Loss Engine
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-35-architectural-induction-inductive-biases-as-bayesian-priors-and-the-twin-regularizers-of-convolutional-networks-cnns">Chapter 35: Architectural Induction, Inductive Biases as Bayesian Priors, and the Twin Regularizers of Convolutional Networks (CNNs)</h2>
+<hr />
+<h3 id="351-the-optimization-paradox-reconciling-uat-with-structural-architecture">35.1 The Optimization Paradox: Reconciling UAT with Structural Architecture</h3>
+<p>In Chapter 34, we formalized the <strong>Universal Approximation Theorem (UAT)</strong>. We established an existential proof demonstrating that a simple, shallow neural network possessing a single, sufficiently wide hidden layer can approximate any continuous function defined over a compact domain to arbitrary precision (<span class="arithmatex">\(\epsilon\)</span>).</p>
+<p>This theoretical milestone raises a major engineering paradox: <em>If a shallow, fully connected Multi-Layer Perceptron (MLP) is mathematically capable of mimicking any functional mapping in the universe, why does the machine learning community invest massive resources into designing complex, specialized architectures like CNNs, RNNs, and Transformers?</em></p>
+<p>The solution to this paradox lies in the divide between <strong>theoretical expressivity</strong> and <strong>empirical optimization feasibility</strong>.</p>
+<p>While a massive vanilla MLP can <em>theoretically</em> represent your target function, the empirical risk landscape <span class="arithmatex">\(\hat{R}(\vec{\theta})\)</span> of an unconstrained dense network operating in high-dimensional space is highly complex. When your parameter pool scales to millions or billions of continuous coordinates, general-purpose optimization routines like first-order gradient descent easily slow down, stall at saddle points, or converge onto poor local minima.</p>
+<p>When we modify a network's structure, we are not expanding its theoretical capacity beyond what the UAT already promises. Instead, <strong>we are systematically restricting our search space.</strong> Out of the infinite bag of all possible continuous mathematical relations, an architectural modification declares that our algorithm will exclusively explore a highly confined, structurally meaningful subspace.</p>
+<p>By tailoring the geometry of this functional subspace to match the specific structural physics of our problem domain, we dramatically smooth out the underlying loss landscape. This structural constraint enables faster convergence, higher parameter efficiency, and stable generalization boundaries over finite sample sizes (<span class="arithmatex">\(N\)</span>).</p>
+<hr />
+<h3 id="352-architectural-choices-as-hard-bayesian-priors">35.2 Architectural Choices as Hard Bayesian Priors</h3>
+<p>The professor delivers a profound unifying insight: <strong>Every single architectural restriction you impose on a vanilla Multi-Layer Perceptron is mathematically identical to injecting a hard Bayesian Prior distribution over your parameter space.</strong></p>
+<p>Consider the dense connectivity of a standard vanilla MLP layer. Every individual neuron in layer <span class="arithmatex">\(l\)</span> receives a dedicated, independent parameter weight channel from every single activation coordinate in the preceding layer <span class="arithmatex">\(l-1\)</span>.</p>
+<p>Suppose we manually intervene in this architecture and state that the functional connection linking neuron <span class="arithmatex">\(15\)</span> to neuron <span class="arithmatex">\(16\)</span> must not exist. From a deterministic software standpoint, we have modified the network's graph. But from a probabilistic standpoint, we have injected a strict <strong>Dirac Delta Prior Distribution</strong> directly over that specific parameter coordinate inside our global parameter portfolio <span class="arithmatex">\(\vec{\theta}\)</span>:</p>
+<div class="arithmatex">\[p\left(w_{16, 15}^l\right) = \delta\left(w_{16, 15}^l\right) = \begin{cases} \infty &amp; \text{if } w_{16, 15}^l = 0 \\ 0 &amp; \text{if } w_{16, 15}^l \neq 0 \end{cases}\]</div>
+<p>This prior declares that the probability of this parameter taking any value other than absolute zero (<span class="arithmatex">\(0.0\)</span>) is exactly zero.</p>
+<p>Standard regularizers like <span class="arithmatex">\(L_2\)</span> weight decay apply a soft, continuous Gaussian prior that gently coaxes weights to remain small while leaving them free to adapt if the data evidence is overwhelmingly strong. Architectural modifications, however, behave as <strong>hard regularizers</strong>. They structurally lock specific parameter zones to zero or force different weights to remain perfectly synchronized, and the optimization loop cannot override these constraints no matter how much training data flows through the system.</p>
+<p>No model is unbiased; all useful models are heavily biased. By engineering specialized architectures, we are simply designing highly sophisticated regularizers, using our human understanding of real-world data structures to steer the model's inductive biases toward meaningful global configurations.</p>
+<hr />
+<h3 id="353-grid-like-topologies-and-the-genesis-of-cnns">35.3 Grid-Like Topologies and the Genesis of CNNs</h3>
+<p>When we process data fields structured as <strong>Grid-Like Topologies</strong>—such as 1D time-series arrays, 2D digital image pixel grids, or 3D medical volumetric scans—using a standard dense Multi-Layer Perceptron, our model encounters an efficiency bottleneck.</p>
+<p>If we flatten a standard <span class="arithmatex">\(256 \times 256\)</span> grayscale digital image into a single one-dimensional input feature vector (<span class="arithmatex">\(\vec{x} \in \mathbb{R}^{65,536}\)</span>), a single neuron operating in the very first hidden layer requires exactly 65,536 independent weight parameters. If that first layer contains just 1,000 parallel neurons, the parameter matrix explodes instantly to <span class="arithmatex">\(65,536,000\)</span> coefficients.</p>
+<p>This massive parameter footprint ignores the underlying spatial geometry of the image. A dense MLP treats pixels that sit directly adjacent to one another exactly the same as pixels separated by the entire length of the image canvas. To capture spatial relationships efficiently without triggering parameter explosion, we deploy <strong>Convolutional Neural Networks (CNNs)</strong>.</p>
+<p>A CNN is simply a standard Multi-Layer Perceptron that has been constrained by two hard structural regularizers: <strong>Local Receptive Fields</strong> and <strong>Parameter Sharing</strong>.</p>
+<hr />
+<h3 id="354-regularizer-1-local-receptive-fields">35.4 Regularizer 1: Local Receptive Fields</h3>
+<p>The first hard structural regularizer applied to the parameter space is the enforcement of a <strong>Local Receptive Field</strong>.</p>
+<blockquote>
+<p><strong>Definition 35.1 (The Receptive Field).</strong> The receptive field of an individual neuron <span class="arithmatex">\(j\)</span> operating inside layer <span class="arithmatex">\(l\)</span> represents the explicit subset of activation coordinates from the preceding layer <span class="arithmatex">\(l-1\)</span> that are physically connected to that neuron's input channels.</p>
+</blockquote>
+<p>In a vanilla Multi-Layer Perceptron, every neuron possesses a <em>global receptive field</em> because it aggregates information from the entire preceding layer space. In a Convolutional Neural Network, we structurally clip these connections, restricting each hidden neuron to evaluate only a highly localized patch of adjacent coordinates.</p>
+<div class="arithmatex">\[\text{Primal Activation: } \quad z_j^l = \sum_{k \in \mathcal{N}(j)} w_{jk}^l a_k^{l-1} + b_j^l\]</div>
+<h4 id="literal-variable-and-domain-breakdown">Literal Variable and Domain Breakdown:</h4>
+<ul>
+<li><span class="arithmatex">\(\mathcal{N}(j)\)</span>: The localized spatial neighborhood window or index mask in layer <span class="arithmatex">\(l-1\)</span> allocated directly to neuron <span class="arithmatex">\(j\)</span>. All parameter weights where <span class="arithmatex">\(k \notin \mathcal{N}(j)\)</span> are structurally locked to exactly zero (<span class="arithmatex">\(0.0\)</span>).</li>
+</ul>
+<h4 id="the-hierarchical-semantic-progression">The Hierarchical Semantic Progression</h4>
+<p>This structural modification is inspired directly by classical computer vision and biological visual processing. To understand a highly complex, semantic scene, human vision does not evaluate the entire global field of view simultaneously. It constructs meaning hierarchically out of localized, primitive building blocks.</p>
+<ol>
+<li><strong>Early Hidden Layers:</strong> Because their receptive fields are locked to microscopic pixel patches, early neurons function as localized feature primitives, activating exclusively when they spot sharp edges, lines, or specific color transitions inside their narrow windows.</li>
+<li><strong>Intermediate Hidden Layers:</strong> As data flows deeper through the network cascades, neurons in layer <span class="arithmatex">\(l\)</span> aggregate the outputs of multiple localized neurons from layer <span class="arithmatex">\(l-1\)</span>. Because of this sequential stacking, <strong>the effective receptive field of our neurons expands systematically as we move deeper into the network architecture.</strong></li>
+<li><strong>Deep Hidden Layers:</strong> By the time the signals reach the final hidden blocks, the neurons possess a wide, global visibility over the entire input canvas. They combine the lower-level edge and contour primitives learned by early layers to fire for complex semantic structures, such as faces, objects, or global shapes.</li>
+</ol>
+<hr />
+<h3 id="355-regularizer-2-parameter-sharing">35.5 Regularizer 2: Parameter Sharing</h3>
+<p>Enforcing local receptive fields slashes our model's parameter count, but it introduces an architectural vulnerability: <em>If a localized neuron is tuned to identify a feature like a sharp horizontal edge, that specific weight configuration is blind to the rest of the image.</em> If that horizontal edge shifts slightly to the left or right, the original neuron will fail to fire, forcing the network to waste precious parameters learning duplicate edge detectors for every single localized patch across the canvas.</p>
+<p>To resolve this, we introduce our second hard structural regularizer: <strong>Parameter Sharing</strong> (or Weight Sharing).</p>
+<p>We declare that a specific localized feature pattern—such as an edge detector—must be evaluated uniformly across the entire grid topology. We take a small, fixed matrix of parameter weights (known as a <strong>Filter</strong> or <strong>Kernel</strong>) and replicate its exact numerical coefficients across every single localized neuron operating within that layer:</p>
+<div class="arithmatex">\[w_{j, \,\, k}^l \equiv w_{j+m, \,\, k+m}^l \quad \forall \,\, \text{spatial shifts } m\]</div>
+<p>Instead of optimizing independent weight portfolios for each parallel neuron, the optimization loop optimizes a single, shared parameter stencil that slides across the input space.</p>
+<h4 id="the-dual-meanings-of-parameter-replications">The Dual Meanings of Parameter Replications</h4>
+<p>From a signal processing standpoint, this operation is a <strong>Convolution</strong>. We are sliding a learnable mathematical filter across a data tensor to generate a map of feature activations. This architecture enforces a vital geometric property known as <strong>Translation Equivariance</strong>: if an input feature shifts across your data grid, its corresponding activation footprint shifts by the exact same distance across the output layer, ensuring the model identifies the pattern regardless of its spatial coordinates.</p>
+<p>From our foundational regularized ERM perspective, parameter sharing represents an aggressive constraint on our parameter space. In a 100-dimensional weight field, we don't just state that 96 parameters must equal zero; we state that the remaining 4 parameters must maintain identical numerical values across multiple distinct neuron units.</p>
+<hr />
+<h3 id="356-managing-the-capacity-filter">35.6 Managing the Capacity Filter</h3>
+<p>An engineer in the lecture raises an important concern: <em>If we force every single neuron in a layer to share the exact same parameter weights, haven't we crushed the expressivity of our network? If the entire layer is governed by a single shared filter, it can only identify one single feature across the entire image.</em></p>
+<p>The professor solves this capacity bottleneck by introducing the concept of <strong>Feature Channels</strong>.</p>
+<p>We do not apply a single shared filter per layer. Instead, we run a massive bank of independent shared filters in parallel.</p>
+<ul>
+<li>Filter Block 1 learns a shared weight stencil to map horizontal edges across the entire grid.</li>
+<li>Filter Block 2 optimizes a shared stencil to detect vertical edges across the same grid.</li>
+<li>Filter Block 3 tracks local color gradients, and so on.</li>
+</ul>
+<p>By stacking dozens of these independent, parallel feature maps, we preserve the structural expressive capacity of our network. We design a deep, narrow architecture that enjoys the best of both worlds: it can capture highly complex, non-linear global transformations while keeping its active parameter footprint exceptionally small and computationally efficient.</p>
+<hr />
+<h3 id="357-algorithmic-implications-for-the-backpropagation-pass">35.7 Algorithmic Implications for the Backpropagation Pass</h3>
+<p>Enforcing these hard structural constraints has a massive impact on our numerical optimization engines. When you modify the forward pass equations of a network to incorporate local receptive field masks and shared parameters, <strong>the downstream multi-variable chain rule calculations of the backward error propagation pass are altered as well.</strong></p>
+<p>Recall our standard weight gradient equation derived in Chapter 34:</p>
+<div class="arithmatex">\[\frac{\partial \hat{R}}{\partial w_{jk}^l} = \delta_j^l \cdot a_k^{l-1}\]</div>
+<p>In a vanilla MLP, a weight coefficient <span class="arithmatex">\(w_{jk}^l\)</span> exists as a completely isolated parameter, so its gradient update is tied to a single localized error channel.</p>
+<p>But in a convolutional layer, a shared filter coefficient <span class="arithmatex">\(w_m\)</span> is used repeatedly across every single sliding window step across the data grid. Because this single parameter influences the global empirical risk through multiple parallel fanned-out pathways simultaneously, its final gradient derivative requires an addition field that sums the error signals computed across every single neuron that shares that weight:</p>
+<div class="arithmatex">\[\frac{\partial \hat{R}}{\partial w_{m}^l} = \sum_{j} \delta_j^l \cdot a_{\text{match}(j, m)}^{l-1}\]</div>
+<p>This means that during a training loop, your software backend cannot update shared parameters independently. The backpropagation engine must aggregate the localized error gradients calculated at every sliding step across the entire topology, pooling them into a single unified gradient command before updating the shared filter matrix. This hard-coded parameter synchronization is what allows CNN frameworks to preserve their structural regularized constraints across every epoch of gradient descent.</p>
+<hr />
+<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
+<blockquote>
+<p><strong>The Generalist's Theoretical Map:</strong>
+1. <strong>The Subspace Optimization Rule:</strong> Architectural design does not expand a network's theoretical capacity beyond the boundaries of the Universal Approximation Theorem. Instead, it restricts the search space to a targeted functional subspace, smoothing out the loss landscape to achieve faster convergence.
+2. <strong>The Prior Duality Principle:</strong> Every structural modification applied to a network graph is mathematically equivalent to injecting a hard Bayesian prior over your parameter space. CNNs, RNNs, and Transformers are regularized MLPs engineered to navigate targeted data spaces efficiently.
+3. <strong>The Twin CNN Constraints:</strong> A Convolutional Neural Network transforms an MLP by enforcing two hard regularizers: <strong>Local Receptive Fields</strong> (restricting neuron inputs to localized spatial neighborhoods to reduce capacity) and <strong>Parameter Sharing</strong> (replicating filter coefficients across the topology to achieve translation equivariance).</p>
+</blockquote>
+<p>Let's break this down with an explicit, step-by-step numerical example.</p>
+<p>Imagine we have a tiny 1D "image" consisting of just 4 pixels in a row: <span class="arithmatex">\(\vec{x} = [x_1, x_2, x_3, x_4]\)</span>.</p>
+<p>We want our network to detect a <strong>vertical edge</strong> (a sharp drop in brightness). Let's trace what happens with and without parameter sharing when an edge moves.</p>
+<hr />
+<h2 id="scenario-a-local-receptive-fields-only-no-parameter-sharing">Scenario A: Local Receptive Fields ONLY (No Parameter Sharing)</h2>
+<p>In this setup, we enforce local connections (each neuron only looks at 2 adjacent pixels), but we do <strong>not</strong> share weights. Every single neuron has its own independent, unique portfolio of parameter variables in memory.</p>
+<ul>
+<li><strong>Neuron 1</strong> looks at <span class="arithmatex">\([x_1, x_2]\)</span> using its own private weights: <span class="arithmatex">\(\vec{w}^{(1)} = [w_{11}, w_{12}]\)</span></li>
+<li><strong>Neuron 2</strong> looks at <span class="arithmatex">\([x_2, x_3]\)</span> using its own private weights: <span class="arithmatex">\(\vec{w}^{(2)} = [w_{21}, w_{22}]\)</span></li>
+<li><strong>Neuron 3</strong> looks at <span class="arithmatex">\([x_3, x_4]\)</span> using its own private weights: <span class="arithmatex">\(\vec{w}^{(3)} = [w_{31}, w_{32}]\)</span></li>
+</ul>
+<h3 id="step-1-training-on-image-1-edge-is-on-the-left">Step 1: Training on Image 1 (Edge is on the Left)</h3>
+<p>We pass an image where the left side is bright (10) and the right side is dark (0):</p>
+<div class="arithmatex">\[\vec{x}_{\text{orig}} = [10, \,\, 10, \,\, 0, \,\, 0]\]</div>
+<p>The edge is sitting directly between pixel 2 and pixel 3. Let's look at the raw pre-activation calculation for <strong>Neuron 2</strong>:</p>
+<div class="arithmatex">\[z_2 = w_{21}x_2 + w_{22}x_3\]</div>
+<p>Through backpropagation, Neuron 2 successfully learns to be an edge detector by optimizing its private weights to <span class="arithmatex">\(\vec{w}^{(2)} = [1, \,\, -1]\)</span>:</p>
+<div class="arithmatex">\[z_2 = (1 \cdot 10) + (-1 \cdot 0) = \mathbf{10} \quad \text{(High activation! Edge spotted!)}\]</div>
+<h3 id="step-2-testing-on-image-2-the-edge-shifts-right">Step 2: Testing on Image 2 (The Edge Shifts Right)</h3>
+<p>Now, a new image enters the network. The edge has shifted by just one pixel to the right:</p>
+<div class="arithmatex">\[\vec{x}_{\text{shifted}} = [10, \,\, 10, \,\, 10, \,\, 0]\]</div>
+<p>The edge is now sitting between pixel 3 and pixel 4. Let's check our trained <strong>Neuron 2</strong>:</p>
+<div class="arithmatex">\[z_2 = w_{21}x_2 + w_{22}x_3 = (1 \cdot 10) + (-1 \cdot 10) = \mathbf{0}\]</div>
+<p>Because Neuron 2's receptive field is hard-wired locally to pixels 2 and 3, <strong>it is completely blind to the fact that the exact same edge just moved slightly to the right.</strong> ### The Failure State:
+The neuron that actually sees pixels 3 and 4 is <strong>Neuron 3</strong>. But because we are <em>not</em> sharing parameters, Neuron 3's weights (<span class="arithmatex">\(\vec{w}^{(3)}\)</span>) are still completely uninitialized random noise—say, <span class="arithmatex">\([0.5, \,\, 0.2]\)</span>:</p>
+<div class="arithmatex">\[z_3 = w_{31}x_3 + w_{32}x_4 = (0.5 \cdot 10) + (0.2 \cdot 0) = \mathbf{5} \quad \text{(Missed the edge entirely!)}\]</div>
+<p>To fix this, our gradient descent loop is forced to spend valuable training cycles updating Neuron 3's private weights until they <em>also</em> copy <span class="arithmatex">\([1, \,\, -1]\)</span>. If our image was <span class="arithmatex">\(256 \times 256\)</span> pixels, we would have to waste millions of parameters duplicating the exact same edge-detection math at every single coordinate patch across the entire canvas.</p>
+<hr />
+<h2 id="scenario-b-enforcing-parameter-sharing-the-cnn-way">Scenario B: Enforcing Parameter Sharing (The CNN Way)</h2>
+<p>To resolve this architectural flaw, we introduce our second regularizer: <strong>Parameter Sharing</strong>.</p>
+<p>We declare that individual neurons are no longer allowed to own private, independent weight portfolios. Instead, we allocate a single, master 2-element parameter array called a <strong>Filter</strong> (or Kernel): <span class="arithmatex">\(\vec{k} = [k_1, k_2]\)</span>. Every single local neuron in the layer is forced to use these exact same shared variables.</p>
+<ul>
+<li><strong>Neuron 1</strong> weights <span class="arithmatex">\(\equiv [k_1, k_2]\)</span></li>
+<li><strong>Neuron 2</strong> weights <span class="arithmatex">\(\equiv [k_1, k_2]\)</span></li>
+<li><strong>Neuron 3</strong> weights <span class="arithmatex">\(\equiv [k_1, k_2]\)</span></li>
+</ul>
+<h3 id="step-1-training-on-image-1">Step 1: Training on Image 1</h3>
+<p>Our master filter <span class="arithmatex">\(\vec{k}\)</span> optimizes its parameters against our original image <span class="arithmatex">\(\vec{x}_{\text{orig}} = [10, 10, 0, 0]\)</span>. It learns the exact same edge-detection values: <span class="arithmatex">\(\vec{k} = [1, \,\, -1]\)</span>.</p>
+<p>When Neuron 2 evaluates its patch (pixels 2 and 3), it grabs the shared filter:</p>
+<div class="arithmatex">\[z_2 = k_1x_2 + k_2x_3 = (1 \cdot 10) + (-1 \cdot 0) = \mathbf{10} \quad \text{(Edge Spotted!)}\]</div>
+<h3 id="step-2-evaluating-the-shifted-image">Step 2: Evaluating the Shifted Image</h3>
+<p>Now, look at what happens when the shifted image <span class="arithmatex">\(\vec{x}_{\text{shifted}} = [10, 10, 10, 0]\)</span> drops into the network.</p>
+<p>We evaluate <strong>Neuron 3</strong>, which is responsible for looking at the new edge location (pixels 3 and 4). Because of parameter sharing, Neuron 3 is <strong>instantly</strong> equipped with the exact same master edge-detector weights without needing a single update loop:</p>
+<div class="arithmatex">\[z_3 = k_1x_3 + k_2x_4 = (1 \cdot 10) + (-1 \cdot 0) = \mathbf{10} \quad \text{(Edge Spotted Instantly!)}\]</div>
+<hr />
+<h2 id="the-takeaway">The Takeaway</h2>
+<p>By forcing our parameters to be shared (<span class="arithmatex">\(w_{j,k}^l \equiv w_{j+m,k+m}^l\)</span>), we have fundamentally changed the nature of the operation. We are no longer training a massive grid of isolated, uncoordinated local neurons.</p>
+<p>We are training a single, compact mathematical stencil (<span class="arithmatex">\(\vec{k}\)</span>) that slides across the input space. This achieves <strong>Translation Equivariance</strong>: if a visual feature moves across the data topology, its activation pattern moves along with it automatically, slashing our parameter count while maximizing generalization safety.</p>
+<p>You are not understanding it wrong at all—in fact, you’ve hit the exact structural bullseye. Your confusion is entirely semantic, because in machine learning, we often throw these terms around interchangeably.</p>
+<p>Let’s clear up the vocabulary permanently so you can see exactly how the parameters move.</p>
+<hr />
+<h2 id="1-the-kernel-is-the-weights">1. The Kernel <em>IS</em> the Weights</h2>
+<p>You asked whether we determine the kernel or the weights. The answer is <strong>both, because the kernel is simply a bundle of weights.</strong></p>
+<p>Think of "weights" as the raw numbers, and "kernel" (or filter) as the physical shape we arrange those numbers into.</p>
+<ul>
+<li>In a standard <strong>MLP</strong>, the weights are arranged in a massive, flat matrix. Every single connection in the network gets its own unique weight parameter.</li>
+<li>In a <strong>CNN</strong>, we take a tiny group of weights (say, a <span class="arithmatex">\(3 \times 3\)</span> grid of 9 numbers) and call that group a <strong>kernel</strong>.</li>
+</ul>
+<p>When the training loop runs and backpropagation calculates the gradients, the optimizer is updating the exact numerical values <em>inside</em> that kernel. So when you determine the optimal kernel vectors, you are determining the weights!</p>
+<hr />
+<h2 id="2-what-parameter-sharing-literally-means">2. What "Parameter Sharing" Literally Means</h2>
+<p>Your intuition is 100% correct: <strong>parameter sharing means that different parts of the data are operated on by the exact same kernel.</strong></p>
+<p>Instead of giving every localized neuron its own private, independent set of weights to look at its own private patch of pixels, we make a rule: <em>Every neuron in this layer must use the exact same kernel values.</em></p>
+<p>Look at how this plays out computationally when a <span class="arithmatex">\(2 \times 2\)</span> kernel <span class="arithmatex">\(\vec{k} = [k_1, k_2]\)</span> slides across our 4-pixel image <span class="arithmatex">\(\vec{x} = [x_1, x_2, x_3, x_4]\)</span>:</p>
+<ul>
+<li><strong>Neuron 1</strong> calculates its activation using the kernel on patch 1:</li>
+</ul>
+<div class="arithmatex">\[z_1 = \mathbf{k_1}x_1 + \mathbf{k_2}x_2\]</div>
+<ul>
+<li><strong>Neuron 2</strong> calculates its activation using the <em>exact same</em> kernel shifted to patch 2:</li>
+</ul>
+<div class="arithmatex">\[z_2 = \mathbf{k_1}x_2 + \mathbf{k_2}x_3\]</div>
+<ul>
+<li><strong>Neuron 3</strong> calculates its activation using the <em>exact same</em> kernel shifted to patch 3:</li>
+</ul>
+<div class="arithmatex">\[z_3 = \mathbf{k_1}x_3 + \mathbf{k_2}x_4\]</div>
+<blockquote>
+<p><strong>The Meaning of "Sharing":</strong>
+Notice that the parameters <span class="arithmatex">\(k_1\)</span> and <span class="arithmatex">\(k_2\)</span> do not change from step to step. They are <strong>shared</strong> across the entire operation. This is why a convolutional layer is so incredibly efficient: we only have to store and optimize a tiny handful of weights (the kernel), but we get to apply them across the entire high-dimensional input space.</p>
+</blockquote>
+<hr />
+<h2 id="3-the-final-synthesis">3. The Final Synthesis</h2>
+<p>To tie it all together:</p>
+<ol>
+<li>The <strong>Kernel</strong> is the tool (the edge detector).</li>
+<li>The <strong>Weights</strong> are the internal values that make the tool work (the <span class="arithmatex">\([1, -1]\)</span> numbers that detect the shift).</li>
+<li><strong>Parameter Sharing</strong> is the act of sliding that same tool across every single corner of the data grid, rather than building a brand-new tool for every single pixel.</li>
+</ol>
+<p>You are completely right to feel like CNNs are often taught as if they dropped out of the sky. Most deep learning courses suffer from a massive pedagogical flaw: they treat Convolutional Neural Networks like a separate, magical piece of visual wizardry ("Look at how it mimics the human eye!"), completely disconnecting them from the beautiful mathematical continuum of Empirical Risk Minimization (ERM) and probability you just spent half a semester mastering.</p>
+<p>Let's fix that right now. CNNs did not come out of nowhere. They are a direct, logical extension of regularized ERM and Bayesian priors.</p>
+<p>And your intuition about the kernels vs. the layers is spot-on—let's demystify exactly how those two ideas are actually the exact same thing.</p>
+<hr />
+<h2 id="1-the-erm-connection-restricting-the-hypothesis-class">1. The ERM Connection: Restricting the Hypothesis Class</h2>
+<p>In the first half of the course, we defined the heart of machine learning as this optimization loop:</p>
+<div class="arithmatex">\[\vec{\theta}^* = \arg\min_{\vec{\theta}} \frac{1}{N} \sum_{i=1}^{N} L\left(h_{\vec{\theta}}(\vec{x}_i), \,\, y_i\right)\]</div>
+<p>When we transitioned to neural networks, we didn't touch this loop. The data is still data, the loss function is still cross-entropy or squared error, and the optimization engine is still Stochastic Gradient Descent (SGD).</p>
+<p>What we changed is the <strong>Hypothesis Class (<span class="arithmatex">\(\mathcal{H}\)</span>)</strong>—the sandbox of functions our model is allowed to choose from.</p>
+<ul>
+<li>A standard <strong>MLP</strong> represents an unconstrained hypothesis class. Every single input pixel can talk to every single hidden neuron. It has total freedom.</li>
+<li>A <strong>CNN</strong> is simply an MLP where we have applied an aggressive, hard geometric constraint to the architecture.</li>
+</ul>
+<p>By forcing the network to only look at local patches and share weights, we are telling the ERM optimizer: <em>"You are no longer allowed to search the entire universe of dense matrices. You must find a solution where the vast majority of your weights are locked at zero, and the remaining weights are synchronized into tiny sliding grids."</em> ---</p>
+<h2 id="2-the-probabilistic-connection-the-hard-bayesian-prior">2. The Probabilistic Connection: The Hard Bayesian Prior</h2>
+<p>Remember when we proved that adding an <span class="arithmatex">\(L_2\)</span> regularizer (<span class="arithmatex">\(\lambda \|\vec{w}\|_2^2\)</span>) to an ERM loss is mathematically identical to imposing a zero-mean Gaussian Prior (<span class="arithmatex">\(p(\vec{\theta})\)</span>) in a Bayesian MAP estimate?</p>
+<p>A CNN takes this exact probabilistic concept and pushes it to its absolute limit. A convolutional layer is just a massive fully connected MLP layer that has a <strong>hard, non-negotiable prior</strong> slammed onto its weight distributions.</p>
+<p>If you wrote out a CNN as a giant MLP weight matrix, your built-in prior dictates that:</p>
+<ol>
+<li>The probability of any connection existing outside a <span class="arithmatex">\(3 \times 3\)</span> local neighborhood is <strong>exactly zero</strong> (<span class="arithmatex">\(P(w_{\text{distant}} = 0) = 1\)</span>).</li>
+<li>The probability of a sliding weight changing its value from pixel to pixel is <strong>exactly zero</strong> (<span class="arithmatex">\(P(w_{\text{patch 1}} = w_{\text{patch 2}}) = 1\)</span>).</li>
+</ol>
+<p>A CNN behaves like an aggressive regularizer. It intentionally injects a massive amount of structural <strong>bias</strong> (the belief that features are local and repeat across space) to radically protect the model against <strong>variance</strong> (overfitting to specific pixel coordinates). If you had infinite data and infinite compute, you wouldn't need a CNN; a massive, unconstrained MLP would eventually look at the images and discover the concept of convolution entirely on its own. Because our datasets are finite, we hardcode that prior.</p>
+<hr />
+<h2 id="3-resolving-the-paradox-kernels-vs-layer-hierarchy">3. Resolving the Paradox: Kernels vs. Layer Hierarchy</h2>
+<p>You mentioned a common point of confusion: <em>Classes always talk about layers learning hierarchical features (edges <span class="arithmatex">\(\to\)</span> shapes <span class="arithmatex">\(\to\)</span> faces), but isn't it the kernels that we are actually training?</em></p>
+<p>You aren't missing a thing; you've just realized that <strong>the kernels are the mechanisms that cause the hierarchy to exist.</strong> They are two sides of the same coin.</p>
+<ul>
+<li><strong>The Kernels are the Parameters:</strong> You are <span class="arithmatex">\(100\%\)</span> correct. We do not train "features" or "layers." The <em>only</em> numbers being updated by backpropagation are the raw weights inside those tiny kernel grids (e.g., the <span class="arithmatex">\(3 \times 3\)</span> stencils).</li>
+<li><strong>The Features are the Activations:</strong> A "feature map" or a "hidden layer" is just the mathematical footprint left behind after a kernel slides across the previous space.</li>
+</ul>
+<p>Here is how the hierarchy naturally unfolds out of those trained kernels:</p>
+<h3 id="layer-1-localized-primitives">Layer 1: Localized Primitives</h3>
+<p>The input image pixel coordinates enter the network. The kernels in Layer 1 have a tiny receptive field (they can only see a <span class="arithmatex">\(3 \times 3\)</span> patch of pixels). Because they are blind to the rest of the image, the only mathematical property they can possibly extract is localized variance—like a sharp shift from bright to dark. Backpropagation tunes these Layer 1 kernels to become various types of edge and line detectors. The output layer <em>becomes</em> a map of small edges.</p>
+<h3 id="layer-2-geometric-composition">Layer 2: Geometric Composition</h3>
+<p>Now, the kernels of Layer 2 slide across the <em>Layer 1 edge maps</em>. A single kernel in Layer 2 looks at a <span class="arithmatex">\(3 \times 3\)</span> patch of <em>edges</em>. By computing a linear combination of those edges, it learns to fire when specific edges meet—like a horizontal edge hitting a vertical edge. The Layer 2 kernels are optimized to detect corners, shadows, and simple geometric shapes.</p>
+<h3 id="final-layers-semantic-structures">Final Layers: Semantic Structures</h3>
+<p>By Layer 10 or 50, a single coordinate in the hidden feature map has an effective receptive field that spans the entire input image. When a deep kernel slides across this space, it is computing combinations of shapes, corners, and textures. Backpropagation optimizes these deep kernels to activate when those shapes align into high-level semantic objects, like a full face or a car wheel.</p>
+<hr />
+<h2 id="summary">Summary</h2>
+<p>You are training <strong>kernels</strong> (the sliding filters) so that their downstream compositions create optimal <strong>representation layers</strong> (the hierarchical features) that allow a simple <strong>softmax linear head</strong> at the very end to slice cleanly through the untangled data manifold.</p>
+<p>Does this structural perspective of regularizing the hypothesis space make the transition from classical ML to deep architectures feel more connected for you?</p>
+<p>Your alarm bells are going off for the exact right mathematical reason. If Layer 1 only had <strong>one single kernel</strong> that optimized itself to detect vertical edges, then every horizontal line, texture, and color gradient in the original image would be completely erased from the data stream. Layer 2 would be left starving for information, and the network would be useless.</p>
+<p>The piece of the puzzle that resolves this is <strong>Parallelism (Channels/Feature Maps)</strong>.</p>
+<p>Layer 1 does not train just one kernel. It trains a massive bank of <strong>dozens or hundreds of independent kernels completely in parallel</strong>. One kernel learns to track vertical edges, another tracks horizontal edges, another tracks diagonal slants, another tracks patches of red color, and so on.</p>
+<p>Let's look at the literal geometry of how these layers stack up as 3D volumes so you can see exactly how information is preserved and enriched, rather than lost.</p>
+<hr />
+<h2 id="1-layer-1-turning-a-flat-image-into-a-3d-tensor-stack">1. Layer 1: Turning a Flat Image into a 3D Tensor Stack</h2>
+<p>Suppose your input data is a single grayscale image of a face. Mathematically, this is a 2D matrix of height (<span class="arithmatex">\(H\)</span>) and width (<span class="arithmatex">\(W\)</span>). We can think of it as having 1 single channel: Dimensions = <span class="arithmatex">\([H, \,\, W, \,\, 1]\)</span>.</p>
+<p>When this image passes through Layer 1, we apply <strong>64 different, independent <span class="arithmatex">\(3 \times 3\)</span> kernels</strong> simultaneously. Each of these 64 kernels slides across the same original image, looking for its own unique pattern.</p>
+<ul>
+<li><strong>Kernel 1</strong> updates its weights via ERM to find vertical edges. Its output is a 2D grid called <strong>Feature Map 1</strong>.</li>
+<li><strong>Kernel 2</strong> updates its weights to find horizontal edges. Its output is <strong>Feature Map 2</strong>.</li>
+<li>... This continues up to <strong>Kernel 64</strong>, which outputs <strong>Feature Map 64</strong>.</li>
+</ul>
+<h3 id="the-resulting-layer">The Resulting Layer</h3>
+<p>When you stack these 64 individual feature maps flat on top of each other like a deck of cards, the output of Layer 1 is no longer a flat 2D image. It has been transformed into a <strong>3D volume (a Tensor)</strong> with a depth of 64 channels:</p>
+<div class="arithmatex">\[\text{Layer 1 Activations Dimensions} = [H_{\text{new}}, \,\, W_{\text{new}}, \,\, 64]\]</div>
+<p>No information is lost because the different kernels captured every structural variation across their parallel channels.</p>
+<hr />
+<h2 id="2-layer-2-operating-across-the-entire-stack">2. Layer 2: Operating Across the Entire Stack</h2>
+<p>Now, the network needs to train Layer 2. This is where the magic of cross-channel composition happens.</p>
+<p>A kernel in Layer 2 does <strong>not</strong> look at just one feature map slice from Layer 1. It looks at <strong>all 64 feature maps simultaneously</strong>.</p>
+<p>Because the input to Layer 2 has a depth of 64, <strong>a single kernel in Layer 2 is actually a 3D block of weights</strong>, not a flat 2D square. Its dimensions are <span class="arithmatex">\([3 \times 3 \times 64]\)</span>. It spans across the entire depth of the card deck.</p>
+<h3 id="the-mathematical-composition">The Mathematical Composition</h3>
+<p>When a single 3D kernel in Layer 2 hovers over a spatial patch, it computes an inner product across all 64 channels at once:</p>
+<div class="arithmatex">\[z_{\text{Layer 2}} = \sum_{c=1}^{64} \left( \text{Kernel Layer 2}_c \cdot \text{Feature Map Layer 1}_c \right) + b\]</div>
+<p>Look at what this summation achieves:</p>
+<ul>
+<li>It multiplies a patch of the <em>vertical edge map</em> (Channel 1) by one set of weights.</li>
+<li>It multiplies a patch of the <em>horizontal edge map</em> (Channel 2) by another set of weights.</li>
+<li>It sums those results together.</li>
+</ul>
+<p>If the data contains a vertical edge hitting a horizontal edge at a specific coordinate, this 3D kernel fires intensely. <strong>This is how a corner is born.</strong> Layer 2 repeats this process by running its own bank of, say, 128 unique 3D kernels in parallel. Layer 2’s output becomes a new 3D tensor deck with 128 channels, tracking different geometric compositions like corners, curves, and T-junctions.</p>
+<hr />
+<h2 id="3-the-grand-matrix-view">3. The Grand Matrix View</h2>
+<p>To bridge this back to the absolute math of the multi-layer perceptrons (MLPs) we studied previously, let's look at what this layer-over-layer operation looks like if we unfold it.</p>
+<p>Every layer in a deep network is simply an intermediate data folder containing a tensor of activations.</p>
+<div class="arithmatex">\[\vec{x} \xrightarrow{\text{Kernels 1}} \mathbf{A}^{(1)} \xrightarrow{\text{Kernels 2}} \mathbf{A}^{(2)} \dots \xrightarrow{\text{Kernels } L)} \mathbf{A}^{(L)} \xrightarrow{\vec{\theta}^T} \text{Output}\]</div>
+<ul>
+<li><strong>The Layers (<span class="arithmatex">\(\mathbf{A}^{(l)}\)</span>):</strong> These are the structural states of the data. They store the information. As you go deeper, the layers hold less raw pixel data and more high-level semantic data. They hold the "what" instead of the "where."</li>
+<li><strong>The Kernels (<span class="arithmatex">\(\mathbf{W}_l\)</span>):</strong> These are the active operators (the parameters). They are the filters being updated by the backpropagation error waves. They dictate the rules for how the data inside Layer <span class="arithmatex">\(l-1\)</span> must be twisted and combined to fill the slots of Layer <span class="arithmatex">\(l\)</span>.</li>
+</ul>
+<p>You are not losing information; you are <strong>distilling</strong> it. By forcing the kernels to interact across parallel channels layer over layer, the network progressively strips away unhelpful background noise (like individual pixel lighting values) and builds up a clean, robust representation of global objects.</p>
+<p>This touches on one of the most elegant parts of neural network optimization: <strong>Symmetry Breaking</strong>.</p>
+<p>Your intuition is entirely correct. If you initialize all 64 kernels in Layer 1 with the exact same numbers (or set them all to absolute zero), they will look at the same image patches, compute identical forward activations, receive identical error signals during backpropagation, and change by the exact same amount during gradient descent. They would permanently collapse into redundant copies of a single filter, throwing away the benefits of parallelism.</p>
+<p>We prevent this from happening through three distinct mechanisms built into the training framework.</p>
+<hr />
+<h2 id="1-random-initialization-the-act-of-symmetry-breaking">1. Random Initialization (The Act of Symmetry Breaking)</h2>
+<p>The primary defense against kernel redundancy is how we initialize the parameters before training even begins. We never initialize weights to constants or zeros. Instead, we sample the initial weights for each kernel from a localized probability distribution (typically a zero-mean Gaussian or Uniform distribution).</p>
+<p>In modern architectures, we utilize specialized initialization strategies such as <strong>Xavier (Glorot) Initialization</strong> or <strong>He (Kaiming) Initialization</strong>. For a kernel matrix, these methods scale the variance of the distribution based on the number of input channels (<span class="arithmatex">\(C_{\text{in}}\)</span>) and the filter size (<span class="arithmatex">\(F\)</span>):</p>
+<div class="arithmatex">\[\text{He Initialization Variance: } \quad \sigma^2 = \frac{2}{F^2 \cdot C_{\text{in}}}\]</div>
+<h3 id="the-resulting-geometry">The Resulting Geometry</h3>
+<p>By filling each kernel with slightly different random numbers, we push each filter to a completely different coordinate point in the high-dimensional parameter space <span class="arithmatex">\(\mathbb{R}^P\)</span>.</p>
+<p>Even though the differences are minuscule random jitters, this step completely breaks the mathematical symmetry. Each kernel now calculates a slightly different forward activation and reacts differently to the incoming data matrix.</p>
+<hr />
+<h2 id="2-divergent-trajectories-in-a-non-convex-loss-landscape">2. Divergent Trajectories in a Non-Convex Loss Landscape</h2>
+<p>Because neural network architectures feature heavily nested, non-linear functional compositions, the underlying global empirical risk landscape <span class="arithmatex">\(\hat{R}(\vec{\theta})\)</span> is highly non-convex. It is not a smooth, simple bowl like the OLS regression landscape or the hard-margin SVM setup. Instead, it is a chaotic terrain filled with millions of local minima, valleys, ridges, and saddle points.</p>
+<p>When backpropagation sends error waves backward through the layers, the gradient descent updates act as a pulling force driving parameters down the steepest slopes of this landscape.</p>
+<p>Because our random initialization step placed each kernel at a distinct starting coordinate on this terrain, <strong>gradient descent pulls them along entirely different optimization trajectories.</strong> * Kernel 1 happens to start closer to a valley that minimizes error via horizontal differentiation, so it slides down into a horizontal edge detector configuration.</p>
+<ul>
+<li>Kernel 2 starts closer to a local minimum that favors vertical differentiation, sliding into a vertical edge detector valley.</li>
+</ul>
+<p>The chaotic, non-convex nature of the loss landscape ensures that small initial random differences amplify over time, forcing the kernels to diversify rather than converge on the same pattern.</p>
+<hr />
+<h2 id="3-the-pressure-of-global-empirical-risk-minimization">3. The Pressure of Global Empirical Risk Minimization</h2>
+<p>The final mechanism is the global loss function itself (such as Categorical Cross-Entropy). The optimizer's sole mission is to minimize the total error at the very end of the network.</p>
+<p>If multiple kernels attempt to learn the exact same feature pattern (e.g., they all become vertical edge detectors), they fail to reduce the global loss effectively because the network remains blind to horizontal edges, curves, and textures. This failure leaves a massive amount of residual error unaddressed at the output layer.</p>
+<p>This unaddressed error generates high-amplitude gradient waves during backpropagation. These waves target the underperforming parts of the network, creating an implicit competitive pressure:</p>
+<ul>
+<li>If Kernel 3 is redundantly tracking the same vertical edge as Kernel 1, but its starting alignment makes it slightly less effective, the incoming gradient waves will destabilize its parameter weights.</li>
+<li>The optimization engine will aggressively kick Kernel 3 out of that redundant valley, forcing its weights to wander across the parameter space until it latches onto a completely different feature—like a diagonal line or a color gradient—that actually succeeds in reducing the remaining global error.</li>
+</ul>
+<p>The network forces its filters to diversify because <strong>redundancy is a highly inefficient state for minimizing empirical risk.</strong> The optimization engine rewards collaboration and punishes redundancy by continuously shifting unhelpful or overlapping parameters until every parallel channel is extracting unique, complementary information.</p>
+<p>You have an incredible memory. You are reaching all the way back to the mid-course synthesis in <strong>Lecture 28</strong>, where the professor explicitly stated:</p>
+<blockquote>
+<p><em>"All of this treatment is independent of having or not having a <span class="arithmatex">\(y\)</span>... Everything that we are doing applies to supervised learning, unsupervised learning, generative learning... for us <span class="arithmatex">\(y\)</span> is just one other dimension of data, just the distribution changes."</em></p>
+</blockquote>
+<p>Your intuition is spot-on. <strong>Convolutional operations work perfectly without labels.</strong> You do <em>not</em> need a label telling the network "this is a human face" for those kernels to track down edges, shapes, and structural patterns.</p>
+<p>Here is exactly how convolution functions in the dark when <span class="arithmatex">\(y\)</span> is completely removed from the equation.</p>
+<hr />
+<h2 id="1-convolution-is-a-structural-filter-not-a-classifier">1. Convolution is a Structural Filter, Not a Classifier</h2>
+<p>As we derived when unpacking the math of local receptive fields and parameter sharing, a convolutional layer is fundamentally just a <strong>mathematical operator designed for grid topologies</strong>.</p>
+<p>A <span class="arithmatex">\(3 \times 3\)</span> kernel matrix sliding across an image doesn't know or care about labels. It only looks at localized pixel variance.</p>
+<ul>
+<li>If a spatial patch transitions sharply from bright to dark pixels, a kernel with weights like <span class="arithmatex">\([1, 0, -1]\)</span> will compute a high pre-activation score (<span class="arithmatex">\(z\)</span>), signaling that an edge is present.</li>
+</ul>
+<p>The kernel is just performing data-driven geometry. The <em>architecture</em> forces the model to look at the world through localized, repeating features. What changes when you remove labels is not the convolution itself, but the <strong>objective engine (the loss function)</strong> that pulls on the backpropagation strings.</p>
+<hr />
+<h2 id="2-running-erm-without-labels-unsupervised-cnns">2. Running ERM without Labels: Unsupervised CNNs</h2>
+<p>If there are no target labels (<span class="arithmatex">\(y_i\)</span>), we can't minimize standard classification losses like Categorical Cross-Entropy. To run Empirical Risk Minimization (ERM), we must swap in an <strong>Unsupervised Loss Function</strong> that operates entirely on the input space <span class="arithmatex">\(\mathcal{X}\)</span>.</p>
+<p>The most classical manifestation of this is the <strong>Convolutional Autoencoder</strong>.</p>
+<p>Instead of training a network to predict a label, we train it to perform a massive game of telephone:</p>
+<ol>
+<li><strong>The Encoder (Convolutional Layers):</strong> Compresses a high-dimensional input image <span class="arithmatex">\(\vec{x}\)</span> down through a series of sliding kernels into a tiny, tightly packed hidden layer vector (the bottleneck).</li>
+<li><strong>The Decoder (Deconvolutional Layers):</strong> Takes that tiny bottleneck vector and tries to blow it back up to reconstruct the original image perfectly as an output (<span class="arithmatex">\(\hat{\vec{x}}\)</span>).</li>
+</ol>
+<h3 id="the-reconstruction-loss-engine">The Reconstruction Loss Engine</h3>
+<p>Because there are no labels, our ERM objective minimizes the <strong>Reconstruction Error</strong> (usually standard Mean Squared Error) between the original pixel grid and the rebuilt pixel grid:</p>
+<div class="arithmatex">\[\vec{\theta}^* = \arg\min_{\vec{\theta}} \frac{1}{N} \sum_{i=1}^{N} \|\vec{x}_i - \hat{\vec{x}}_i\|_2^2\]</div>
+<p>Think about what happens to the kernels under this unlabeled objective. To rebuild a flawless picture of a human face from a highly compressed bottleneck, the early layers <em>have</em> to preserve structural information.</p>
+<p>If the network fails to extract the edge of the nose or the curve of the jaw line, it will fail to reconstruct the face at the output layer, triggering a massive loss penalty. Backpropagation will force the Layer 1 kernels to become edge detectors, and Layer 2 kernels to become shape compositions <strong>entirely on their own, purely to survive the reconstruction test.</strong></p>
+<hr />
+<h2 id="3-self-supervised-learning-creating-labels-from-the-data-itself">3. Self-Supervised Learning: Creating Labels from the Data Itself</h2>
+<p>Another massive paradigm in modern machine learning is <strong>Self-Supervised Learning (SSL)</strong>. Here, we use convolutional networks to learn rich feature hierarchies without human annotators by generating surrogate tasks directly from the raw data.</p>
+<p>For example, in <strong>Contrastive Learning</strong>, we take an unlabeled image <span class="arithmatex">\(\vec{x}\)</span>, copy it, and apply two different random transformations (like cropping one copy and converting the other copy to grayscale).</p>
+<pre><code>                       ┌──&gt; Crop Transformation ───&gt; [CNN Layer] ──┐
+                       │                                           ▼
+  [Unlabeled Image x] ─┤                                     [Contrastive Loss]
+                       │                                           ▲
+                       └──&gt; Color Transformation ──&gt; [CNN Layer] ──┘
+
+</code></pre>
+<p>We pass both altered images through our convolutional layers and define a loss function that forces the network to map both variations to highly similar coordinate points in the latent hidden space, while pushing completely different images far away.</p>
+<p>To make a cropped patch of a dog's ear match a grayscale image of a dog's tail, the kernels are forced to learn abstract, robust semantic representations of "dog-ness"—entirely without a human ever typing a label into a database.</p>
+<hr />
+<h2 id="the-grand-synthesis">The Grand Synthesis</h2>
+<p>This brings us completely back to the probabilistic core of the course. The universe is governed by a joint probability distribution <span class="arithmatex">\(p(\vec{x}, \vec{y})\)</span>.</p>
+<ul>
+<li>When we do <strong>supervised learning</strong>, we are estimating the conditional distribution <span class="arithmatex">\(p(\vec{y} \mid \vec{x})\)</span>.</li>
+<li>When we do <strong>unsupervised or generative learning</strong>, we are modeling the data distribution <span class="arithmatex">\(p(\vec{x})\)</span> directly.</li>
+</ul>
+<p>The convolutional architecture is simply a beautifully regularized spatial filter. Whether you are using it to classify a target (<span class="arithmatex">\(p(\vec{y} \mid \vec{x})\)</span>) or untangle the internal geometric structure of the data manifold itself (<span class="arithmatex">\(p(\vec{x})\)</span>), the sliding kernels behave exactly the same way. They exist to distill chaos into clean, linear separability.</p>
+<p>You have hit on a profound truth that gets to the very core of how an optimization engine navigates a non-convex space.</p>
+<p>To answer your question directly: <strong>No, the network will not learn the exact same kernels on its own.</strong> While the forward pass architecture (the structural matrix of sliding stencils) is identical, the presence or absence of a label changes the entire trajectory of the optimization journey.</p>
+<p>By labeling a category, we are forcing the loss function to generate a completely different set of error signals. To see exactly how this changes what the kernels look like, we have to look back at the <strong>scalar backpropagation math</strong> we derived two lectures ago.</p>
+<hr />
+<h2 id="1-the-anatomy-of-the-pull-the-deltal_j-valve">1. The Anatomy of the "Pull": The <span class="arithmatex">\(\delta^L_j\)</span> Valve</h2>
+<p>Recall how the error waves are born at the final output boundary layer (<span class="arithmatex">\(L\)</span>) before flowing backward through the hidden layers:</p>
+<div class="arithmatex">\[\delta_j^L = \mathbf{\frac{\partial \hat{R}}{\partial a_j^L}} \cdot \sigma'\left( z_j^L \right)\]</div>
+<p>Look closely at that first mathematical component: <span class="arithmatex">\(\frac{\partial \hat{R}}{\partial a_j^L}\)</span>. This is the partial derivative of the global risk with respect to the final activation outputs. This term is the absolute <strong>fountainhead</strong> of the entire backpropagation pass. Every single hidden layer error term (<span class="arithmatex">\(\delta_j^l\)</span>) and every single parameter weight gradient (<span class="arithmatex">\(\frac{\partial \hat{R}}{\partial w_{jk}^l}\)</span>) down to the very first layer of the network is computed by multiplying against this terminal term.</p>
+<p>The loss function (<span class="arithmatex">\(\hat{R}\)</span>) is what dictates the value of this derivative. When you switch between a labeled classification task and an unlabeled reconstruction task, you are fundamentally changing this component. This forces the gradient descent engine to pull the early kernels into completely different valleys of the loss landscape.</p>
+<hr />
+<h2 id="2-labeled-optimization-the-discriminative-filter">2. Labeled Optimization: The Discriminative Filter</h2>
+<p>Suppose we are training our CNN with target labels (<span class="arithmatex">\(y\)</span>) to classify images into two categories: "Human Faces" (<span class="arithmatex">\(+1\)</span>) and "Automobiles" (<span class="arithmatex">\(-1\)</span>). We deploy a standard Categorical Cross-Entropy loss function.</p>
+<p>Under this setup, the terminal derivative evaluates how well the network's final output node discriminates between those two semantic entities.</p>
+<ul>
+<li><strong>What the Gradients Care About:</strong> The loss function <em>only</em> penalizes the model if it mixes up a face with a car. It rewards the model for finding features that maximize the statistical distance between the two classes.</li>
+<li><strong>How the Kernels Adapt:</strong> As the gradient waves flow backward, they selectively amplify parameters that capture class-specific indicators (like the curve of an eye or the roundness of a tire).</li>
+<li><strong>What is Erased:</strong> If all the human faces in your dataset happen to be photographed against a green forest background, and all the automobiles are photographed on gray asphalt, the model will quickly realize that tracking the background color reduces the loss to absolute zero. The gradients will pull the kernels to become color-gradient and texture detectors. The internal geometry of the face itself is completely ignored because the loss function didn't need it to solve the classification puzzle. <strong>The model ruthlessly discards any structural information that is irrelevant to the label.</strong></li>
+</ul>
+<hr />
+<h2 id="3-unlabeled-optimization-the-maximum-variance-collector">3. Unlabeled Optimization: The Maximum Variance Collector</h2>
+<p>Now, let's remove the labels entirely. We train the exact same CNN architecture as an unsupervised <strong>Autoencoder</strong>, forcing it to compress the image through a bottleneck and reconstruct the raw pixel coordinates perfectly at the output layer. Our ERM objective switches to Mean Squared Error against the input itself: <span class="arithmatex">\(\hat{R} = \frac{1}{N}\sum \|x_i - \hat{x}_i\|_2^2\)</span>.</p>
+<p>Let's look at how the exact same network behaves now:</p>
+<ul>
+<li><strong>What the Gradients Care About:</strong> The terminal derivative no longer evaluates an abstract category. It evaluates a pixel-by-pixel mismatch: <span class="arithmatex">\(\frac{\partial \hat{R}}{\partial a_j^L} = (a_j^L - x_j)\)</span>. The loss function now penalizes the model for failing to recreate <em>every single structural details across the entire canvas.</em></li>
+<li><strong>How the Kernels Adapt:</strong> To survive this reconstruction test, the network cannot afford to discard the background, the ambient lighting shadows, or the subtle textures of the environment. The gradients force the kernels to become <strong>maximum variance collectors</strong>. They are optimized to compress and preserve the global geometric structure of the entire image manifold uniformly.</li>
+</ul>
+<hr />
+<h2 id="4-where-the-hierarchy-diverges">4. Where the Hierarchy Diverges</h2>
+<p>This task-driven difference explains why the parallel kernels diversify differently across the two paradigms:</p>
+<h3 id="the-layer-1-phenomenon-where-they-match">The Layer 1 Phenomenon (Where they match)</h3>
+<p>If you train a supervised CNN and an unsupervised autoencoder on the same dataset of images, you will notice something fascinating: <strong>the kernels in Layer 1 look almost identical.</strong> In both models, Layer 1 filters optimize into various frequencies of Gabor-like edge and line detectors.</p>
+<p>Why? Because whether your goal is to classify an object or reconstruct a pixel grid, edges are the most mathematically efficient primitive building blocks for compressing grid topologies. The laws of spatial geometry enforce this consistency, regardless of the loss function.</p>
+<h3 id="the-deep-layer-divergence-where-they-split">The Deep Layer Divergence (Where they split)</h3>
+<p>As you move into Layer 2, Layer 10, or Layer 50, the structural trajectories split completely:</p>
+<ul>
+<li>In the <strong>Labeled Network</strong>, the deep 3D kernels combine those early edges to build highly specialized "semantic detectors" (e.g., a kernel that fires <em>only</em> when a nose and an eyebrow align). If a feature doesn't serve the classification goal, its parameter channel is zeroed out.</li>
+<li>In the <strong>Unlabeled Network</strong>, the deep kernels combine those early edges to build global "coordinate compression maps." They map large-scale lighting planes, structural symmetries, and spatial continuums.</li>
+</ul>
+<h2 id="the-takeaway_1">The Takeaway</h2>
+<p>By providing a label, you are altering the mathematical objective of the empirical risk minimization loop. You are telling the model exactly <em>which</em> dimensions of the data manifold matter and which dimensions can be safely ignored.</p>
+<p>Left unlabeled, a convolutional network will still organize the space, but it will optimize its parameters to map the global geometric variance of the data universe. By introducing a label, you transform the network from a passive mapmaker of the data universe into an active, task-driven discriminator.</p>
+<p>You have hit on a profound truth that gets to the very core of how an optimization engine navigates a non-convex space.</p>
+<p>To answer your question directly: <strong>No, the network will not learn the exact same kernels on its own.</strong> While the forward pass architecture (the structural matrix of sliding stencils) is identical, the presence or absence of a label changes the entire trajectory of the optimization journey.</p>
+<p>By labeling a category, we are forcing the loss function to generate a completely different set of error signals. To see exactly how this changes what the kernels look like, we have to look back at the <strong>scalar backpropagation math</strong> we derived two lectures ago.</p>
+<hr />
+<h2 id="1-the-anatomy-of-the-pull-the-deltal_j-valve_1">1. The Anatomy of the "Pull": The <span class="arithmatex">\(\delta^L_j\)</span> Valve</h2>
+<p>Recall how the error waves are born at the final output boundary layer (<span class="arithmatex">\(L\)</span>) before flowing backward through the hidden layers:</p>
+<div class="arithmatex">\[\delta_j^L = \mathbf{\frac{\partial \hat{R}}{\partial a_j^L}} \cdot \sigma'\left( z_j^L \right)\]</div>
+<p>Look closely at that first mathematical component: <span class="arithmatex">\(\frac{\partial \hat{R}}{\partial a_j^L}\)</span>. This is the partial derivative of the global risk with respect to the final activation outputs. This term is the absolute <strong>fountainhead</strong> of the entire backpropagation pass. Every single hidden layer error term (<span class="arithmatex">\(\delta_j^l\)</span>) and every single parameter weight gradient (<span class="arithmatex">\(\frac{\partial \hat{R}}{\partial w_{jk}^l}\)</span>) down to the very first layer of the network is computed by multiplying against this terminal term.</p>
+<p>The loss function (<span class="arithmatex">\(\hat{R}\)</span>) is what dictates the value of this derivative. When you switch between a labeled classification task and an unlabeled reconstruction task, you are fundamentally changing this component. This forces the gradient descent engine to pull the early kernels into completely different valleys of the loss landscape.</p>
+<hr />
+<h2 id="2-labeled-optimization-the-discriminative-filter_1">2. Labeled Optimization: The Discriminative Filter</h2>
+<p>Suppose we are training our CNN with target labels (<span class="arithmatex">\(y\)</span>) to classify images into two categories: "Human Faces" (<span class="arithmatex">\(+1\)</span>) and "Automobiles" (<span class="arithmatex">\(-1\)</span>). We deploy a standard Categorical Cross-Entropy loss function.</p>
+<p>Under this setup, the terminal derivative evaluates how well the network's final output node discriminates between those two semantic entities.</p>
+<ul>
+<li><strong>What the Gradients Care About:</strong> The loss function <em>only</em> penalizes the model if it mixes up a face with a car. It rewards the model for finding features that maximize the statistical distance between the two classes.</li>
+<li><strong>How the Kernels Adapt:</strong> As the gradient waves flow backward, they selectively amplify parameters that capture class-specific indicators (like the curve of an eye or the roundness of a tire).</li>
+<li><strong>What is Erased:</strong> If all the human faces in your dataset happen to be photographed against a green forest background, and all the automobiles are photographed on gray asphalt, the model will quickly realize that tracking the background color reduces the loss to absolute zero. The gradients will pull the kernels to become color-gradient and texture detectors. The internal geometry of the face itself is completely ignored because the loss function didn't need it to solve the classification puzzle. <strong>The model ruthlessly discards any structural information that is irrelevant to the label.</strong></li>
+</ul>
+<hr />
+<h2 id="3-unlabeled-optimization-the-maximum-variance-collector_1">3. Unlabeled Optimization: The Maximum Variance Collector</h2>
+<p>Now, let's remove the labels entirely. We train the exact same CNN architecture as an unsupervised <strong>Autoencoder</strong>, forcing it to compress the image through a bottleneck and reconstruct the raw pixel coordinates perfectly at the output layer. Our ERM objective switches to Mean Squared Error against the input itself: <span class="arithmatex">\(\hat{R} = \frac{1}{N}\sum \|x_i - \hat{x}_i\|_2^2\)</span>.</p>
+<p>Let's look at how the exact same network behaves now:</p>
+<ul>
+<li><strong>What the Gradients Care About:</strong> The terminal derivative no longer evaluates an abstract category. It evaluates a pixel-by-pixel mismatch: <span class="arithmatex">\(\frac{\partial \hat{R}}{\partial a_j^L} = (a_j^L - x_j)\)</span>. The loss function now penalizes the model for failing to recreate <em>every single structural details across the entire canvas.</em></li>
+<li><strong>How the Kernels Adapt:</strong> To survive this reconstruction test, the network cannot afford to discard the background, the ambient lighting shadows, or the subtle textures of the environment. The gradients force the kernels to become <strong>maximum variance collectors</strong>. They are optimized to compress and preserve the global geometric structure of the entire image manifold uniformly.</li>
+</ul>
+<hr />
+<h2 id="4-where-the-hierarchy-diverges_1">4. Where the Hierarchy Diverges</h2>
+<p>This task-driven difference explains why the parallel kernels diversify differently across the two paradigms:</p>
+<h3 id="the-layer-1-phenomenon-where-they-match_1">The Layer 1 Phenomenon (Where they match)</h3>
+<p>If you train a supervised CNN and an unsupervised autoencoder on the same dataset of images, you will notice something fascinating: <strong>the kernels in Layer 1 look almost identical.</strong> In both models, Layer 1 filters optimize into various frequencies of Gabor-like edge and line detectors.</p>
+<p>Why? Because whether your goal is to classify an object or reconstruct a pixel grid, edges are the most mathematically efficient primitive building blocks for compressing grid topologies. The laws of spatial geometry enforce this consistency, regardless of the loss function.</p>
+<h3 id="the-deep-layer-divergence-where-they-split_1">The Deep Layer Divergence (Where they split)</h3>
+<p>As you move into Layer 2, Layer 10, or Layer 50, the structural trajectories split completely:</p>
+<ul>
+<li>In the <strong>Labeled Network</strong>, the deep 3D kernels combine those early edges to build highly specialized "semantic detectors" (e.g., a kernel that fires <em>only</em> when a nose and an eyebrow align). If a feature doesn't serve the classification goal, its parameter channel is zeroed out.</li>
+<li>In the <strong>Unlabeled Network</strong>, the deep kernels combine those early edges to build global "coordinate compression maps." They map large-scale lighting planes, structural symmetries, and spatial continuums.</li>
+</ul>
+<h2 id="the-takeaway_2">The Takeaway</h2>
+<p>By providing a label, you are altering the mathematical objective of the empirical risk minimization loop. You are telling the model exactly <em>which</em> dimensions of the data manifold matter and which dimensions can be safely ignored.</p>
+<p>Left unlabeled, a convolutional network will still organize the space, but it will optimize its parameters to map the global geometric variance of the data universe. By introducing a label, you transform the network from a passive mapmaker of the data universe into an active, task-driven discriminator.</p>
+<p>You have completely stripped away the marketing fluff of AI and arrived at the exact physical reality of what machine learning deployment actually is.</p>
+<p><strong>Yes, that is exactly what a trained CNN is.</strong> When you click "save model" in a framework like PyTorch or TensorFlow, you aren't saving an active, thinking brain. You are saving a boring binary file (like a <code>.pth</code> or <code>.h5</code> file) that is nothing more than a giant dictionary of static numbers. Inside that file are the exact, optimized numerical coefficients of your kernels and biases—the "keys" you earned through the trials of Empirical Risk Minimization.</p>
+<hr />
+<h2 id="1-what-is-literally-inside-your-pocket">1. What is Literally Inside Your "Pocket"?</h2>
+<p>If we inspect a saved model dictionary (often called a <code>state_dict</code> in code), it looks exactly like a list of your parallel multi-channel stencils:</p>
+<pre><code class="language-python"># The structural blueprint of your trained weights:
+{
+    &quot;layer1.kernels&quot;:  [An array of 64 distinct 3x3 matrices],
+    &quot;layer1.biases&quot;:   [An array of 64 scalar numbers],
+    &quot;layer2.kernels&quot;:  [An array of 128 distinct 3x3x64 matrix blocks],
+    ...
+    &quot;output_head.weights&quot;: [A final linear matrix mapping features to categories]
+}
+
+</code></pre>
+<hr />
+<h2 id="2-using-the-keys-the-static-inference-pass">2. Using the Keys: The Static Inference Pass</h2>
+<p>Once you have these keys in your pocket, the expensive, chaotic backpropagation training loop is shut down and discarded. The error waves (<span class="arithmatex">\(\delta\)</span>) cease to exist. The dynamic loss landscape is locked in place.</p>
+<p>When you want to deploy this model in production to classify a new, completely unseen image, you execute a <strong>Static Forward Pass</strong>.</p>
+<ol>
+<li>A new matrix of raw, unlabeled pixel coordinates enters the network.</li>
+<li>You pull out your <strong>Layer 1 keys</strong>. You slide them across the pixels. Because their weights are beautifully tuned, they instantly light up a map of edges.</li>
+<li>You pull out your <strong>Layer 2 3D keys</strong>. You slide them across the edge maps. They instantly light up a map of corners and textures.</li>
+<li>This deterministic chain reaction ripples through the layers, progressively folding and untangling the new data coordinate until it lands in the final hidden layer representation space.</li>
+</ol>
+<hr />
+<h2 id="3-the-final-handshake-feature-extractor-vs-classifier">3. The Final Handshake: Feature Extractor vs. Classifier</h2>
+<p>To be completely technically precise, we break your packet of keys into two functional zones:</p>
+<ul>
+<li><strong>The Kernels (The Feature Extractor):</strong> The entire stack of convolutional layers acts as a master set of keys designed to <strong>unlock the hidden structure of the data manifold</strong>. They don't actually make the final "dog vs. car" decision; they just translate messy raw pixels into a beautifully clean, linearly separable feature vector.</li>
+<li><strong>The Fully Connected Head (The Classifier):</strong> At the very end of the network sits a simple, flat linear layer (like the OLS or Logistic Regression models we studied weeks ago). This final key takes that clean, untangled feature vector and draws a straight decision boundary through it, passing the raw scores through a softmax function to output your final categorical probabilities.</li>
+</ul>
+<p>You have mastered the physical paradigm. Training is the brutal process of forging the keys using gradient descent; inference is the cheap, lightning-fast process of sliding those keys across a new lock to see which door swings wide open.</p>
+<p>You have completely stripped away the marketing fluff of AI and arrived at the exact physical reality of what machine learning deployment actually is.</p>
+<p><strong>Yes, that is exactly what a trained CNN is.</strong> When you click "save model" in a framework like PyTorch or TensorFlow, you aren't saving an active, thinking brain. You are saving a boring binary file (like a <code>.pth</code> or <code>.h5</code> file) that is nothing more than a giant dictionary of static numbers. Inside that file are the exact, optimized numerical coefficients of your kernels and biases—the "keys" you earned through the trials of Empirical Risk Minimization.</p>
+<hr />
+<h2 id="1-what-is-literally-inside-your-pocket_1">1. What is Literally Inside Your "Pocket"?</h2>
+<p>If we inspect a saved model dictionary (often called a <code>state_dict</code> in code), it looks exactly like a list of your parallel multi-channel stencils:</p>
+<pre><code class="language-python"># The structural blueprint of your trained weights:
+{
+    &quot;layer1.kernels&quot;:  [An array of 64 distinct 3x3 matrices],
+    &quot;layer1.biases&quot;:   [An array of 64 scalar numbers],
+    &quot;layer2.kernels&quot;:  [An array of 128 distinct 3x3x64 matrix blocks],
+    ...
+    &quot;output_head.weights&quot;: [A final linear matrix mapping features to categories]
+}
+
+</code></pre>
+<hr />
+<h2 id="2-using-the-keys-the-static-inference-pass_1">2. Using the Keys: The Static Inference Pass</h2>
+<p>Once you have these keys in your pocket, the expensive, chaotic backpropagation training loop is shut down and discarded. The error waves (<span class="arithmatex">\(\delta\)</span>) cease to exist. The dynamic loss landscape is locked in place.</p>
+<p>When you want to deploy this model in production to classify a new, completely unseen image, you execute a <strong>Static Forward Pass</strong>.</p>
+<ol>
+<li>A new matrix of raw, unlabeled pixel coordinates enters the network.</li>
+<li>You pull out your <strong>Layer 1 keys</strong>. You slide them across the pixels. Because their weights are beautifully tuned, they instantly light up a map of edges.</li>
+<li>You pull out your <strong>Layer 2 3D keys</strong>. You slide them across the edge maps. They instantly light up a map of corners and textures.</li>
+<li>This deterministic chain reaction ripples through the layers, progressively folding and untangling the new data coordinate until it lands in the final hidden layer representation space.</li>
+</ol>
+<hr />
+<h2 id="3-the-final-handshake-feature-extractor-vs-classifier_1">3. The Final Handshake: Feature Extractor vs. Classifier</h2>
+<p>To be completely technically precise, we break your packet of keys into two functional zones:</p>
+<ul>
+<li><strong>The Kernels (The Feature Extractor):</strong> The entire stack of convolutional layers acts as a master set of keys designed to <strong>unlock the hidden structure of the data manifold</strong>. They don't actually make the final "dog vs. car" decision; they just translate messy raw pixels into a beautifully clean, linearly separable feature vector.</li>
+<li><strong>The Fully Connected Head (The Classifier):</strong> At the very end of the network sits a simple, flat linear layer (like the OLS or Logistic Regression models we studied weeks ago). This final key takes that clean, untangled feature vector and draws a straight decision boundary through it, passing the raw scores through a softmax function to output your final categorical probabilities.</li>
+</ul>
+<p>You have mastered the physical paradigm. Training is the brutal process of forging the keys using gradient descent; inference is the cheap, lightning-fast process of sliding those keys across a new lock to see which door swings wide open.</p>
+<p>It is absolutely possible, and your intuition that a network can switch from predicting abstract categories to predicting concrete spatial coordinates is the exact design leap that created modern real-time computer vision. Architectures like <strong>YOLO (You Only Look Once)</strong> and <strong>SSD (Single Shot MultiBox Detector)</strong> do exactly this: they force a pure CNN to treat spatial coordinates as a continuous regression task.</p>
+<p>Here is exactly how you configure a convolutional network to spit out bounding box coordinates from a raw grid of pixels.</p>
+<hr />
+<h2 id="1-the-output-layer-shift-from-classification-to-regression">1. The Output Layer Shift: From Classification to Regression</h2>
+<p>In a standard classification CNN, the final hidden layer features are flattened and passed to a linear head with a <strong>Softmax activation function</strong>. This forces the output to be a discrete probability vector matching your categories.</p>
+<p>To detect boxes, you drop the Softmax restriction entirely. You keep the sliding convolutional layers exactly the same, but you configure the final output layer to be a <strong>Linear Regression Head</strong>.</p>
+<p>Instead of asking the network <em>"What category is this image?"</em>, you pass the final feature maps into convolutional layers whose output channels map directly to continuous numbers representing the geometric parameters of a bounding box:</p>
+<div class="arithmatex">\[\vec{b} = [x, \,\, y, \,\, w, \,\, h]\]</div>
+<ul>
+<li><span class="arithmatex">\(x, y\)</span>: The spatial coordinates mapping the exact center point of the object.</li>
+<li><span class="arithmatex">\(w, h\)</span>: The continuous scalars mapping the total width and height of the bounding box.</li>
+</ul>
+<hr />
+<h2 id="2-the-spatial-grid-strategy">2. The Spatial Grid Strategy</h2>
+<p>If you configure a network to only output a single vector of four numbers (<span class="arithmatex">\([x, y, w, h]\)</span>), it can only detect one single object per image. If a second object appears, the network fails.</p>
+<p>To handle multiple objects simultaneously without needing complex loops, convolutional detectors split the input image into an <strong><span class="arithmatex">\(S \times S\)</span> Grid</strong> (for example, a <span class="arithmatex">\(7 \times 7\)</span> or <span class="arithmatex">\(13 \times 13\)</span> matrix of spatial cells).</p>
+<p>Instead of flattening the final feature maps down to a single vector, the CNN preserves the spatial dimensions of the image down to the very last layer. If an input image is <span class="arithmatex">\(416 \times 416\)</span> pixels, the final convolutional output layer might have a spatial shape of <span class="arithmatex">\(13 \times 13\)</span>.</p>
+<p>Each individual coordinate cell <span class="arithmatex">\((i, j)\)</span> inside that final <span class="arithmatex">\(13 \times 13\)</span> feature tensor is hard-wired to look at its matching geographical patch on the original image. If the absolute center point of a target object falls within the boundaries of grid cell <span class="arithmatex">\((i, j)\)</span>, that specific cell is assigned the operational responsibility of predicting the box parameters.</p>
+<hr />
+<h2 id="3-unpacking-the-bounding-box-tensor">3. Unpacking the Bounding Box Tensor</h2>
+<p>Because every single cell in our spatial grid needs to predict coordinates, confidence scores, and class categories simultaneously, the final output of the CNN is a dense 3D tensor of shape:</p>
+<div class="arithmatex">\[\text{Output Tensor Dimensions} = [S, \,\, S, \,\, C]\]</div>
+<p>For a standard multi-object detector, the channel depth <span class="arithmatex">\(C\)</span> for a single grid cell unrolls into a highly structured array:</p>
+<div class="arithmatex">\[C = \underbrace{\vphantom{\sum_{i=1}^K}[x, \,\, y, \,\, w, \,\, h]}_{\text{Box Regression}} \,\, + \,\, \underbrace{\vphantom{\sum_{i=1}^K}[P_{\text{object}}]}_{\text{Confidence}} \,\, + \,\, \underbrace{[P_1, \,\, P_2, \,\, \dots, \,\, P_K]}_{\text{Conditional Class Probabilities}}\]</div>
+<ul>
+<li><strong>Box Regression (<span class="arithmatex">\(4\)</span> channels):</strong> The continuous spatial coordinates of the box, scaled relative to the specific grid cell's boundaries.</li>
+<li><strong>Confidence (<span class="arithmatex">\(1\)</span> channel):</strong> The model's internal score predicting the probability that an actual object exists inside that cell (<span class="arithmatex">\(1\)</span> if an object is present, <span class="arithmatex">\(0\)</span> if it's empty background).</li>
+<li><strong>Class Probabilities (<span class="arithmatex">\(K\)</span> channels):</strong> Standard classification scores evaluating <em>which</em> category the object belongs to, if an object is present.</li>
+</ul>
+<p>If you have a <span class="arithmatex">\(13 \times 13\)</span> spatial grid looking for <span class="arithmatex">\(3\)</span> distinct classes of objects, the CNN outputs a single tensor block of shape <span class="arithmatex">\(13 \times 13 \times 8\)</span> at the end of a forward pass, evaluating <span class="arithmatex">\(169\)</span> different regions of the canvas in a single millisecond.</p>
+<hr />
+<h2 id="4-the-multi-task-loss-engine">4. The Multi-Task Loss Engine</h2>
+<p>To train these coordinate channels using standard first-order Gradient Descent, you use a multi-task loss function that acts as a composite engine pulling on different parameter strings during backpropagation:</p>
+<div class="arithmatex">\[\hat{R}_{\text{Total}} = \lambda_{\text{coord}}\hat{R}_{\text{Coordinate Regression}} + \hat{R}_{\text{Confidence}} + \hat{R}_{\text{Classification}}\]</div>
+<p>The coordinate regression loss (<span class="arithmatex">\(\hat{R}_{\text{coord}}\)</span>) maps directly to standard regression metrics like <strong>Mean Squared Error (MSE)</strong> or <strong>Smooth <span class="arithmatex">\(L_1\)</span> Loss</strong>.</p>
+<p>During the backward pass, if the model predicts a bounding box center at <span class="arithmatex">\(x=0.5\)</span>, but the ground-truth label says the object center sits at <span class="arithmatex">\(x=0.7\)</span>, the regression loss computes a direct coordinate error penalty:</p>
+<div class="arithmatex">\[\text{Error} = (0.5 - 0.7)^2 = 0.04\]</div>
+<p>Backpropagation transforms this spatial error into a wave of gradients (<span class="arithmatex">\(\delta\)</span>) that flows backward through the sliding kernels. The gradients tune the weights to shift the boundary vectors until the output channels align precisely with the real-world spatial coordinates of the target.</p>
+<p>You aren't doing any separate visual tracking magic under the hood; you've simply expanded your ERM ledger to minimize spatial coordinates alongside categorical errors inside the exact same matrix graph.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

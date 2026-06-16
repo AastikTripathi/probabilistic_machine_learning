@@ -1,0 +1,3047 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture48/">
+      
+      
+        <link rel="next" href="../lecture50/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture49 - probailistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            probailistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture49
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    probailistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-42-multi-head-attention-layouts-representation-normalization-batch-vs-layer-and-the-unified-transformer-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 42: Multi-Head Attention Layouts, Representation Normalization (Batch vs. Layer), and the Unified Transformer Block
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 42: Multi-Head Attention Layouts, Representation Normalization (Batch vs. Layer), and the Unified Transformer Block">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-multi-head-attention-parallel-representation-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        42.1 Multi-Head Attention: Parallel Representation Subspaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="42.1 Multi-Head Attention: Parallel Representation Subspaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-head-projection-and-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Head Projection and Extraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tensor-synthesis-via-channel-merging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Tensor Synthesis via Channel Merging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-subspace-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Subspace Compression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precise-dimensional-balancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Dimensional Balancing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-the-epistemological-leap-shifting-from-parameter-to-representation-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        42.2 The Epistemological Leap: Shifting from Parameter to Representation Regularization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423-representation-normalization-mechanics-batch-vs-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        42.3 Representation Normalization Mechanics: Batch vs. Layer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="42.3 Representation Normalization Mechanics: Batch vs. Layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-learnable-safety-valve-vecgamma-vecbeta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Learnable Safety Valve (\(\vec{\gamma}, \vec{\beta}\)):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-batch-normalization-batchnorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Batch Normalization (BatchNorm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-layer-normalization-layernorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Layer Normalization (LayerNorm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminating-internal-covariant-shift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eliminating Internal Covariant Shift
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#424-the-anatomy-of-a-unified-transformer-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        42.4 The Anatomy of a Unified Transformer Block
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="42.4 The Anatomy of a Unified Transformer Block">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stage-1-the-context-routing-lattice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 1: The Context Routing Lattice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-2-the-non-linear-expressive-lattice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2: The Non-Linear Expressive Lattice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#425-advanced-architectural-frontiers-state-space-models-mamba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        42.5 Advanced Architectural Frontiers: State Space Models (Mamba)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-master-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Master Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Master Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-universal-transformer-operational-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Universal Transformer Operational Suite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-structural-equation-balance-sheets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Structural Equation Balance Sheets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-42-multi-head-attention-layouts-representation-normalization-batch-vs-layer-and-the-unified-transformer-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 42: Multi-Head Attention Layouts, Representation Normalization (Batch vs. Layer), and the Unified Transformer Block
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 42: Multi-Head Attention Layouts, Representation Normalization (Batch vs. Layer), and the Unified Transformer Block">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-multi-head-attention-parallel-representation-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        42.1 Multi-Head Attention: Parallel Representation Subspaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="42.1 Multi-Head Attention: Parallel Representation Subspaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-head-projection-and-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Head Projection and Extraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tensor-synthesis-via-channel-merging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Tensor Synthesis via Channel Merging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-subspace-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Subspace Compression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precise-dimensional-balancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Dimensional Balancing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-the-epistemological-leap-shifting-from-parameter-to-representation-regularization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        42.2 The Epistemological Leap: Shifting from Parameter to Representation Regularization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423-representation-normalization-mechanics-batch-vs-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        42.3 Representation Normalization Mechanics: Batch vs. Layer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="42.3 Representation Normalization Mechanics: Batch vs. Layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-learnable-safety-valve-vecgamma-vecbeta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Learnable Safety Valve (\(\vec{\gamma}, \vec{\beta}\)):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-batch-normalization-batchnorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Batch Normalization (BatchNorm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-layer-normalization-layernorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Layer Normalization (LayerNorm)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eliminating-internal-covariant-shift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eliminating Internal Covariant Shift
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#424-the-anatomy-of-a-unified-transformer-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        42.4 The Anatomy of a Unified Transformer Block
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="42.4 The Anatomy of a Unified Transformer Block">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stage-1-the-context-routing-lattice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 1: The Context Routing Lattice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-2-the-non-linear-expressive-lattice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2: The Non-Linear Expressive Lattice
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#425-advanced-architectural-frontiers-state-space-models-mamba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        42.5 Advanced Architectural Frontiers: State Space Models (Mamba)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-master-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Master Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Master Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-universal-transformer-operational-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Universal Transformer Operational Suite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-structural-equation-balance-sheets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Structural Equation Balance Sheets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-42-multi-head-attention-layouts-representation-normalization-batch-vs-layer-and-the-unified-transformer-block">Chapter 42: Multi-Head Attention Layouts, Representation Normalization (Batch vs. Layer), and the Unified Transformer Block</h2>
+<hr />
+<h3 id="421-multi-head-attention-parallel-representation-subspaces">42.1 Multi-Head Attention: Parallel Representation Subspaces</h3>
+<p>In Chapter 41, we unrolled the global matrix equation for Scaled Dot-Product Attention, proving how direct pairwise coordinate cross-referencing eliminates the sequential bottleneck of recurrent architectures. However, restricting a network to a single attention pass introduces a severe representational constraint: <strong>a single attention head can only extract one structural relationship pattern across the sequence at a time.</strong></p>
+<p>If an engineering task requires tracking diverse, overlapping data relationships simultaneously—such as matching an adjective to a noun while simultaneously tracking long-range subject-verb agreements—a single attention head collapses these distinct channels into a single, blurry average.</p>
+<p>To resolve this limitation, we introduce <strong>Multi-Head Attention (MHA)</strong>. Instead of optimizing one massive attention filter, we deploy a bank of <strong><span class="arithmatex">\(M\)</span> independent attention heads</strong> completely in parallel.</p>
+<h4 id="1-head-projection-and-extraction">1. Head Projection and Extraction</h4>
+<p>For each individual head index <span class="arithmatex">\(j\)</span> (where <span class="arithmatex">\(1 \leq j \leq M\)</span>), we assign a unique, independent set of learnable parameter matrices: <span class="arithmatex">\(\mathbf{W}_Q^{(j)}, \mathbf{W}_K^{(j)}, \mathbf{W}_V^{(j)}\)</span>. We project our global data matrix <span class="arithmatex">\(\mathbf{X}\)</span> into <span class="arithmatex">\(M\)</span> distinct head tracking spaces, computing a parallel bank of attention context matrices <span class="arithmatex">\(\mathbf{Z}_1, \mathbf{Z}_2, \dots, \mathbf{Z}_M\)</span>:</p>
+<div class="arithmatex">\[\mathbf{Z}_j = \text{Attention}\left(\mathbf{X}\mathbf{W}_Q^{(j)}, \,\, \mathbf{X}\mathbf{W}_K^{(j)}, \,\, \mathbf{X}\mathbf{W}_V^{(j)}\right) \in \mathbb{R}^{T \times D_V}\]</div>
+<h4 id="2-tensor-synthesis-via-channel-merging">2. Tensor Synthesis via Channel Merging</h4>
+<p>By running this parallel extraction loop, we obtain <span class="arithmatex">\(M\)</span> independent matrices, each capturing a unique aspect of token interaction geometry. To unify these isolated channels back into a single cohesive stream, we flatly <strong>concatenate</strong> all <span class="arithmatex">\(M\)</span> heads side-by-side along their column dimension, forming an expanded tensor volume:</p>
+<div class="arithmatex">\[\mathbf{Z}_{\text{concat}} = \Big[ \mathbf{Z}_1, \,\, \mathbf{Z}_2, \,\, \dots, \,\, \mathbf{Z}_M \Big] \in \mathbb{R}^{T \times (M \cdot D_V)}\]</div>
+<h4 id="3-subspace-compression">3. Subspace Compression</h4>
+<p>This concatenated tensor volume is too wide to pass directly into subsequent deep layers. To compress it back into our native hidden dimension width (<span class="arithmatex">\(D_V\)</span>), we apply a final, learnable linear synthesis matrix denoted as <span class="arithmatex">\(\mathbf{W}_Z\)</span>:</p>
+<div class="arithmatex">\[\text{MultiHead}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \mathbf{Z}_{\text{concat}} \mathbf{W}_Z\]</div>
+<h4 id="precise-dimensional-balancing">Precise Dimensional Balancing</h4>
+<p>To ensure structural consistency across the layer, we configure the parameter dimensions of our output projection matrix <span class="arithmatex">\(\mathbf{W}_Z\)</span> to precisely map the concatenated vectors back to our target feature dimensions:</p>
+<div class="arithmatex">\[\mathbf{Z}_{\text{concat}} \in \mathbb{R}^{T \times (M \cdot D_V)} \quad \times \quad \mathbf{W}_Z \in \mathbb{R}^{(M \cdot D_V) \times D_V} \quad \implies \quad \mathbf{Z}_{\text{MHA}} \in \mathbb{R}^{T \times D_V}\]</div>
+<p>The professor highlights the direct structural analogy between this multi-head architecture and the parallel filter volumes of a Convolutional Neural Network (CNN). In a CNN, we do not limit a layer to a single sliding kernel; we deploy dozens of independent kernels to capture diverse spatial features like edges, textures, and color gradients simultaneously. Multi-Head Attention applies this exact same probabilistic strategy to sets of vectors, allowing the model to analyze data interactions from multiple distinct geometric perspectives concurrently.</p>
+<hr />
+<h3 id="422-the-epistemological-leap-shifting-from-parameter-to-representation-regularization">42.2 The Epistemological Leap: Shifting from Parameter to Representation Regularization</h3>
+<p>Up to this point in the course, our mathematical strategy for controlling model variance and fighting overfitting has focused exclusively on <strong>Parameter Regularization</strong>.</p>
+<div class="arithmatex">\[\min_{\vec{\theta}} \hat{R}(\vec{\theta}) + \Omega(\vec{\theta})\]</div>
+<p>Under this classical empirical risk framework, we penalize the weight coefficients directly—using an <span class="arithmatex">\(L_2\)</span> norm penalty (<span class="arithmatex">\(\lambda \|\vec{w}\|_2^2\)</span>) to enforce a smooth Gaussian prior, or an <span class="arithmatex">\(L_1\)</span> norm penalty to force sparse coordinate choices.</p>
+<p>However, let us analyze a composite neural network function from an alternate structural lens. We unroll a multi-layer composition where the final hypothesis is a function of both its weights (<span class="arithmatex">\(\vec{\theta}\)</span>) and its intermediate hidden activations (<span class="arithmatex">\(\vec{z}\)</span>):</p>
+<div class="arithmatex">\[h_{\vec{\theta}}(\vec{x}) = f_{\mathbf{W}_2}\left( \vec{z} \right) \quad \text{where} \quad \vec{z} = \sigma\left(\mathbf{W}_1 \vec{x}\right)\]</div>
+<p>Because the final prediction depends intimately on both components, <strong>we can regularize the model by placing structural constraints directly on the intermediate hidden representation space <span class="arithmatex">\(\vec{z}\)</span>.</strong> We call this strategy <strong>Activity Regularization</strong> or <strong>Representation Normalization</strong>.</p>
+<p>Instead of policing the weights, we actively constrain the hidden activation coordinates generated during the forward pass. This forces them to conform to a stable distribution envelope, preventing activation magnitudes from exploding or drifting across layers.</p>
+<hr />
+<h3 id="423-representation-normalization-mechanics-batch-vs-layer">42.3 Representation Normalization Mechanics: Batch vs. Layer</h3>
+<p>To implement representation regularization, we replace a raw hidden activation vector <span class="arithmatex">\(\vec{z}\)</span> with a normalized coordinate variant. This transformation forces the hidden distribution to maintain a stable statistical profile characterized by a <strong>mean of <span class="arithmatex">\(0.0\)</span> and a variance of <span class="arithmatex">\(1.0\)</span></strong>:</p>
+<div class="arithmatex">\[\hat{\vec{z}} = \frac{\vec{z} - \mu_z}{\sqrt{\sigma_z^2 + \epsilon}}\]</div>
+<div class="arithmatex">\[\vec{z}_{\text{norm}} = \vec{\gamma} \odot \hat{\vec{z}} + \vec{\beta}\]</div>
+<h4 id="the-learnable-safety-valve-vecgamma-vecbeta">The Learnable Safety Valve (<span class="arithmatex">\(\vec{\gamma}, \vec{\beta}\)</span>):</h4>
+<p>The vectors <span class="arithmatex">\(\vec{\gamma}\)</span> (scale) and <span class="arithmatex">\(\vec{\beta}_0\)</span> (shift) are learnable parameters updated via gradient descent during our ERM optimization loop. These parameters function as an <strong>architectural safety valve</strong>.</p>
+<p>If the optimization engine discovers that a layer performs better without normalization constraints, it can tune <span class="arithmatex">\(\vec{\gamma}\)</span> to exactly match the incoming standard deviation and <span class="arithmatex">\(\vec{\beta}_0\)</span> to match the raw mean. This configuration allows the network to completely undo the normalization step and pass the raw activations forward unfiltered, ensuring the constraint never damages model expressivity.</p>
+<pre><code>  [ Raw Activations Matrix Z ] ──────────&gt; [ Compute Mean &amp; Variance Over Chosen Axis ]
+               │                                                    │
+               ▼                                                    ▼
+  [ Center and Scale Data ] ───────────&gt; [ Scale and Shift by Learnable Weights γ and β ]
+                                                                    │
+                                                                    ▼
+                                                       [ Normalized Activations Layer ]
+
+</code></pre>
+<p>The difference between the two most dominant normalization strategies in deep learning depends entirely on <strong>which structural axis of our data matrix the mean (<span class="arithmatex">\(\mu\)</span>) and variance (<span class="arithmatex">\(\sigma^2\)</span>) are calculated over</strong>.</p>
+<h4 id="1-batch-normalization-batchnorm">1. Batch Normalization (BatchNorm)</h4>
+<p>In BatchNorm, the statistical parameters are calculated <strong>across the batch dimension</strong> for a single independent feature coordinate. We average the activations of multiple distinct data samples processed within a single SGD training mini-batch:</p>
+<div class="arithmatex">\[\mu_{\text{Batch}} = \frac{1}{B} \sum_{i=1}^{B} z_{i, \text{channel}}\]</div>
+<ul>
+<li><strong>Application Fit:</strong> BatchNorm is highly effective in image processing networks and standard CNN architectures.</li>
+<li><strong>The Inference Bottleneck:</strong> Because BatchNorm depends on computing statistics across a mini-batch of multiple samples, it creates a structural challenge during production deployment. When a single user submits an isolated sample during inference, a batch no longer exists. To bypass this, engineering frameworks must calculate and store a running average of training statistics beforehand, then freeze and swap these values in during inference.</li>
+</ul>
+<h4 id="2-layer-normalization-layernorm">2. Layer Normalization (LayerNorm)</h4>
+<p>In LayerNorm, the statistical parameters are calculated <strong>across the feature dimensions</strong> of a single, isolated data sample. We average all coordinate values within that layer for one individual token position, completely ignoring neighboring batch samples:</p>
+<div class="arithmatex">\[\mu_{\text{Layer}} = \frac{1}{D_{\text{layer}}} \sum_{j=1}^{D_{\text{layer}}} z_{\text{feature}_j}\]</div>
+<ul>
+<li><strong>Application Fit:</strong> LayerNorm is the foundational normalization standard for Transformers and sequential architectures. Because its statistics are calculated entirely within the boundary of a single data sample, it completely eliminates the inference mini-batch bottleneck, allowing isolated text or video strings to normalize consistently during live production deployment.</li>
+</ul>
+<h4 id="eliminating-internal-covariant-shift">Eliminating Internal Covariant Shift</h4>
+<p>We deploy these normalization steps to prevent a classic deep learning failure mode known as <strong>Internal Covariant Shift</strong>. As deep gradient descent updates early weight parameters (<span class="arithmatex">\(\mathbf{W}_1\)</span>), the distribution of hidden features entering subsequent layers shifts constantly from epoch to epoch.</p>
+<p>This shifting forces deeper layers (<span class="arithmatex">\(\mathbf{W}_2\)</span>) to continuously chase a moving target, slowing down convergence. Centering and scaling the activations ensures that every hidden layer receives input data bounded within a stable, stationary distribution envelope, accelerating optimization and smoothing the global loss landscape.</p>
+<hr />
+<h3 id="424-the-anatomy-of-a-unified-transformer-block">42.4 The Anatomy of a Unified Transformer Block</h3>
+<p>We now combine our structural building blocks—Gated Attention, Multi-Head Parallelism, Residual Identity Highways, Layer Normalization, and Non-linear Multi-Layer Perceptrons—into a single, production-ready <strong>Transformer Block Architecture</strong>.</p>
+<p>A standard Transformer layer consists of a highly structured, two-stage processing lattice:</p>
+<h4 id="stage-1-the-context-routing-lattice">Stage 1: The Context Routing Lattice</h4>
+<p>An incoming token sequence matrix <span class="arithmatex">\(\mathbf{X} \in \mathbb{R}^{T \times D}\)</span> enters the block and splits immediately into two parallel paths: a non-linear Multi-Head Attention block and a clean, spatial identity skip connection. The outputs of these paths are combined and passed through a Layer Normalization wrapper to construct our first intermediate state matrix <span class="arithmatex">\(\mathbf{X}_1\)</span>:</p>
+<div class="arithmatex">\[\mathbf{X}_1 = \text{LayerNorm}\Big( \mathbf{X} + \text{MultiHead}(\mathbf{X}) \Big) \in \mathbb{R}^{T \times D}\]</div>
+<h4 id="stage-2-the-non-linear-expressive-lattice">Stage 2: The Non-Linear Expressive Lattice</h4>
+<p>The intermediate matrix <span class="arithmatex">\(\mathbf{X}_1\)</span> splits along a second parallel track. It passes through a dense, token-wise <strong>Multi-Layer Perceptron (MLP)</strong> block to introduce non-linear expressive capacity, while a parallel skip connection preserves the raw state. The results are merged and normalized to yield the final output tensor <span class="arithmatex">\(\mathbf{X}_2\)</span>:</p>
+<div class="arithmatex">\[\mathbf{X}_2 = \text{LayerNorm}\Big( \mathbf{X}_1 + \text{MLP}(\mathbf{X}_1) \Big) \in \mathbb{R}^{T \times D}\]</div>
+<blockquote>
+<p><strong>The Mechanics of Token Isolation:</strong>
+Notice how the workload shifts between these two stages. The Multi-Head Attention stage is the <em>only</em> component where tokens are allowed to communicate across rows to share context.
+Once <span class="arithmatex">\(\mathbf{X}_1\)</span> is generated, the subsequent MLP stage operates as a strict <strong>Position-Wise Feed-Forward Network</strong>. It processes each token row vector independently and in parallel using a shared set of weights. The MLP introduces the non-linear transformations required to satisfy the Universal Approximation Theorem, while the attention stage routes features across the timeline.</p>
+</blockquote>
+<hr />
+<h3 id="425-advanced-architectural-frontiers-state-space-models-mamba">42.5 Advanced Architectural Frontiers: State Space Models (Mamba)</h3>
+<p>The professor concludes the sequence modeling continuum by analyzing the modern trade-offs that drive cutting-edge machine learning research.</p>
+<p>While the Transformer architecture successfully eliminated the vanishing gradient problem of RNNs, it introduced an expensive computational bottleneck: <strong>Quadratic Scaling Overhead (<span class="arithmatex">\(\mathcal{O}(T^2)\)</span>)</strong>. Because the attention mechanism cross-references every token against every other token, calculating the dot-product adjacency matrix requires computing <span class="arithmatex">\(T \times T\)</span> inner products. As the context window threshold expands to handle large datasets, the compute and memory costs scale quadratically, making long-sequence inference highly expensive.</p>
+<pre><code>  [ Recurrent RNN Engine ]                 [ Attention Transformer Engine ]
+  - Compute Cost: O(T) Linear              - Compute Cost: O(T²) Quadratic
+  - Memory Footprint: Constant O(1)        - Memory Footprint: Expanding O(T²) Cache
+  - Limit: Gradient Decay Risk             - Limit: Heavy Computational Overhead
+
+</code></pre>
+<p>To break this quadratic bottleneck without re-introducing the vanishing gradient failures of vanilla networks, modern hardware research has advanced to a new architectural frontier: <strong>State Space Models (SSMs)</strong>, exemplified by systems like <strong>Mamba</strong>.</p>
+<p>An SSM brings recurrence back into the architecture, modeling data streams as a continuous linear dynamical system. However, instead of using rigid transition matrices, an SSM deploys <strong>Selection Mechanisms</strong>—dynamic, data-dependent parameters that update continuously at each time step. By combining this selective recurrence with highly parallelized prefix-sum hardware algorithms, State Space Models achieve linear computational scaling (<span class="arithmatex">\(\mathcal{O}(T)\)</span>) and a constant memory footprint (<span class="arithmatex">\(\mathcal{O}(1)\)</span>) during inference, while matching the long-context expressive capacity of modern Transformers.</p>
+<hr />
+<h2 id="textbook-notes-master-reference-sheet">Textbook Notes Master Reference Sheet</h2>
+<h3 id="the-universal-transformer-operational-suite">The Universal Transformer Operational Suite</h3>
+<div class="arithmatex">\[\mathbf{X}_1 = \text{LayerNorm}\Big( \mathbf{X} + \text{MultiHead}(\mathbf{X}\mathbf{W}_Q, \,\, \mathbf{X}\mathbf{W}_K, \,\, \mathbf{X}\mathbf{W}_V) \Big)\]</div>
+<div class="arithmatex">\[\mathbf{X}_2 = \text{LayerNorm}\Big( \mathbf{X}_1 + \text{MLP}(\mathbf{X}_1) \Big)\]</div>
+<hr />
+<h3 id="core-structural-equation-balance-sheets">Core Structural Equation Balance Sheets</h3>
+<div class="arithmatex">\[\mathbf{Z}_{\text{concat}} = \Big[ \mathbf{Z}_1, \,\, \mathbf{Z}_2, \,\, \dots, \,\, \mathbf{Z}_M \Big] \in \mathbb{R}^{T \times (M \cdot D_V)}\]</div>
+<div class="arithmatex">\[\mathbf{W}_Z \in \mathbb{R}^{(M \cdot D_V) \times D_V} \implies \text{MultiHead}(\cdot) \in \mathbb{R}^{T \times D_V}\]</div>
+<div class="arithmatex">\[\text{LayerNorm Subspace Coordinates: } \quad \vec{z}_{\text{norm}} = \vec{\gamma} \odot \left( \frac{\vec{z} - \mu_{\text{Layer}}}{\sqrt{\sigma_{\text{Layer}}^2 + \epsilon}} \right) + \vec{\beta}\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
