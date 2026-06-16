@@ -1,0 +1,3144 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture21/">
+      
+      
+        <link rel="next" href="../lecture23/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture22 - Probabilistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Probabilistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture22
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Probabilistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-20-the-operational-mechanics-of-the-em-algorithm-and-the-monotonicity-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 20: The Operational Mechanics of the EM Algorithm and the Monotonicity Proof
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 20: The Operational Mechanics of the EM Algorithm and the Monotonicity Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#201-the-notation-clarification-de-coupling-theta-and-qz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.1 The Notation Clarification: De-Coupling \(\theta\) and \(q(z)\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#202-the-formal-expectation-maximization-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.2 The Formal Expectation-Maximization Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="20.2 The Formal Expectation-Maximization Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-expectation-step-e-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Expectation Step (E-Step)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-maximization-step-m-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Maximization Step (M-Step)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#203-the-monotonicity-convergence-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.3 The Monotonicity Convergence Proof
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="20.3 The Monotonicity Convergence Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-the-tightness-identity-at-the-e-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: The Tightness Identity at the E-Step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-the-ascent-metric-at-the-m-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: The Ascent Metric at the M-Step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-the-jensen-bound-preservation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: The Jensen Bound Preservation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-collapsing-the-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Collapsing the Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#204-practical-bounding-criteria-the-stopping-hyperparameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.4 Practical Bounding Criteria: The Stopping Hyperparameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#205-exemplar-suite-10-operational-variations-of-the-em-loop-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.5 Exemplar Suite: 10 Operational Variations of the EM Loop Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="20.5 Exemplar Suite: 10 Operational Variations of the EM Loop Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-standard-gaussian-mixture-models-gmm-partitioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Standard Gaussian Mixture Models (GMM Partitioning)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-continuous-image-synthesis-variational-autoencoder-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Continuous Image Synthesis (Variational Autoencoder Tuning)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-autoregressive-token-mapping-transformer-context-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Autoregressive Token Mapping (Transformer Context Optimization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-speech-sequence-transcription-the-baum-welch-hmm-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Speech Sequence Transcription (The Baum-Welch HMM Loop)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-non-linear-document-clustering-variational-topic-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Non-Linear Document Clustering (Variational Topic Ingestion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-collaborative-recommendation-systems-variational-matrix-factorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Collaborative Recommendation Systems (Variational Matrix Factorization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-clinical-patient-trajectory-tracking-dynamic-state-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Clinical Patient Trajectory Tracking (Dynamic State Filters)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-blind-telecommunication-source-separation-matrix-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Blind Telecommunication Source Separation Matrix Updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-industrial-pipeline-anomaly-profiling-gamma-mixture-bounding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Industrial Pipeline Anomaly Profiling (Gamma Mixture Bounding)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-physics-informed-fluid-velocity-tracking-data-assimilation-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Physics-Informed Fluid Velocity Tracking (Data Assimilation Loops)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-20-the-operational-mechanics-of-the-em-algorithm-and-the-monotonicity-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 20: The Operational Mechanics of the EM Algorithm and the Monotonicity Proof
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 20: The Operational Mechanics of the EM Algorithm and the Monotonicity Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#201-the-notation-clarification-de-coupling-theta-and-qz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.1 The Notation Clarification: De-Coupling \(\theta\) and \(q(z)\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#202-the-formal-expectation-maximization-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.2 The Formal Expectation-Maximization Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="20.2 The Formal Expectation-Maximization Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-expectation-step-e-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Expectation Step (E-Step)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-maximization-step-m-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Maximization Step (M-Step)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#203-the-monotonicity-convergence-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.3 The Monotonicity Convergence Proof
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="20.3 The Monotonicity Convergence Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-the-tightness-identity-at-the-e-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: The Tightness Identity at the E-Step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-the-ascent-metric-at-the-m-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: The Ascent Metric at the M-Step
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-the-jensen-bound-preservation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: The Jensen Bound Preservation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-collapsing-the-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Collapsing the Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#204-practical-bounding-criteria-the-stopping-hyperparameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.4 Practical Bounding Criteria: The Stopping Hyperparameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#205-exemplar-suite-10-operational-variations-of-the-em-loop-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.5 Exemplar Suite: 10 Operational Variations of the EM Loop Strategy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="20.5 Exemplar Suite: 10 Operational Variations of the EM Loop Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-standard-gaussian-mixture-models-gmm-partitioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Standard Gaussian Mixture Models (GMM Partitioning)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-continuous-image-synthesis-variational-autoencoder-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Continuous Image Synthesis (Variational Autoencoder Tuning)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-autoregressive-token-mapping-transformer-context-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Autoregressive Token Mapping (Transformer Context Optimization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-speech-sequence-transcription-the-baum-welch-hmm-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Speech Sequence Transcription (The Baum-Welch HMM Loop)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-non-linear-document-clustering-variational-topic-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Non-Linear Document Clustering (Variational Topic Ingestion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-collaborative-recommendation-systems-variational-matrix-factorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Collaborative Recommendation Systems (Variational Matrix Factorization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-clinical-patient-trajectory-tracking-dynamic-state-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Clinical Patient Trajectory Tracking (Dynamic State Filters)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-blind-telecommunication-source-separation-matrix-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Blind Telecommunication Source Separation Matrix Updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-industrial-pipeline-anomaly-profiling-gamma-mixture-bounding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Industrial Pipeline Anomaly Profiling (Gamma Mixture Bounding)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-physics-informed-fluid-velocity-tracking-data-assimilation-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Physics-Informed Fluid Velocity Tracking (Data Assimilation Loops)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-20-the-operational-mechanics-of-the-em-algorithm-and-the-monotonicity-proof">Chapter 20: The Operational Mechanics of the EM Algorithm and the Monotonicity Proof</h2>
+<hr />
+<h3 id="201-the-notation-clarification-de-coupling-theta-and-qz">20.1 The Notation Clarification: De-Coupling <span class="arithmatex">\(\theta\)</span> and <span class="arithmatex">\(q(z)\)</span></h3>
+<p>Before we construct the mathematical proof of why the Expectation-Maximization (EM) algorithm works, we must resolve a point of notation confusion that often trips up developers translating these equations into code.</p>
+<p>The Evidence Lower Bound (<span class="arithmatex">\(\text{ELBO}\)</span>) is a functional that depends simultaneously on two distinct mathematical entities: the model parameters <span class="arithmatex">\(\theta\)</span> and the variational distribution <span class="arithmatex">\(q(z)\)</span>.</p>
+<div class="arithmatex">\[\text{ELBO}(q, \theta) = \mathbb{E}_{Z \sim q} \left[ \ln \left( \frac{p_\theta(\vec{x}, Z)}{q(Z)} \right) \right]\]</div>
+<p>The critical operational insight the professor emphasizes is that <strong>these two components can be evaluated at completely different parameter checkpoints.</strong> * <strong>The Variational Distribution's Identity (<span class="arithmatex">\(q\)</span>):</strong> The function <span class="arithmatex">\(q(z)\)</span> is an independent probability mass profile. When we want to make our lower bound perfectly tight at our current parameter iteration guess <span class="arithmatex">\(\theta^{(t)}\)</span>, we set <span class="arithmatex">\(q(z)\)</span> equal to the true latent posterior evaluated at that <em>fixed</em> coordinate: <span class="arithmatex">\(p_{\theta^{(t)}}(z \mid \vec{x})\)</span>. Once this is computed, <span class="arithmatex">\(q(z)\)</span> is a frozen array of numbers.</p>
+<ul>
+<li><strong>The Log-Likelihood Component (<span class="arithmatex">\(\theta\)</span>):</strong> The variable <span class="arithmatex">\(\theta\)</span> inside the numerator <span class="arithmatex">\(p_\theta(\vec{x}, z)\)</span> remains a <strong>free parameter variable</strong>.</li>
+</ul>
+<p>To track this explicitly in our optimization steps, we define the notation for evaluating the bound across distinct algorithmic steps:</p>
+<div class="arithmatex">\[\text{ELBO}\left(q^{(t+1)}, \,\, \theta\right) = \sum_{z \in \mathcal{Z}} q^{(t+1)}(z) \ln p_\theta(\vec{x}, z) - \sum_{z \in \mathcal{Z}} q^{(t+1)}(z) \ln q^{(t+1)}(z)\]</div>
+<p>This allows us to freeze our variational distribution using our old parameter coordinates while calculating a derivative to shift our active parameters to a brand-new coordinate space.</p>
+<hr />
+<h3 id="202-the-formal-expectation-maximization-protocol">20.2 The Formal Expectation-Maximization Protocol</h3>
+<p>With this clear separation of notation, we can write down the formal algorithmic loop of the EM protocol as it is deployed in code.</p>
+<pre><code>[Initialize θ_1] ---&gt; [E-Step: Freeze θ_t, compute tight posterior q_t+1(z)]
+                             ^                                   |
+                             |                                   v
+                      [Iterate Loop] &lt;--- [M-Step: Freeze q_t+1(z), maximize θ_t+1]
+
+</code></pre>
+<p><strong>Step 1: Initialization</strong> Seed the global model parameters with an initial baseline guess at time step 1: <span class="arithmatex">\(\theta^{(1)}\)</span>.</p>
+<p><strong>Step 2: The Iterative Optimization Loop</strong> For time steps <span class="arithmatex">\(t = 1\)</span> to convergence, execute the following coordinate transformations:</p>
+<h4 id="the-expectation-step-e-step">The Expectation Step (E-Step)</h4>
+<p>Evaluate the true latent posterior distribution using the active historical parameter configuration <span class="arithmatex">\(\theta^{(t)}\)</span> to define the variational distribution for the next step:</p>
+<div class="arithmatex">\[q^{(t+1)}(z) = p_{\theta^{(t)}}(z \mid \vec{x})\]</div>
+<h4 id="the-maximization-step-m-step">The Maximization Step (M-Step)</h4>
+<p>Freeze <span class="arithmatex">\(q^{(t+1)}(z)\)</span> as a static collection of numeric constants. Update the model's parameter configuration to <span class="arithmatex">\(\theta^{(t+1)}\)</span> by finding the argument that maximizes our continuous lower bound function:</p>
+<div class="arithmatex">\[\theta^{(t+1)} = \arg\max_{\theta} \text{ELBO}\left(q^{(t+1)}, \,\, \theta\right)\]</div>
+<hr />
+<h3 id="203-the-monotonicity-convergence-proof">20.3 The Monotonicity Convergence Proof</h3>
+<p>We now step through the formal proof demonstrating why this alternating coordinate method successfully maximizes our true, uncalculable marginal log-likelihood (the Evidence).</p>
+<blockquote>
+<p><strong>The Monotonicity Theorem.</strong> Let <span class="arithmatex">\(\ln p_\theta(\vec{x})\)</span> represent the true marginal log-likelihood landscape of our observed data. Let <span class="arithmatex">\(\theta^{(t)}\)</span> and <span class="arithmatex">\(\theta^{(t+1)}\)</span> represent successive parameter vectors output by a complete iteration of the EM loop. The true log-likelihood is mathematically guaranteed to be monotonic; it can never decrease under the command of the EM algorithm:
+$<span class="arithmatex">\(\ln p_{\theta^{(t+1)}}(\vec{x}) \geq \ln p_{\theta^{(t)}}(\vec{x})\)</span>$</p>
+</blockquote>
+<h4 id="phase-1-the-tightness-identity-at-the-e-step">Phase 1: The Tightness Identity at the E-Step</h4>
+<p>At the start of iteration <span class="arithmatex">\(t\)</span>, our active parameters are locked at <span class="arithmatex">\(\theta^{(t)}\)</span>. During the E-step, we programmatically force our variational distribution to match the latent posterior: <span class="arithmatex">\(q^{(t+1)}(z) = p_{\theta^{(t)}}(z \mid \vec{x})\)</span>. As proven in Chapter 19, this drives the internal KL-divergence gap to zero, making our lower bound perfectly tight against our true target curve at that exact point:</p>
+<div class="arithmatex">\[\ln p_{\theta^{(t)}}(\vec{x}) = \text{ELBO}\left(q^{(t+1)}, \,\, \theta^{(t)}\right)\]</div>
+<h4 id="phase-2-the-ascent-metric-at-the-m-step">Phase 2: The Ascent Metric at the M-Step</h4>
+<p>During the M-step, we freeze <span class="arithmatex">\(q^{(t+1)}(z)\)</span> and search for a new parameter choice <span class="arithmatex">\(\theta^{(t+1)}\)</span> that maximizes the <span class="arithmatex">\(\text{ELBO}\)</span> function. Because <span class="arithmatex">\(\theta^{(t+1)}\)</span> is explicitly calculated as the global maximizer of this surface, the value of the <span class="arithmatex">\(\text{ELBO}\)</span> evaluated at this new coordinate must be greater than or equal to its value at our old starting coordinate <span class="arithmatex">\(\theta^{(t)}\)</span>:</p>
+<div class="arithmatex">\[\text{ELBO}\left(q^{(t+1)}, \,\, \theta^{(t+1)}\right) \geq \text{ELBO}\left(q^{(t+1)}, \,\, \theta^{(t)}\right)\]</div>
+<h4 id="phase-3-the-jensen-bound-preservation">Phase 3: The Jensen Bound Preservation</h4>
+<p>By Jensen's Inequality, our derived lower bound is structurally bound to sit beneath our true marginal log-likelihood curve under <em>any</em> valid configuration of variables. Therefore, when we evaluate our system at our newly updated parameter coordinate <span class="arithmatex">\(\theta^{(t+1)}\)</span>, the true evidence value at that spot remains upper-bounded by our active lower bound calculation:</p>
+<div class="arithmatex">\[\ln p_{\theta^{(t+1)}}(\vec{x}) \geq \text{ELBO}\left(q^{(t+1)}, \,\, \theta^{(t+1)}\right)\]</div>
+<h4 id="phase-4-collapsing-the-chain">Phase 4: Collapsing the Chain</h4>
+<p>We line up our three independent phases into a single algebraic inequality chain:</p>
+<div class="arithmatex">\[\ln p_{\theta^{(t+1)}}(\vec{x}) \geq \underbrace{\text{ELBO}\left(q^{(t+1)}, \,\, \theta^{(t+1)}\right) \geq \text{ELBO}\left(q^{(t+1)}, \,\, \theta^{(t)}\right)}_{\text{Guaranteed by the M-Step Maximization Loop}} = \ln p_{\theta^{(t)}}(\vec{x})\]</div>
+<p>Collapsing the intermediate steps isolates the final relationship:</p>
+<div class="arithmatex">\[\ln p_{\theta^{(t+1)}}(\vec{x}) \geq \ln p_{\theta^{(t)}}(\vec{x})\]</div>
+<p>The proof is complete. By alternating between closing the variational gap (E-step) and climbing the surrogate lower bound (M-step), the EM algorithm is mathematically guaranteed to drive the true, hidden log-likelihood function uphill.</p>
+<hr />
+<h3 id="204-practical-bounding-criteria-the-stopping-hyperparameter">20.4 Practical Bounding Criteria: The Stopping Hyperparameter</h3>
+<p>The professor addresses a vital engineering question: <em>If the optimization loop runs indefinitely, how does a computer determine the exact checkpoint to stop training?</em></p>
+<p>Because the true log-likelihood function is mathematically guaranteed never to decrease, we can track the marginal improvement of our metric across each successive loop. We define a tracking delta:</p>
+<div class="arithmatex">\[\Delta \mathcal{L} = \ln p_{\theta^{(t+1)}}(\vec{x}) - \ln p_{\theta^{(t)}}(\vec{x}) \geq 0\]</div>
+<p>We introduce a user-defined threshold hyperparameter, denoted as <span class="arithmatex">\(\delta\)</span>. The optimization loop evaluates our progress at the end of every step and terminates the execution the moment our likelihood improvement plateaus below our threshold:</p>
+<div class="arithmatex">\[\text{If } \Delta \mathcal{L} &lt; \delta \longrightarrow \text{Terminate Loop and Export Last Parameters } \theta^*\]</div>
+<hr />
+<h2 id="205-exemplar-suite-10-operational-variations-of-the-em-loop-strategy">20.5 Exemplar Suite: 10 Operational Variations of the EM Loop Strategy</h2>
+<p>To see how this alternating E and M step configuration acts as the primary optimization routine across different types of machine learning applications, let us trace ten distinct implementations.</p>
+<h4 id="example-1-standard-gaussian-mixture-models-gmm-partitioning">Example 1: Standard Gaussian Mixture Models (GMM Partitioning)</h4>
+<ul>
+<li><strong>The E-Step Assignment:</strong> Computes the fractional posterior cluster assignment array (the <em>responsibilities</em>) for each data vector using the active means <span class="arithmatex">\(\vec{\mu}_j\)</span> and variances <span class="arithmatex">\(\Sigma_j\)</span>.</li>
+<li><strong>The M-Step Update:</strong> Re-calculates the physical mean coordinates and spatial variance matrices by computing a weighted average over the data points based on those responsibilities.</li>
+</ul>
+<h4 id="example-2-continuous-image-synthesis-variational-autoencoder-tuning">Example 2: Continuous Image Synthesis (Variational Autoencoder Tuning)</h4>
+<ul>
+<li><strong>The E-Step Assignment:</strong> The encoder network updates its variational parameters <span class="arithmatex">\(\phi\)</span> to minimize the KL divergence between its predicted distribution and the true latent posterior.</li>
+<li><strong>The M-Step Update:</strong> The decoder network updates its generative weights <span class="arithmatex">\(\theta\)</span> to maximize the reconstruction likelihood of the digital image canvas.</li>
+</ul>
+<h4 id="example-3-autoregressive-token-mapping-transformer-context-optimization">Example 3: Autoregressive Token Mapping (Transformer Context Optimization)</h4>
+<ul>
+<li><strong>The E-Step Assignment:</strong> Evaluates the hidden contextual weight coefficients across self-attention blocks for a sequence of text inputs.</li>
+<li><strong>The M-Step Update:</strong> Runs backpropagation to adjust the internal projection matrices, maximizing the next-token categorical prediction accuracy.</li>
+</ul>
+<h4 id="example-4-speech-sequence-transcription-the-baum-welch-hmm-loop">Example 4: Speech Sequence Transcription (The Baum-Welch HMM Loop)</h4>
+<ul>
+<li><strong>The E-Step Assignment:</strong> Runs the forward-backward dynamic programming pass to calculate the posterior probabilities of hidden state transitions given an audio waveform.</li>
+<li><strong>The M-Step Update:</strong> Updates the acoustic emission matrices and state transition probabilities based on those accumulated sequence paths.</li>
+</ul>
+<h4 id="example-5-non-linear-document-clustering-variational-topic-ingestion">Example 5: Non-Linear Document Clustering (Variational Topic Ingestion)</h4>
+<ul>
+<li><strong>The E-Step Assignment:</strong> Estimates the localized thematic document compositions across an unlabelled text corpus.</li>
+<li><strong>The M-Step Update:</strong> Maximizes the global vocabulary distribution parameters to align word choices with the discovered underlying topics.</li>
+</ul>
+<h4 id="example-6-collaborative-recommendation-systems-variational-matrix-factorization">Example 6: Collaborative Recommendation Systems (Variational Matrix Factorization)</h4>
+<ul>
+<li><strong>The E-Step Assignment:</strong> Freezes product features and updates the hidden continuous preference vectors for individual consumers.</li>
+<li><strong>The M-Step Update:</strong> Freezes consumer profiles and updates product attribute matrices to minimize ranking errors across sparse transaction logs.</li>
+</ul>
+<h4 id="example-7-clinical-patient-trajectory-tracking-dynamic-state-filters">Example 7: Clinical Patient Trajectory Tracking (Dynamic State Filters)</h4>
+<ul>
+<li><strong>The E-Step Assignment:</strong> Computes the smoothed posterior tracking of a patient's unobserved health metrics given a history of vital signs.</li>
+<li><strong>The M-Step Update:</strong> Maximizes the transition and sensor noise covariance parameters to stabilize future risk predictions.</li>
+</ul>
+<h4 id="example-8-blind-telecommunication-source-separation-matrix-updates">Example 8: Blind Telecommunication Source Separation Matrix Updates</h4>
+<ul>
+<li><strong>The E-Step Assignment:</strong> Estimates the unobserved source signal waveforms from a collection of raw radio transmissions.</li>
+<li><strong>The M-Step Update:</strong> Adjusts the continuous multi-antenna channel mixing matrices to isolate independent data streams cleanly.</li>
+</ul>
+<h4 id="example-9-industrial-pipeline-anomaly-profiling-gamma-mixture-bounding">Example 9: Industrial Pipeline Anomaly Profiling (Gamma Mixture Bounding)</h4>
+<ul>
+<li><strong>The E-Step Assignment:</strong> Calculates the structural probability tracking showing which flow regime generated a specific pressure spike telemetry reading.</li>
+<li><strong>The M-Step Update:</strong> Updates the scale and shape parameters of the Gamma distribution to isolate anomalous leaks from standard hydraulic friction.</li>
+</ul>
+<h4 id="example-10-physics-informed-fluid-velocity-tracking-data-assimilation-loops">Example 10: Physics-Informed Fluid Velocity Tracking (Data Assimilation Loops)</h4>
+<ul>
+<li><strong>The E-Step Assignment:</strong> Computes the expected latent fluid velocity fields from sparse physical measurements.</li>
+<li><strong>The M-Step Update:</strong> Calibrates the underlying aerodynamic boundary friction coefficients, ensuring the model aligns with the continuous partial differential equations of fluid mechanics.</li>
+</ul>
+<hr />
+<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
+<blockquote>
+<p><strong>The Generalist's Mathematical Blueprint:</strong>
+1. <strong>The Free Variable Shift:</strong> The ELBO maintains independent dependencies on both <span class="arithmatex">\(q(z)\)</span> and <span class="arithmatex">\(\theta\)</span>. This allows us to freeze our variational distribution using historical coordinates while evaluating derivatives to update our model weights.
+2. <strong>The Monotonicity Guarantee:</strong> Because the E-step closes the variational gap completely before the M-step takes a step forward, the true marginal log-likelihood of our data is mathematically guaranteed never to decrease: <span class="arithmatex">\(\ln p_{\theta^{(t+1)}}(\vec{x}) \geq \ln p_{\theta^{(t)}}(\vec{x})\)</span> .
+3. <strong>The Convergence Criterion:</strong> Training termination is controlled by a user-defined threshold hyperparameter <span class="arithmatex">\(\delta\)</span>, which safely cuts off the execution loop the moment our log-likelihood improvement plateaus.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
