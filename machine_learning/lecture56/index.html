@@ -1,0 +1,2942 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture55/">
+      
+      
+        <link rel="next" href="../lecture57/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture56 - Probabilistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Probabilistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture56
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Probabilistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-46-functional-gradient-boosting-taylor-series-approximations-in-hypothesis-space-and-pseudo-residual-regression-cascades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 46: Functional Gradient Boosting, Taylor Series Approximations in Hypothesis Space, and Pseudo-Residual Regression Cascades
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 46: Functional Gradient Boosting, Taylor Series Approximations in Hypothesis Space, and Pseudo-Residual Regression Cascades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#461-the-forward-stagewise-functional-minimization-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.1 The Forward Stagewise Functional Minimization Objective
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="46.1 The Forward Stagewise Functional Minimization Objective">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-dimensional-and-functional-space-balancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Dimensional and Functional Space Balancing:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clarifying-the-operational-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clarifying the Operational Scale
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#462-the-functional-taylor-series-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.2 The Functional Taylor Series Expansion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#463-the-inner-product-vector-alignment-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.3 The Inner Product Vector Alignment Proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#464-transforming-gradients-into-regression-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.4 Transforming Gradients into Regression Targets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="46.4 Transforming Gradients into Regression Targets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-homework-verification-the-squared-error-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Homework Verification: The Squared Error Case
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#465-the-complete-naive-gradient-boosting-algorithm-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.5 The Complete Naive Gradient Boosting Algorithm Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#466-the-second-order-evolution-the-xgboost-optimization-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.6 The Second-Order Evolution: The XGBoost Optimization Engine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="46.6 The Second-Order Evolution: The XGBoost Optimization Engine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-variable-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Variable Ledger:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#universal-functional-boosting-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Universal Functional Boosting Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-46-functional-gradient-boosting-taylor-series-approximations-in-hypothesis-space-and-pseudo-residual-regression-cascades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 46: Functional Gradient Boosting, Taylor Series Approximations in Hypothesis Space, and Pseudo-Residual Regression Cascades
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 46: Functional Gradient Boosting, Taylor Series Approximations in Hypothesis Space, and Pseudo-Residual Regression Cascades">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#461-the-forward-stagewise-functional-minimization-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.1 The Forward Stagewise Functional Minimization Objective
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="46.1 The Forward Stagewise Functional Minimization Objective">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-dimensional-and-functional-space-balancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Dimensional and Functional Space Balancing:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clarifying-the-operational-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clarifying the Operational Scale
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#462-the-functional-taylor-series-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.2 The Functional Taylor Series Expansion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#463-the-inner-product-vector-alignment-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.3 The Inner Product Vector Alignment Proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#464-transforming-gradients-into-regression-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.4 Transforming Gradients into Regression Targets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="46.4 Transforming Gradients into Regression Targets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-homework-verification-the-squared-error-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Homework Verification: The Squared Error Case
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#465-the-complete-naive-gradient-boosting-algorithm-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.5 The Complete Naive Gradient Boosting Algorithm Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#466-the-second-order-evolution-the-xgboost-optimization-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.6 The Second-Order Evolution: The XGBoost Optimization Engine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="46.6 The Second-Order Evolution: The XGBoost Optimization Engine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-variable-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Variable Ledger:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#universal-functional-boosting-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Universal Functional Boosting Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-46-functional-gradient-boosting-taylor-series-approximations-in-hypothesis-space-and-pseudo-residual-regression-cascades">Chapter 46: Functional Gradient Boosting, Taylor Series Approximations in Hypothesis Space, and Pseudo-Residual Regression Cascades</h2>
+<hr />
+<h3 id="461-the-forward-stagewise-functional-minimization-objective">46.1 The Forward Stagewise Functional Minimization Objective</h3>
+<p>In Chapter 45, we formulated the foundations of non-parametric structures, proving that while a single, unconstrained decision tree can minimize empirical bias to absolute zero, it remains highly vulnerable to extreme variance overfits. We then unrolled <strong>Bootstrap Aggregation (Bagging)</strong> as a parallel ensemble solution designed to suppress this variance by averaging uncorrelated trees.</p>
+<p>We now turn our attention to the alternative paradigm of ensemble learning: <strong>Boosting</strong>, specifically focusing on the mathematical formulation of <strong>Gradient Boosting</strong>.</p>
+<p>Unlike Bagging, which operates by training base estimators entirely in parallel on isolated bootstrap data slices, Gradient Boosting structures its assembly line <strong>incrementally and sequentially</strong>. The foundational goal of boosting is to construct a powerful additive functional model designed to systematically drive down empirical bias. Let us restate our baseline Forward Stagewise Additive update rule:</p>
+<div class="arithmatex">\[H_m(\vec{x}) = H_{m-1}(\vec{x}) + \alpha_m h_m(\vec{x})\]</div>
+<h4 id="precise-dimensional-and-functional-space-balancing">Precise Dimensional and Functional Space Balancing:</h4>
+<ul>
+<li><span class="arithmatex">\(\vec{x}_i \in \mathbb{R}^{D \times 1}\)</span>: The native input feature vector for the <span class="arithmatex">\(i\)</span>-th sample point.</li>
+<li><span class="arithmatex">\(h_m(\vec{x}) \in \mathcal{H}\)</span>: The newly generated weak learner (such as a shallow regression tree) selected at the active <span class="arithmatex">\(m\)</span>-th macro-iteration step.</li>
+<li><span class="arithmatex">\(\alpha_m \in \mathbb{R}\)</span>: A scalar step-size coefficient tracking the explicit weight allocation assigned to the <span class="arithmatex">\(m\)</span>-th model head.</li>
+<li><span class="arithmatex">\(H_{m-1}(\vec{x})\)</span>: The compiled, frozen state of the cumulative ensemble model tracking all historical allocations up to step <span class="arithmatex">\(m-1\)</span>.</li>
+<li><span class="arithmatex">\(H_m(\vec{x})\)</span>: The newly updated cumulative ensemble predictor.</li>
+</ul>
+<h4 id="clarifying-the-operational-scale">Clarifying the Operational Scale</h4>
+<p>A student raised a critical question during the lecture: <em>Does this macro-iteration step occur inside the internal training of a single tree, or does it happen across distinct components?</em> We must emphasize that this iteration index <span class="arithmatex">\(m\)</span> does <strong>not</strong> reference the localized splitting iterations used to construct a single tree. Instead, it tracks the macro-steps of the ensemble assembly line. Each step <span class="arithmatex">\(m\)</span> represents a complete chronological pass where an entire, standalone weak learner <span class="arithmatex">\(h_m(\vec{x})\)</span> is generated and appended to the permanent functional graph.</p>
+<p>At each macro-iteration step <span class="arithmatex">\(m\)</span>, we execute Empirical Risk Minimization (ERM) to solve for the optimal weak learner <span class="arithmatex">\(h_m(\vec{x})\)</span> and its scaling coefficient <span class="arithmatex">\(\alpha_m\)</span>. We map this objective function directly onto our global training dataset containing <span class="arithmatex">\(n\)</span> samples:</p>
+<div class="arithmatex">\[\big(h_m^*(\vec{x}), \,\, \alpha_m^*\big) = \arg\min_{h \in \mathcal{H}, \,\, \alpha \in \mathbb{R}} \sum_{i=1}^{n} L\Big(y_i, \,\, H_{m-1}(\vec{x}_i) + \alpha h(\vec{x}_i)\Big)\]</div>
+<hr />
+<h3 id="462-the-functional-taylor-series-expansion">46.2 The Functional Taylor Series Expansion</h3>
+<p>To solve this minimization problem for an arbitrary, differentiable loss function <span class="arithmatex">\(L(y, \,\, H)\)</span>, we apply a powerful mathematical technique. We temporarily step outside our standard parameter-space calculations and execute a <strong>First-Order Taylor Series Expansion directly within an infinite-dimensional Function Space</strong>.</p>
+<p>Let us treat the functional evaluations of our historical ensemble at each sample point, <span class="arithmatex">\(H_{m-1}(\vec{x}_i)\)</span>, as a set of fixed coordinate anchors. We evaluate how our loss function shifts when we perturb these anchors by injecting our new, weighted candidate function step <span class="arithmatex">\(\Delta H = \alpha_m h_m(\vec{x}_i)\)</span>.</p>
+<p>We unroll the first-order Taylor expansion for an individual sample point <span class="arithmatex">\(i\)</span>:</p>
+<div class="arithmatex">\[L\Big(y_i, \,\, H_{m-1}(\vec{x}_i) + \alpha_m h_m(\vec{x}_i)\Big) \approx L\Big(y_i, \,\, H_{m-1}(\vec{x}_i)\Big) + \left[ \frac{\partial L(y_i, \,\, H)}{\partial H} \Bigg|_{H = H_{m-1}(\vec{x}_i)} \right] \cdot \alpha_m h_m(\vec{x}_i)\]</div>
+<p>To simplify our notation, we define the localized derivative term inside the brackets as the scalar <strong>Functional Gradient coordinate (<span class="arithmatex">\(g_i\)</span>)</strong> for sample <span class="arithmatex">\(i\)</span>:</p>
+<div class="arithmatex">\[g_i = \left[ \frac{\partial L(y_i, \,\, H)}{\partial H} \Bigg|_{H = H_{m-1}(\vec{x}_i)} \right]\]</div>
+<p>We substitute this gradient coordinate <span class="arithmatex">\(g_i\)</span> back into our localized sample equation:</p>
+<div class="arithmatex">\[L\Big(y_i, \,\, H_{m-1}(\vec{x}_i) + \alpha_m h_m(\vec{x}_i)\Big) \approx L\Big(y_i, \,\, H_{m-1}(\vec{x}_i)\Big) + \alpha_m g_i h_m(\vec{x}_i)\]</div>
+<p>Now, we accumulate these localized approximations by summing them across all <span class="arithmatex">\(n\)</span> training observations to reconstruct our global empirical risk objective function:</p>
+<div class="arithmatex">\[\sum_{i=1}^{n} L\Big(y_i, \,\, H_{m-1}(\vec{x}_i) + \alpha_m h_m(\vec{x}_i)\Big) \approx \sum_{i=1}^{n} L\Big(y_i, \,\, H_{m-1}(\vec{x}_i)\Big) + \alpha_m \sum_{i=1}^{n} g_i h_m(\vec{x}_i)\]</div>
+<p>Let us analyze the components of this global equation through the strict lens of optimization theory:</p>
+<ul>
+<li><strong>The Baseline Term (<span class="arithmatex">\(\sum L(y_i, \,\, H_{m-1}(\vec{x}_i))\)</span>):</strong> This term measures the empirical risk of our historical ensemble compiled up to step <span class="arithmatex">\(m-1\)</span>. Because we are standing at step <span class="arithmatex">\(m\)</span>, the historical weights are frozen. This term functions as an unalterable <strong>static constant</strong>, meaning its localized derivative with respect to our active optimization variables evaluates to absolute zero.</li>
+</ul>
+<p>Consequently, we can completely drop this constant from our optimization ledger, collapsing our global minimization step into a lean, isolated target function:</p>
+<div class="arithmatex">\[\arg\min_{h \in \mathcal{H}, \,\, \alpha \in \mathbb{R}} \sum_{i=1}^{n} L\Big(y_i, \,\, H_m(\vec{x}_i)\Big) \equiv \arg\min_{h \in \mathcal{H}, \,\, \alpha \in \mathbb{R}} \alpha_m \sum_{i=1}^{n} g_i h_m(\vec{x}_i)\]</div>
+<hr />
+<h3 id="463-the-inner-product-vector-alignment-proof">46.3 The Inner Product Vector Alignment Proof</h3>
+<p>To solve this simplified objective function and discover the optimal structural form for our candidate hypothesis <span class="arithmatex">\(h_m(\vec{x})\)</span>, we analyze the remaining summation from a geometric perspective.</p>
+<p>Let us organize our localized functional gradient coordinates and our candidate hypothesis predictions across all <span class="arithmatex">\(n\)</span> training samples into two distinct <span class="arithmatex">\(n\)</span>-dimensional vectors within an expansive Euclidean sample space <span class="arithmatex">\(\mathbb{R}^n\)</span>:</p>
+<div class="arithmatex">\[\vec{g} = \begin{bmatrix} g_1, &amp; g_2, &amp; \dots, &amp; g_n \end{bmatrix}^T \in \mathbb{R}^{n \times 1}\]</div>
+<div class="arithmatex">\[\vec{h} = \begin{bmatrix} h_m(\vec{x}_1), &amp; h_m(\vec{x}_2), &amp; \dots, &amp; h_m(\vec{x}_n) \end{bmatrix}^T \in \mathbb{R}^{n \times 1}\]</div>
+<p>Under this vector configuration, our global summation simplifies directly into a standard <strong>vector inner product (dot product)</strong>:</p>
+<div class="arithmatex">\[\sum_{i=1}^{n} g_i h_m(\vec{x}_i) \equiv \vec{g} \cdot \vec{h} = \|\vec{g}\|_2 \|\vec{h}\|_2 \cos(\theta)\]</div>
+<p>Our core objective is to minimize this inner product value. From classical vector geometry, for a fixed vector magnitude, the inner product between two vectors reaches its absolute mathematical minimum when the directional cosine alignment is perfectly inverted:</p>
+<div class="arithmatex">\[\cos(\theta) = -1.0 \quad \implies \quad \theta = 180^\circ\]</div>
+<p>This geometric inversion occurs if and only if our candidate prediction vector <span class="arithmatex">\(\vec{h}\)</span> points in the <strong>absolute opposite direction</strong> of our functional gradient vector <span class="arithmatex">\(\vec{g}\)</span>:</p>
+<div class="arithmatex">\[\vec{h}^* \propto -\vec{g}\]</div>
+<p>At each training step, the absolute optimal trajectory for our new weak learner is to match the negative functional gradient at every individual data coordinate:</p>
+<div class="arithmatex">\[h_m^*(\vec{x}_i) = -g_i \quad \forall \quad i \in \{1, \,\, 2, \,\, \dots, \,\, n\}\]</div>
+<p>This geometric proof demonstrates the true nature of Gradient Boosting. The algorithm updates its global state by treating the function values themselves as the core optimization coordinates. At each step, it generates a new weak learner designed to act as a directional update vector that points directly down the path of steepest descent across our function space.</p>
+<hr />
+<h3 id="464-transforming-gradients-into-regression-targets">46.4 Transforming Gradients into Regression Targets</h3>
+<p>While our vector proof establishes that <span class="arithmatex">\(h_m^*(\vec{x}_i)\)</span> must equal <span class="arithmatex">\(-g_i\)</span> across all data points, we face a major practical constraint: <strong>our weak learner <span class="arithmatex">\(h_m(\vec{x})\)</span> belongs to a restricted hypothesis class <span class="arithmatex">\(\mathcal{H}\)</span> (such as shallow, axis-parallel regression trees).</strong> A shallow regression tree cannot output a set of completely unconstrained continuous coordinates across our training samples; its predictions are bound by its hierarchical hyper-rectangular splitting rules.</p>
+<p>To resolve this constraint and force our weak learner to match our ideal gradient trajectory as closely as possible, we transform our minimization step into a standard <strong>Proxy Regression Problem</strong>.</p>
+<p>Instead of searching across an unconstrained continuous domain, we compute the negative functional gradients for all samples and treat them as a fixed set of synthetic target variables—formally known as <strong>Pseudo-Residuals</strong>. We then train a standard regression tree to fit these pseudo-residuals by minimizing a clean <strong>Mean Squared Error (MSE)</strong> loss function:</p>
+<div class="arithmatex">\[h_m^*(\vec{x}) = \arg\min_{h \in \mathcal{H}} \sum_{i=1}^{n} \Big( (-g_i) - h(\vec{x}_i) \Big)^2\]</div>
+<h4 id="the-homework-verification-the-squared-error-case">The Homework Verification: The Squared Error Case</h4>
+<p>To ground this abstract proxy framework in a concrete example, let us evaluate how these equations behave under a standard continuous <strong>Squared Error Loss Function</strong>:</p>
+<div class="arithmatex">\[L(y_i, \,\, H) = \frac{1}{2} \left( y_i - H(\vec{x}_i) \right)^2\]</div>
+<p>We take the partial derivative of this loss function with respect to the active hypothesis variable <span class="arithmatex">\(H\)</span>, evaluating the derivative at our frozen historical state <span class="arithmatex">\(H = H_{m-1}(\vec{x}_i)\)</span>:</p>
+<div class="arithmatex">\[g_i = \frac{\partial L(y_i, \,\, H)}{\partial H} \Bigg| = -\left( y_i - H_{m-1}(\vec{x}_i) \right)\]</div>
+<p>We isolate our pseudo-residual target by computing the negative value of this functional gradient coordinate:</p>
+<div class="arithmatex">\[\text{Pseudo-Residual Target } (-g_i) = -\Big( -\big( y_i - H_{m-1}(\vec{x}_i) \big) \Big) = y_i - H_{m-1}(\vec{x}_i)\]</div>
+<p>Look at the perfect mathematical alignment of this result: for a squared error loss function, the negative functional gradient coordinate <span class="arithmatex">\(-g_i\)</span> simplifies to <strong>the literal residual</strong>—the raw algebraic difference between our true ground-truth label <span class="arithmatex">\(y_i\)</span> and the prediction generated by our historical ensemble up to that step.</p>
+<p>By training our next regression tree to fit these pseudo-residuals, the model explicitly identifies exactly where the historical ensemble overshot or undershot the true targets, updating its weights to correct those localized errors.</p>
+<hr />
+<h3 id="465-the-complete-naive-gradient-boosting-algorithm-ledger">46.5 The Complete Naive Gradient Boosting Algorithm Ledger</h3>
+<p>We now unroll these mathematical components into a comprehensive, production-ready algorithmic pipeline.</p>
+<table>
+<thead>
+<tr>
+<th>Step Phase</th>
+<th>Mathematical Execution Operations</th>
+<th>Structural Input/Output Tensors</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Initialization</strong></td>
+<td>Initialize the global ensemble state with a flat baseline constant predictor: <span class="arithmatex">\(H_0(\vec{x}) = \arg\min_{\rho} \sum_{i=1}^n L(y_i, \rho)\)</span>.</td>
+<td><strong>Output:</strong> <span class="arithmatex">\(H_0(\vec{x}) \in \mathbb{R}^{n \times 1}\)</span></td>
+</tr>
+<tr>
+<td><strong>2. Gradient Extraction</strong></td>
+<td>Loop over macro-steps <span class="arithmatex">\(m = 1 \dots B\)</span>. Compute the localized pseudo-residuals across all <span class="arithmatex">\(n\)</span> samples: $r_{im} = - \left[ \frac{\partial L(y_i, H)}{\partial H} \Big</td>
+<td><em>{H = H</em>{m-1}(\vec{x}_i)} \right]$.</td>
+</tr>
+<tr>
+<td><strong>3. Proxy Tree Fitting</strong></td>
+<td>Train a standard non-parametric regression tree <span class="arithmatex">\(h_m(\vec{x})\)</span> to fit the pseudo-residual targets <span class="arithmatex">\(\vec{r}_m\)</span> using an MSE loss criterion.</td>
+<td><strong>Output:</strong> <span class="arithmatex">\(h_m(\vec{x}) \in \mathcal{H}\)</span></td>
+</tr>
+<tr>
+<td><strong>4. Step Size Learning</strong></td>
+<td>Optimize the localized step-size coefficient via a single-variable line search: <span class="arithmatex">\(\alpha_m = \arg\min_{\alpha} \sum_{i=1}^n L\big(y_i, H_{m-1}(\vec{x}_i) + \alpha h_m(\vec{x}_i)\big)\)</span>.</td>
+<td><strong>Output:</strong> <span class="arithmatex">\(\alpha_m \in \mathbb{R}\)</span></td>
+</tr>
+<tr>
+<td><strong>5. Graph Assembly</strong></td>
+<td>Update the cumulative functional ensemble graph by appending the new weighted tree node: <span class="arithmatex">\(H_m(\vec{x}) = H_{m-1}(\vec{x}) + \alpha_m h_m(\vec{x})\)</span>.</td>
+<td><strong>Output:</strong> <span class="arithmatex">\(H_m(\vec{x}) \in \mathcal{H}\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="466-the-second-order-evolution-the-xgboost-optimization-engine">46.6 The Second-Order Evolution: The XGBoost Optimization Engine</h3>
+<p>The professor concludes this module by tracing the evolutionary path from naive first-order gradient boosting to the industry-standard <strong>Extreme Gradient Boosting (XGBoost)</strong> framework.</p>
+<p>While naive gradient boosting relies exclusively on first-order derivatives (<span class="arithmatex">\(g_i\)</span>) to steer its functional updates, XGBoost refines this optimization pass by expanding its Taylor series approximation to include the <strong>Second-Order Derivative Term (the Hessian)</strong>.</p>
+<p>We unroll the second-order Taylor expansion of our global loss function around our frozen historical state <span class="arithmatex">\(H_{m-1}\)</span>:</p>
+<div class="arithmatex">\[\sum_{i=1}^{n} L\Big(y_i, \,\, H_{m-1}(\vec{x}_i) + h_m(\vec{x}_i)\Big) \approx \sum_{i=1}^{n} \left[ L\big(y_i, H_{m-1}(\vec{x}_i)\big) + g_i h_m(\vec{x}_i) + \frac{1}{2} h_i h_m^2(\vec{x}_i) \right] + \Omega(h_m)\]</div>
+<h4 id="precise-variable-ledger">Precise Variable Ledger:</h4>
+<ul>
+<li><span class="arithmatex">\(g_i = \frac{\partial L(y_i, \,\, H_{m-1})}{\partial H_{m-1}}\)</span>: The first-order functional gradient coordinate.</li>
+<li><span class="arithmatex">\(h_i = \frac{\partial^2 L(y_i, \,\, H_{m-1})}{\partial H_{m-1}^2}\)</span>: The second-order functional Hessian coordinate.</li>
+<li><span class="arithmatex">\(\Omega(h_m) = \gamma T + \frac{1}{2}\lambda \sum_{j=1}^{T} w_j^2\)</span>: An explicit structural regularizer that penalizes the total number of leaf nodes (<span class="arithmatex">\(T\)</span>) and the squared weights (<span class="arithmatex">\(w_j^2\)</span>) of the active tree to prevent overfitting.</li>
+</ul>
+<p>By incorporating second-order Hessian statistics directly into its splitting criteria, XGBoost calculates the exact curvature of the local loss surface. This allows the optimization engine to dynamically adjust its step trajectories—taking bold, accelerated steps across flat terrains and executing tightly controlled updates across high-curvature ridges—while utilizing formal structural penalties to suppress model variance and deliver state-of-the-art predictive performance in production environments.</p>
+<hr />
+<h2 id="textbook-notes-core-reference-sheet">Textbook Notes Core Reference Sheet</h2>
+<h3 id="universal-functional-boosting-protocol">Universal Functional Boosting Protocol</h3>
+<div class="arithmatex">\[\text{Additive Forward Step: } \quad H_m(\vec{x}) = H_{m-1}(\vec{x}) + \alpha_m h_m(\vec{x})\]</div>
+<div class="arithmatex">\[\text{Functional Gradient Coordinator: } \quad g_i = \left[ \frac{\partial L(y_i, \,\, H)}{\partial H} \Bigg|_{H = H_{m-1}(\vec{x}_i)} \right]\]</div>
+<div class="arithmatex">\[\text{Proxy MSE Optimization Target: } \quad h_m^*(\vec{x}) = \arg\min_{h \in \mathcal{H}} \sum_{i=1}^{n} \Big( (-g_i) - h(\vec{x}_i) \Big)^2\]</div>
+<div class="arithmatex">\[\text{XGBoost Second-Order Objective: } \quad \mathcal{L}^{(m)} \approx \sum_{i=1}^{n} \left[ g_i h_m(\vec{x}_i) + \frac{1}{2} h_i h_m^2(\vec{x}_i) \right] + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^{T} w_j^2\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

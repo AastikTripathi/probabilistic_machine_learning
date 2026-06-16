@@ -1,0 +1,2905 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture54/">
+      
+      
+        <link rel="next" href="../lecture56/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture55 - Probabilistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Probabilistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture55
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Probabilistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-44-bootstrap-aggregation-bagging-statistical-covariance-overlapping-and-the-foundations-of-additive-gated-boosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 44: Bootstrap Aggregation (Bagging), Statistical Covariance Overlapping, and the Foundations of Additive Gated Boosting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 44: Bootstrap Aggregation (Bagging), Statistical Covariance Overlapping, and the Foundations of Additive Gated Boosting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-the-philosophy-of-committee-based-estimation-and-weak-learners" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.1 The Philosophy of Committee-Based Estimation and Weak Learners
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-bootstrap-resampling-and-the-out-of-bag-oob-limit-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.2 Bootstrap Resampling and the Out-of-Bag (OOB) Limit Proof
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.2 Bootstrap Resampling and the Out-of-Bag (OOB) Limit Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-fundamental-out-of-bag-oob-mathematical-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fundamental Out-of-Bag (OOB) Mathematical Proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-architectural-gift-of-free-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Architectural Gift of Free Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#433-rigorous-algebraic-derivation-of-correlated-ensemble-variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.3 Rigorous Algebraic Derivation of Correlated Ensemble Variance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444-the-decorrelation-paradigm-of-random-forests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.4 The Decorrelation Paradigm of Random Forests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#445-mathematical-introduction-to-boosting-functional-optimization-across-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.5 Mathematical Introduction to Boosting: Functional Optimization Across Subspaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.5 Mathematical Introduction to Boosting: Functional Optimization Across Subspaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-asset-dimensions-variable-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Asset Dimensions &amp; Variable Verification:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#universal-ensemble-mathematics-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Universal Ensemble Mathematics Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-review-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Review Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-44-bootstrap-aggregation-bagging-statistical-covariance-overlapping-and-the-foundations-of-additive-gated-boosting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 44: Bootstrap Aggregation (Bagging), Statistical Covariance Overlapping, and the Foundations of Additive Gated Boosting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 44: Bootstrap Aggregation (Bagging), Statistical Covariance Overlapping, and the Foundations of Additive Gated Boosting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-the-philosophy-of-committee-based-estimation-and-weak-learners" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.1 The Philosophy of Committee-Based Estimation and Weak Learners
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-bootstrap-resampling-and-the-out-of-bag-oob-limit-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.2 Bootstrap Resampling and the Out-of-Bag (OOB) Limit Proof
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.2 Bootstrap Resampling and the Out-of-Bag (OOB) Limit Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-fundamental-out-of-bag-oob-mathematical-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Fundamental Out-of-Bag (OOB) Mathematical Proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-architectural-gift-of-free-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Architectural Gift of Free Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#433-rigorous-algebraic-derivation-of-correlated-ensemble-variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        43.3 Rigorous Algebraic Derivation of Correlated Ensemble Variance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444-the-decorrelation-paradigm-of-random-forests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.4 The Decorrelation Paradigm of Random Forests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#445-mathematical-introduction-to-boosting-functional-optimization-across-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.5 Mathematical Introduction to Boosting: Functional Optimization Across Subspaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.5 Mathematical Introduction to Boosting: Functional Optimization Across Subspaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-asset-dimensions-variable-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Asset Dimensions &amp; Variable Verification:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#universal-ensemble-mathematics-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Universal Ensemble Mathematics Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-review-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Review Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-44-bootstrap-aggregation-bagging-statistical-covariance-overlapping-and-the-foundations-of-additive-gated-boosting">Chapter 44: Bootstrap Aggregation (Bagging), Statistical Covariance Overlapping, and the Foundations of Additive Gated Boosting</h2>
+<hr />
+<h3 id="441-the-philosophy-of-committee-based-estimation-and-weak-learners">44.1 The Philosophy of Committee-Based Estimation and Weak Learners</h3>
+<p>In Chapter 43, we explored how non-parametric decision trees recursively partition high-dimensional space into regular hyper-rectangles. We proved that while unregularized trees can reduce structural bias to absolute zero, they pay a severe price in the form of extreme variance—effectively memorizing the training coordinates as a rigid lookup table.</p>
+<p>To systematically address this variance crisis without re-introducing high bias, we transition to <strong>Ensemble Methods</strong>. Ensemble theory frames machine learning not as a hunt for a single master hypothesis, but as a collaborative decision-making process driven by a committee of independent models.</p>
+<p>When constructing a committee-based model, we do not require the individual components to be highly optimized, complex predictors. Instead, we deliberately build our ensemble using <strong>Weak Learners</strong>.</p>
+<blockquote>
+<p><strong>The Weak Learner Criterion:</strong>
+A hypothesis function <span class="arithmatex">\(h(\vec{x})\)</span> qualifies as a weak learner if its predictive capability is strictly <strong>better than random chance</strong>.</p>
+</blockquote>
+<p>Let us formalize this boundary condition across different task topologies:</p>
+<ul>
+<li><strong>The Binary Classification Boundary (<span class="arithmatex">\(K=2\)</span>):</strong> A completely random guess yields an expected accuracy of exactly <span class="arithmatex">\(50\%\)</span>. Therefore, any valid binary weak learner must yield an accuracy of <span class="arithmatex">\(50\% + \epsilon\)</span>, where <span class="arithmatex">\(\epsilon &gt; 0\)</span>. If a binary model's performance falls below <span class="arithmatex">\(50\%\)</span>, it is mathematically broken, acting worse than a blind coin flip.</li>
+<li><strong>The Multi-Class Classification Boundary (<span class="arithmatex">\(K\)</span> classes):</strong> For a <span class="arithmatex">\(10\)</span>-class task, a random uniform guess yields a baseline accuracy of exactly <span class="arithmatex">\(10\%\)</span>. A model that achieves only <span class="arithmatex">\(5% \times \text{accuracy}\)</span> is systematically performing worse than uniform random chance, introducing harmful distortion into the committee.</li>
+</ul>
+<p>As long as every individual model in our committee satisfies this weak learner criterion, ensemble theory guarantees that aggregating their predictions will systematically suppress global variance and drive down true risk.</p>
+<hr />
+<h3 id="442-bootstrap-resampling-and-the-out-of-bag-oob-limit-proof">44.2 Bootstrap Resampling and the Out-of-Bag (OOB) Limit Proof</h3>
+<p>The foundational challenge of ensemble learning is the acquisition of data. The variance-reduction properties of an ensemble average assume that each constituent model is trained on a completely independent dataset pulled from the environment. In live engineering scenarios, however, we do not possess a continuous reservoir of independent datasets; we have exactly <em>one single dataset</em> <span class="arithmatex">\(D\)</span> containing <span class="arithmatex">\(n\)</span> samples.</p>
+<p>To simulate multiple independent datasets from a single data footprint, we deploy <strong>Bootstrap Resampling with Replacement</strong>. We construct <span class="arithmatex">\(B\)</span> independent synthetic training batches (<span class="arithmatex">\(D_1, D_2, \dots, D_B\)</span>), each containing exactly <span class="arithmatex">\(n\)</span> observations, by uniformly sampling rows from our master dataset <span class="arithmatex">\(D\)</span> and returning them to the pool after each pick.</p>
+<p>Because samples are replaced after each draw, a single training sample can be selected multiple times within a single bootstrap batch, while other samples are passed over entirely.</p>
+<h4 id="the-fundamental-out-of-bag-oob-mathematical-proof">The Fundamental Out-of-Bag (OOB) Mathematical Proof</h4>
+<p>Let us calculate the exact mathematical probability that an arbitrary training observation <span class="arithmatex">\(\vec{x}_i \in D\)</span> is completely excluded from a synthetic bootstrap dataset <span class="arithmatex">\(D_b\)</span> containing <span class="arithmatex">\(n\)</span> samples.</p>
+<ol>
+<li>Because we sample uniformly with replacement across <span class="arithmatex">\(n\)</span> total records, the probability of selecting our specific observation <span class="arithmatex">\(\vec{x}_i\)</span> in one single draw is:</li>
+</ol>
+<div class="arithmatex">\[P(\text{Selected}) = \frac{1}{n}\]</div>
+<ol>
+<li>Conversely, the probability that our observation is <em>not</em> chosen in that single draw is the complement:</li>
+</ol>
+<div class="arithmatex">\[P(\text{Excluded}) = 1 - \frac{1}{n}\]</div>
+<ol>
+<li>To compile a full bootstrap batch <span class="arithmatex">\(D_b\)</span>, the system executes exactly <span class="arithmatex">\(n\)</span> independent draws. Because each draw is statistically independent, the joint probability that our observation is excluded across all <span class="arithmatex">\(n\)</span> sequential choices is computed via a strict product power rule:</li>
+</ol>
+<div class="arithmatex">\[P(\text{Excluded across batch}) = \left(1 - \frac{1}{n}\right)^n\]</div>
+<p>We evaluate the mathematical limit of this expression as our dataset size scales toward infinity (<span class="arithmatex">\(n \to \infty\)</span>):</p>
+<div class="arithmatex">\[\lim_{n \to \infty} \left(1 - \frac{1}{n}\right)^n\]</div>
+<p>Recall the classical calculus definition of the exponential constant <span class="arithmatex">\(e^x\)</span>:</p>
+<div class="arithmatex">\[\lim_{m \to \infty} \left(1 + \frac{x}{m}\right)^m = e^x\]</div>
+<p>By matching variables and setting <span class="arithmatex">\(x = -1\)</span> and <span class="arithmatex">\(m = n\)</span>, our limit simplifies directly into an absolute mathematical constant:</p>
+<div class="arithmatex">\[\lim_{n \to \infty} \left(1 - \frac{1}{n}\right)^n = e^{-1} = \frac{1}{e} \approx 0.367879 \quad \implies \quad \approx 36.8\%\]</div>
+<h4 id="the-architectural-gift-of-free-validation">The Architectural Gift of Free Validation</h4>
+<p>This proof establishes a foundational property of bootstrap resampling. For any given bootstrap dataset <span class="arithmatex">\(D_b\)</span>, <strong>approximately <span class="arithmatex">\(36.8\%\)</span> of the original training samples are completely excluded from the training process.</strong> These omitted rows are formally classified as <strong>Out-of-Bag (OOB) Samples</strong>.</p>
+<p>This OOB threshold acts as an inherent architectural regularizer, providing an entry-free validation dataset for each individual model head in the ensemble. The <span class="arithmatex">\(36.8\%\)</span> of data that tree <span class="arithmatex">\(b\)</span> never saw during training can be used as a clean testing set to calculate validation error and evaluate generalization capacity on the fly, bypassing the need to sacrifice a separate, dedicated validation partition from our master dataset.</p>
+<p>Once these <span class="arithmatex">\(B\)</span> bootstrap batches are harvested, we train <span class="arithmatex">\(B\)</span> independent weak learners (<span class="arithmatex">\(h_1(\vec{x}), \dots, h_B(\vec{x})\)</span>) in parallel. The final integrated model prediction—known as <strong>Bootstrap Aggregation</strong>, or <strong>Bagging</strong>—is compiled by taking a uniform average across the committee:</p>
+<div class="arithmatex">\[\hat{y}_{\text{Bag}} = \frac{1}{B} \sum_{b=1}^{B} h_b(\vec{x}) \quad \text{(For Continuous Regression)}\]</div>
+<div class="arithmatex">\[\hat{y}_{\text{Bag}} = \text{Majority Vote}\Big( h_1(\vec{x}), \,\, \dots, \,\, h_B(\vec{x}) \Big) \quad \text{(For Discrete Classification)}\]</div>
+<hr />
+<h3 id="433-rigorous-algebraic-derivation-of-correlated-ensemble-variance">43.3 Rigorous Algebraic Derivation of Correlated Ensemble Variance</h3>
+<p>We now unroll the complete mathematical proof establishing how bootstrap aggregation affects the global variance ledger.</p>
+<p>Let us model the prediction output of our <span class="arithmatex">\(i\)</span>-th trained weak learner on a random input coordinate as a valid dependent random variable <span class="arithmatex">\(Z_i \equiv h_i(\vec{x})\)</span>. Because each weak learner is trained on a bootstrap dataset pulled from the same global distribution <span class="arithmatex">\(P(X,Y)\)</span>, we can safely assume that these random variables are <strong>identically distributed</strong>.</p>
+<p>Consequently, they share an identical internal variance value, denoted as <span class="arithmatex">\(\sigma^2\)</span>:</p>
+<div class="arithmatex">\[\text{Var}(Z_i) = \sigma^2 \quad \forall \quad i \in \{1, \,\, 2, \,\, \dots, \,\, B\}\]</div>
+<p>Crucially, because these models are trained on bootstrap batches derived from the <em>same underlying dataset</em>, <strong>they are not statistically independent.</strong> They share a positive internal correlation coefficient, denoted as <span class="arithmatex">\(\rho\)</span>:</p>
+<div class="arithmatex">\[\text{Corr}(Z_i, \,\, Z_j) = \rho \quad \forall \quad i \neq j\]</div>
+<p>From probability theory, the correlation between two random variables is defined as their covariance divided by the product of their standard deviations:</p>
+<div class="arithmatex">\[\rho = \frac{\text{Cov}(Z_i, \,\, Z_j)}{\sqrt{\text{Var}(Z_i)}\sqrt{\text{Var}(Z_j)}} = \frac{\text{Cov}(Z_i, \,\, Z_j)}{\sigma \cdot \sigma} = \frac{\text{Cov}(Z_i, \,\, Z_j)}{\sigma^2}\]</div>
+<p>Rearranging this identity isolates the cross-model covariance as a clean product of correlation and native variance:</p>
+<div class="arithmatex">\[\text{Cov}(Z_i, \,\, Z_j) = \rho \sigma^2 \quad \forall \quad i \neq j\]</div>
+<p>We now evaluate the variance of our complete aggregated ensemble average, defined as the random variable <span class="arithmatex">\(\bar{Z} = \frac{1}{B}\sum_{i=1}^{B} Z_i\)</span>:</p>
+<div class="arithmatex">\[\text{Var}(\bar{Z}) = \text{Var}\left( \frac{1}{B} \sum_{i=1}^{B} Z_i \right)\]</div>
+<p>We extract the scalar fraction <span class="arithmatex">\(\frac{1}{B}\)</span> outside the variance operator, squaring it according to standard probability rules:</p>
+<div class="arithmatex">\[\text{Var}(\bar{Z}) = \frac{1}{B^2} \text{Var}\left( \sum_{i=1}^{B} Z_i \right)\]</div>
+<p>To evaluate the variance of a sum of dependent random variables, we expand the expression into a full matrix summation over the entire covariance grid:</p>
+<div class="arithmatex">\[\text{Var}\left( \sum_{i=1}^{B} Z_i \right) = \sum_{i=1}^{B} \sum_{j=1}^{B} \text{Cov}(Z_i, \,\, Z_j)\]</div>
+<p>We split this global grid summation into two distinct components: the main diagonal terms (where <span class="arithmatex">\(i = j\)</span>) and the off-diagonal cross-covariance terms (where <span class="arithmatex">\(i \neq j\)</span>):</p>
+<div class="arithmatex">\[\sum_{i=1}^{B} \sum_{j=1}^{B} \text{Cov}(Z_i, \,\, Z_j) = \sum_{i=1}^{B} \text{Var}(Z_i) + \sum_{i \neq j} \text{Cov}(Z_i, \,\, Z_j)\]</div>
+<p>Let us calculate the exact number of terms operating within each summation:</p>
+<ol>
+<li>The main diagonal contains exactly <span class="arithmatex">\(B\)</span> independent variance terms. Because <span class="arithmatex">\(\text{Var}(Z_i) = \sigma^2\)</span>, this first sum simplifies to:</li>
+</ol>
+<div class="arithmatex">\[\sum_{i=1}^{B} \text{Var}(Z_i) = B \cdot \sigma^2\]</div>
+<ol>
+<li>The global covariance grid contains a total of <span class="arithmatex">\(B^2\)</span> blocks. Subtracting the <span class="arithmatex">\(B\)</span> diagonal slots leaves exactly <span class="arithmatex">\(B^2 - B = B(B-1)\)</span> off-diagonal slots. Because every off-diagonal block shares a constant covariance of <span class="arithmatex">\(\rho\sigma^2\)</span>, the second sum simplifies to:</li>
+</ol>
+<div class="arithmatex">\[\sum_{i=1}^{B} \sum_{j \neq i}^{B} \text{Cov}(Z_i, \,\, Z_j) = B(B-1)\rho\sigma^2\]</div>
+<p>We substitute both simplified sums back into our global ensemble equation:</p>
+<div class="arithmatex">\[\text{Var}(\bar{Z}) = \frac{1}{B^2} \left[ B\sigma^2 + B(B-1)\rho\sigma^2 \right]\]</div>
+<p>We distribute the fractional scalar <span class="arithmatex">\(\frac{1}{B^2}\)</span> across the brackets:</p>
+<div class="arithmatex">\[\text{Var}(\bar{Z}) = \frac{B\sigma^2}{B^2} + \frac{B(B-1)\rho\sigma^2}{B^2} = \frac{\sigma^2}{B} + \frac{B-1}{B}\rho\sigma^2\]</div>
+<p>We expand the second fractional term:</p>
+<div class="arithmatex">\[\text{Var}(\bar{Z}) = \frac{\sigma^2}{B} + \left(1 - \frac{1}{B}\right)\rho\sigma^2 = \frac{\sigma^2}{B} + \rho\sigma^2 - \frac{\rho\sigma^2}{B}\]</div>
+<p>Finally, we group our terms by factoring out the scalar denominators to arrive at the definitive ensemble variance equation:</p>
+<div class="arithmatex">\[\text{Var}(\bar{Z}) = \rho\sigma^2 + \frac{1 - \rho}{B}\sigma^2\]</div>
+<hr />
+<h3 id="444-the-decorrelation-paradigm-of-random-forests">44.4 The Decorrelation Paradigm of Random Forests</h3>
+<p>This final algebraic equation reveals a profound architectural insight. Let us analyze how the global variance reacts as we scale the size of our committee (<span class="arithmatex">\(B \to \infty\)</span>):</p>
+<div class="arithmatex">\[\lim_{B \to \infty} \text{Var}(\bar{Z}) = \rho\sigma^2 + \lim_{B \to \infty} \left( \frac{1 - \rho}{B}\sigma^2 \right) = \rho\sigma^2 + 0 = \rho\sigma^2\]</div>
+<p>The second term drops out completely, but the first term (<span class="arithmatex">\(\rho\sigma^2\)</span>) remains completely unaffected by the size of the committee. This isolates a hard structural bottleneck: <strong>the maximum variance reduction achieved by standard bootstrap aggregation is strictly bounded by the correlation coefficient <span class="arithmatex">\(\rho\)</span> of its constituent models.</strong></p>
+<p>If our weak learners are highly correlated, expanding the committee adds zero value. To break this bottleneck and drive global variance down further, we must implement an architectural constraint that explicitly <strong>decorrelates</strong> the models.</p>
+<p>This requirement brings us directly to <strong>The Random Forest Algorithm</strong>. A Random Forest is an advanced bagging ensemble that forces deep decorrelation across its weak learners (which are locked as decision trees) by adding an intentional node-level constraint: <strong>Random Feature Subsampling</strong>.</p>
+<p>When growing a standard decision tree, the optimizer scans across all <span class="arithmatex">\(D\)</span> available feature dimensions at every single node to select its splitting boundaries. In a Random Forest, however, the algorithm restricts the node's vision.</p>
+<p>At every single node split across every tree in the ensemble, the engine randomly subsamples a highly restricted subset of <span class="arithmatex">\(m\)</span> features without replacement from the global pool:</p>
+<div class="arithmatex">\[m \approx \lfloor \sqrt{D} \rfloor\]</div>
+<p>The greedy optimizer is then forced to select its feature index <span class="arithmatex">\(j\)</span> and split threshold <span class="arithmatex">\(\tau\)</span> exclusively from this restricted pool. By blocking dominant, high-variance features from hijacking the split selections across all bootstrap batches, the algorithm forces individual trees to discover alternative geometric structures across the manifold. This structural restriction drives down the cross-model correlation coefficient <span class="arithmatex">\(\rho\)</span>, allowing the ensemble to unlock its full variance-reduction potential and minimize true risk.</p>
+<hr />
+<h3 id="445-mathematical-introduction-to-boosting-functional-optimization-across-subspaces">44.5 Mathematical Introduction to Boosting: Functional Optimization Across Subspaces</h3>
+<p>While bootstrap aggregation balances variance by training independent models in parallel, <strong>Boosting</strong> adopts a fundamentally different optimization strategy. Boosting processes data <strong>sequentially and incrementally</strong>, building an additive functional chain designed to systematically minimize empirical bias.</p>
+<p>Let <span class="arithmatex">\(h_m(\vec{x})\)</span> denote a weak learner optimized at the <span class="arithmatex">\(m\)</span>-th sequential iteration of our training loop, and let <span class="arithmatex">\(H_m(\vec{x})\)</span> represent the cumulative, aggregated ensemble model constructed up to that step. We formalize the core update engine of boosting through an <strong>Additive Forward Stagewise Progression Equation</strong>:</p>
+<div class="arithmatex">\[H_m(\vec{x}) = H_{m-1}(\vec{x}) + \alpha_m h_m(\vec{x})\]</div>
+<h4 id="precise-asset-dimensions-variable-verification">Precise Asset Dimensions &amp; Variable Verification:</h4>
+<ul>
+<li><span class="arithmatex">\(H_{m-1}(\vec{x})\)</span>: The frozen, compiled ensemble state tracking all historical combinations up to step <span class="arithmatex">\(m-1\)</span>.</li>
+<li><span class="arithmatex">\(h_m(\vec{x}) \in \mathcal{H}\)</span>: The newly generated weak learner added to the chain at the active step <span class="arithmatex">\(m\)</span>.</li>
+<li><span class="arithmatex">\(\alpha_m \in \mathbb{R}\)</span>: A learnable scalar step-size coefficient tracking the explicit weight allocation assigned to the <span class="arithmatex">\(m\)</span>-th model head.</li>
+<li><span class="arithmatex">\(H_m(\vec{x})\)</span>: The newly updated cumulative ensemble predictor.</li>
+</ul>
+<p>Notice the clear mathematical analogy here. In Chapter 44, we unrolled how standard gradient descent navigates a non-convex loss terrain by updating a parameter vector step-by-step: <span class="arithmatex">\(\vec{\theta}_t = \vec{\theta}_{t-1} - \alpha \vec{g}_t\)</span>.</p>
+<p><strong>Boosting applies this exact same optimization logic to function spaces.</strong> Instead of moving point-by-point across a parameter space, boosting moves step-by-step across an infinite-dimensional <em>hypothesis space</em>.</p>
+<p>At each sequential iteration <span class="arithmatex">\(m\)</span>, the algorithm treats the existing ensemble <span class="arithmatex">\(H_{m-1}(\vec{x})\)</span> as a fixed, frozen constant. It then optimizes a new functional step (<span class="arithmatex">\(h_m(\vec{x})\)</span>) to act as a localized directional update, specifically targeting and correcting the structural mistakes made by the preceding layers. By scaling this new function by <span class="arithmatex">\(\alpha_m\)</span> and adding it to the graph, the model systematically reduces empirical bias, transforming a chain of weak learners into an ultra-powerful global function approximator.</p>
+<hr />
+<h2 id="textbook-notes-core-reference-sheet">Textbook Notes Core Reference Sheet</h2>
+<h3 id="universal-ensemble-mathematics-ledger">Universal Ensemble Mathematics Ledger</h3>
+<div class="arithmatex">\[\text{The Bagging Predictor: } \quad \hat{y}_{\text{Bag}} = \frac{1}{B}\sum_{b=1}^{B} h_b(\vec{x})\]</div>
+<div class="arithmatex">\[\text{The Correlated Variance Proof: } \quad \text{Var}\left( \frac{1}{B}\sum_{i=1}^{B} Z_i \right) = \rho\sigma^2 + \frac{1 - \rho}{B}\sigma^2\]</div>
+<div class="arithmatex">\[\text{The Additive Boosting Engine: } \quad H_m(\vec{x}) = H_{m-1}(\vec{x}) + \alpha_m h_m(\vec{x})\]</div>
+<hr />
+<h3 id="core-review-milestones">Core Review Milestones</h3>
+<ol>
+<li><strong>The Out-of-Bag (OOB) Fraction:</strong> Running bootstrap sampling with replacement across <span class="arithmatex">\(n\)</span> rows maps to an absolute exponential limit (<span class="arithmatex">\(\lim (1-1/n)^n = 1/e\)</span>). This guarantees that approximately <span class="arithmatex">\(36.8\%\)</span> of our training samples are excluded from each batch, providing an implicit validation dataset for free.</li>
+<li><strong>The Correlation Penalty:</strong> The variance-reduction capacity of an ensemble average is bottlenecked by the correlation coefficient <span class="arithmatex">\(\rho\)</span> between its base estimators. If individual models share identical view constraints, scaling the committee size <span class="arithmatex">\(B\)</span> yields no benefit.</li>
+<li><strong>The Functional Gradient Analog:</strong> Boosting re-frames ensemble assembly as an additive forward optimization pass over function spaces. It treats the historical ensemble state as a frozen constant and appends new weak learners sequentially to minimize empirical bias.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2948 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture58/">
+      
+      
+        <link rel="next" href="../lecture60/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture59 - Probabilistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Probabilistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture59
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Probabilistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-49-unsupervised-topologies-latent-variable-foundations-and-the-geometry-of-marginal-distribution-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 49: Unsupervised Topologies, Latent Variable Foundations, and the Geometry of Marginal Distribution Estimation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 49: Unsupervised Topologies, Latent Variable Foundations, and the Geometry of Marginal Distribution Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#491-deconstructing-the-nomenclature-unsupervised-learning-as-marginal-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        49.1 Deconstructing the Nomenclature: Unsupervised Learning as Marginal Estimation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="49.1 Deconstructing the Nomenclature: Unsupervised Learning as Marginal Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-the-supervised-learning-axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. The Supervised Learning Axis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-the-unsupervised-learning-axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. The Unsupervised Learning Axis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-the-structural-blueprint-latent-variable-models-lvms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.2 The Structural Blueprint: Latent Variable Models (LVMs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.2 The Structural Blueprint: Latent Variable Models (LVMs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-subspace-dimensional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Subspace Dimensional Constraints:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#493-the-geometric-taxonomy-of-the-posterior-pz-mid-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        49.3 The Geometric Taxonomy of the Posterior \(P(Z \mid X)\)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="49.3 The Geometric Taxonomy of the Posterior \(P(Z \mid X)\)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#case-a-the-discrete-horizon-mathbbz-in-1-2-dots-k" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case A: The Discrete Horizon (\(\mathbb{Z} \in \{1, \,\, 2, \,\, \dots, \,\, K\}\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-spatial-semantics-of-discrete-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Spatial Semantics of Discrete Subspaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-b-the-continuous-horizon-mathbbz-in-mathbbrm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case B: The Continuous Horizon (\(\mathbb{Z} \in \mathbb{R}^M\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444-applied-engineering-architecture-downstream-feature-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.4 Applied Engineering Architecture: Downstream Feature Transfer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#455-the-architectural-spectrum-supervised-vs-unsupervised-vs-self-supervised" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.5 The Architectural Spectrum: Supervised vs. Unsupervised vs. Self-Supervised
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-formula-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Formula Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Formula Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-complete-distributional-learning-continuum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Complete Distributional Learning Continuum
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-49-unsupervised-topologies-latent-variable-foundations-and-the-geometry-of-marginal-distribution-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 49: Unsupervised Topologies, Latent Variable Foundations, and the Geometry of Marginal Distribution Estimation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 49: Unsupervised Topologies, Latent Variable Foundations, and the Geometry of Marginal Distribution Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#491-deconstructing-the-nomenclature-unsupervised-learning-as-marginal-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        49.1 Deconstructing the Nomenclature: Unsupervised Learning as Marginal Estimation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="49.1 Deconstructing the Nomenclature: Unsupervised Learning as Marginal Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-the-supervised-learning-axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. The Supervised Learning Axis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-the-unsupervised-learning-axis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. The Unsupervised Learning Axis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-the-structural-blueprint-latent-variable-models-lvms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.2 The Structural Blueprint: Latent Variable Models (LVMs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="44.2 The Structural Blueprint: Latent Variable Models (LVMs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-subspace-dimensional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Subspace Dimensional Constraints:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#493-the-geometric-taxonomy-of-the-posterior-pz-mid-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        49.3 The Geometric Taxonomy of the Posterior \(P(Z \mid X)\)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="49.3 The Geometric Taxonomy of the Posterior \(P(Z \mid X)\)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#case-a-the-discrete-horizon-mathbbz-in-1-2-dots-k" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case A: The Discrete Horizon (\(\mathbb{Z} \in \{1, \,\, 2, \,\, \dots, \,\, K\}\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-spatial-semantics-of-discrete-subspaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Spatial Semantics of Discrete Subspaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-b-the-continuous-horizon-mathbbz-in-mathbbrm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case B: The Continuous Horizon (\(\mathbb{Z} \in \mathbb{R}^M\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444-applied-engineering-architecture-downstream-feature-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        44.4 Applied Engineering Architecture: Downstream Feature Transfer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#455-the-architectural-spectrum-supervised-vs-unsupervised-vs-self-supervised" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        45.5 The Architectural Spectrum: Supervised vs. Unsupervised vs. Self-Supervised
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-formula-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Formula Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Formula Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-complete-distributional-learning-continuum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Complete Distributional Learning Continuum
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-49-unsupervised-topologies-latent-variable-foundations-and-the-geometry-of-marginal-distribution-estimation">Chapter 49: Unsupervised Topologies, Latent Variable Foundations, and the Geometry of Marginal Distribution Estimation</h2>
+<hr />
+<h3 id="491-deconstructing-the-nomenclature-unsupervised-learning-as-marginal-estimation">49.1 Deconstructing the Nomenclature: Unsupervised Learning as Marginal Estimation</h3>
+<p>We have finalized our rigorous structural examination of first-order adaptive optimization engines and the variance-reduction physics of non-parametric ensembles. We now step into a fundamentally different learning paradigm: <strong>Unsupervised Learning</strong>.</p>
+<p>At the onset of this chapter, we must establish a strict epistemological correction. In applied engineering circles and popular culture, "unsupervised learning" is routinely defined using loose, non-mathematical prose as <em>"learning without labels."</em> This definition is a pedagogical illusion. In the language of rigorous machine learning theory, the distinction between supervised and unsupervised learning has absolutely nothing to do with human-annotated tags. It depends entirely on <strong>which exact probability distribution the optimization engine targets.</strong></p>
+<p>Let us trace this architectural continuum directly from first principles. Suppose we are handed a raw training dataset <span class="arithmatex">\(D\)</span> drawn from an underlying, unknown global distribution <span class="arithmatex">\(P(X,Y)\)</span>.</p>
+<h4 id="a-the-supervised-learning-axis">A. The Supervised Learning Axis</h4>
+<p>In a supervised framework, we choose to split our feature tensor. We take away one specific dimension, isolate it as an external target variable <span class="arithmatex">\(Y\)</span>, and task our model with learning a predictive hypothesis map. Mathematically, the system ignores the internal structure of the input space and focuses entirely on estimating the <strong>Conditional Distribution <span class="arithmatex">\(P(Y \mid X)\)</span></strong>.</p>
+<p>We execute this by running an Empirical Risk Minimization (ERM) loop designed to minimize the Kullback-Leibler (KL) Divergence from the environment's true conditional distribution to our parametric model conditional <span class="arithmatex">\(P_{\vec{\theta}}(Y \mid X)\)</span>:</p>
+<div class="arithmatex">\[\min_{\vec{\theta}} D_{\text{KL}}\Big( P(Y \mid X) \parallel P_{\vec{\theta}}(Y \mid X) \Big) \quad \implies \quad \mathcal{L}_{\text{supervised}}(\vec{\theta}) = -\sum_{i=1}^n \ln P_{\vec{\theta}}(y_i \mid \vec{x}_i)\]</div>
+<h4 id="b-the-unsupervised-learning-axis">B. The Unsupervised Learning Axis</h4>
+<p>In an unsupervised framework, we refuse to isolate an external target variable <span class="arithmatex">\(Y\)</span>. We treat the entire incoming tensor as a unified coordinate space. The core objective of the optimization loop shifts away from conditional tracking.</p>
+<p>The engine is tasked with learning the absolute structural physics, density concentration zones, and manifold paths of the data space itself, directly estimating the <strong>Global Marginal Distribution <span class="arithmatex">\(P(X)\)</span></strong>.</p>
+<div class="arithmatex">\[\min_{\vec{\theta}} D_{\text{KL}}\Big( P(X) \parallel P_{\vec{\theta}}(X) \Big) \quad \implies \quad \mathcal{L}_{\text{unsupervised}}(\vec{\theta}) = -\sum_{i=1}^n \ln P_{\vec{\theta}}(\vec{x}_i)\]</div>
+<p>The mathematical pipeline remains completely invariant. We are still running an ERM loop driven by gradient descent to minimize a strict KL divergence over an identical training ledger. The <em>only</em> structural component that shifts is our probability target: we have transitioned from estimating the conditional field <span class="arithmatex">\(P(Y \mid X)\)</span> to estimating the marginal field <span class="arithmatex">\(P(X)\)</span>.</p>
+<hr />
+<h3 id="442-the-structural-blueprint-latent-variable-models-lvms">44.2 The Structural Blueprint: Latent Variable Models (LVMs)</h3>
+<p>To build a parametric function capable of modeling a highly intricate, high-dimensional marginal density <span class="arithmatex">\(P_{\vec{\theta}}(X)\)</span>, we cannot rely on standard flat probability distributions. Real-world data coordinates cluster along twisted, low-dimensional manifolds that are impossible to capture using standalone Gaussians or uniform blocks.</p>
+<p>To introduce true representational capacity, we express our model marginal distribution by building a <strong>Latent Variable Model (LVM)</strong>.</p>
+<p>We assume that the visible variations of our raw data coordinates <span class="arithmatex">\(\vec{x}\)</span> are driven and generated by an unobserved, hidden coordinate space floating beneath the surface, formalized as the <strong>Latent Variable (<span class="arithmatex">\(Z\)</span>)</strong>. Instead of evaluating <span class="arithmatex">\(P_{\vec{\theta}}(X)\)</span> directly, we define a joint distribution space <span class="arithmatex">\(P_{\vec{\theta}}(X, Z)\)</span> and recover our target marginal distribution by completely integrating or summing out the hidden variable:</p>
+<div class="arithmatex">\[P_{\vec{\theta}}(\vec{x}) = \int_{\mathbb{Z}} P_{\vec{\theta}}(\vec{x}, \,\, \vec{z}) \, d\vec{z} \quad \text{(For Continuous Latent Spaces)}\]</div>
+<div class="arithmatex">\[P_{\vec{\theta}}(\vec{x}) = \sum_{\vec{z} \in \mathbb{Z}} P_{\vec{\theta}}(\vec{x}, \,\, \vec{z}) \quad \text{(For Discrete Latent Spaces)}\]</div>
+<h4 id="precise-subspace-dimensional-constraints">Precise Subspace Dimensional Constraints:</h4>
+<ul>
+<li><span class="arithmatex">\(\vec{x} \in \mathbb{R}^{D \times 1}\)</span>: The observed high-dimensional data vector.</li>
+<li><span class="arithmatex">\(\vec{z} \in \mathbb{R}^{M \times 1}\)</span>: The hidden latent coordinate vector operating within an unobserved manifold space (typically constrained such that <span class="arithmatex">\(M \ll D\)</span>).</li>
+<li><span class="arithmatex">\(P_{\vec{\theta}}(\vec{x}, \vec{z}) = P_{\vec{\theta}}(\vec{x} \mid \vec{z})P(\vec{z})\)</span>: The joint density decomposed into a prior distribution over hidden states paired with a conditional generation network.</li>
+</ul>
+<p>By factoring our marginal estimator through this joint pipeline, the model acts as a two-stage generative engine: it first samples an abstract structural token <span class="arithmatex">\(\vec{z}\)</span> from a simple prior distribution <span class="arithmatex">\(P(\vec{z})\)</span>, and then projects that token outward through a conditional distribution <span class="arithmatex">\(P_{\vec{\theta}}(\vec{x} \mid \vec{z})\)</span> to generate the visible data coordinates.</p>
+<hr />
+<h3 id="493-the-geometric-taxonomy-of-the-posterior-pz-mid-x">49.3 The Geometric Taxonomy of the Posterior <span class="arithmatex">\(P(Z \mid X)\)</span></h3>
+<p>Once our unsupervised ERM loop successfully optimizes the parameter weights <span class="arithmatex">\(\vec{\theta}\)</span> to capture the global marginal distribution, we gain access to an incredibly valuable mathematical resource: <strong>The Posterior Distribution <span class="arithmatex">\(P_{\vec{\theta}}(Z \mid X)\)</span></strong>.</p>
+<p>According to Bayes' theorem, we can cross-reference our learned LVM components to compute the exact probability distribution of our hidden latent states conditioned on a specific, visible data observation:</p>
+<div class="arithmatex">\[P_{\vec{\theta}}(\vec{z} \mid \vec{x}) = \frac{P_{\vec{\theta}}(\vec{x} \mid \vec{z})P(\vec{z})}{P_{\vec{\theta}}(\vec{x})}\]</div>
+<p>The professor highlights a foundational rule of unsupervised topology: <strong>the structural choice of the latent variable space <span class="arithmatex">\(\mathbb{Z}\)</span> completely dictates the taxonomy and name of the resulting machine learning algorithm.</strong></p>
+<pre><code>                               ┌─── Discrete Latent Space Z ───&gt; CLUSTERING (Hard or Soft)
+                               │
+  [ Latent Variable Model ] ───┤
+                               │
+                               └─── Continuous Latent Space Z ──&gt; REPRESENTATION LEARNING (Embeddings)
+
+</code></pre>
+<h4 id="case-a-the-discrete-horizon-mathbbz-in-1-2-dots-k">Case A: The Discrete Horizon (<span class="arithmatex">\(\mathbb{Z} \in \{1, \,\, 2, \,\, \dots, \,\, K\}\)</span>)</h4>
+<p>If we configure our latent space as a discrete random variable capable of taking exactly <span class="arithmatex">\(K\)</span> unique categorical values, calculating the posterior distribution <span class="arithmatex">\(P_{\vec{\theta}}(\vec{z} \mid \vec{x})\)</span> maps our input data directly into a <strong>Clustering Framework</strong>.</p>
+<p>For every incoming data coordinate <span class="arithmatex">\(\vec{x}\)</span>, the model outputs a <span class="arithmatex">\(K\)</span>-dimensional probability vector tracking the relative likelihood that the sample belongs to each hidden category slot.</p>
+<ul>
+<li><strong>Soft Clustering:</strong> We preserve the complete, continuous probability distribution across all <span class="arithmatex">\(K\)</span> categories. A pristine example of this approach is the <strong>Gaussian Mixture Model (GMM)</strong>, which tracks continuous fractional responsibilities for each component.</li>
+<li><strong>Hard Clustering:</strong> We force a hard, discrete assignment by passing our posterior probabilities through an absolute argmax operator, anchoring the sample exclusively to the single winning category slot:</li>
+</ul>
+<div class="arithmatex">\[k^* = \arg\max_{k \in \{1 \dots K\}} P_{\vec{\theta}}(z = k \mid \vec{x})\]</div>
+<h4 id="the-spatial-semantics-of-discrete-subspaces">The Spatial Semantics of Discrete Subspaces</h4>
+<p>During the interactive session, a student noted that these discrete posteriors can be viewed as an alternative feature representation format. The professor verified this intuition but flagged a critical structural limitation: <em>discrete representations lack intrinsic distance-metric semantics.</em> If you map a dataset into a discrete latent space, you are effectively representing each sample as a sparse, high-dimensional one-hot vector. Within a pure one-hot vector space, computing standard Euclidean distances or dot-product alignments between different slots collapses into a uniform constant. There is no structural geometry separating slot 3 from slot 4. Consequently, a discrete latent space functions strictly as an un-ordered grouping and partitioning mechanism, not a continuous coordinate system.</p>
+<h4 id="case-b-the-continuous-horizon-mathbbz-in-mathbbrm">Case B: The Continuous Horizon (<span class="arithmatex">\(\mathbb{Z} \in \mathbb{R}^M\)</span>)</h4>
+<p>Conversely, if we configure our latent variable as a continuous vector field <span class="arithmatex">\(\vec{z} \in \mathbb{R}^M\)</span> where the internal width is constrained to a tight bottleneck (<span class="arithmatex">\(M \ll D\)</span>), calculating the posterior distribution <span class="arithmatex">\(P_{\vec{\theta}}(\vec{z} \mid \vec{x})\)</span> transitions the model into the realm of <strong>Representation Learning, Feature Extraction, or Embedding Generation</strong>.</p>
+<p>To harvest a concrete feature vector from this continuous density, we extract a single summary vector tracking the peak of the posterior curve—such as the mathematical mean or the structural mode:</p>
+<div class="arithmatex">\[\vec{z}_{\text{embedding}} = \mathbb{E}_{\vec{z} \sim P_{\vec{\theta}}(\vec{z} \mid \vec{x})} \left[ \vec{z} \right]\]</div>
+<p>This continuous coordinate vector acts as a highly compressed, optimized representation of our input data. Because it operates within a continuous real-valued subspace (<span class="arithmatex">\(\mathbb{R}^M\)</span>), standard geometric distance metrics (<span class="arithmatex">\(\|\vec{z}_i - \vec{z}_j\|_2^2\)</span>) retain full semantic meaning. If two high-dimensional images share similar underlying layouts or content profiles, the optimization engine will naturally map their continuous embeddings to tightly clustered coordinates within the latent feature space.</p>
+<hr />
+<h3 id="444-applied-engineering-architecture-downstream-feature-transfer">44.4 Applied Engineering Architecture: Downstream Feature Transfer</h3>
+<p>The professor unrolls the exact financial and operational business model that drives modern representation lab infrastructures (such as his own research lab, <em>Rep Lab</em>, and commercial vector pipeline companies like <em>Latent Force</em>).</p>
+<p>In industrial deep learning deployment, training massive multi-layer models from scratch on high-dimensional raw inputs (like raw megapixel image grids or vast audio waveforms) is incredibly expensive, requiring high computational budgets and risking severe overfitting due to high variance.</p>
+<pre><code>  [ High-Dimensional Data X ] ───&gt; [ Pre-Trained LVM Backbone ] ───&gt; [ Compact Embedding Z ] ───&gt; [ Lightweight Linear Head ] ───&gt; Target Output
+
+</code></pre>
+<p>To optimize this process, we deploy a pre-trained continuous LVM backbone as a <strong>Deterministic Feature Extractor</strong>.</p>
+<ol>
+<li>We collect a massive pool of completely unlabeled raw data and run a heavy unsupervised ERM loop to optimize our latent variable matrices <span class="arithmatex">\(\vec{\theta}\)</span>.</li>
+<li>Once training stabilizes, we freeze the backbone parameters.</li>
+<li>During downstream production, when a client submits a raw data sample <span class="arithmatex">\(\vec{x}\)</span>, we pass it through our frozen backbone to extract its continuous posterior mode embedding <span class="arithmatex">\(\vec{z}\)</span>.</li>
+</ol>
+<p>Because the continuous latent variable model has already solved the hard computational challenge of untangling the high-dimensional data manifold, the compressed vector <span class="arithmatex">\(\vec{z}\)</span> houses the clean structural essence of the input. The client can discard the original raw features entirely, take this compact vector <span class="arithmatex">\(\vec{z}\)</span>, and train a lightweight, highly efficient linear classifier head on top of it using a tiny dataset. This architecture maximizes sample efficiency and lowers computational overhead during live production tracking.</p>
+<hr />
+<h3 id="455-the-architectural-spectrum-supervised-vs-unsupervised-vs-self-supervised">45.5 The Architectural Spectrum: Supervised vs. Unsupervised vs. Self-Supervised</h3>
+<p>To conclude this introductory module, let us map our complete structural spectrum directly onto a strict comparative ledger, unifying the three dominant training paradigms running across the machine learning landscape.</p>
+<table>
+<thead>
+<tr>
+<th>Paradigm Class</th>
+<th>Core Probability Target Objective</th>
+<th>Matrix Layout Axis Split Strategy</th>
+<th>Inductive Prior Regularization Fit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Supervised Learning</strong></td>
+<td>Conditional Density <span class="arithmatex">\(P(Y \mid X)\)</span></td>
+<td>Separates a single external dimension out to function as a fixed label tensor <span class="arithmatex">\(Y\)</span>.</td>
+<td>Focuses entirely on finding class-specific decision boundaries, completely ignoring the internal marginal topology of <span class="arithmatex">\(X\)</span>.</td>
+</tr>
+<tr>
+<td><strong>Unsupervised Learning</strong></td>
+<td>Global Marginal Density <span class="arithmatex">\(P(X)\)</span></td>
+<td>Treats the entire incoming data matrix as a unified coordinate continuum without external splits.</td>
+<td>Leverages Latent Variable Models (<span class="arithmatex">\(Z\)</span>) to discover global clustering partitions or low-dimensional continuous feature spaces natively from data geometry.</td>
+</tr>
+<tr>
+<td><strong>Self-Supervised Learning (SSL)</strong></td>
+<td>Partitioned Conditional <span class="arithmatex">\(P(X_{\text{target}} \mid X_{\text{context}})\)</span></td>
+<td>Splits the <em>internal dimensions of the single data tensor <span class="arithmatex">\(X\)</span></em> into alternating context and target slots.</td>
+<td>Forces the network to estimate missing data coordinates from neighboring patches (e.g., predicting a masked word token), building robust structural embeddings without human labels.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="textbook-notes-core-formula-reference-sheet">Textbook Notes Core Formula Reference Sheet</h2>
+<h3 id="the-complete-distributional-learning-continuum">The Complete Distributional Learning Continuum</h3>
+<div class="arithmatex">\[\text{Supervised ERM Objective: } \quad \mathcal{L}_{\text{supervised}}(\vec{\theta}) = -\sum_{i=1}^{n} \ln P_{\vec{\theta}}(y_i \mid \vec{x}_i)\]</div>
+<div class="arithmatex">\[\text{Unsupervised LVM Objective: } \quad \mathcal{L}_{\text{unsupervised}}(\vec{\theta}) = -\sum_{i=1}^{n} \ln \left( \int_{\mathbb{Z}} P_{\vec{\theta}}(\vec{x}_i \mid \vec{z})P(\vec{z}) \, d\vec{z} \right)\]</div>
+<div class="arithmatex">\[\text{Bayesian Posterior Feature Extractor: } \quad P_{\vec{\theta}}(\vec{z} \mid \vec{x}) = \frac{P_{\vec{\theta}}(\vec{x} \mid \vec{z})P(\vec{z})}{P_{\vec{\theta}}(\vec{x})}\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
