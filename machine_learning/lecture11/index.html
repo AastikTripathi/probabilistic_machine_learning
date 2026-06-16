@@ -1,0 +1,3095 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture10/">
+      
+      
+        <link rel="next" href="../lecture12/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture11 - Probabilistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Probabilistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture11
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Probabilistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-9-the-geometry-of-divergencecross-entropy-and-the-kullback-leibler-manifold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 9: The Geometry of Divergence—Cross-Entropy and the Kullback-Leibler Manifold
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9: The Geometry of Divergence—Cross-Entropy and the Kullback-Leibler Manifold">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-the-core-motivation-constructing-the-distribution-yardstick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 The Core Motivation: Constructing the Distribution Yardstick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-the-formulation-of-cross-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 The Formulation of Cross-Entropy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.2 The Formulation of Cross-Entropy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-axiom-of-asymmetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Axiom of Asymmetry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-the-derivation-of-the-kullback-leibler-kl-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 The Derivation of the Kullback-Leibler (KL) Divergence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3 The Derivation of the Kullback-Leibler (KL) Divergence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-continuous-case-differential-kl-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Continuous Case (Differential KL Divergence)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-the-three-core-axioms-of-the-kl-manifold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 The Three Core Axioms of the KL Manifold
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#95-exemplar-suite-10-operational-manifestations-of-kl-and-cross-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 Exemplar Suite: 10 Operational Manifestations of KL and Cross-Entropy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.5 Exemplar Suite: 10 Operational Manifestations of KL and Cross-Entropy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-binary-logistic-loss-deep-classification-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Binary Logistic Loss (Deep Classification Layer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-multi-class-categorical-distribution-softmax-logits-parsing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Multi-Class Categorical Distribution (Softmax Logits Parsing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-variational-autoencoders-latent-regularization-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Variational Autoencoders (Latent Regularization Tracking)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-large-language-model-knowledge-distillation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Large Language Model Knowledge Distillation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-reinforcement-learning-trust-region-bounding-ppo-trpo-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Reinforcement Learning Trust Region Bounding (PPO / TRPO Architectures)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-mode-dropping-analytics-in-generative-adversarial-networks-gans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Mode-Dropping Analytics in Generative Adversarial Networks (GANs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-high-dimensional-visualization-projective-mapping-t-sne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: High-Dimensional Visualization Projective Mapping (t-SNE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-variational-inference-parameter-recovery-bayesian-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Variational Inference Parameter Recovery (Bayesian Optimization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-diffusion-probabilistic-models-variational-bound-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Diffusion Probabilistic Models (Variational Bound Optimization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-information-bottleneck-optimization-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Information Bottleneck Optimization Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-9-the-geometry-of-divergencecross-entropy-and-the-kullback-leibler-manifold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 9: The Geometry of Divergence—Cross-Entropy and the Kullback-Leibler Manifold
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9: The Geometry of Divergence—Cross-Entropy and the Kullback-Leibler Manifold">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-the-core-motivation-constructing-the-distribution-yardstick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 The Core Motivation: Constructing the Distribution Yardstick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-the-formulation-of-cross-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 The Formulation of Cross-Entropy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.2 The Formulation of Cross-Entropy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-axiom-of-asymmetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Axiom of Asymmetry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-the-derivation-of-the-kullback-leibler-kl-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 The Derivation of the Kullback-Leibler (KL) Divergence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3 The Derivation of the Kullback-Leibler (KL) Divergence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-continuous-case-differential-kl-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Continuous Case (Differential KL Divergence)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-the-three-core-axioms-of-the-kl-manifold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 The Three Core Axioms of the KL Manifold
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#95-exemplar-suite-10-operational-manifestations-of-kl-and-cross-entropy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.5 Exemplar Suite: 10 Operational Manifestations of KL and Cross-Entropy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.5 Exemplar Suite: 10 Operational Manifestations of KL and Cross-Entropy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-binary-logistic-loss-deep-classification-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Binary Logistic Loss (Deep Classification Layer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-multi-class-categorical-distribution-softmax-logits-parsing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Multi-Class Categorical Distribution (Softmax Logits Parsing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-variational-autoencoders-latent-regularization-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Variational Autoencoders (Latent Regularization Tracking)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-large-language-model-knowledge-distillation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Large Language Model Knowledge Distillation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-reinforcement-learning-trust-region-bounding-ppo-trpo-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Reinforcement Learning Trust Region Bounding (PPO / TRPO Architectures)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-mode-dropping-analytics-in-generative-adversarial-networks-gans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Mode-Dropping Analytics in Generative Adversarial Networks (GANs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-high-dimensional-visualization-projective-mapping-t-sne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: High-Dimensional Visualization Projective Mapping (t-SNE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-variational-inference-parameter-recovery-bayesian-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Variational Inference Parameter Recovery (Bayesian Optimization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-diffusion-probabilistic-models-variational-bound-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Diffusion Probabilistic Models (Variational Bound Optimization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-information-bottleneck-optimization-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Information Bottleneck Optimization Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-9-the-geometry-of-divergencecross-entropy-and-the-kullback-leibler-manifold">Chapter 9: The Geometry of Divergence—Cross-Entropy and the Kullback-Leibler Manifold</h2>
+<hr />
+<h3 id="91-the-core-motivation-constructing-the-distribution-yardstick">9.1 The Core Motivation: Constructing the Distribution Yardstick</h3>
+<p>We have successfully established the foundational pieces of information theory: <strong>Surprisal</strong> (<span class="arithmatex">\(I(x) = -\log p(x)\)</span>) tracks the localized informational payload of a single coordinate outcome, while <strong>Shannon Entropy</strong> (<span class="arithmatex">\(H(P) = \mathbb{E}_{X \sim P}[-\log P(X)]\)</span>) tracks the global, average uncertainty of a unified system.</p>
+<p>Now, we return to <strong>Step 2</strong> of our universal machine learning refinery: <em>How do we quantify the exact topological distance between our true, hidden natural density <span class="arithmatex">\(p_{\text{true}}(\vec{x})\)</span> and our assumed model parameterized distribution <span class="arithmatex">\(p_{\theta}(\vec{x})\)</span>?</em></p>
+<p>To build this yardstick, we must model what happens when an observer misjudges the statistical laws of the universe.</p>
+<hr />
+<h3 id="92-the-formulation-of-cross-entropy">9.2 The Formulation of Cross-Entropy</h3>
+<p>Imagine a communication channel or a neural network processing structural symbols. The true, physical reality of the data generator is governed by a probability mass function <span class="arithmatex">\(P(X)\)</span>. However, we are blind to <span class="arithmatex">\(P(X)\)</span>, and our current engineering layout assumes the distribution is governed by an estimated model framework <span class="arithmatex">\(Q(X)\)</span>.</p>
+<p>If we use <span class="arithmatex">\(Q(X)\)</span> to optimize our communication codes or parameter weights, we will optimize our system based on the assumed surprisal profile <span class="arithmatex">\(-\log Q(x_i)\)</span>. However, when the system runs, the data points arrive according to the frequencies dictated by the true distribution <span class="arithmatex">\(P(X)\)</span>.</p>
+<p>To find the average computational penalty of this mismatch, we compute the <strong>Cross-Entropy</strong>.</p>
+<blockquote>
+<p><strong>Definition 9.1 (Cross-Entropy).</strong> Let <span class="arithmatex">\(P\)</span> and <span class="arithmatex">\(Q\)</span> be two distinct probability distributions defined over a shared discrete sample space. The Cross-Entropy <span class="arithmatex">\(H(P, Q)\)</span> is the expected value of the assumed surprisal evaluated strictly under the true baseline frequencies of <span class="arithmatex">\(P\)</span>:
+$<span class="arithmatex">\(H(P, Q) \triangleq \mathbb{E}_{X \sim P}[-\log Q(X)] = -\sum_{i} P(x_i) \log Q(x_i)\)</span>$</p>
+</blockquote>
+<h4 id="the-axiom-of-asymmetry">The Axiom of Asymmetry</h4>
+<p>Cross-entropy is fundamentally <strong>asymmetric</strong>:</p>
+<div class="arithmatex">\[H(P, Q) \neq H(Q, P)\]</div>
+<p>The operation <span class="arithmatex">\(\mathbb{E}_{X \sim P}[-\log Q(X)]\)</span> treats the left-hand distribution (<span class="arithmatex">\(P\)</span>) as the objective data generator and the right-hand distribution (<span class="arithmatex">\(Q\)</span>) as the passive tracking model. If you swap their roles, you alter the underlying expectation weights, changing the entire calculation.</p>
+<hr />
+<h3 id="93-the-derivation-of-the-kullback-leibler-kl-divergence">9.3 The Derivation of the Kullback-Leibler (KL) Divergence</h3>
+<p>The professor cleanly resolves a mid-lecture algebraic sign confusion by defining the absolute excess informational cost of a model mismatch.</p>
+<p>If we look at our system, the absolute baseline chaos of our true distribution is its pure Entropy: <span class="arithmatex">\(H(P)\)</span>. The total cost of predicting via our model is the Cross-Entropy: <span class="arithmatex">\(H(P, Q)\)</span>. By subtracting the baseline entropy from our total cost, we isolate the explicit <strong>regret, informational waste, or error volume</strong> introduced by using model <span class="arithmatex">\(Q\)</span> instead of reality <span class="arithmatex">\(P\)</span>.</p>
+<p>This exact subtraction yields the <strong>Kullback-Leibler (KL) Divergence</strong>:</p>
+<div class="arithmatex">\[D_{\text{KL}}(P \parallel Q) \triangleq H(P, Q) - H(P)\]</div>
+<p>Let's expand this formulation explicitly:</p>
+<div class="arithmatex">\[D_{\text{KL}}(P \parallel Q) = \left( -\sum_{i} P(x_i) \log Q(x_i) \right) - \left( -\sum_{i} P(x_i) \log P(x_i) \right)\]</div>
+<div class="arithmatex">\[D_{\text{KL}}(P \parallel Q) = \sum_{i} P(x_i) \log P(x_i) - \sum_{i} P(x_i) \log Q(x_i)\]</div>
+<p>Using the foundational properties of logarithms (<span class="arithmatex">\(\log a - \log b = \log \frac{a}{b}\)</span>), we compress this into the definitive discrete divergence metric:</p>
+<div class="arithmatex">\[D_{\text{KL}}(P \parallel Q) = \sum_{i} P(x_i) \log \left( \frac{P(x_i)}{Q(x_i)} \right)\]</div>
+<h4 id="the-continuous-case-differential-kl-divergence">The Continuous Case (Differential KL Divergence)</h4>
+<p>When our feature spaces map to continuous real-valued coordinates (<span class="arithmatex">\(\mathbb{R}^D\)</span>) governed by probability density functions (<span class="arithmatex">\(p\)</span> and <span class="arithmatex">\(q\)</span>), the summation smoothly transitions into a multivariate continuous integral across the shared support space:</p>
+<div class="arithmatex">\[D_{\text{KL}}(p \parallel q) = \int_{\mathbb{R}^D} p(\vec{x}) \log \left( \frac{p(\vec{x})}{q(\vec{x})} \right) d\vec{x}\]</div>
+<hr />
+<h3 id="94-the-three-core-axioms-of-the-kl-manifold">9.4 The Three Core Axioms of the KL Manifold</h3>
+<p>For the KL divergence to serve as a valid tracking vehicle for optimization, it must satisfy three strict geometric axioms:</p>
+<ul>
+<li><strong>Axiom 1: Absolute Non-Negativity (Gibbs' Inequality)</strong> 
+$<span class="arithmatex">\(D_{\text{KL}}(P \parallel Q) \geq 0 \quad \forall \,\, P, Q\)</span>$</li>
+</ul>
+<p>The informational waste incurred by a model mismatch can never be negative. Cross-entropy is always lower-bounded by the distribution's pure entropy (<span class="arithmatex">\(H(P, Q) \geq H(P)\)</span>). The system can never capture more information about a universe than the universe itself contains.
+* <strong>Axiom 2: The Identity Condition</strong> 
+$<span class="arithmatex">\(D_{\text{KL}}(P \parallel Q) = 0 \iff P \equiv Q\)</span>$</p>
+<p>The divergence collapses to zero if and only if the model density matches the true data-generating density perfectly across every coordinate.
+* <strong>Axiom 3: The Violation of True Metricity</strong> Because <span class="arithmatex">\(D_{\text{KL}}(P \parallel Q) \neq D_{\text{KL}}(Q \parallel P)\)</span>, the KL operator is <strong>not a true mathematical distance metric</strong>. It does not represent a straight line in space. Because it lacks symmetry, it completely violates the classical <strong>Triangle Inequality Law</strong>:
+$<span class="arithmatex">\(D_{\text{KL}}(P \parallel R) \not\leq D_{\text{KL}}(P \parallel Q) + D_{\text{KL}}(Q \parallel R)\)</span>$</p>
+<hr />
+<h2 id="95-exemplar-suite-10-operational-manifestations-of-kl-and-cross-entropy">9.5 Exemplar Suite: 10 Operational Manifestations of KL and Cross-Entropy</h2>
+<p>To build complete trust in how these information-theoretic divergences serve as the core mathematical drivers of optimization, let us review ten distinct applications across modern machine learning.</p>
+<h4 id="example-1-binary-logistic-loss-deep-classification-layer">Example 1: Binary Logistic Loss (Deep Classification Layer)</h4>
+<ul>
+<li><strong>The Distributions:</strong> True label distribution <span class="arithmatex">\(P(Y) = [y, \,\, 1-y]^T\)</span>; Predicted sigmoidal model parameter <span class="arithmatex">\(Q(Y) = [p, \,\, 1-p]^T\)</span>.</li>
+<li><strong>The Formulation:</strong> Minimizing the Cross-Entropy <span class="arithmatex">\(H(P, Q)\)</span> collapses exactly to:</li>
+</ul>
+<div class="arithmatex">\[\mathcal{L}_{\text{BCE}} = -\left[ y \log p + (1-y)\log(1-p) \right]\]</div>
+<ul>
+<li><em>Operational Context:</em> Standard binary image sorting models (e.g., tumor classification networks) optimize parameters by minimizing this exact cross-entropy slice.</li>
+</ul>
+<h4 id="example-2-multi-class-categorical-distribution-softmax-logits-parsing">Example 2: Multi-Class Categorical Distribution (Softmax Logits Parsing)</h4>
+<ul>
+<li><strong>The Distributions:</strong> One-hot encoded true category vector <span class="arithmatex">\(\vec{P}\)</span> across <span class="arithmatex">\(C\)</span> targets; Predicted Softmax probability vector <span class="arithmatex">\(\vec{Q}\)</span>.</li>
+<li>
+<p><strong>The Formulation:</strong> 
+$<span class="arithmatex">\(\mathcal{L}_{\text{Categorical}} = -\sum_{c=1}^{C} P_c \log Q_c\)</span>$</p>
+</li>
+<li>
+<p><em>Operational Context:</em> Vision Transformers and text token models compute this loss to penalize multi-class classification boundaries.</p>
+</li>
+</ul>
+<h4 id="example-3-variational-autoencoders-latent-regularization-tracking">Example 3: Variational Autoencoders (Latent Regularization Tracking)</h4>
+<ul>
+<li><strong>The Distributions:</strong> An encoder network's predicted continuous localized latent distribution <span class="arithmatex">\(q_{\phi}(\vec{z} \mid \vec{x})\)</span>; A simple, standard target Gaussian prior <span class="arithmatex">\(p(\vec{z}) = \mathcal{N}(0, \mathbf{I})\)</span>.</li>
+<li>
+<p><strong>The Formulation:</strong> 
+$<span class="arithmatex">\(D_{\text{KL}}\left( q_{\phi}(\vec{z} \mid \vec{x}) \parallel \mathcal{N}(0, \mathbf{I}) \right)\)</span>$</p>
+</li>
+<li>
+<p><em>Operational Context:</em> The model uses this divergence as a regularizer, forcing complex raw inputs to compress into a smooth, manageable latent space without structural tears.</p>
+</li>
+</ul>
+<h4 id="example-4-large-language-model-knowledge-distillation">Example 4: Large Language Model Knowledge Distillation</h4>
+<ul>
+<li><strong>The Distributions:</strong> A massive 70-billion parameter teacher LLM distribution <span class="arithmatex">\(P(X_t \mid \text{context})\)</span>; A compact 7-billion parameter student model distribution <span class="arithmatex">\(Q_{\theta}(X_t \mid \text{context})\)</span>.</li>
+<li>
+<p><strong>The Formulation:</strong> 
+$<span class="arithmatex">\(\min_{\theta} \int P(x) \log \left( \frac{P(x)}{Q_{\theta}(x)} \right) dx\)</span>$</p>
+</li>
+<li>
+<p><em>Operational Context:</em> During distillation, the student network copies the behavior of the larger model by minimizing the KL divergence between their next-token prediction profiles.</p>
+</li>
+</ul>
+<h4 id="example-5-reinforcement-learning-trust-region-bounding-ppo-trpo-architectures">Example 5: Reinforcement Learning Trust Region Bounding (PPO / TRPO Architectures)</h4>
+<ul>
+<li><strong>The Distributions:</strong> The policy distribution of an agent before optimization updates <span class="arithmatex">\(P_{\text{old}}(A \mid S)\)</span>; The updated target policy distribution <span class="arithmatex">\(Q_{\theta}(A \mid S)\)</span>.</li>
+<li><strong>The Formulation:</strong> Constraint condition enforced across optimization iterations:</li>
+</ul>
+<div class="arithmatex">\[\mathbb{E}_{S}\left[ D_{\text{KL}}\left( P_{\text{old}}(\cdot \mid S) \parallel Q_{\theta}(\cdot \mid S) \right) \right] \leq \delta\]</div>
+<ul>
+<li><em>Operational Context:</em> To prevent an autonomous agent's learning behavior from destabilizing during training, the policy update step is explicitly bounded using a strict KL constraint window.</li>
+</ul>
+<h4 id="example-6-mode-dropping-analytics-in-generative-adversarial-networks-gans">Example 6: Mode-Dropping Analytics in Generative Adversarial Networks (GANs)</h4>
+<ul>
+<li><strong>The Distributions:</strong> The true, multi-peaked data density manifold <span class="arithmatex">\(p_{\text{data}}(\vec{x})\)</span>; The synthetic generator model density <span class="arithmatex">\(q_{\text{gen}}(\vec{x})\)</span>.</li>
+<li><strong>The Formulation:</strong> Evaluating the asymmetric operational behaviors of the forward vs. reverse setups:</li>
+</ul>
+<div class="arithmatex">\[\text{Forward KL: } D_{\text{KL}}(p \parallel q) \quad \text{vs.} \quad \text{Reverse KL: } D_{\text{KL}}(q \parallel p)\]</div>
+<ul>
+<li><em>Operational Context:</em> Minimizing the <em>Reverse KL</em> forces a generator network to lock onto a single high-quality mode of the data space while safely dropping complex variations it struggles to model, preserving visual fidelity.</li>
+</ul>
+<h4 id="example-7-high-dimensional-visualization-projective-mapping-t-sne">Example 7: High-Dimensional Visualization Projective Mapping (t-SNE)</h4>
+<ul>
+<li><strong>The Distributions:</strong> High-dimensional pairwise geometric proximity distributions <span class="arithmatex">\(\vec{P}\)</span>; Low-dimensional target embedding similarity matrices <span class="arithmatex">\(\vec{Q}\)</span>.</li>
+<li>
+<p><strong>The Formulation:</strong> 
+$<span class="arithmatex">\(\mathcal{L}_{\text{t-SNE}} = \sum_{i} \sum_{j} p_{j \mid i} \log \left( \frac{p_{j \mid i}}{q_{j \mid i}} \right)\)</span>$</p>
+</li>
+<li>
+<p><em>Operational Context:</em> t-SNE projects high-dimensional matrices down into a visual 2D space by minimizing the KL divergence between their relational distance distributions.</p>
+</li>
+</ul>
+<h4 id="example-8-variational-inference-parameter-recovery-bayesian-optimization">Example 8: Variational Inference Parameter Recovery (Bayesian Optimization)</h4>
+<ul>
+<li><strong>The Distributions:</strong> An explicit, manageable variational distribution family <span class="arithmatex">\(q_{\theta}(\mathbf{w})\)</span>; The true, analytically intractable posterior distribution <span class="arithmatex">\(p(\mathbf{w} \mid D)\)</span>.</li>
+<li>
+<p><strong>The Formulation:</strong> 
+$<span class="arithmatex">\(\theta^* = \arg\min_{\theta} D_{\text{KL}}\left( q_{\theta}(\mathbf{w}) \parallel p(\mathbf{w} \mid D) \right)\)</span>$</p>
+</li>
+<li>
+<p><em>Operational Context:</em> Because computing the true posterior requires evaluating an impossible global integral, Bayesian optimization algorithms maximize the Evidence Lower Bound (ELBO), which is mathematically equivalent to minimizing this KL divergence profile.</p>
+</li>
+</ul>
+<h4 id="example-9-diffusion-probabilistic-models-variational-bound-optimization">Example 9: Diffusion Probabilistic Models (Variational Bound Optimization)</h4>
+<ul>
+<li><strong>The Distributions:</strong> The true joint multi-step forward noising trajectory <span class="arithmatex">\(q(\vec{x}_{1:T} \mid \vec{x}_0)\)</span>; The parameterized reverse denoising generation network <span class="arithmatex">\(p_{\theta}(\vec{x}_{0:T})\)</span>.</li>
+<li><strong>The Formulation:</strong> Minimizing the sequential chain of continuous localized divergences:</li>
+</ul>
+<div class="arithmatex">\[\mathcal{L}_{\text{VLB}} = \sum_{t=1}^{T} \mathbb{E}_q \left[ D_{\text{KL}}\left( q(\vec{x}_t \mid \vec{x}_{t+1}, \vec{x}_0) \parallel p_{\theta}(\vec{x}_t \mid \vec{x}_{t+1}) \right) \right]\]</div>
+<ul>
+<li><em>Operational Context:</em> Modern generative networks (like stable diffusion systems) synthesize realistic continuous pixel grids by systematically minimizing this step-wise KL trajectory matrix.</li>
+</ul>
+<h4 id="example-10-information-bottleneck-optimization-metrics">Example 10: Information Bottleneck Optimization Metrics</h4>
+<ul>
+<li><strong>The Distributions:</strong> An input data source <span class="arithmatex">\(X\)</span> compressed into an internal representation <span class="arithmatex">\(T\)</span>; A target task objective <span class="arithmatex">\(Y\)</span>.</li>
+<li><strong>The Formulation:</strong> Maximizing the trade-off objective function between mutual information properties:</li>
+</ul>
+<div class="arithmatex">\[\max \left[ I(T; Y) - \beta I(X; T) \right]\]</div>
+<ul>
+<li><em>Operational Context:</em> This equation acts as a regularizer for deep neural networks, forcing the layers to strip away non-essential background variations from features while preserving predictive accuracy.</li>
+</ul>
+<hr />
+<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
+<blockquote>
+<p><strong>The Mathematical Blueprint for Your Reference Manual:</strong>
+1. <strong>Cross-Entropy (<span class="arithmatex">\(H(P,Q)\)</span>)</strong> calculates the raw cost of using an incorrect distribution landscape <span class="arithmatex">\(Q\)</span> to navigate a true distribution universe <span class="arithmatex">\(P\)</span>.
+2. <strong>KL Divergence (<span class="arithmatex">\(D_{\text{KL}}(P \parallel Q)\)</span>)</strong> isolates the explicit informational waste of that mismatch by subtracting the baseline chaos: <span class="arithmatex">\(H(P, Q) - H(P)\)</span>.
+3. <strong>The Optimization Target:</strong> When we train a machine learning model, our target divergence equation is <span class="arithmatex">\(D_{\text{KL}}(p_{\text{true}} \parallel p_{\theta})\)</span>. Because the true distribution <span class="arithmatex">\(p_{\text{true}}\)</span> is fixed by nature, minimizing this divergence is mathematically equivalent to minimizing the Cross-Entropy over our parameters.</p>
+</blockquote>
+<p>Now that we have locked down our information-theoretic divergence yardstick, we have everything we need to complete our unified theory of machine learning.</p>
+<p>As we move to the next lecture to explore the complete mathematical equivalence between minimizing these continuous probabilistic divergences and minimizing traditional deterministic "loss functions," how does the asymmetric nature of the KL divergence help explain why a model heavily penalizes predicting a near-zero likelihood for a real-world data point that actually exists in your training dataset?</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

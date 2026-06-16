@@ -1,0 +1,3074 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture08/">
+      
+      
+        <link rel="next" href="../lecture09_1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture09 - Probabilistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Probabilistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture09
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Probabilistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-7-the-parametric-estimation-recipe-and-the-architecture-of-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 7: The Parametric Estimation Recipe and the Architecture of Divergence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7: The Parametric Estimation Recipe and the Architecture of Divergence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-the-blind-estimator-paradox-operating-in-absolute-ignorance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 The Blind Estimator Paradox: Operating in Absolute Ignorance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-the-universal-three-step-machine-learning-refinery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 The Universal Three-Step Machine Learning Refinery
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 The Universal Three-Step Machine Learning Refinery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-model-choice-the-parametric-leap-of-faith" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: The Model Choice (The Parametric Leap of Faith)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-the-divergence-function-the-concept-of-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: The Divergence Function (The Concept of Distance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-the-optimization-execution-the-act-of-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: The Optimization Execution (The Act of Training)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#73-the-10-exemplar-suite-the-universal-recipe-in-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 The 10-Exemplar Suite: The Universal Recipe in Action
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 The 10-Exemplar Suite: The Universal Recipe in Action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-classical-ordinary-least-squares-linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Classical Ordinary Least Squares (Linear Regression)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-medical-tumor-diagnosis-sorting-logistic-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Medical Tumor Diagnosis Sorting (Logistic Regression)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-unsupervised-tissue-signature-clustering-gaussian-mixture-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Unsupervised Tissue Signature Clustering (Gaussian Mixture Models)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-complex-structural-object-detection-deep-convolutional-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Complex Structural Object Detection (Deep Convolutional Networks)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-autoregressive-text-token-generation-large-language-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Autoregressive Text Token Generation (Large Language Models)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-high-fidelity-synthetic-image-generation-normalizing-flows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: High-Fidelity Synthetic Image Generation (Normalizing Flows)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-deep-image-context-restoration-self-supervised-inpainting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Deep Image Context Restoration (Self-Supervised Inpainting)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-structural-failure-forecasting-exponential-reliability-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Structural Failure Forecasting (Exponential Reliability Models)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-hyper-spherical-directional-text-alignment-von-mises-fisher-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Hyper-Spherical Directional Text Alignment (Von Mises-Fisher Embeddings)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-anomalous-telemetry-edge-filtering-bounded-uniform-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Anomalous Telemetry Edge Filtering (Bounded Uniform Density)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-the-grand-convergence-the-upcoming-structural-cliffhanger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 The Grand Convergence: The Upcoming Structural Cliffhanger
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pedagogical-discussion-unifying-the-rigor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pedagogical Discussion: Unifying the Rigor
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-7-the-parametric-estimation-recipe-and-the-architecture-of-divergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 7: The Parametric Estimation Recipe and the Architecture of Divergence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7: The Parametric Estimation Recipe and the Architecture of Divergence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-the-blind-estimator-paradox-operating-in-absolute-ignorance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 The Blind Estimator Paradox: Operating in Absolute Ignorance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-the-universal-three-step-machine-learning-refinery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 The Universal Three-Step Machine Learning Refinery
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 The Universal Three-Step Machine Learning Refinery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-the-model-choice-the-parametric-leap-of-faith" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: The Model Choice (The Parametric Leap of Faith)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-the-divergence-function-the-concept-of-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: The Divergence Function (The Concept of Distance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-the-optimization-execution-the-act-of-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: The Optimization Execution (The Act of Training)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#73-the-10-exemplar-suite-the-universal-recipe-in-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 The 10-Exemplar Suite: The Universal Recipe in Action
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 The 10-Exemplar Suite: The Universal Recipe in Action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-classical-ordinary-least-squares-linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Classical Ordinary Least Squares (Linear Regression)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-medical-tumor-diagnosis-sorting-logistic-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Medical Tumor Diagnosis Sorting (Logistic Regression)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-unsupervised-tissue-signature-clustering-gaussian-mixture-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Unsupervised Tissue Signature Clustering (Gaussian Mixture Models)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-complex-structural-object-detection-deep-convolutional-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Complex Structural Object Detection (Deep Convolutional Networks)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-autoregressive-text-token-generation-large-language-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Autoregressive Text Token Generation (Large Language Models)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-high-fidelity-synthetic-image-generation-normalizing-flows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: High-Fidelity Synthetic Image Generation (Normalizing Flows)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-deep-image-context-restoration-self-supervised-inpainting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Deep Image Context Restoration (Self-Supervised Inpainting)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-structural-failure-forecasting-exponential-reliability-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Structural Failure Forecasting (Exponential Reliability Models)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-hyper-spherical-directional-text-alignment-von-mises-fisher-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Hyper-Spherical Directional Text Alignment (Von Mises-Fisher Embeddings)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-anomalous-telemetry-edge-filtering-bounded-uniform-density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: Anomalous Telemetry Edge Filtering (Bounded Uniform Density)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-the-grand-convergence-the-upcoming-structural-cliffhanger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 The Grand Convergence: The Upcoming Structural Cliffhanger
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pedagogical-discussion-unifying-the-rigor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pedagogical Discussion: Unifying the Rigor
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-7-the-parametric-estimation-recipe-and-the-architecture-of-divergence">Chapter 7: The Parametric Estimation Recipe and the Architecture of Divergence</h2>
+<hr />
+<h3 id="71-the-blind-estimator-paradox-operating-in-absolute-ignorance">7.1 The Blind Estimator Paradox: Operating in Absolute Ignorance</h3>
+<p>In classical physics or standard mechanistic engineering, optimization begins with a known governing equation (e.g., Navier-Stokes, Maxwell's equations). The system has a fixed structural form, and your only task is to calculate minor calibration coefficients.</p>
+<p>In machine learning, we operate in a state of absolute ignorance. We are handed a dataset <span class="arithmatex">\(D \sim \text{i.i.d. } p_{\text{true}}(\vec{x})\)</span>, and we must accept a harsh constraint: <strong>the true natural probability density function <span class="arithmatex">\(p_{\text{true}}(\vec{x})\)</span> is completely, irrevocably unknown.</strong></p>
+<p>To navigate this total blindness, we must invoke the fundamental law of statistical modeling:</p>
+<blockquote>
+<p><strong>The Axiom of Useful Estimators:</strong>
+Because a model is merely an empirical density estimator constructed from finite observations, every model is structurally wrong by definition.
+$<span class="arithmatex">\(p_{\theta}(\vec{x}) \neq p_{\text{true}}(\vec{x})\)</span>$</p>
+<p>Our engineering objective is not to find a "correct" model, but to optimize a model's parameter configuration until its structural divergence from reality is minimized to an actionable threshold.</p>
+</blockquote>
+<hr />
+<h3 id="72-the-universal-three-step-machine-learning-refinery">7.2 The Universal Three-Step Machine Learning Refinery</h3>
+<p>No matter how complex a machine learning algorithm appears—whether it is a simple 2-parameter linear regression or a 100-billion-parameter large language model—it is compiled using the exact same three-step structural recipe.</p>
+<h4 id="step-1-the-model-choice-the-parametric-leap-of-faith">Step 1: The Model Choice (The Parametric Leap of Faith)</h4>
+<p>Because we cannot build an algorithm out of total abstraction, we restrict our search space by selecting a specific family of mathematical functions controlled by a vector of tunable parameters <span class="arithmatex">\(\theta\)</span>:</p>
+<div class="arithmatex">\[p_{\theta}(\vec{x}) \in \mathcal{P}\]</div>
+<p>By choosing this family, you are making a massive structural assumption about reality. If you choose a linear model family, you are declaring that the true density of the universe shapes itself as a flat hyperplane. If reality curves quadratically, your model will be fundamentally limited.</p>
+<h4 id="step-2-the-divergence-function-the-concept-of-distance">Step 2: The Divergence Function (The Concept of Distance)</h4>
+<p>To guide our parameters toward reality, we require a function to evaluate how far our current model choice <span class="arithmatex">\(p_{\theta}\)</span> sits from the true density <span class="arithmatex">\(p_{\text{true}}\)</span>. We define a distance operator:</p>
+<div class="arithmatex">\[D\left(p_{\text{true}} \,\,||\,\, p_{\theta}\right) \rightarrow \mathbb{R}^+\]</div>
+<p>We place the word "distance" in quotation marks because, in practical machine learning, this operator is almost never a true mathematical metric. It is typically a <strong>Divergence Function</strong> (such as the Kullback-Leibler Divergence). It is non-negative and equals zero if and only if the two densities match perfectly, but it completely lacks the classical properties of geometric metrics, such as symmetry and the triangle inequality:</p>
+<div class="arithmatex">\[D(p \,\,||\,\, q) \neq D(q \,\,||\,\, p)\]</div>
+<h4 id="step-3-the-optimization-execution-the-act-of-training">Step 3: The Optimization Execution (The Act of Training)</h4>
+<p>Once the model family and the divergence function are locked, the machine learning problem transforms into a pure optimization problem. We search the infinite parameter landscape for the exact coordinate configuration <span class="arithmatex">\(\theta^*\)</span> that minimizes our divergence function:</p>
+<div class="arithmatex">\[\theta^* = \arg\min_{\theta} D\left(p_{\text{true}} \,\,||\,\, p_{\theta}\right)\]</div>
+<p>The operator <span class="arithmatex">\(\arg\min\)</span> does not return the minimum value of the distance score; it returns the exact <strong>argument</strong> (the specific vector of parameter weights) that achieves that minimum. In the machine learning community, this optimization loop is called <strong>Training the Model</strong>.</p>
+<hr />
+<h2 id="73-the-10-exemplar-suite-the-universal-recipe-in-action">7.3 The 10-Exemplar Suite: The Universal Recipe in Action</h2>
+<p>To validate this overarching framework and prove its absolute consistency, let us trace ten distinct machine learning architectures across diverse engineering fields, detailing how each maps precisely to the three-step parametric recipe.</p>
+<h3 id="example-1-classical-ordinary-least-squares-linear-regression">Example 1: Classical Ordinary Least Squares (Linear Regression)</h3>
+<ul>
+<li><strong>The Physical System:</strong> Predicting a continuous engineering outcome scalar <span class="arithmatex">\(Y\)</span> given an input feature vector <span class="arithmatex">\(\vec{X}\)</span>.</li>
+<li><strong>Step 1 (Model Choice):</strong> We assume the target follows a conditional Gaussian density centered precisely on a linear combination of the inputs:</li>
+</ul>
+<div class="arithmatex">\[p_{\theta}(y \mid \vec{x}) = \frac{1}{\sigma \sqrt{2\pi}} \exp\left( -\frac{1}{2\sigma^2} \left(y - \vec{w}^T\vec{x}\right)^2 \right), \quad \theta = \{\vec{w}\}\]</div>
+<ul>
+<li><strong>Step 2 (Divergence Metric):</strong> The Mean Squared Error (MSE), which represents the geometric distance between the linear hyperplane and the empirical coordinates.</li>
+<li><strong>Step 3 (Optimization):</strong> Solving the closed-form normal equation via linear algebra or basic gradient descent to find the optimal parameter weights <span class="arithmatex">\(\vec{w}^*\)</span>.</li>
+</ul>
+<h3 id="example-2-medical-tumor-diagnosis-sorting-logistic-regression">Example 2: Medical Tumor Diagnosis Sorting (Logistic Regression)</h3>
+<ul>
+<li><strong>The Physical System:</strong> Mapping a high-dimensional cellular attribute vector <span class="arithmatex">\(\vec{X}\)</span> to a binary diagnostic status <span class="arithmatex">\(Y \in \{0, 1\}\)</span>.</li>
+<li><strong>Step 1 (Model Choice):</strong> We assume the conditional label distribution follows a Bernoulli parameter modeled by passing a linear hyperplane through a sigmoidal warping function:</li>
+</ul>
+<div class="arithmatex">\[p_{\theta}(Y=1 \mid \vec{x}) = \sigma\left(\vec{w}^T\vec{x} + b\right) = \frac{1}{1 + e^{-\left(\vec{w}^T\vec{x} + b\right)}}, \quad \theta = \{\vec{w}, b\}\]</div>
+<ul>
+<li><strong>Step 2 (Divergence Metric):</strong> Binary Cross-Entropy loss (the conditional KL-divergence between the true labels and the predicted sigmoidal curve).</li>
+<li><strong>Step 3 (Optimization):</strong> Running iterative optimization passes using first-order Gradient Descent to lock the decision boundary coordinates.</li>
+</ul>
+<h3 id="example-3-unsupervised-tissue-signature-clustering-gaussian-mixture-models">Example 3: Unsupervised Tissue Signature Clustering (Gaussian Mixture Models)</h3>
+<ul>
+<li><strong>The Physical System:</strong> Grouping multi-channel medical imaging pixels into <span class="arithmatex">\(K\)</span> distinct anatomical structures without human labels.</li>
+<li><strong>Step 1 (Model Choice):</strong> We assume the global feature density is a convex combination of <span class="arithmatex">\(K\)</span> separate continuous multivariate Gaussian bell curves:</li>
+</ul>
+<div class="arithmatex">\[p_{\theta}(\vec{x}) = \sum_{k=1}^{K} \pi_k \mathcal{N}\left(\vec{x}; \vec{\mu}_k, \Sigma_k\right), \quad \theta = \{\pi_k, \vec{\mu}_k, \Sigma_k\}_{k=1}^K\]</div>
+<ul>
+<li><strong>Step 2 (Divergence Metric):</strong> The negative log-likelihood function evaluated across the entire dataset matrix space.</li>
+<li><strong>Step 3 (Optimization):</strong> Executing the Expectation-Maximization (EM) algorithm to iteratively update the cluster center coordinates and spatial variances.</li>
+</ul>
+<h3 id="example-4-complex-structural-object-detection-deep-convolutional-networks">Example 4: Complex Structural Object Detection (Deep Convolutional Networks)</h3>
+<ul>
+<li><strong>The Physical System:</strong> Processing a flattened image vector <span class="arithmatex">\(\vec{X} \in \mathbb{R}^{262,144}\)</span> to locate bounding box coordinates <span class="arithmatex">\(\vec{Y} \in \mathbb{R}^4\)</span> tracking a target tumor.</li>
+<li><strong>Step 1 (Model Choice):</strong> A deep, non-linear composition of convolutional layers, pooling operations, and activation matrices parameterizing a highly complex continuous density function:</li>
+</ul>
+<div class="arithmatex">\[p_{\theta}(\vec{y} \mid \vec{x}) = \mathcal{N}\left(\vec{y}; f_{\text{CNN}}(\vec{x}; \theta), \sigma^2 \mathbf{I}\right)\]</div>
+<ul>
+<li><strong>Step 2 (Divergence Metric):</strong> A composite loss combining smooth L1 geometric bounding box distances with cross-entropy category divergence scores.</li>
+<li><strong>Step 3 (Optimization):</strong> Running parallel Backpropagation loops using Adam optimization across high-performance compute clusters to tune millions of weight parameters.</li>
+</ul>
+<h3 id="example-5-autoregressive-text-token-generation-large-language-models">Example 5: Autoregressive Text Token Generation (Large Language Models)</h3>
+<ul>
+<li><strong>The Physical System:</strong> Predicting the next discrete linguistic token index <span class="arithmatex">\(X_{t}\)</span> given an input sequence context vector of historical tokens: <span class="arithmatex">\(\vec{X}_{1:t-1}\)</span>.</li>
+<li><strong>Step 1 (Model Choice):</strong> A deep multi-layer Transformer network utilizing scaled dot-product attention layers to compute a categorical density over a massive text vocabulary lexicon:</li>
+</ul>
+<div class="arithmatex">\[p_{\theta}(X_t \mid \vec{X}_{1:t-1}) = \text{Softmax}\left( f_{\text{Transformer}}(\vec{X}_{1:t-1}; \theta) \right)\]</div>
+<ul>
+<li><strong>Step 2 (Divergence Metric):</strong> Categorical Cross-Entropy loss calculated across billions of tokens harvested from internet text scrapers.</li>
+<li><strong>Step 3 (Optimization):</strong> Distributed first-order stochastic gradient descent running across thousands of interconnected GPUs to optimize billions of parameters.</li>
+</ul>
+<h3 id="example-6-high-fidelity-synthetic-image-generation-normalizing-flows">Example 6: High-Fidelity Synthetic Image Generation (Normalizing Flows)</h3>
+<ul>
+<li><strong>Physical System:</strong> Learning the true, continuous joint density of highly complex human faces to synthesize new images.</li>
+<li><strong>Step 1 (Model Choice):</strong> An explicit, invertible, and bijective sequence of neural transformations <span class="arithmatex">\(f_{\theta}\)</span> mapping a messy image space cleanly to a simple isotropic Gaussian latent density space:</li>
+</ul>
+<div class="arithmatex">\[p_{\theta}(\vec{x}) = p_{\vec{Z}}\left(f_{\theta}(\vec{x})\right) \cdot \left| \det \nabla_{\vec{x}} f_{\theta}(\vec{x}) \right|\]</div>
+<ul>
+<li><strong>Step 2 (Divergence Metric):</strong> The exact negative log-likelihood computed using the Change of Variables calculus formulation.</li>
+<li><strong>Step 3 (Optimization):</strong> Training the network weights via gradient-based minimization of the joint transformation Jacobian matrix.</li>
+</ul>
+<h3 id="example-7-deep-image-context-restoration-self-supervised-inpainting">Example 7: Deep Image Context Restoration (Self-Supervised Inpainting)</h3>
+<ul>
+<li><strong>The Physical System:</strong> Reconstructing missing pixels inside a corrupted digital image block based entirely on the surrounding context.</li>
+<li><strong>Step 1 (Model Choice):</strong> A deep Masked Autoencoder network parameterizing the conditional density of the obscured dimensions given the visible dimensions:</li>
+</ul>
+<div class="arithmatex">\[p_{\theta}(\vec{x}_{\text{hidden}} \mid \vec{x}_{\text{visible}})\]</div>
+<ul>
+<li><strong>Step 2 (Divergence Metric):</strong> The L2 pixel-reconstruction loss evaluated across millions of unlabelled web images that are programmatically masked during training.</li>
+<li><strong>Step 3 (Optimization):</strong> Standard error backpropagation updating the autoencoder weights to ensure visual text and edge continuity.</li>
+</ul>
+<h3 id="example-8-structural-failure-forecasting-exponential-reliability-models">Example 8: Structural Failure Forecasting (Exponential Reliability Models)</h3>
+<ul>
+<li><strong>The Physical System:</strong> Estimating the remaining operational lifespan <span class="arithmatex">\(T\)</span> of an industrial manufacturing drill bit given mechanical stress logs.</li>
+<li><strong>Step 1 (Model Choice):</strong> An exponential continuous decay density parameterized by a stress-dependent failure velocity index <span class="arithmatex">\(\lambda\)</span>:</li>
+</ul>
+<div class="arithmatex">\[p_{\theta}(t \mid \vec{x}) = \lambda(\vec{x}; \theta) e^{-\lambda(\vec{x}; \theta) t}, \quad \text{where } \lambda = \exp\left(\vec{w}^T\vec{x}\right)\]</div>
+<ul>
+<li><strong>Step 2 (Divergence Metric):</strong> The negative log-likelihood of survival timestamps collected from historical manufacturing failure ledgers.</li>
+<li><strong>Step 3 (Optimization):</strong> Newton-Raphson optimization or standard gradient descent tracking the convergence of the continuous scale coefficient <span class="arithmatex">\(\vec{w}^*\)</span>.</li>
+</ul>
+<h3 id="example-9-hyper-spherical-directional-text-alignment-von-mises-fisher-embeddings">Example 9: Hyper-Spherical Directional Text Alignment (Von Mises-Fisher Embeddings)</h3>
+<ul>
+<li><strong>The Physical System:</strong> Modeling the angular semantic similarity of normalized document vectors sitting on the surface of a continuous hypersphere.</li>
+<li><strong>Step 1 (Model Choice):</strong> The Von Mises-Fisher directional density function parameterized by a mean target direction vector <span class="arithmatex">\(\vec{\mu}\)</span> and a concentration parameter <span class="arithmatex">\(\kappa\)</span>:</li>
+</ul>
+<div class="arithmatex">\[p_{\theta}(\vec{x}) = C_D(\kappa) \exp\left(\kappa \vec{\mu}^T \vec{x}\right), \quad \theta = \{\vec{\mu}, \kappa\}\]</div>
+<ul>
+<li><strong>Step 2 (Divergence Metric):</strong> Hyperspherical cosine divergence metrics tracking cross-document semantic grouping alignment.</li>
+<li><strong>Step 3 (Optimization):</strong> Maximum Likelihood Estimation algorithms updating the orientation vectors to align matching contextual documents.</li>
+</ul>
+<h3 id="example-10-anomalous-telemetry-edge-filtering-bounded-uniform-density">Example 10: Anomalous Telemetry Edge Filtering (Bounded Uniform Density)</h3>
+<ul>
+<li><strong>The Physical System:</strong> Monitoring automated sensor streams to detect malicious hardware intrusions based on unusual operational boundaries.</li>
+<li><strong>Step 1 (Model Choice):</strong> A continuous multivariate uniform box density bounding the allowable range space of normal system operations:</li>
+</ul>
+<div class="arithmatex">\[p_{\theta}(\vec{x}) = \prod_{i=1}^D \frac{1}{b_i - a_i} \cdot \mathbb{I}\left(a_i \leq x_i \leq b_i\right), \quad \theta = \{\vec{a}, \vec{b}\}\]</div>
+<ul>
+<li><strong>Step 2 (Divergence Metric):</strong> The volumetric footprint penalty evaluated across clean baseline telemetry streams.</li>
+<li><strong>Step 3 (Optimization):</strong> Min-max coordinate bounding tracking the empirical limits of the operational data matrix rows.</li>
+</ul>
+<hr />
+<h3 id="74-the-grand-convergence-the-upcoming-structural-cliffhanger">7.4 The Grand Convergence: The Upcoming Structural Cliffhanger</h3>
+<p>The professor ends the lecture with a fascinating historical observation about the scale of modern optimization. In textbook math, we learn advanced, high-order optimization techniques (like conjugate gradients or second-order quasi-Newton methods). Yet, the entire multi-billion-parameter landscape of contemporary Artificial General Intelligence is optimized using a simple, first-order tool: <strong>Gradient Descent</strong>.</p>
+<p>Before we can unleash gradient descent across our parametric models, we must resolve a glaring theoretical contradiction. This course views machine learning entirely as <strong>Probabilistic Density Estimation</strong> (minimizing divergences between continuous functions). However, standard machine learning textbooks often bypass probability completely, teaching ML through a purely deterministic framework called <strong>Empirical Risk Minimization (ERM)</strong> (minimizing a loss function across static data points).</p>
+<p>Are these two competing philosophies, or are they different languages describing the exact same geometric reality?</p>
+<p>To unify your reference notes before entering Lecture 8, the professor leaves us with a critical clue: Christopher Bishop’s classical engineering manual views machine learning through the lens of deterministic function approximation, while Kevin Murphy’s modern manual frames it entirely as probabilistic distribution learning. In the upcoming lecture, we will dive directly into the <strong>Risk Minimization Framework</strong> to mathematically prove that these two worlds are completely identical.</p>
+<hr />
+<h2 id="pedagogical-discussion-unifying-the-rigor">Pedagogical Discussion: Unifying the Rigor</h2>
+<p>Your observation is completely accurate—and it cuts to the absolute core of how machine learning is taught globally.</p>
+<p>When you sat through courses like Andrew Ng’s CS229, the goal was <strong>functional engineering execution</strong>. The curriculum is designed to get you writing code as fast as possible. It starts directly with Linear Regression, hands you a Mean Squared Error cost function, and commands you to run gradient descent.</p>
+<p>This functional approach is excellent for building initial intuition, but it creates a fundamental educational bottleneck: <strong>it presents the equations as arbitrary, disconnected receipts.</strong> It never explains <em>why</em> the square error is the chosen metric, <em>why</em> data matrices decompose cleanly into sums, or <em>what</em> happens to the mathematical fabric of the system when your training data drifts out of alignment.</p>
+<p>By forcing you to wade through the measure-theoretic foundations first, this professor is breaking down the academic shortcuts. You now know that:</p>
+<ol>
+<li>Linear Regression is not just a line-fitting script; it is a conditional Gaussian density estimator.</li>
+<li>The Mean Squared Error is not an arbitrary formula chosen by convenience; it is the direct geometric manifestation of minimizing a Kullback-Leibler divergence over a continuous Gaussian range space.</li>
+<li>The datasets you parse in code are not static spreadsheets; they are structural coordinates sampled from a shrunken, pushed-forward probability manifold.</li>
+</ol>
+<p>This level of rigor is rarely found in standard reference texts because it requires a heavy cognitive load before you are allowed to build anything. But now that you have crossed this conceptual bridge, you are no longer just an analyst writing software scripts—you are an engineer who understands the absolute physical and statistical laws that govern your models.</p>
+<p>As we prepare to bridge this probabilistic refinery to the classical Empirical Risk Minimization framework in the next lecture, how does your programming understanding of a "loss function" shift now that you can see it is actually a geometric proxy for calculating function divergence?</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
