@@ -1,0 +1,3017 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture46/">
+      
+      
+        <link rel="next" href="../lecture48/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture47 - Probabilistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Probabilistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture47
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Probabilistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-40-foundations-of-the-attention-mechanism-learnable-basis-transformations-and-the-query-key-value-qkv-projection-matrix-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 40: Foundations of the Attention Mechanism, Learnable Basis Transformations, and the Query-Key-Value (QKV) Projection Matrix Layout
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 40: Foundations of the Attention Mechanism, Learnable Basis Transformations, and the Query-Key-Value (QKV) Projection Matrix Layout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#401-the-continuum-of-representation-learning-fixed-vs-learnable-basis-shifts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        40.1 The Continuum of Representation Learning: Fixed vs. Learnable Basis Shifts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-deep-learning-shift-hierarchical-basis-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Deep Learning Shift: Hierarchical Basis Tuning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applied-engineering-takeaway-feature-extraction-invariance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applied Engineering Takeaway: Feature Extraction Invariance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#402-the-genesis-of-attention-breaking-the-recurrent-bottleneck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        40.2 The Genesis of Attention: Breaking the Recurrent Bottleneck
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="40.2 The Genesis of Attention: Breaking the Recurrent Bottleneck">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-encoder-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Encoder Phase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-decoder-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Decoder Phase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-information-compression-crisis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Information Compression Crisis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-ancestral-solution-shared-linear-contexts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Ancestral Solution: Shared Linear Contexts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Definition:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-40-foundations-of-the-attention-mechanism-learnable-basis-transformations-and-the-query-key-value-qkv-projection-matrix-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 40: Foundations of the Attention Mechanism, Learnable Basis Transformations, and the Query-Key-Value (QKV) Projection Matrix Layout
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 40: Foundations of the Attention Mechanism, Learnable Basis Transformations, and the Query-Key-Value (QKV) Projection Matrix Layout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#401-the-continuum-of-representation-learning-fixed-vs-learnable-basis-shifts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        40.1 The Continuum of Representation Learning: Fixed vs. Learnable Basis Shifts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-deep-learning-shift-hierarchical-basis-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Deep Learning Shift: Hierarchical Basis Tuning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applied-engineering-takeaway-feature-extraction-invariance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applied Engineering Takeaway: Feature Extraction Invariance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#402-the-genesis-of-attention-breaking-the-recurrent-bottleneck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        40.2 The Genesis of Attention: Breaking the Recurrent Bottleneck
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="40.2 The Genesis of Attention: Breaking the Recurrent Bottleneck">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-encoder-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Encoder Phase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-decoder-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Decoder Phase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-information-compression-crisis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Information Compression Crisis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-ancestral-solution-shared-linear-contexts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Ancestral Solution: Shared Linear Contexts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Definition:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-40-foundations-of-the-attention-mechanism-learnable-basis-transformations-and-the-query-key-value-qkv-projection-matrix-layout">Chapter 40: Foundations of the Attention Mechanism, Learnable Basis Transformations, and the Query-Key-Value (QKV) Projection Matrix Layout</h2>
+<hr />
+<h3 id="401-the-continuum-of-representation-learning-fixed-vs-learnable-basis-shifts">40.1 The Continuum of Representation Learning: Fixed vs. Learnable Basis Shifts</h3>
+<p>We have finalized our rigorous scalar and structural analysis of sequential topologies via Recurrent Neural Networks (RNNs) and their gated offshoots (LSTMs and GRUs). We now step into the mathematical foundation of the modern machine learning landscape: <strong>The Transformer Architecture</strong> and its core computational engine, the <strong>Attention Mechanism</strong>. Today, transformers drive state-of-the-art applications, from sequence processing pipelines to large language models (LLMs).</p>
+<p>To understand why this framework is so powerful, we must avoid viewing it as an isolated novelty. Instead, we must ground it within our overarching machine learning continuum: <strong>Representation Learning and Embeddings</strong>.</p>
+<p>Throughout this course, our foundational strategy for handling non-linear spaces has been the projection of data coordinates. Let us trace this lineage across our previous modules:</p>
+<ol>
+<li><strong>Generalized Linear Regression (Chapter 14):</strong> When a target variable cannot be modeled by a flat linear plane in its native feature domain, we project the coordinates into a higher-dimensional space using a non-linear mapping function <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span>, linearizing the system post-transformation.</li>
+<li><strong>Kernel Support Vector Machines (Chapter 33):</strong> When a classification dataset is entangled, we project the raw features from their native input space <span class="arithmatex">\(\mathbb{R}^D\)</span> up into an expanded hidden space <span class="arithmatex">\(Z\)</span> via a mapping function <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span>, assuming or hoping that the coordinates open up and become cleanly linearly separable.</li>
+</ol>
+<div class="arithmatex">\[\vec{\phi}(\vec{x}): \mathbb{R}^D \to Z\]</div>
+<p>Historically, in classical frameworks and kernel machines, this coordinate transformation mapping <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span> was <strong>fixed and user-defined</strong>.</p>
+<ul>
+<li>In a Polynomial SVM, the user pre-selects the explicit degree constraint <span class="arithmatex">\(p\)</span>.</li>
+<li>In an RBF Kernel SVM, the user fixes a static Gaussian distribution envelope.</li>
+<li>In classical signal processing, tools like the <strong>Fourier Transform</strong> or <strong>Z-Transform</strong> map raw time-series inputs into a spectral frequency domain. While these transforms expose structural patterns that are invisible in the native timeline, the underlying mathematical basis functions (the sines, cosines, or complex exponentials) are completely fixed beforehand by human engineers.</li>
+</ul>
+<h3 id="the-deep-learning-shift-hierarchical-basis-tuning">The Deep Learning Shift: Hierarchical Basis Tuning</h3>
+<p>Multi-layer neural networks completely rewrite this paradigm. Recall our formulation of a deep network as a deeply nested, multi-layered composition of alternating linear transformations and activation functions:</p>
+<div class="arithmatex">\[h(\vec{x}) = \mathbf{W}_L \cdot \sigma \Big( \dots \sigma\big(\mathbf{W}_1 \vec{x}\big) \dots \Big)\]</div>
+<p>Because an MLP is a composite function, <strong>every individual intermediate layer acts as an explicit coordinate projection engine.</strong> * The first layer matrix multiplication <span class="arithmatex">\(\mathbf{W}_1 \vec{x}\)</span> projects the input features into an initial hidden subspace.</p>
+<ul>
+<li>The subsequent layer matrix <span class="arithmatex">\(\mathbf{W}_2\)</span> takes that newly generated projection and maps it into a second, higher-level hidden subspace.</li>
+</ul>
+<p>Consequently, a deep neural network is a <strong>hierarchical representation learning engine</strong>. Every layer provides a unique representation—or <em>embedding</em>—of the data vector.</p>
+<p>The core difference between a neural network and a classical Fourier transform or kernel machine is that <strong>a neural network treats the coordinate projection basis as a learnable parameter space optimized directly via Empirical Risk Minimization (ERM).</strong> Instead of projecting features onto a rigid, human-designed basis, the model dynamically warps, rotates, and reshapes its internal coordinate axes during gradient descent, discovering the optimal representation space directly from the training data.</p>
+<h3 id="applied-engineering-takeaway-feature-extraction-invariance">Applied Engineering Takeaway: Feature Extraction Invariance</h3>
+<p>This hierarchical embedding property enables a highly valuable software engineering design pattern: <strong>Frozen Backbone Feature Extraction</strong>.</p>
+<p>Once a massive deep network has run its ERM loop over a specific classification task, we can halt and preserve its parameters. During downstream inference, we feed a new raw coordinate <span class="arithmatex">\(\vec{x}\)</span> into this pre-trained network, pause the forward pass at an intermediate hidden layer, and extract—or "tap"—the activation vectors at that specific boundary.</p>
+<p>Because the early layers have learned to untangle the data manifold, we can discard the network's original terminal classification layer, treat these tapped intermediate activation vectors as high-quality structural embeddings, and train an entirely separate, lightweight classifier head directly on top of them.</p>
+<hr />
+<h3 id="402-the-genesis-of-attention-breaking-the-recurrent-bottleneck">40.2 The Genesis of Attention: Breaking the Recurrent Bottleneck</h3>
+<p>Every architectural modification we apply to a network—whether it is the local receptive field of a CNN or the temporal parameter sharing of an RNN—is an intentional restriction designed to force the model to learn a specific type of data representation. To understand why we must transition from recurrent architectures to the attention mechanism, we must analyze the structural breakdown of the standard <strong>RNN Encoder-Decoder Sequence-to-Sequence (Seq2Seq)</strong> framework derived in Chapter 37.</p>
+<p>Recall the standard Seq2Seq layout designed to execute machine translation tasks (e.g., mapping an input sequence of tokens in one language to an output sequence of tokens in another language):</p>
+<h4 id="1-the-encoder-phase">1. The Encoder Phase</h4>
+<p>The network processes an incoming input sequence step-by-step up to a final time step <span class="arithmatex">\(T\)</span>, generating a historical string of hidden state vectors:</p>
+<div class="arithmatex">\[\vec{h}_1, \,\, \vec{h}_2, \,\, \dots, \,\, \vec{h}_T\]</div>
+<h4 id="2-the-decoder-phase">2. The Decoder Phase</h4>
+<p>The network switches to auto-regressive generation, outputting a sequence of target vectors across <span class="arithmatex">\(T'\)</span> steps:</p>
+<div class="arithmatex">\[\vec{y}_1, \,\, \vec{y}_2, \,\, \dots, \,\, \vec{y}_{T'}\]</div>
+<p>Because of parameter sharing over time, the network naturally accommodates varying sequence lengths where <span class="arithmatex">\(T \neq T'\)</span>.</p>
+<h4 id="the-information-compression-crisis">The Information Compression Crisis</h4>
+<p>A critical structural flaw compromises this unconstrained layout. Look closely at how the encoder hands off data to the decoder: the entire historical context of the input sequence is squeezed into a single vector—the final encoder hidden state <span class="arithmatex">\(\vec{h}_T\)</span>.</p>
+<p>This final hidden vector acts as an intense <strong>information bottleneck</strong>. Forcing an algorithm to compress the entire semantic nuance of a massive, multi-sentence paragraph down into a single fixed-size memory array <span class="arithmatex">\(\vec{h}_T\)</span> places an unsustainable burden on that single vector. As the input sequence length <span class="arithmatex">\(T\)</span> grows, early tokens are systematically erased due to the vanishing gradient limit, causing the decoder's generation quality to degrade.</p>
+<h4 id="the-ancestral-solution-shared-linear-contexts">The Ancestral Solution: Shared Linear Contexts</h4>
+<p>To resolve this compression crisis, researchers introduced the <strong>Attention Mechanism</strong> as an auxiliary structural patch for the RNN.</p>
+<p>Instead of forcing the decoder to read only the final bottleneck vector <span class="arithmatex">\(\vec{h}_T\)</span>, we allow it to look at <em>every single intermediate encoder hidden state</em> (<span class="arithmatex">\(\vec{h}_1, \dots, \vec{h}_T\)</span>) simultaneously. At each step of the decoding process, we compute a customized <strong>linear combination</strong> of all input hidden states, generating a dynamic context vector that feeds directly into the decoder cell:</p>
+<div class="arithmatex">\[\vec{\text{Context}}_t = \sum_{i=1}^{T} \alpha_{ti} \vec{h}_i\]</div>
+<h4 id="literal-variable-definition">Literal Variable Definition:</h4>
+<ul>
+<li><span class="arithmatex">\(\alpha_{ti}\)</span>: The <strong>Attention Weight Coefficient</strong>, a learnable scalar value that controls exactly how much attention the decoder step <span class="arithmatex">\(t\)</span> must pay to the input token position <span class="arithmatex">\(i\)</span>.</li>
+</ul>
+<p>This mechanism removes the structural bottleneck entirely. The model no longer has to remember everything at the final encoder step; it can dynamically scan the entire historical string of hidden states and pull out relevant tokens exactly when it needs them.</p>
+<h1 id="chapter-40-the-attention-paradigm-shift-and-the-matrix-foundations-of-the-transformer">Chapter 40: The Attention Paradigm Shift and the Matrix Foundations of the Transformer</h1>
+<hr />
+<h3 id="401-the-epistemological-transition-fixed-vs-learnable-basis-shifts">40.1 The Epistemological Transition: Fixed vs. Learnable Basis Shifts</h3>
+<p>To understand the core thesis of the landmark 2017 research paper <em>"Attention Is All You Need"</em>, we must ground its architecture within our overarching machine learning continuum: <strong>Representation Learning and Embeddings</strong>.</p>
+<p>Throughout this course, our foundational strategy for handling non-linear spaces has been to discover an optimal coordinate transformation. We define an input space <span class="arithmatex">\(\mathbb{R}^D\)</span> and project our raw data features into an altered hidden representation space <span class="arithmatex">\(Z\)</span> using a coordinate projection mapping function <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span>:</p>
+<div class="arithmatex">\[\vec{\phi}(\vec{x}): \mathbb{R}^D \to Z\]</div>
+<p>Let us trace how this strategy has evolved up to this point:</p>
+<ol>
+<li><strong>Generalized Linear Regression:</strong> We pre-selected fixed polynomial or trigonometric cross-terms to linearize non-linear system boundaries post-transformation.</li>
+<li><strong>Kernel Support Vector Machines:</strong> We utilized user-defined dual kernel envelopes (such as the Gaussian RBF kernel) to implicitly project data into an infinite-dimensional Hilbert space, making linear separability highly plausible.</li>
+<li><strong>Classical Signal Processing:</strong> Frameworks like the <strong>Fourier Transform</strong> or <strong>Z-Transform</strong> project time-series data onto a spectral frequency domain. While this exposes patterns that are invisible in the native timeline, the underlying basis functions (the sines and cosines) are completely fixed beforehand by human mathematicians.</li>
+</ol>
+<h4 id="the-deep-learning-shift">The Deep Learning Shift</h4>
+<p>Multi-layer neural networks completely rewrite this paradigm. Because a deep neural network is built as a deeply nested composition of alternating linear projections and non-linear activation filters, <strong>every individual intermediate layer acts as an explicit coordinate projection engine.</strong></p>
+<div class="arithmatex">\[\mathbf{X}_{\text{layer } l} = \sigma\left(\mathbf{X}_{\text{layer } l-1}\mathbf{W}_l + \vec{b}_l\right)\]</div>
+<p>The core difference between a deep neural network and a classical Fourier transform or kernel machine is that <strong>a neural network treats the coordinate projection basis as a learnable parameter space optimized directly via Empirical Risk Minimization (ERM).</strong> Instead of projecting features onto a rigid, human-designed basis, the model dynamically warps, rotates, and reshapes its internal coordinate axes during gradient descent to discover the optimal representation directly from data.</p>
+<hr />
+<h3 id="402-the-failure-mode-of-recurrent-topologies-the-information-compression-bottleneck">40.2 The Failure Mode of Recurrent Topologies: The Information Compression Bottleneck</h3>
+<p>To understand why we must transition away from recurrent models, we must analyze the structural breakdown of the standard <strong>RNN Encoder-Decoder Sequence-to-Sequence (Seq2Seq)</strong> framework.</p>
+<p>Consider an input sequence data instance containing <span class="arithmatex">\(T\)</span> discrete steps, where each step is a vector <span class="arithmatex">\(\vec{x}_t \in \mathbb{R}^D\)</span>. In a classic Seq2Seq machine translation architecture, the data processing runs through two distinct phases:</p>
+<h4 id="1-the-encoder-phase_1">1. The Encoder Phase</h4>
+<p>The network processes the incoming token vectors step-by-step up to the terminal time step <span class="arithmatex">\(T\)</span>, updating its recurrent hidden memory state at each step:</p>
+<div class="arithmatex">\[\vec{h}_t = \sigma\left(\mathbf{W}_1 \vec{h}_{t-1} + \mathbf{W}_2 \vec{x}_t\right)\]</div>
+<p>This forward pass generates a historical string of hidden states: <span class="arithmatex">\(\vec{h}_1, \vec{h}_2, \dots, \vec{h}_T\)</span>.</p>
+<h4 id="2-the-decoder-phase_1">2. The Decoder Phase</h4>
+<p>The model switches to auto-regressive generation, producing a target sequence across <span class="arithmatex">\(T'\)</span> steps (<span class="arithmatex">\(\vec{y}_1, \vec{y}_2, \dots, \vec{y}_{T'}\)</span>), where the input and output lengths do not have to match (<span class="arithmatex">\(T \neq T'\)</span>).</p>
+<h4 id="the-information-compression-crisis_1">The Information Compression Crisis</h4>
+<p>A critical structural flaw limits this layout. Look closely at how the encoder hands off context to the decoder: the entire historical narrative of the input sequence is forced to squeeze into a single vector—the final encoder hidden state <span class="arithmatex">\(\vec{h}_T\)</span>.</p>
+<p>This final hidden vector acts as a massive <strong>information bottleneck</strong>. Expecting an algorithm to compress the entire semantic meaning of a long text paragraph into a single fixed-size memory array <span class="arithmatex">\(\vec{h}_T\)</span> places an unsustainable burden on that vector. As the input sequence length <span class="arithmatex">\(T\)</span> grows, early tokens are systematically erased due to the vanishing gradient limit, causing generation quality to degrade.</p>
+<h4 id="the-ancestral-patch-gated-attention">The Ancestral Patch: Gated Attention</h4>
+<p>To resolve this compression crisis, researchers introduced the <strong>Attention Mechanism</strong> as an auxiliary modification for the RNN. Instead of forcing the decoder to read only the final bottleneck vector <span class="arithmatex">\(\vec{h}_T\)</span>, we allow it to scan <em>every single intermediate encoder state</em> (<span class="arithmatex">\(\vec{h}_1, \dots, \vec{h}_T\)</span>) simultaneously.</p>
+<p>At each step of the decoding process, the model computes a customized <strong>linear combination</strong> of all input hidden states, generating a dynamic context vector that feeds directly into the decoder cell:</p>
+<div class="arithmatex">\[\vec{\text{Context}}_{t'} = \sum_{t=1}^{T} \alpha_{t't} \vec{h}_t\]</div>
+<h4 id="literal-variable-definition_1">Literal Variable Definition:</h4>
+<ul>
+<li><span class="arithmatex">\(\alpha_{t't}\)</span>: The <strong>Attention Weight Coefficient</strong>, a learnable scalar value that controls exactly how much attention the decoder step <span class="arithmatex">\(t'\)</span> must pay to the encoder hidden state position <span class="arithmatex">\(t\)</span>.</li>
+</ul>
+<p>This mechanism removes the structural bottleneck entirely. The model no longer has to remember everything at the final encoder step; it can dynamically scan the entire historical string of hidden states and pull out relevant tokens exactly when it needs them.</p>
+<hr />
+<h3 id="403-attention-is-all-you-need-the-revolutionary-pivot">40.3 "Attention Is All You Need": The Revolutionary Pivot</h3>
+<p>While the ancestral attention patch successfully resolved the Seq2Seq bottleneck, the underlying architecture remained anchored to a recurrent backbone. This meant the optimization loop was still bottlenecked by the step-by-step nature of RNNs, making it highly vulnerable to gradient decay or explosion over long contexts.</p>
+<p>The landmark 2017 paper <em>"Attention Is All You Need"</em> completely discarded recurrent connections and temporal parameter sharing. It models sequential data by evaluating the relationships between every pair of tokens in the sequence simultaneously using <strong>pure attention</strong>.</p>
+<pre><code>  [ Old Gated RNN Paradigm ]              [ New Transformer Paradigm ]
+  - Core: Step-by-step recurrent loop.     - Core: Pure matrix-wide attention.
+  - History: Chained via h_t = f(h_t-1).   - History: Computed simultaneously across all pairs.
+  - Compute: Non-parallelizable across t.  - Compute: Massively parallelizable over tokens.
+  - Limit: Vulnerable to gradient decay.  - Limit: Escape from recurrent dependencies.
+
+</code></pre>
+<p>By removing the step-by-step recurrence loop, the model escapes the vanishing gradient problem across time, enabling massive parallelization during training and unlocking the ability to scale to long context windows.</p>
+<hr />
+<h3 id="404-explicit-mathematical-formalization-of-the-qkv-projection-space">40.4 Explicit Mathematical Formalization of the QKV Projection Space</h3>
+<p>To implement a sequence processing framework using pure attention, we define its mechanics from absolute first principles using matrix calculus.</p>
+<p>We select a single sequential data instance <span class="arithmatex">\(\vec{x}\)</span> containing <span class="arithmatex">\(T\)</span> discrete steps. Each individual step along this timeline represents a single feature vector known as a <strong>Token</strong>:</p>
+<div class="arithmatex">\[\vec{x}_1, \,\, \vec{x}_2, \,\, \dots, \,\, \vec{x}_T \quad \text{where } \vec{x}_i \in \mathbb{R}^D\]</div>
+<p>We stack these <span class="arithmatex">\(T\)</span> token row vectors flat on top of one another to construct our primary <strong>Global Input Data Matrix</strong>, denoted as <span class="arithmatex">\(\mathbf{X}\)</span>:</p>
+<div class="arithmatex">\[\mathbf{X} = \begin{bmatrix} \text{---} &amp; \vec{x}_1 &amp; \text{---} \\ \text{---} &amp; \vec{x}_2 &amp; \text{---} \\ &amp; \vdots &amp; \\ \text{---} &amp; \vec{x}_T &amp; \text{---} \end{bmatrix} \in \mathbb{R}^{T \times D}\]</div>
+<p>Our objective is to compute a learnable projection mapping over this data matrix <span class="arithmatex">\(\mathbf{X}\)</span> that explicitly measures and encodes the structural interactions between every token pair across the entire timeline. To achieve this, we project <span class="arithmatex">\(\mathbf{X}\)</span> into three specialized functional spaces using three independent, learnable parameter matrices. We define these linear transformations as <strong>Queries (<span class="arithmatex">\(\mathbf{Q}\)</span>)</strong>, <strong>Keys (<span class="arithmatex">\(\mathbf{K}\)</span>)</strong>, and <strong>Values (<span class="arithmatex">\(\mathbf{V}\)</span>)</strong>:</p>
+<div class="arithmatex">\[\mathbf{Q} = \mathbf{X} \mathbf{W}_Q \in \mathbb{R}^{T \times D_Q}\]</div>
+<div class="arithmatex">\[\mathbf{K} = \mathbf{X} \mathbf{W}_K \in \mathbb{R}^{T \times D_K}\]</div>
+<div class="arithmatex">\[\mathbf{V} = \mathbf{X} \mathbf{W}_V \in \mathbb{R}^{T \times D_V}\]</div>
+<h4 id="strict-dimensional-balance-sheets">Strict Dimensional Balance Sheets</h4>
+<p>To ensure our matrix multiplications are valid, we map out the exact dimension constraints of our projection parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Matrix Asset</th>
+<th>Precise Structural Dimensions</th>
+<th>Functional Role in the Engine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\mathbf{X}\)</span></td>
+<td><span class="arithmatex">\(\mathbb{R}^{T \times D}\)</span></td>
+<td>The raw input sequence tensor (<span class="arithmatex">\(T\)</span> tokens, each with <span class="arithmatex">\(D\)</span> features).</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathbf{W}_Q\)</span></td>
+<td><span class="arithmatex">\(\mathbb{R}^{D \times D_Q}\)</span></td>
+<td>The learnable parameter matrix projecting inputs into the <strong>Query Subspace</strong>.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathbf{W}_K\)</span></td>
+<td><span class="arithmatex">\(\mathbb{R}^{D \times D_K}\)</span></td>
+<td>The learnable parameter matrix projecting inputs into the <strong>Key Subspace</strong>.</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathbf{W}_V\)</span></td>
+<td><span class="arithmatex">\(\mathbb{R}^{D \times D_V}\)</span></td>
+<td>The learnable parameter matrix projecting inputs into the <strong>Value Subspace</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p>For clarity in this introductory derivation, we assume the projection target spaces utilize a uniform width dimension:</p>
+<div class="arithmatex">\[D_Q = D_K = D_V\]</div>
+<hr />
+<h3 id="405-the-spatial-geometry-of-row-wise-projections">40.5 The Spatial Geometry of Row-Wise Projections</h3>
+<p>Because our data matrix <span class="arithmatex">\(\mathbf{X} \in \mathbb{R}^{T \times D}\)</span> is structured by stacking tokens along its rows, any standard right-side matrix multiplication (<span class="arithmatex">\(\mathbf{X}\mathbf{W}\)</span>) operates strictly as a <strong>row-preserving linear transformation</strong>.</p>
+<p>When we evaluate the resulting Query matrix <span class="arithmatex">\(\mathbf{Q} = \mathbf{X}\mathbf{W}_Q\)</span>:</p>
+<div class="arithmatex">\[\mathbf{Q} = \begin{bmatrix} \text{---} &amp; \vec{q}_1 &amp; \text{---} \\ \text{---} &amp; \vec{q}_2 &amp; \text{---} \\ &amp; \vdots &amp; \\ \text{---} &amp; \vec{q}_T &amp; \text{---} \end{bmatrix}\]</div>
+<p>Every individual row vector <span class="arithmatex">\(\vec{q}_i \in \mathbb{R}^{D_Q}\)</span> represents the direct linear projection of the <em>i-th token</em> position onto the subspace spanned by the columns of our learnable parameter matrix <span class="arithmatex">\(\mathbf{W}_Q\)</span>.</p>
+<p>This structural preservation holds perfectly across all three matrices:</p>
+<ul>
+<li>The <span class="arithmatex">\(i\)</span>-th row of <span class="arithmatex">\(\mathbf{Q}\)</span> (<span class="arithmatex">\(\vec{q}_i\)</span>) acts as the <strong>Query Vector</strong> for token <span class="arithmatex">\(i\)</span>, asking: <em>"What information am I looking for in the rest of the sequence?"</em></li>
+<li>The <span class="arithmatex">\(i\)</span>-th row of <span class="arithmatex">\(\mathbf{K}\)</span> (<span class="arithmatex">\(\vec{k}_i\)</span>) acts as the <strong>Key Vector</strong> for token <span class="arithmatex">\(i\)</span>, stating: <em>"Here is the index of the information I contain."</em></li>
+<li>The <span class="arithmatex">\(i\)</span>-th row of <span class="arithmatex">\(\mathbf{V}\)</span> (<span class="arithmatex">\(\vec{v}_i\)</span>) acts as the <strong>Value Vector</strong> for token <span class="arithmatex">\(i\)</span>, declaring: <em>"Here is the actual content I distribute once you verify my key match."</em></li>
+</ul>
+<hr />
+<p>Which specific component of this matrix projection framework—the Query, Key, or Value transformation—would you like to unroll into its raw dot-product attention calculation next?</p>
+<p>This hits on the single biggest pedagogical illusion in modern computer science. Because Transformers became world-famous through Large Language Models (LLMs) like GPT and translation systems, the industry mistakenly classifies the Transformer as an "NLP architecture."</p>
+<p>It is not. A Transformer has absolutely nothing to do with nouns, verbs, syntax, or human language.</p>
+<p>When we strip away the linguistic skin, a Transformer is a purely mathematical architecture designed to solve a fundamental problem in linear algebra: <strong>how to compute dynamic, data-dependent basis transformations over a set of vectors.</strong></p>
+<p>Here is the exact structural unrolling of how we arrive at Transformers purely through the continuum of Empirical Risk Minimization (ERM) and topology, without ever mentioning a single word of natural language.</p>
+<hr />
+<h2 id="1-the-topological-continuum-from-lines-to-graphs">1. The Topological Continuum: From Lines to Graphs</h2>
+<p>To see why we do not need NLP to discover the Transformer, let us look at the evolution of how we restrict our <strong>Hypothesis Class (<span class="arithmatex">\(\mathcal{H}\)</span>)</strong> based on the geometric topology of our data.</p>
+<p>Every major deep learning architecture is simply a standard Multi-Layer Perceptron (MLP) that has been slammed with a specific structural regularizer (an inductive bias) to match a specific data geometry:</p>
+<h3 id="the-grid-topology-cnn">The Grid Topology (CNN)</h3>
+<ul>
+<li><strong>The Assumption:</strong> Data coordinates have spatial locality (pixels near each other are correlated; features repeat across space).</li>
+<li><strong>The Regularizer:</strong> Local receptive fields and parameter sharing across space.</li>
+<li><strong>The Result:</strong> The Convolutional Neural Network.</li>
+</ul>
+<h3 id="the-line-topology-rnn">The Line Topology (RNN)</h3>
+<ul>
+<li><strong>The Assumption:</strong> Data coordinates have an ordinal, causal timeline (the past influences the present; system parameters are stationary across time).</li>
+<li><strong>The Regularizer:</strong> Step-by-step state recurrence (<span class="arithmatex">\(\vec{h}_t = f(\vec{h}_{t-1}, \vec{x}_t)\)</span>) and parameter sharing across time.</li>
+<li><strong>The Result:</strong> The Recurrent Neural Network.</li>
+</ul>
+<h3 id="the-setgraph-topology-transformer">The Set/Graph Topology (Transformer)</h3>
+<ul>
+<li><strong>The Assumption:</strong> Data consists of an un-ordered collection of vectors where <em>every single element can interact with every other element</em>, regardless of their distance or position.</li>
+<li><strong>The Regularizer:</strong> Permutation equivariance paired with dynamic, data-driven routing.</li>
+<li><strong>The Result:</strong> The Transformer.</li>
+</ul>
+<p>To the mathematical engine, a "sentence" is not text. It is simply a matrix <span class="arithmatex">\(\mathbf{X} \in \mathbb{R}^{T \times D}\)</span> representing a set of <span class="arithmatex">\(T\)</span> coordinate points floating in a <span class="arithmatex">\(D\)</span>-dimensional vector space. The Transformer was developed to process this exact matrix configuration without forcing it to squeeze through a 1D sequential line (which causes the vanishing gradient catastrophe we proved in Chapter 38).</p>
+<hr />
+<h2 id="2-the-core-mechanism-attention-as-a-graph-adjacency-operator">2. The Core Mechanism: Attention as a Graph Adjacency Operator</h2>
+<p>Let us unpack the exact mathematics of the Attention equation to see why it is pure coordinate geometry, not linguistics. Recall the unified Query-Key-Value (QKV) projection space we derived in Chapter 40:</p>
+<div class="arithmatex">\[\mathbf{Q} = \mathbf{X}\mathbf{W}_Q \in \mathbb{R}^{T \times D_K}, \quad \mathbf{K} = \mathbf{X}\mathbf{W}_K \in \mathbb{R}^{T \times D_K}, \quad \mathbf{V} = \mathbf{X}\mathbf{W}_V \in \mathbb{R}^{T \times D_V}\]</div>
+<p>The heart of the Transformer is the standard scaled dot-product attention formula:</p>
+<div class="arithmatex">\[\mathbf{A} = \text{Softmax}\left( \frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{D_K}} \right) \in \mathbb{R}^{T \times T}\]</div>
+<div class="arithmatex">\[\mathbf{Z} = \mathbf{A}\mathbf{V} \in \mathbb{R}^{T \times D_V}\]</div>
+<p>Look at the matrix multiplication <span class="arithmatex">\(\mathbf{Q}\mathbf{K}^T\)</span> through the absolute lens of inner-product spaces.</p>
+<p>When you multiply a <span class="arithmatex">\(T \times D_K\)</span> matrix by a <span class="arithmatex">\(D_K \times T\)</span> matrix, you are computing the pairwise dot product between every single row vector in <span class="arithmatex">\(\mathbf{Q}\)</span> and every single row vector in <span class="arithmatex">\(\mathbf{K}\)</span>:</p>
+<div class="arithmatex">\[\mathbf{Q}\mathbf{K}^T = \begin{bmatrix} \vec{q}_1 \cdot \vec{k}_1 &amp; \vec{q}_1 \cdot \vec{k}_2 &amp; \dots &amp; \vec{q}_1 \cdot \vec{k}_T \\ \vec{q}_2 \cdot \vec{k}_1 &amp; \vec{q}_2 \cdot \vec{k}_2 &amp; \dots &amp; \vec{q}_2 \cdot \vec{k}_T \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ \vec{q}_T \cdot \vec{k}_1 &amp; \vec{q}_T \cdot \vec{k}_2 &amp; \dots &amp; \vec{q}_T \cdot \vec{k}_T \end{bmatrix}\]</div>
+<h4 id="the-geometric-translation">The Geometric Translation:</h4>
+<p>This <span class="arithmatex">\(T \times T\)</span> matrix is a <strong>fully connected spatial adjacency map</strong>.</p>
+<ul>
+<li>The scalar coordinate at row <span class="arithmatex">\(i\)</span> and column <span class="arithmatex">\(j\)</span> (<span class="arithmatex">\(\vec{q}_i \cdot \vec{k}_j\)</span>) measures the structural alignment (similarity) between token vector <span class="arithmatex">\(i\)</span> and token vector <span class="arithmatex">\(j\)</span> in the hidden subspace.</li>
+<li>Passing this map through a row-wise Softmax function normalizes those raw inner products into a valid probability distribution wrapper where each row sums to <span class="arithmatex">\(1.0\)</span>.</li>
+</ul>
+<p>When we execute the final step, <span class="arithmatex">\(\mathbf{Z} = \mathbf{A}\mathbf{V}\)</span>, every newly updated hidden representation vector <span class="arithmatex">\(\vec{z}_i\)</span> is calculated as an explicit <strong>weighted linear combination of all value vectors across the entire data universe</strong>:</p>
+<div class="arithmatex">\[\vec{z}_i = \sum_{j=1}^{T} A_{ij} \vec{v}_j\]</div>
+<p>This is pure graph calculus. The network acts as a dynamic operator that calculates its own connectivity edges on the fly during a single forward pass. It doesn't care if those rows represent words in an English sentence, pixels in a medical image, audio frequencies in a waveform, or amino acid coordinates in a protein chain. It treats them all identically as a system of interacting vectors.</p>
+<hr />
+<h2 id="3-why-teaching-nlp-first-is-a-pedagogical-error">3. Why Teaching NLP First is a Pedagogical Error</h2>
+<p>Forcing students to study natural language processing (linguistic parsing, syntax trees, part-of-speech tagging) before introducing the Transformer actually masks the true elegance of the architecture. It leads to the false assumption that attention is a specialized trick for grammar.</p>
+<p>By approaching the Transformer purely from the foundational ledger of <strong>Basis Transformations and Coordinate Projections</strong>, we see its universal application across fields that have absolutely nothing to do with text:</p>
+<h3 id="vision-transformers-vits">Vision Transformers (ViTs)</h3>
+<p>We take a <span class="arithmatex">\(2D\)</span> image matrix, chop it into a grid of <span class="arithmatex">\(16 \times 16\)</span> spatial patches, flatten each patch into a vector, and stack them into our data matrix <span class="arithmatex">\(\mathbf{X}\)</span>. The Transformer processes these image patches with the exact same QKV equations, allowing pixels on the absolute left edge of the canvas to look at pixels on the absolute right edge in a single step—completely bypassing the local constraint of the CNN.</p>
+<h3 id="structural-biology-alphafold">Structural Biology (AlphaFold)</h3>
+<p>The inputs are rows of scalar coordinates representing amino acids in a protein string. The Transformer uses the cross-product attention matrix to predict the <span class="arithmatex">\(3D\)</span> physical folding angles of the molecule.</p>
+<h3 id="reinforcement-learning-decision-transformers">Reinforcement Learning (Decision Transformers)</h3>
+<p>The data matrix <span class="arithmatex">\(\mathbf{X}\)</span> is stacked with sequential [State, Action, Reward] vector triplets. The attention engine treats them as a coordinate set to predict optimal policy trajectories.</p>
+<hr />
+<h2 id="summary">Summary</h2>
+<p>We arrive at the Transformer because it is the logical climax of <strong>Learnable Basis Transformations</strong>.</p>
+<ol>
+<li>We started with fixed transforms (Fourier, fixed SVM kernels).</li>
+<li>We moved to hierarchical learnable transforms that are static across space (CNNs) and static across time (RNNs).</li>
+<li>We culminated in a transform that is completely <strong>dynamic and data-dependent</strong> (The Transformer), where the data matrix <span class="arithmatex">\(\mathbf{X}\)</span> literally creates its own transformation basis (<span class="arithmatex">\(\mathbf{A} = \text{Softmax}(\mathbf{Q}\mathbf{K}^T)\)</span>) at every forward pass.</li>
+</ol>
+<p>You do not need a single ounce of linguistics to build this. You only need the multi-variable chain rule, inner-product space geometry, and the non-negotiable drive to minimize empirical risk over arbitrary vector sets.</p>
+<p>You have caught onto a brilliant piece of psychological misdirection. The choice of terms like <strong>Query</strong>, <strong>Key</strong>, and <strong>Value</strong> makes it sound like the network is running a high-level linguistic indexing system, parsing subject-verb-object relationships or semantic grammar.</p>
+<p>In reality, the researchers who created the Transformer didn't steal those terms from linguistics or grammar books at all. They stole them from <strong>Database Architecture and Computer Systems (Hash Tables).</strong></p>
+<p>Let’s dismantle this metaphor entirely and look at the underlying linear algebra to see how a "key-value pair" behaves when it is converted into raw geometry.</p>
+<hr />
+<h2 id="1-the-hard-computer-science-metaphor">1. The Hard Computer Science Metaphor</h2>
+<p>Think about how a standard search engine, dictionary lookup, or hash table works in computer science. If you type a search term into YouTube:</p>
+<ol>
+<li>You submit a <strong>Query</strong> (e.g., <em>"machine learning tutorials"</em>).</li>
+<li>The database checks your query against a list of indexed <strong>Keys</strong> associated with every video title in the data center.</li>
+<li>It looks for an exact match. Once it hits the correct <strong>Key</strong>, it retrieves and plays the corresponding <strong>Value</strong> (the actual video file payload linked to that key).</li>
+</ol>
+<pre><code>   [ Hard Lookup in Computer Science ]
+   Query (&quot;ML Video&quot;) ───&gt; Matches ───&gt; Key (&quot;ML Video&quot;) ───&gt; Retrieves ───&gt; Value (Video File)
+
+</code></pre>
+<p>In standard database systems, this lookup is a <strong>discrete, hard binary gate</strong>. The query either matches the key exactly (<span class="arithmatex">\(1\)</span>), or it does not (<span class="arithmatex">\(0\)</span>). There is no middle ground, and the operation is completely non-differentiable.</p>
+<hr />
+<h2 id="2-transforming-the-database-into-vector-space-the-soft-lookup">2. Transforming the Database into Vector Space: The "Soft" Lookup</h2>
+<p>A Transformer takes this rigid database concept and translates it into continuous, multi-variable vector calculus.</p>
+<p>Instead of an exact, binary match, a Transformer runs a <strong>Differentiable Soft Lookup</strong>. The tokens do not use words or string matching; they use inner products in a shared coordinate space.</p>
+<h3 id="the-metric-of-alignment">The Metric of "Alignment"</h3>
+<p>When we compute the dot product between a Query vector <span class="arithmatex">\(\vec{q}_i\)</span> and a Key vector <span class="arithmatex">\(\vec{k}_j\)</span>, we are calculating the raw geometric projection of one vector onto another:</p>
+<div class="arithmatex">\[\vec{q}_i \cdot \vec{k}_j = \|\vec{q}_i\| \|\vec{k}_j\| \cos(\theta)\]</div>
+<p>This scalar score measures the spatial alignment of the two vectors within that hidden subspace.</p>
+<ul>
+<li>If the Query vector and Key vector point in identical directions, their dot product spikes violently.</li>
+<li>If they are orthogonal (perpendicular), their dot product drops to absolute zero.</li>
+</ul>
+<p>Because we pass the entire matrix of these dot products through a row-wise Softmax function, the network normalizes these geometric alignments into a continuous spectrum of blending coefficients that sum to <span class="arithmatex">\(1.0\)</span>:</p>
+<div class="arithmatex">\[\mathbf{A} = \text{Softmax}\left( \frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{D_K}} \right)\]</div>
+<p>When we execute the final step (<span class="arithmatex">\(\mathbf{Z} = \mathbf{A}\mathbf{V}\)</span>), we are not cleanly isolating and pulling a single "value" out of a slot. We are computing a continuous <strong>weighted linear combination of all value vectors simultaneously</strong>. If a query matches a key with an intensity of <span class="arithmatex">\(0.7\)</span>, it pulls <span class="arithmatex">\(70\%\)</span> of that token's value payload into its new vector state.</p>
+<hr />
+<h2 id="3-grounding-the-metaphor-database-vs-linear-algebra">3. Grounding the Metaphor: Database vs. Linear Algebra</h2>
+<p>To ensure your textbook readers are never fooled by this linguistic illusion, map the nomenclature directly onto this strict comparative ledger:</p>
+<table>
+<thead>
+<tr>
+<th>The Database Metaphor</th>
+<th>The Physical Linear Algebra Reality</th>
+<th>The Inductive Bias Performance Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>The Query (<span class="arithmatex">\(\vec{q}_i\)</span>)</strong></td>
+<td>A token vector projected onto the column space of <span class="arithmatex">\(\mathbf{W}_Q\)</span>.</td>
+<td>Measures what structural geometric properties token <span class="arithmatex">\(i\)</span> is actively scanning for across the other data rows.</td>
+</tr>
+<tr>
+<td><strong>The Key (<span class="arithmatex">\(\vec{k}_j\)</span>)</strong></td>
+<td>A token vector projected onto the column space of <span class="arithmatex">\(\mathbf{W}_K\)</span>.</td>
+<td>Presents the structural coordinate profile that token <span class="arithmatex">\(j\)</span> exposes to the rest of the canvas.</td>
+</tr>
+<tr>
+<td><strong>The Attention Score (<span class="arithmatex">\(A_{ij}\)</span>)</strong></td>
+<td>The Softmax-scaled inner product (<span class="arithmatex">\(\vec{q}_i \cdot \vec{k}_j\)</span>).</td>
+<td>A continuous, learnable data-routing coefficient that determines the strength of the transmission link between node <span class="arithmatex">\(i\)</span> and node <span class="arithmatex">\(j\)</span>.</td>
+</tr>
+<tr>
+<td><strong>The Value (<span class="arithmatex">\(\vec{v}_j\)</span>)</strong></td>
+<td>A token vector projected onto the column space of <span class="arithmatex">\(\mathbf{W}_V\)</span>.</td>
+<td>The actual spatial coordinate payload that token <span class="arithmatex">\(j\)</span> distributes to update the hidden state of token <span class="arithmatex">\(i\)</span>.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-why-grammar-has-no-say-in-this-graph">4. Why Grammar Has No Say in This Graph</h2>
+<p>If this architecture relied on semantic grammar, the model would require pre-coded linguistic rules (like noun phrases or verb dependencies) to build its attention connections.</p>
+<p>It does not. During the forward pass, the network doesn't know what a noun is. It just multiplies matrices.</p>
+<blockquote>
+<h3 id="the-erm-reality-check">The ERM Reality Check</h3>
+<p>When you initialize a Transformer, the projection matrices <span class="arithmatex">\(\mathbf{W}_Q, \mathbf{W}_K, \mathbf{W}_V\)</span> are filled with completely random numbers. The early attention maps look like absolute chaos—every token pays random, unstructured attention to every other token.
+It is exclusively through <strong>Empirical Risk Minimization (ERM)</strong> driven by the multi-variable chain rule that the model learns to steer these vectors. If the network is trained on language, backpropagation will slowly align the queries and keys so that adjectives match the nouns they modify, simply because doing so reduces the global cross-entropy loss. If trained on images, those same queries and keys will learn to align along sharp edge pixels and texture boundaries.</p>
+</blockquote>
+<p>The terminology of "Key-Value pairs" is simply an elegant software design analogy. Beneath the code, the Transformer remains a pure, un-biased coordinate processing pipeline that warps and blends vector sets using data-dependent inner products.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

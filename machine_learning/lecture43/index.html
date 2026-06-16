@@ -1,0 +1,3043 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture42/">
+      
+      
+        <link rel="next" href="../lecture44/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture43 - Probabilistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Probabilistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture43
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Probabilistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-36-spatial-grid-topologies-tensor-convolutions-pooling-mechanics-and-fully-convolutional-architectures-u-net" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 36: Spatial Grid Topologies, Tensor Convolutions, Pooling Mechanics, and Fully Convolutional Architectures (U-Net)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 36: Spatial Grid Topologies, Tensor Convolutions, Pooling Mechanics, and Fully Convolutional Architectures (U-Net)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#361-from-regularized-mlps-to-spatial-convolutions-the-popular-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36.1 From Regularized MLPs to Spatial Convolutions (The Popular Mechanics)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="36.1 From Regularized MLPs to Spatial Convolutions (The Popular Mechanics)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-signal-processing-misnomer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Signal Processing Misnomer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#362-stride-padding-and-tensor-coordinate-arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36.2 Stride, Padding, and Tensor Coordinate Arithmetic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="36.2 Stride, Padding, and Tensor Coordinate Arithmetic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-edge-truncation-problem-and-padding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Edge Truncation Problem and Padding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-structural-dimension-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Structural Dimension Formula
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#363-the-3d-tensor-volume-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36.3 The 3D Tensor Volume Stack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#364-feature-resolution-reduction-pooling-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36.4 Feature Resolution Reduction: Pooling Mechanics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="36.4 Feature Resolution Reduction: Pooling Mechanics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-average-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Average Pooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-max-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Max Pooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-non-differentiable-gradient-hurdle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Non-Differentiable Gradient Hurdle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#365-end-to-end-task-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36.5 End-to-End Task Configurations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="36.5 End-to-End Task Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paradigm-a-standard-classification-and-regression-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paradigm A: Standard Classification and Regression Pipelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paradigm-b-fully-convolutional-networks-fcn-and-the-u-net-blueprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paradigm B: Fully Convolutional Networks (FCN) and the U-Net Blueprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-review-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Review Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Review Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-complete-hyperparameter-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Complete Hyperparameter Suite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#foundational-operational-reference-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundational Operational Reference Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-36-spatial-grid-topologies-tensor-convolutions-pooling-mechanics-and-fully-convolutional-architectures-u-net" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 36: Spatial Grid Topologies, Tensor Convolutions, Pooling Mechanics, and Fully Convolutional Architectures (U-Net)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 36: Spatial Grid Topologies, Tensor Convolutions, Pooling Mechanics, and Fully Convolutional Architectures (U-Net)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#361-from-regularized-mlps-to-spatial-convolutions-the-popular-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36.1 From Regularized MLPs to Spatial Convolutions (The Popular Mechanics)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="36.1 From Regularized MLPs to Spatial Convolutions (The Popular Mechanics)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-signal-processing-misnomer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Signal Processing Misnomer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#362-stride-padding-and-tensor-coordinate-arithmetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36.2 Stride, Padding, and Tensor Coordinate Arithmetic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="36.2 Stride, Padding, and Tensor Coordinate Arithmetic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-edge-truncation-problem-and-padding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Edge Truncation Problem and Padding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-structural-dimension-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Structural Dimension Formula
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#363-the-3d-tensor-volume-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36.3 The 3D Tensor Volume Stack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#364-feature-resolution-reduction-pooling-mechanics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36.4 Feature Resolution Reduction: Pooling Mechanics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="36.4 Feature Resolution Reduction: Pooling Mechanics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-average-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Average Pooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-max-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Max Pooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-non-differentiable-gradient-hurdle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Non-Differentiable Gradient Hurdle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#365-end-to-end-task-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36.5 End-to-End Task Configurations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="36.5 End-to-End Task Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paradigm-a-standard-classification-and-regression-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paradigm A: Standard Classification and Regression Pipelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paradigm-b-fully-convolutional-networks-fcn-and-the-u-net-blueprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paradigm B: Fully Convolutional Networks (FCN) and the U-Net Blueprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-review-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Review Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Review Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-complete-hyperparameter-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Complete Hyperparameter Suite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#foundational-operational-reference-ledger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundational Operational Reference Ledger
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-36-spatial-grid-topologies-tensor-convolutions-pooling-mechanics-and-fully-convolutional-architectures-u-net">Chapter 36: Spatial Grid Topologies, Tensor Convolutions, Pooling Mechanics, and Fully Convolutional Architectures (U-Net)</h2>
+<hr />
+<h3 id="361-from-regularized-mlps-to-spatial-convolutions-the-popular-mechanics">36.1 From Regularized MLPs to Spatial Convolutions (The Popular Mechanics)</h3>
+<p>In Chapter 35, we explored the theoretical foundation of Convolutional Neural Networks (CNNs), framing them as heavily regularized Multi-Layer Perceptrons (MLPs) constrained by hard Bayesian priors. In applied practice and popular engineering culture, however, we shift our vocabulary away from unrolled parameter matrices and frame these operations entirely through spatial geometry.</p>
+<p>Instead of flattening an input image into a massive one-dimensional vector, we preserve its native grid topology, defining its features across a 2D coordinate plane of height <span class="arithmatex">\(P\)</span> and width <span class="arithmatex">\(Q\)</span>. The total input feature dimension remains <span class="arithmatex">\(D = P \times Q\)</span>, where each individual coordinate represents a localized spatial channel (a pixel).</p>
+<p>The operational unit of a convolutional layer is the <strong>Kernel</strong> (or Filter), represented as a small symmetric matrix of dimensions <span class="arithmatex">\(K \times K\)</span> (typically <span class="arithmatex">\(3 \times 3\)</span> or <span class="arithmatex">\(5 \times 5\)</span>).</p>
+<p>To execute a forward pass, we overlay this <span class="arithmatex">\(K \times K\)</span> parameter block directly onto a localized patch at the top-left corner of our input grid. We calculate the inner product (<span class="arithmatex">\(\vec{w}^T \vec{x}\)</span>) by multiplying each parameter weight against its overlapping pixel value, summing the results, injecting a scalar intercept bias (<span class="arithmatex">\(b\)</span>), and passing the final continuous score through our element-wise activation filter (<span class="arithmatex">\(\sigma\)</span>):</p>
+<div class="arithmatex">\[z = \sum_{i=1}^{K} \sum_{j=1}^{K} w_{ij} \cdot x_{ij} + b \quad \implies \quad a = \sigma(z)\]</div>
+<p>This spatial operation is exactly identical to the localized weight mapping we derived inside our unrolled MLP model.</p>
+<h4 id="the-signal-processing-misnomer">The Signal Processing Misnomer</h4>
+<p>The professor notes a minor naming blunder embedded deep within machine learning terminology. In classical signal processing, a true <strong>Convolution</strong> (<span class="arithmatex">\(f * g\)</span>) requires an engineer to mathematically flip the filter matrix along both its horizontal and vertical axes before computing the inner product over the input signal.</p>
+<p>Because standard deep learning libraries bypass this flipping step and slide the raw, unaltered filter directly across the grid matrix, a CNN is technically executing a <strong>Cross-Correlation</strong>, not a convolution. However, because the parameter weights are completely learnable and learned from scratch via empirical risk minimization, the optimization engine automatically compensates for this missing flip. The name "Convolutional Network" remains locked in as an industry convention.</p>
+<hr />
+<h3 id="362-stride-padding-and-tensor-coordinate-arithmetic">36.2 Stride, Padding, and Tensor Coordinate Arithmetic</h3>
+<p>To map out the entire next layer of activations (known as a <strong>Feature Map</strong> or Activation Map), we systematically slide our filter across the input grid canvas. The step size of this spatial translation is governed by a foundational hyperparameter known as the <strong>Stride (<span class="arithmatex">\(S\)</span>)</strong>.</p>
+<ul>
+<li><strong>Stride of <span class="arithmatex">\(1\)</span> (<span class="arithmatex">\(S=1\)</span>):</strong> The filter shifts by exactly one pixel coordinate at a time, creating a massive amount of spatial overlap between adjacent hidden neurons.</li>
+<li><strong>Stride of <span class="arithmatex">\(K\)</span> (<span class="arithmatex">\(S=K\)</span>):</strong> The filter jumps by its entire matrix width at each step, ensuring that adjacent hidden units evaluate completely independent, non-overlapping patches of data.</li>
+</ul>
+<h4 id="the-edge-truncation-problem-and-padding">The Edge Truncation Problem and Padding</h4>
+<p>As a filter slides across a bounded image grid, it encounters a boundary limitation: <em>a <span class="arithmatex">\(3 \times 3\)</span> kernel cannot sit centered over a pixel located on the absolute outer edge of the image without its outer weights dangling over empty space.</em> If we restrict our filter to stay exclusively within zones where it can achieve full matrix coverage, the output feature map will naturally shrink after each successive layer.</p>
+<p>To prevent this shrinking effect and preserve spatial resolution, we deploy <strong>Zero Padding (<span class="arithmatex">\(p\)</span>)</strong>. We pad the outer perimeter of our input grid matrix with rings of absolute zero values (<span class="arithmatex">\(0.0\)</span>). This allows the sliding filter to clear the boundary edges cleanly.</p>
+<h4 id="the-structural-dimension-formula">The Structural Dimension Formula</h4>
+<p>By combining our input size, filter size, stride choice, and padding allocations, we can compute the exact spatial footprint of our next hidden activation layer using a strict integer arithmetic formula:</p>
+<div class="arithmatex">\[P_{\text{out}} = \left\lfloor \frac{P - K + 2p}{S} \right\rfloor + 1\]</div>
+<div class="arithmatex">\[Q_{\text{out}} = \left\lfloor \frac{Q - K + 2p}{S} \right\rfloor + 1\]</div>
+<h4 id="literal-variable-breakdown">Literal Variable Breakdown:</h4>
+<ul>
+<li><span class="arithmatex">\(P, Q\)</span>: The spatial height and width coordinates of the incoming input grid.</li>
+<li><span class="arithmatex">\(K\)</span>: The spatial width/height size of the chosen sliding kernel block.</li>
+<li><span class="arithmatex">\(p\)</span>: The total number of zero-padding layers applied to the matrix boundaries.</li>
+<li><span class="arithmatex">\(S\)</span>: The stride velocity step size assigned to the sliding operation.</li>
+<li><span class="arithmatex">\(\lfloor \cdot \rfloor\)</span>: The mathematical floor function, truncating fractional coordinate overflows.</li>
+</ul>
+<hr />
+<h3 id="363-the-3d-tensor-volume-stack">36.3 The 3D Tensor Volume Stack</h3>
+<p>Real-world datasets rarely exist as simple, flat 2D grayscale grids. Digital smartphone images feature multiple color dimensions (Red, Green, Blue channels), medical scans pack sequential volumetric depth slices, and video files track continuous temporal frames.</p>
+<p>To process these multi-dimensional structures, we generalize our input space into a <strong>3D Tensor Volume</strong> of shape <span class="arithmatex">\(P \times Q \times R\)</span>, where <span class="arithmatex">\(R\)</span> tracks the incoming <strong>Channel Depth</strong>.</p>
+<pre><code>  [ Input Tensor Space ]                 [ 3D Convolutional Filter ]
+  Dimensions: P × Q × R                  Dimensions: K × K × R
+  (Height × Width × Channels)            (Spans across ALL input channels)
+           │                                      │
+           └─────────────────┬────────────────────┘
+                             ▼
+                [ Inner Product Operation ]
+               Yields a SINGLE scalar value 
+               per spatial coordinate patch
+
+</code></pre>
+<p>When we deploy a convolutional filter against a 3D input tensor, <strong>the filter's depth must match the input's channel depth exactly.</strong> If an image possesses <span class="arithmatex">\(R=3\)</span> channels (RGB), our filter cannot be a flat <span class="arithmatex">\(3 \times 3\)</span> square; it must be a 3D block of shape <span class="arithmatex">\(3 \times 3 \times 3\)</span>.</p>
+<p>When this 3D block hovers over a spatial patch, it computes an inner product across all three dimensions simultaneously, summing across the spatial coordinates <em>and</em> across all channel vectors. This multi-channel combination collapses the entire depth field down into a <strong>single scalar output coordinate</strong>.</p>
+<p>To maintain structural capacity and capture diverse patterns in parallel, we deploy a bank of <strong><span class="arithmatex">\(L\)</span> independent filters</strong> simultaneously.</p>
+<ul>
+<li>Filter 1 optimizes its <span class="arithmatex">\(K \times K \times R\)</span> block to detect horizontal shifts, outputting a 2D activation map slice.</li>
+<li>Filter 2 optimizes its block to isolate color boundaries, outputting a second independent slice.</li>
+</ul>
+<p>By stacking the output maps of these <span class="arithmatex">\(L\)</span> parallel filters back-to-back, the next layer inherits a brand-new 3D tensor volume of shape:</p>
+<div class="arithmatex">\[\text{Output Tensor Dimensions} = [P_{\text{out}}, \,\, Q_{\text{out}}, \,\, L]\]</div>
+<p>This mechanism ensures that as data flows deeper into the network, the channel dimension <span class="arithmatex">\(L\)</span> tracks the total count of unique, specialized features extracted by the preceding layer's filter bank.</p>
+<hr />
+<h3 id="364-feature-resolution-reduction-pooling-mechanics">36.4 Feature Resolution Reduction: Pooling Mechanics</h3>
+<p>In addition to convolutional operations, CNN architectures frequently incorporate an intermediate downsampling step known as a <strong>Pooling Operation</strong>. Pooling is used to systematically shrink the spatial dimensions (<span class="arithmatex">\(P \times Q\)</span>) of our activation maps as they progress through the network, helping to reduce computational overhead and smooth out localized noise.</p>
+<p>We partition our activation grid into localized neighborhoods and compress each patch using a fixed, hard-coded mathematical operation.</p>
+<h4 id="1-average-pooling">1. Average Pooling</h4>
+<p>We slide a fixed window across the feature map and replace every coordinate patch with the exact mathematical average of its neighboring activations. This operates identically to a low-pass smoothing filter from classical signal processing. If we choose a <span class="arithmatex">\(2 \times 2\)</span> window with fixed parameter values locked at <span class="arithmatex">\(0.25\)</span>, the operation executes an unlearnable averaging pass.</p>
+<h4 id="2-max-pooling">2. Max Pooling</h4>
+<p>We slide our window across the activation grid and discard every single numerical value inside the patch except for the absolute maximum activation score:</p>
+<div class="arithmatex">\[a_{\text{pool}} = \max\left(x_1, \,\, x_2, \,\, x_3, \,\, x_4\right)\]</div>
+<h4 id="the-non-differentiable-gradient-hurdle">The Non-Differentiable Gradient Hurdle</h4>
+<p>Max pooling introduces a unique calculus challenge during our backpropagation passes: <strong>the maximum selection function is inherently non-differentiable.</strong> If a single coordinate coordinate holds the maximum score, the partial derivative of that choice with respect to the non-maximum coordinates is absolute zero, creating a sharp mathematical discontinuity.</p>
+<p>To run backpropagation through a max pooling layer, frameworks must use a hard-coded approximation trick. During the forward pass, the system creates an internal boolean tracking mask that records the exact coordinate location where the maximum value was found.</p>
+<p>During the backward error propagation pass, the incoming error gradient (<span class="arithmatex">\(\delta\)</span>) bypasses the non-maximum coordinates completely. The entire gradient signal is routed directly to that single winning coordinate slot, while all neighboring slots receive a gradient update of exactly zero.</p>
+<hr />
+<h3 id="365-end-to-end-task-configurations">36.5 End-to-End Task Configurations</h3>
+<p>The professor concludes by organizing these sliding convolutional blocks and pooling layers into two standard structural paradigms configured to handle distinct real-world tasks.</p>
+<h4 id="paradigm-a-standard-classification-and-regression-pipelines">Paradigm A: Standard Classification and Regression Pipelines</h4>
+<p>This is the classic layout utilized by historic models like LeNet, AlexNet, and ResNet.</p>
+<div class="arithmatex">\[\text{Input Tensor } [P,Q,R] \to \Big[ \text{Conv} \to \text{Pool} \Big] \times \text{Depth} \to \mathbf{\text{Flatten}} \to \text{Dense MLP Head} \to \text{Softmax Output}\]</div>
+<ol>
+<li><strong>The Feature Extractor:</strong> The model passes data through an alternating sequence of convolutional filters and pooling blocks. As the data goes deeper, the spatial grid size shrinks while the channel depth expands.</li>
+<li><strong>The Flattening Step:</strong> After the final convolutional layer, the remaining 3D tensor volume is flattened via a raster scan into a long, one-dimensional feature vector.</li>
+<li><strong>The Dense Head:</strong> This vector is fed directly into a standard fully connected MLP, culminating in a linear regression output (for spatial bounding box targets) or a Softmax classification head (to output a vector of class probabilities).</li>
+</ol>
+<h4 id="paradigm-b-fully-convolutional-networks-fcn-and-the-u-net-blueprint">Paradigm B: Fully Convolutional Networks (FCN) and the U-Net Blueprint</h4>
+<p>For dense, pixel-level prediction tasks—such as <strong>Semantic Segmentation</strong> (classifying the object category of every individual pixel coordinate) or <strong>Style Transfer</strong> (converting a raw photo into a stylized cartoon representation)—the output cannot be a flat category vector. The output must be a full image that matches the exact spatial resolution of the input.</p>
+<p>To achieve this without flattening the data, we deploy an <strong>Encoder-Decoder Architecture</strong> known as a <strong>U-Net</strong> (named after its symmetrical U-shaped layout).</p>
+<ul>
+<li><strong>The Compression Path (The Encoder):</strong> The left side of the U-Net acts as a standard convolutional network, compressing the spatial image grid down into a dense, low-resolution feature bottleneck.</li>
+<li><strong>The Expansion Path (The Decoder):</strong> The right side of the U-Net takes this dense bottleneck feature map and systematically scales its spatial grid size back up to its original dimensions using <strong>Transpose Convolutions</strong> (also called upsampling operations). A transpose convolution applies a learnable filter backward, distributing a single bottleneck coordinate signal across a wider output patch.</li>
+<li><strong>Skip Connections:</strong> To prevent high-resolution structural details (like sharp borders or text edges) from being lost during the bottleneck compression, the U-Net features horizontal identity links. These links copy feature maps directly from the encoder path and concatenate them into the decoder path, allowing the model to blend fine, low-level spatial coordinates with abstract, high-level semantic tokens to generate a clean, pixel-perfect segmentation map.</li>
+</ul>
+<hr />
+<h2 id="textbook-notes-core-review-sheet">Textbook Notes Core Review Sheet</h2>
+<h3 id="the-complete-hyperparameter-suite">The Complete Hyperparameter Suite</h3>
+<ul>
+<li><strong>Filter Count (<span class="arithmatex">\(L\)</span>):</strong> Sets the total number of parallel sliding kernels operating within a single layer, directly defining the output channel depth.</li>
+<li><strong>Kernel Size (<span class="arithmatex">\(K \times K\)</span>):</strong> Defines the spatial dimensions of the sliding patch matrix.</li>
+<li><strong>Stride (<span class="arithmatex">\(S\)</span>):</strong> Sets the translation step velocity of the filter across the coordinates.</li>
+<li><strong>Padding (<span class="arithmatex">\(p\)</span>):</strong> Allocates a protective border of zero coefficients to preserve boundary data.</li>
+</ul>
+<hr />
+<h3 id="foundational-operational-reference-ledger">Foundational Operational Reference Ledger</h3>
+<div class="arithmatex">\[\text{Spatial Output Calculation: } \quad P_{\text{out}} = \left\lfloor \frac{P - K + 2p}{S} \right\rfloor + 1\]</div>
+<div class="arithmatex">\[\text{Max Pooling Backprop Routing: } \quad \frac{\partial a_{\text{pool}}}{\partial x_i} = \begin{cases} 1 &amp; \text{if } x_i = \max(\vec{x}) \\ 0 &amp; \text{otherwise} \end{cases}\]</div>
+<div class="arithmatex">\[\text{Fully Convolutional Goal: } \quad \mathcal{X} \in \mathbb{R}^{P \times Q \times R} \to \mathcal{H}_{\vec{\theta}} \to \mathcal{Y} \in \mathbb{R}^{P \times Q \times K}\]</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

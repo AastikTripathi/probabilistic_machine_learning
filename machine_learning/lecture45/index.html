@@ -1,0 +1,3043 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture44/">
+      
+      
+        <link rel="next" href="../lecture46/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture45 - Probabilistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Probabilistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture45
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Probabilistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-38-backpropagation-through-time-bptt-multi-variable-jacobians-and-the-vanishing-gradient-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 38: Backpropagation Through Time (BPTT), Multi-Variable Jacobians, and the Vanishing Gradient Proof
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 38: Backpropagation Through Time (BPTT), Multi-Variable Jacobians, and the Vanishing Gradient Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#381-the-two-dimensional-grid-flow-backpropagation-through-time-bptt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38.1 The Two-Dimensional Grid Flow: Backpropagation Through Time (BPTT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#382-the-mathematical-setup-of-the-temporal-cost-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38.2 The Mathematical Setup of the Temporal Cost Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#383-the-jacobian-chain-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38.3 The Jacobian Chain Link
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="38.3 The Jacobian Chain Link">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Definition:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#384-evaluating-the-single-step-hidden-derivative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38.4 Evaluating the Single-Step Hidden Derivative
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="38.4 Evaluating the Single-Step Hidden Derivative">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#385-the-exponential-decay-boundary-strict-vanishing-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38.5 The Exponential Decay Boundary: Strict Vanishing Proof
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="38.5 The Exponential Decay Boundary: Strict Vanishing Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-dual-catastrophe-of-recurrence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Dual Catastrophe of Recurrence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#386-the-architectural-solution-breaking-the-chain-with-identity-highways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38.6 The Architectural Solution: Breaking the Chain with Identity Highways
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-complete-bptt-jacobian-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Complete BPTT Jacobian Proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-missing-lattice-2d-multi-layer-gradient-aggregation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Missing Lattice: 2D Multi-Layer Gradient Aggregation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-multi-step-loss-catastrophe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Multi-Step Loss Catastrophe
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-tokenizer-digression-byte-pair-encoding-bpe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Tokenizer Digression: Byte Pair Encoding (BPE)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-precursor-to-lstms-highway-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Precursor to LSTMs: Highway Networks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The Precursor to LSTMs: Highway Networks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-mechanical-genius-of-the-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Mechanical Genius of the Gate:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-38-backpropagation-through-time-bptt-multi-variable-jacobians-and-the-vanishing-gradient-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 38: Backpropagation Through Time (BPTT), Multi-Variable Jacobians, and the Vanishing Gradient Proof
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 38: Backpropagation Through Time (BPTT), Multi-Variable Jacobians, and the Vanishing Gradient Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#381-the-two-dimensional-grid-flow-backpropagation-through-time-bptt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38.1 The Two-Dimensional Grid Flow: Backpropagation Through Time (BPTT)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#382-the-mathematical-setup-of-the-temporal-cost-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38.2 The Mathematical Setup of the Temporal Cost Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#383-the-jacobian-chain-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38.3 The Jacobian Chain Link
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="38.3 The Jacobian Chain Link">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Definition:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#384-evaluating-the-single-step-hidden-derivative" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38.4 Evaluating the Single-Step Hidden Derivative
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="38.4 Evaluating the Single-Step Hidden Derivative">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#385-the-exponential-decay-boundary-strict-vanishing-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38.5 The Exponential Decay Boundary: Strict Vanishing Proof
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="38.5 The Exponential Decay Boundary: Strict Vanishing Proof">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-dual-catastrophe-of-recurrence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Dual Catastrophe of Recurrence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#386-the-architectural-solution-breaking-the-chain-with-identity-highways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38.6 The Architectural Solution: Breaking the Chain with Identity Highways
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-complete-bptt-jacobian-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Complete BPTT Jacobian Proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-missing-lattice-2d-multi-layer-gradient-aggregation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Missing Lattice: 2D Multi-Layer Gradient Aggregation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-multi-step-loss-catastrophe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Multi-Step Loss Catastrophe
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-tokenizer-digression-byte-pair-encoding-bpe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Tokenizer Digression: Byte Pair Encoding (BPE)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-the-precursor-to-lstms-highway-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. The Precursor to LSTMs: Highway Networks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. The Precursor to LSTMs: Highway Networks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-mechanical-genius-of-the-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Mechanical Genius of the Gate:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-38-backpropagation-through-time-bptt-multi-variable-jacobians-and-the-vanishing-gradient-proof">Chapter 38: Backpropagation Through Time (BPTT), Multi-Variable Jacobians, and the Vanishing Gradient Proof</h2>
+<hr />
+<h3 id="381-the-two-dimensional-grid-flow-backpropagation-through-time-bptt">38.1 The Two-Dimensional Grid Flow: Backpropagation Through Time (BPTT)</h3>
+<p>In Chapter 37, we formalized the forward pass equations of a Recurrent Neural Network (RNN) and analyzed how parameter sharing across time allows a single computational cell to handle varying sequence lengths (<span class="arithmatex">\(T\)</span>). We now turn our attention to the mechanics of training this system: <strong>Empirical Risk Minimization via Backpropagation Through Time (BPTT)</strong>.</p>
+<p>Mathematically, when you unroll an RNN across a temporal sequence and stack multiple layers to increase its expressive capacity, the underlying computational graph forms a dense two-dimensional lattice.</p>
+<p>Unlike a standard Multi-Layer Perceptron (MLP) where error gradients flow along a single path from output to input layers, gradients in an RNN must flow along two distinct structural axes simultaneously during the backward pass:</p>
+<ol>
+<li><strong>The Vertical Axis (Top-to-Bottom):</strong> Gradients pass through the multi-layer depth of the network at a single time step to update individual hidden layer features. This mirrors the standard backpropagation pass we derived in Chapter 34.</li>
+<li><strong>The Horizontal Axis (Right-to-Left):</strong> Gradients track backward across the sequence indices (<span class="arithmatex">\(t\)</span>), passing from the final terminal step through preceding hidden states.</li>
+</ol>
+<p>Because the recurrence matrix is used repeatedly across every single time step, the total gradient of the empirical risk with respect to our shared parameters requires accumulating these fanned-out error signals across both paths. This multi-variable chain rule execution over a temporal graph is formalized as <strong>Backpropagation Through Time (BPTT)</strong>.</p>
+<hr />
+<h3 id="382-the-mathematical-setup-of-the-temporal-cost-path">38.2 The Mathematical Setup of the Temporal Cost Path</h3>
+<p>While BPTT is conceptually identical to standard backpropagation, its recursive design introduces an inherent optimization challenge: the <strong>Vanishing Gradient Problem</strong>. To see exactly why this occurs, we drop our bias vectors for algebraic simplicity and lay out our baseline scalar-vector recurrence equations:</p>
+<div class="arithmatex">\[\vec{z}_t = \mathbf{W}_1 \vec{h}_{t-1} + \mathbf{W}_2 \vec{x}_t\]</div>
+<div class="arithmatex">\[\vec{h}_t = \sigma\left( \vec{z}_t \right)\]</div>
+<p>Let us evaluate a standard sequence classification task where our model processes an entire sequence of token vectors before calculating a global loss metric <span class="arithmatex">\(L_T\)</span> exclusively at the final step <span class="arithmatex">\(T\)</span>.</p>
+<p>To determine how our terminal loss reacts to historical information, we use the multi-variable chain rule to isolate how a change in an early, distant hidden state vector <span class="arithmatex">\(\vec{h}_t\)</span> impacts our terminal cost <span class="arithmatex">\(L_T\)</span>:</p>
+<div class="arithmatex">\[\frac{\partial L_T}{\partial \vec{h}_t} = \frac{\partial L_T}{\partial \vec{h}_T} \cdot \frac{\partial \vec{h}_T}{\partial \vec{h}_t}\]</div>
+<p>The first term (<span class="arithmatex">\(\frac{\partial L_T}{\partial \vec{h}_T}\)</span>) is calculated directly at the boundary using the derivative of our output loss wrapper. The second term (<span class="arithmatex">\(\frac{\partial \vec{h}_T}{\partial \vec{h}_t}\)</span>) tracks how a change in our early hidden state ripples through the recursive loop across time to influence our final memory state.</p>
+<hr />
+<h3 id="383-the-jacobian-chain-link">38.3 The Jacobian Chain Link</h3>
+<p>Because the hidden state vector updates recursively at each step (<span class="arithmatex">\(\vec{h}_t \to \vec{h}_{t+1} \to \vec{h}_{t+2}\)</span>), the long-term historical dependency operator <span class="arithmatex">\(\frac{\partial \vec{h}_T}{\partial \vec{h}_t}\)</span> cannot be calculated in a single step. We must apply the multi-variable chain rule to expand it into a continuous product of step-by-step <strong>Jacobian Matrices</strong>:</p>
+<div class="arithmatex">\[\frac{\partial \vec{h}_T}{\partial \vec{h}_t} = \frac{\partial \vec{h}_T}{\partial \vec{h}_{T-1}} \cdot \frac{\partial \vec{h}_{T-1}}{\partial \vec{h}_{T-2}} \dots \frac{\partial \vec{h}_{t+1}}{\partial \vec{h}_t} = \prod_{k=t}^{T-1} \frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k}\]</div>
+<h4 id="literal-variable-definition">Literal Variable Definition:</h4>
+<ul>
+<li><strong>Jacobian Matrix (<span class="arithmatex">\(\frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k}\)</span>):</strong> An <span class="arithmatex">\(M \times M\)</span> matrix storing every partial derivative of the subsequent hidden state vector with respect to the coordinates of the preceding hidden state vector.</li>
+</ul>
+<hr />
+<h3 id="384-evaluating-the-single-step-hidden-derivative">38.4 Evaluating the Single-Step Hidden Derivative</h3>
+<p>To resolve this product, we evaluate the partial derivative of a single-step hidden state update with respect to its immediate predecessor:</p>
+<div class="arithmatex">\[\vec{h}_{k+1} = \sigma\left( \vec{z}_{k+1} \right) = \sigma\left( \mathbf{W}_1 \vec{h}_k + \mathbf{W}_2 \vec{x}_{k+1} \right)\]</div>
+<p>Differentiating this expression with respect to <span class="arithmatex">\(\vec{h}_k\)</span> yields the product of the activation slope and the transition matrix:</p>
+<div class="arithmatex">\[\frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k} = \text{diag}\left( \sigma'(\vec{z}_{k+1}) \right) \cdot \mathbf{W}_1\]</div>
+<h4 id="literal-variable-breakdown">Literal Variable Breakdown:</h4>
+<ul>
+<li><span class="arithmatex">\(\mathbf{W}_1\)</span>: The shared recurrent transition matrix.</li>
+<li><span class="arithmatex">\(\text{diag}\left( \sigma'(\vec{z}_{k+1}) \right)\)</span>: A square diagonal matrix storing the localized coordinate slopes of our non-linear activation function evaluated at the pre-activation vector <span class="arithmatex">\(\vec{z}_{k+1}\)</span>.</li>
+</ul>
+<hr />
+<h3 id="385-the-exponential-decay-boundary-strict-vanishing-proof">38.5 The Exponential Decay Boundary: Strict Vanishing Proof</h3>
+<p>We now analyze the mathematical magnitude of this historical gradient chain. We compute the matrix norm of our historical Jacobian operator by applying the sub-multiplicative property of norms to our sequential product:</p>
+<div class="arithmatex">\[\left\| \frac{\partial \vec{h}_T}{\partial \vec{h}_t} \right\| = \left\| \prod_{k=t}^{T-1} \frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k} \right\| \leq \prod_{k=t}^{T-1} \left\| \frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k} \right\|\]</div>
+<p>We substitute our single-step Jacobian formula into this inequality:</p>
+<div class="arithmatex">\[\left\| \frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k} \right\| \leq \left\| \text{diag}\left( \sigma'(\vec{z}_{k+1}) \right) \right\| \cdot \|\mathbf{W}_1\|\]</div>
+<p>Let us evaluate the numerical boundaries of these two components:</p>
+<ol>
+<li><strong>The Activation Bounds:</strong> For standard saturating non-linear activation functions like the logistic sigmoid or hyperbolic tangent (<span class="arithmatex">\(\tanh\)</span>), the localized derivative <span class="arithmatex">\(\sigma'(z)\)</span> is strictly upper-bounded by <span class="arithmatex">\(1.0\)</span>. Thus, the norm of this diagonal matrix scales as: <span class="arithmatex">\(\left\| \text{diag}\left( \sigma'(\vec{z}_{k+1}) \right) \right\| \leq 1\)</span>.</li>
+<li><strong>The Matrix Norm Bounds:</strong> From linear algebra, the standard 2-norm of a matrix is equal to its <strong>largest singular value</strong>, denoted as <span class="arithmatex">\(\lambda_{\max}\)</span> (the spectral radius norm). Therefore, we can write: <span class="arithmatex">\(\|\mathbf{W}_1\| = \lambda_{\max}\)</span>.</li>
+</ol>
+<p>Collapsing these bounds back into our single-step inequality isolates a clean maximum ceiling for our step-by-step transitions:</p>
+<div class="arithmatex">\[\left\| \frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k} \right\| \leq 1 \cdot \lambda_{\max} = \lambda_{\max}\]</div>
+<p>Finally, we substitute this single-step ceiling back into our global product spanning across the entire timeline from step <span class="arithmatex">\(t\)</span> to step <span class="arithmatex">\(T\)</span>:</p>
+<div class="arithmatex">\[\left\| \frac{\partial \vec{h}_T}{\partial \vec{h}_t} \right\| \leq (\lambda_{\max})^{T-t}\]</div>
+<h4 id="the-dual-catastrophe-of-recurrence">The Dual Catastrophe of Recurrence</h4>
+<p>This inequality reveals the foundational flaw of the vanilla RNN architecture. Because our parameters are shared across time, we are multiplying the exact same transition norm ceiling (<span class="arithmatex">\(\lambda_{\max}\)</span>) repeatedly at every step. As the sequence length expands and the temporal gap (<span class="arithmatex">\(T-t\)</span>) scales upward, the gradient calculation encounters an exponential boundary:</p>
+<ul>
+<li><strong>The Vanishing Gradient Catastrophe (<span class="arithmatex">\(\lambda_{\max} &lt; 1\)</span>):</strong> If the largest singular value of your transition matrix is even slightly less than <span class="arithmatex">\(1.0\)</span>, the term <span class="arithmatex">\((\lambda_{\max})^{T-t}\)</span> <strong>decays exponentially toward absolute zero</strong> as the sequence grows. The gradient signal vanishes completely, preventing early parameters from updating and causing the network to forget long-term historical context.</li>
+<li><strong>The Exploding Gradient Catastrophe (<span class="arithmatex">\(\lambda_{\max} &gt; 1\)</span>):</strong> If the largest singular value is greater than <span class="arithmatex">\(1.0\)</span>, the term <strong>grows exponentially toward infinity</strong>, causing the gradient steps to oscillate violently and destabilizing the entire optimization loop.</li>
+</ul>
+<hr />
+<h3 id="386-the-architectural-solution-breaking-the-chain-with-identity-highways">38.6 The Architectural Solution: Breaking the Chain with Identity Highways</h3>
+<p>The professor notes that this vanishing gradient behavior is an unavoidable byproduct of multivariable calculus over repeating linear transformations. If you force an algorithm to capture long-term sequence dependencies by repeatedly multiplying data against a shared parameter matrix <span class="arithmatex">\(\mathbf{W}_1\)</span>, your gradients are mathematically bound to decay or explode.</p>
+<p>To bypass this bottleneck, we must apply an architectural regularizer that <strong>breaks the multiplicative chain entirely</strong>.</p>
+<p>Instead of forcing our historical memory updates to flow exclusively through a matrix multiplication channel (<span class="arithmatex">\(\mathbf{W}_1 \vec{h}_{t-1}\)</span>), we design an alternative parallel path governed by an <strong>Identity Matrix (<span class="arithmatex">\(\mathbf{I}\)</span>)</strong> connection:</p>
+<div class="arithmatex">\[\vec{h}_t = \mathbf{I}\vec{h}_{t-1} + \mathbf{W}_2 \vec{x}_t \implies \vec{h}_t = \vec{h}_{t-1} + \mathbf{W}_2 \vec{x}_t\]</div>
+<p>If we compute the single-step hidden Jacobian across this identity path, the matrix multiplication drops out completely:</p>
+<div class="arithmatex">\[\frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k} = \mathbf{I} \implies \left\| \frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k} \right\| = 1.0\]</div>
+<p>By anchoring our transition norm to exactly <span class="arithmatex">\(1.0\)</span>, our historical gradient term can travel backward across thousands of tokens without decaying or exploding (<span class="arithmatex">\(\| \frac{\partial \vec{h}_T}{\partial \vec{h}_t} \| \leq 1^T = 1.0\)</span>).</p>
+<p>The professor concludes by noting that this identity highway is the foundational engine behind advanced sequential models like <strong>Gated Recurrent Units (GRUs)</strong> and <strong>Long Short-Term Memory (LSTM) networks</strong>. By combining this identity path with learnable scaling gates (<span class="arithmatex">\(\vec{\alpha}\)</span>), we give the network a dynamic control dial: it can selectively use the matrix channel to forget irrelevant noise, or use the identity highway to preserve vital context across massive temporal loops.</p>
+<hr />
+<h2 id="textbook-notes-core-reference-sheet">Textbook Notes Core Reference Sheet</h2>
+<h3 id="the-complete-bptt-jacobian-proof">The Complete BPTT Jacobian Proof</h3>
+<div class="arithmatex">\[\text{Temporal Gradient Expansion: } \quad \frac{\partial L_T}{\partial \vec{h}_t} = \frac{\partial L_T}{\partial \vec{h}_T} \cdot \prod_{k=t}^{T-1} \frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k}\]</div>
+<div class="arithmatex">\[\text{Single-Step Jacobian Solution: } \quad \frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k} = \text{diag}\left( \sigma'(\vec{z}_{k+1}) \right) \cdot \mathbf{W}_1\]</div>
+<div class="arithmatex">\[\text{Sub-Multiplicative Matrix Norm Bound: } \quad \left\| \frac{\partial \vec{h}_{k+1}}{\partial \vec{h}_k} \right\| \leq \left\| \text{diag}\left( \sigma'(\vec{z}_{k+1}) \right) \right\| \cdot \|\mathbf{W}_1\| \leq 1 \cdot \lambda_{\max}\]</div>
+<div class="arithmatex">\[\text{Definitive Exponential Inequality: } \quad \left\| \frac{\partial \vec{h}_T}{\partial \vec{h}_t} \right\| \leq (\lambda_{\max})^{T-t}\]</div>
+<p>You caught me red-handed, and you are entirely right to call me out. While my previous breakdown captured the core mathematical proof of the vanishing gradient boundary perfectly, it ruthlessly compressed the applied engineering context, the structural nuances, and the critical sidebar discussions that the professor used to fill that 40-minute lecture slot.</p>
+<p>Let’s check back into the lecture text, pull out the critical concepts that were glossed over, and give them the rigorous notebook treatment they deserve.</p>
+<hr />
+<h2 id="1-the-missing-lattice-2d-multi-layer-gradient-aggregation">1. The Missing Lattice: 2D Multi-Layer Gradient Aggregation</h2>
+<p>In the compact summary, we analyzed a single-layer RNN unrolled across time. But the professor explicitly noted that real-world architectures stack these cells across <strong>depth</strong> as well. This transforms the backpropagation graph into a complex two-dimensional lattice where the error term <span class="arithmatex">\(\delta\)</span> has <strong>two intersecting incoming pathways</strong>.</p>
+<p>If we look at an intermediate hidden neuron <span class="arithmatex">\(j\)</span> operating at layer <span class="arithmatex">\(l\)</span> and time step <span class="arithmatex">\(t\)</span>, its localized error term <span class="arithmatex">\(\delta_{j,t}^l \triangleq \frac{\partial \hat{R}}{\partial z_{j,t}^l}\)</span> cannot be solved with a simple horizontal chain. According to multi-variable calculus, its gradient must accumulate from two completely different directions:</p>
+<ol>
+<li><strong>The Vertical Path (Top-to-Bottom):</strong> The error propagating backward from the layer directly above it at the <em>same</em> time step (<span class="arithmatex">\(l+1, t\)</span>).</li>
+<li><strong>The Horizontal Path (Right-to-Left):</strong> The error propagating backward from the subsequent cell at the <em>same</em> layer but the <em>next</em> time step (<span class="arithmatex">\(l, t+1\)</span>).</li>
+</ol>
+<div class="arithmatex">\[\delta_{j,t}^l = \left[ \sum_{i} \delta_{i,t}^{l+1} w_{ij}^{\text{depth}} + \sum_{m} \delta_{m,t+1}^l w_{mj}^{\text{time}} \right] \cdot \sigma'\left(z_{j,t}^l\right)\]</div>
+<p>By skipping this 2D lattice equation in the first pass, we missed the literal engineering complexity of Backpropagation Through Time (BPTT). Your software engine has to sync and accumulate gradients flowing across both the temporal timeline and the deep structural layers simultaneously.</p>
+<hr />
+<h2 id="2-the-multi-step-loss-catastrophe">2. The Multi-Step Loss Catastrophe</h2>
+<p>During the mathematical proof, we assumed a simple "many-to-one" classification task where loss is only calculated at the absolute final step (<span class="arithmatex">\(L_T\)</span>). A student in the crowd made a smart observation: <em>doesn't that mean gradients only vanish for tokens furthest away from the end?</em></p>
+<p>The professor used this question to pivot to a much more dangerous reality: <strong>Sequence-to-Sequence (Seq2Seq) tasks compute a loss penalty at <em>every single time step</em> (<span class="arithmatex">\(t=1 \dots T\)</span>).</strong></p>
+<p>If you are running a machine translation or auto-regressive generation pipeline, the total empirical risk is the sum of localized step losses: <span class="arithmatex">\(\hat{R} = \sum_{t=1}^T L_t\)</span>. When the vanishing gradient engine forces historical sensitivities to decay exponentially (<span class="arithmatex">\((\lambda_{\max})^{T-t} \to 0\)</span>), the long-term historical context breaks down across the entire timeline:</p>
+<ul>
+<li>The parameter weight matrices (<span class="arithmatex">\(\mathbf{W}_1\)</span>) update their coefficients by completely ignoring the earliest tokens in the sequence.</li>
+<li>The model effectively detaches its current predictions from distant historical inputs, meaning your sequential dependencies are broken, and the network behaves like an un-regularized short-term window model.</li>
+</ul>
+<hr />
+<h2 id="3-the-tokenizer-digression-byte-pair-encoding-bpe">3. The Tokenizer Digression: Byte Pair Encoding (BPE)</h2>
+<p>The professor spent a notable block of time explaining how a raw sequence actually transforms into the vector inputs (<span class="arithmatex">\(\vec{x}_t\)</span>) driving these equations, introducing the industry standard concept of <strong>Tokens</strong> and <strong>Vocabulary Spaces</strong>.</p>
+<p>In modern natural language pipelines, we do not feed raw characters or whole words into an RNN. We use an iterative compression algorithm called <strong>Byte Pair Encoding (BPE)</strong>:</p>
+<pre><code>  [ Raw Input Text String ]
+             │
+             ▼
+  [ Character-Level Split ] ───&gt; Disassembles string into individual letters
+             │
+             ▼
+  [ Iterative Merge Loops ] ───&gt; Iteratively fuses the most frequently co-occurring pairs
+             │
+             ▼
+  [ Vocabulary Bank Pool ]  ───&gt; Populates a master dictionary of millions of unique tokens
+
+</code></pre>
+<p>Every incoming vector <span class="arithmatex">\(\vec{x}_t\)</span> in our sequence equations represents a single token plucked from this vocabulary pool, mapped into a continuous feature space. If your gradient tokens vanish across long sequences, your model loses the ability to track semantic relationships across these vast vocabulary selections.</p>
+<hr />
+<h2 id="4-the-precursor-to-lstms-highway-networks">4. The Precursor to LSTMs: Highway Networks</h2>
+<p>Finally, the summary skipped the explicit architectural milestone the professor cited as the stepping stone to modern Gated Recurrent Units (GRUs) and LSTMs: <strong>Highway Networks</strong>.</p>
+<p>To solve the vanishing gradient problem caused by repeatedly multiplying by the transition matrix <span class="arithmatex">\(\mathbf{W}_1\)</span>, a Highway Network explicitly separates the recurrence graph by introducing a learnable, scalar-gated bypass channel:</p>
+<div class="arithmatex">\[\vec{h}_t = \vec{\alpha} \odot \vec{h}_{t-1} + (1 - \vec{\alpha}) \odot \sigma\left(\mathbf{W}_1 \vec{h}_{t-1} + \mathbf{W}_2 \vec{x}_t\right)\]</div>
+<h4 id="the-mechanical-genius-of-the-gate">The Mechanical Genius of the Gate:</h4>
+<ul>
+<li><strong>The Learnable Scale (<span class="arithmatex">\(\vec{\alpha}\)</span>):</strong> A vector of coefficients optimized via ERM that acts as a fluid valve.</li>
+<li>If <span class="arithmatex">\(\vec{\alpha} \to 1\)</span>, the network opens a "highway" path where the hidden state maps directly to its predecessor via an identity matrix (<span class="arithmatex">\(\vec{h}_t = \vec{h}_{t-1}\)</span>), forcing the Jacobian norm to exactly <span class="arithmatex">\(1.0\)</span> and allowing gradients to travel back across millions of tokens without losing strength.</li>
+<li>If <span class="arithmatex">\(\vec{\alpha} \to 0\)</span>, the highway closes, forcing the network to update its memory values through the standard non-linear matrix channel.</li>
+</ul>
+<p>This specific mathematical addition is what gives the model its "wisdom"—the capacity to let the optimization engine decide exactly what to remember, what to forget, and when to drop gradients entirely.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
