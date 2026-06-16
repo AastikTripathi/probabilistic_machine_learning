@@ -23,7 +23,7 @@
     
     
       
-        <title>Lecture03 1 - probailistic Machine Learning</title>
+        <title>Lecture03 1 - Probabilistic Machine Learning</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#21-deep-dive-the-three-step-trace-backward" class="md-skip">
+        <a href="#21-clarifications-about-thresholds-with-an-example" class="md-skip">
           Skip to content
         </a>
       
@@ -80,7 +80,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -94,7 +94,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            probailistic Machine Learning
+            Probabilistic Machine Learning
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -178,13 +178,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    probailistic Machine Learning
+    Probabilistic Machine Learning
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -412,10 +412,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#21-deep-dive-the-three-step-trace-backward" class="md-nav__link">
+  <a href="#21-clarifications-about-thresholds-with-an-example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.1 Deep Dive: The Three-Step Trace Backward
+        2.1 Clarifications about thresholds with an example
       
     </span>
   </a>
@@ -2495,10 +2495,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#21-deep-dive-the-three-step-trace-backward" class="md-nav__link">
+  <a href="#21-clarifications-about-thresholds-with-an-example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.1 Deep Dive: The Three-Step Trace Backward
+        2.1 Clarifications about thresholds with an example
       
     </span>
   </a>
@@ -2624,7 +2624,7 @@
 
   <h1>Lecture03 1</h1>
 
-<h2 id="21-deep-dive-the-three-step-trace-backward">2.1 Deep Dive: The Three-Step Trace Backward</h2>
+<h2 id="21-clarifications-about-thresholds-with-an-example">2.1 Clarifications about thresholds with an example</h2>
 <p>The formal definition of the Cumulative Distribution Function (CDF) can feel deceptively abstract because it hides a massive geological shift: it moves from an unquantifiable, real-world occurrence to a crisp, real-valued probability score.</p>
 <p>When we evaluate <span class="arithmatex">\(F_X(x)\)</span>, we are essentially mapping a numerical threshold <span class="arithmatex">\(x\)</span> back into the physical universe to find out how much "likelihood volume" satisfies that threshold. Let us unpack the three required mathematical operations step-by-step using both a simple 1-Dimensional engineering scenario and a complex <span class="arithmatex">\(n\)</span>-Dimensional Deep Learning scenario.</p>
 <hr />

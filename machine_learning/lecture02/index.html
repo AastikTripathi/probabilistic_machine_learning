@@ -23,7 +23,7 @@
     
     
       
-        <title>Lecture02 - probailistic Machine Learning</title>
+        <title>Lecture02 - Probabilistic Machine Learning</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-the-core-metaphor-probability-is-just-length-or-volume" class="md-skip">
+        <a href="#measure-theortic-understanding" class="md-skip">
           Skip to content
         </a>
       
@@ -80,7 +80,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -94,7 +94,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            probailistic Machine Learning
+            Probabilistic Machine Learning
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -178,13 +178,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    probailistic Machine Learning
+    Probabilistic Machine Learning
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -306,6 +306,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -348,6 +350,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -356,10 +360,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-core-metaphor-probability-is-just-length-or-volume" class="md-nav__link">
+  <a href="#1-probability-is-just-length-or-volume" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. The Core Metaphor: Probability is Just "Length" or "Volume"
+        1. Probability is Just "Length" or "Volume"
       
     </span>
   </a>
@@ -367,15 +371,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-rigorous-breakdown-the-probability-space-omega-mathcalf-p" class="md-nav__link">
+  <a href="#2-the-probability-space-omega-mathcalf-p" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Rigorous Breakdown: The Probability Space \((\Omega, \mathcal{F}, P)\)
+        2. The Probability Space \((\Omega, \mathcal{F}, P)\)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Rigorous Breakdown: The Probability Space \((\Omega, \mathcal{F}, P)\)">
+    <nav class="md-nav" aria-label="2. The Probability Space \((\Omega, \mathcal{F}, P)\)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -390,10 +394,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-the-sigma-algebra-mathcalf" class="md-nav__link">
+  <a href="#2-detour-the-sigma-algebra-mathcalf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. The Sigma-Algebra (\(\mathcal{F}\))
+        2. Detour : The Sigma-Algebra (\(\mathcal{F}\))
       
     </span>
   </a>
@@ -2459,6 +2463,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2467,10 +2473,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-the-core-metaphor-probability-is-just-length-or-volume" class="md-nav__link">
+  <a href="#1-probability-is-just-length-or-volume" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. The Core Metaphor: Probability is Just "Length" or "Volume"
+        1. Probability is Just "Length" or "Volume"
       
     </span>
   </a>
@@ -2478,15 +2484,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-rigorous-breakdown-the-probability-space-omega-mathcalf-p" class="md-nav__link">
+  <a href="#2-the-probability-space-omega-mathcalf-p" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Rigorous Breakdown: The Probability Space \((\Omega, \mathcal{F}, P)\)
+        2. The Probability Space \((\Omega, \mathcal{F}, P)\)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Rigorous Breakdown: The Probability Space \((\Omega, \mathcal{F}, P)\)">
+    <nav class="md-nav" aria-label="2. The Probability Space \((\Omega, \mathcal{F}, P)\)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2501,10 +2507,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-the-sigma-algebra-mathcalf" class="md-nav__link">
+  <a href="#2-detour-the-sigma-algebra-mathcalf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. The Sigma-Algebra (\(\mathcal{F}\))
+        2. Detour : The Sigma-Algebra (\(\mathcal{F}\))
       
     </span>
   </a>
@@ -2566,11 +2572,9 @@
 
 
 
-  <h1>Lecture02</h1>
-
-<p>This second lecture is fantastic. The professor is taking you through the exact philosophical and mathematical transition from <strong>"high school set theory"</strong> to <strong>"measure-theoretic probability."</strong> Since you haven't studied measure theory yet, it is completely normal if terms like <em>"Lebesgue measure"</em> or <em>"sigma-algebra"</em> sound a bit intimidating. Don't worry—let's break down exactly what the professor is doing, add the strict mathematical rigor they are building up to, and demystify the core concepts.</p>
+<h1 id="measure-theortic-understanding">Measure Theortic Understanding</h1>
 <hr />
-<h2 id="1-the-core-metaphor-probability-is-just-length-or-volume">1. The Core Metaphor: Probability is Just "Length" or "Volume"</h2>
+<h2 id="1-probability-is-just-length-or-volume">1. Probability is Just "Length" or "Volume"</h2>
 <p>The single most important takeaway from this lecture is this: <strong>Probability is not a mystical concept about luck or chance; it is literally just a mathematical measure of the "size" of a set, restricted to a maximum size of 1.</strong></p>
 <p>In classical math, you measure sizes using standard geometric tools:</p>
 <ul>
@@ -2579,22 +2583,22 @@
 <li>In <span class="arithmatex">\(\mathbb{R}^3\)</span> (3D space), you measure the <strong>Volume</strong> of an object.</li>
 </ul>
 <p>In measure theory, these are all generalized into something called the <strong>Lebesgue measure</strong> (denoted as <span class="arithmatex">\(\lambda\)</span>). If you have an interval <span class="arithmatex">\([2, 5]\)</span> on a real line, its Lebesgue measure is its length: <span class="arithmatex">\(\lambda([2, 5]) = 5 - 2 = 3\)</span>.</p>
-<p>The professor's brilliant point is that <strong>Probability Theory is just Measure Theory where the total volume of the entire universe is exactly 1.</strong> Instead of measuring the <em>physical length</em> of a set, a probability measure <span class="arithmatex">\(P\)</span> measures the <em>likelihood volume</em> of a set.</p>
+<p>So you can say that <strong>Probability Theory is just Measure Theory where the total volume of the entire universe is exactly 1.</strong> Instead of measuring the <em>physical length</em> of a set, a probability measure <span class="arithmatex">\(P\)</span> measures the <em>likelihood volume</em> of a set.</p>
 <hr />
-<h2 id="2-rigorous-breakdown-the-probability-space-omega-mathcalf-p">2. Rigorous Breakdown: The Probability Space <span class="arithmatex">\((\Omega, \mathcal{F}, P)\)</span></h2>
+<h2 id="2-the-probability-space-omega-mathcalf-p">2. The Probability Space <span class="arithmatex">\((\Omega, \mathcal{F}, P)\)</span></h2>
 <p>To make probability mathematically sound and avoid paradoxes (especially when dealing with infinite data or continuous numbers), mathematicians use a trio of objects known as a <strong>Probability Space</strong>, written as the triplet <span class="arithmatex">\((\Omega, \mathcal{F}, P)\)</span>.</p>
 <p>Let’s define each with strict rigor:</p>
 <h3 id="1-the-sample-space-omega">1. The Sample Space (<span class="arithmatex">\(\Omega\)</span>)</h3>
 <ul>
 <li><strong>What it is:</strong> The set of <em>all possible outcomes</em> of a random experiment.</li>
-<li><strong>The Rigor:</strong> <span class="arithmatex">\(\Omega\)</span> can contain anything. It doesn't have to be numbers. For a coin toss, <span class="arithmatex">\(\Omega = \{\text{Heads}, \text{Tails}\}\)</span>. For your medical AI imaging task, an outcome <span class="arithmatex">\(\omega \in \Omega\)</span> is the abstract event of a real human being getting sick, walking into a hospital, and getting an X-ray scan.</li>
+<li><strong>Important:</strong> <span class="arithmatex">\(\Omega\)</span> can contain anything. It doesn't have to be numbers. For a coin toss, <span class="arithmatex">\(\Omega = \{\text{Heads}, \text{Tails}\}\)</span>. For your medical AI imaging task, an outcome <span class="arithmatex">\(\omega \in \Omega\)</span> is the abstract event of a real human being getting sick, walking into a hospital, and getting an X-ray scan.</li>
 </ul>
-<h3 id="2-the-sigma-algebra-mathcalf">2. The Sigma-Algebra (<span class="arithmatex">\(\mathcal{F}\)</span>)</h3>
-<p>The professor referred to this as <em>"the collection of all possible subsets"</em> (denoted as capital <span class="arithmatex">\(F\)</span> in the transcript, but formally written as a script <span class="arithmatex">\(\mathcal{F}\)</span>).</p>
+<h3 id="2-detour-the-sigma-algebra-mathcalf">2. Detour : The Sigma-Algebra (<span class="arithmatex">\(\mathcal{F}\)</span>)</h3>
+<p>This as <em>"the collection of all possible subsets"</em> (denoted as capital <span class="arithmatex">\(F\)</span> in the transcript, but formally written as a script <span class="arithmatex">\(\mathcal{F}\)</span>).</p>
 <ul>
 <li><strong>What it is:</strong> You cannot always safely assign a probability to <em>every single individual subset</em> if the sample space is infinite (doing so creates deep mathematical contradictions). Therefore, we choose a specific, well-behaved collection of subsets that we are legally allowed to measure. These measurable subsets are called <strong>Events</strong>.</li>
 <li><strong>The Rigor:</strong> To be a valid <span class="arithmatex">\(\sigma\)</span>-algebra (sigma-algebra), the collection <span class="arithmatex">\(\mathcal{F}\)</span> must satisfy three strict structural rules:</li>
-<li><strong>Contains the whole universe:</strong> The entire sample space must be an event (<span class="arithmatex">\(\Omega \in \mathcal{F}\)</span>).</li>
+<li><strong>Contains the 'whole universe':</strong> The entire sample space must be an event (<span class="arithmatex">\(\Omega \in \mathcal{F}\)</span>).</li>
 <li><strong>Closed under complement:</strong> If an event <span class="arithmatex">\(A\)</span> is in <span class="arithmatex">\(\mathcal{F}\)</span> (meaning we can measure the probability of <span class="arithmatex">\(A\)</span> happening), then its opposite <span class="arithmatex">\(A^c\)</span> must also be in <span class="arithmatex">\(\mathcal{F}\)</span> (meaning we can measure the probability of <span class="arithmatex">\(A\)</span> <em>not</em> happening).</li>
 <li><strong>Closed under countable unions:</strong> If you have a list of events <span class="arithmatex">\(A_1, A_2, A_3, \dots \in \mathcal{F}\)</span>, then the event that <em>at least one of them happens</em> (<span class="arithmatex">\(\bigcup_{i=1}^{\infty} A_i\)</span>) must also be in <span class="arithmatex">\(\mathcal{F}\)</span>.</li>
 </ul>
@@ -2609,23 +2613,22 @@
 <div class="arithmatex">\[P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i)\]</div>
 <hr />
 <h2 id="3-connecting-ml-to-measure-theory-the-push-forward-measure">3. Connecting ML to Measure Theory: The Push-Forward Measure</h2>
-<p>The professor hinted at something incredibly elegant right at the end: <strong>"Data are just vectors... the elements of the range space of a random variable."</strong></p>
+<p>The professor Pratosh hints at something incredibly elegant: <strong>"Data are just vectors... the elements of the range space of a random variable."</strong></p>
 <p>Think about your ML workflow. Your raw data starts as a chaotic, real-world physical event (<span class="arithmatex">\(\omega \in \Omega\)</span>): a patient standing in front of an X-ray machine emitting photons. How does a computer process that?</p>
 <p>We use a <strong>Random Variable</strong> (<span class="arithmatex">\(X\)</span>). Mathematically, a random variable is a deterministic mapping function:</p>
 <div class="arithmatex">\[X: \Omega \rightarrow \mathbb{R}^d\]</div>
 <p>It takes that real-world physical event <span class="arithmatex">\(\omega\)</span> and translates it into a structured <span class="arithmatex">\(d\)</span>-dimensional vector of real numbers (the <span class="arithmatex">\(PQ\)</span> pixel grid of the digital image).</p>
-<p>[Image illustrating a random variable mapping an abstract real-world sample space event to a structured vector in continuous Euclidean space]</p>
 <p>Because <span class="arithmatex">\(X\)</span> maps the abstract space <span class="arithmatex">\(\Omega\)</span> to the clean mathematical space <span class="arithmatex">\(\mathbb{R}^d\)</span>, it "pushes" the probability measure <span class="arithmatex">\(P\)</span> along with it! This creates what mathematicians call a <strong>push-forward measure</strong> (or the probability distribution of <span class="arithmatex">\(X\)</span>).</p>
 <p>When you train a machine learning model (like a generative model or a classifier), you are not modeling the messy physical universe (<span class="arithmatex">\(\Omega\)</span>). You are using data to estimate this pushed-forward probability distribution sitting cleanly inside <span class="arithmatex">\(\mathbb{R}^d\)</span>.</p>
 <hr />
 <h2 id="does-this-track">Does This Track?</h2>
-<p><strong>Absolutely.</strong> The professor is trying to clear your head of colloquial, hand-wavy interpretations of data science. By viewing data through the lens of measure theory:</p>
+<p>By viewing data through the lens of measure theory:</p>
 <ol>
 <li>An image dataset isn't just a folder of PNGs; it is a collection of samples drawn from a probability measure over a high-dimensional vector space.</li>
 <li>Training a model isn't just adjusting weights to match labels; it is optimizing an algorithm to minimize the divergence between your model's estimated probability distribution and the true, hidden probability measure of the real world.</li>
 </ol>
-<p>The professor noted that the next class will officially connect this function approximation concept directly to random variables and distribution functions.</p>
-<p>To help you prepare for that next step, how comfortable are you with the concept of a <em>conditional</em> distribution, such as <span class="arithmatex">\(P(\text{Label} \mid \text{Image Vector})\)</span>?</p>
+<p>In the next section we will officially connect this function approximation concept directly to random variables and distribution functions.</p>
+<p>Please review conditional probabilities. </p>
 
 
 
