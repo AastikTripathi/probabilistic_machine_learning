@@ -1,0 +1,3096 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture60/">
+      
+      
+        <link rel="next" href="../lecture62/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture61 - Probabilistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Probabilistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture61
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Probabilistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-46-implicit-latent-variable-models-linear-subspace-projections-pca-and-non-linear-manifold-autoencoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 46: Implicit Latent Variable Models, Linear Subspace Projections (PCA), and Non-Linear Manifold Autoencoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 46: Implicit Latent Variable Models, Linear Subspace Projections (PCA), and Non-Linear Manifold Autoencoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#461-the-information-theoretic-rationale-for-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.1 The Information-Theoretic Rationale for Compression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#462-linear-subspace-projections-principal-component-analysis-pca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.2 Linear Subspace Projections: Principal Component Analysis (PCA)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="46.2 Linear Subspace Projections: Principal Component Analysis (PCA)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-dimensional-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Dimensional Calibration:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-variance-preservation-rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Variance Preservation Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#463-the-dual-interpretation-reconstruction-error-minimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.3 The Dual Interpretation: Reconstruction Error Minimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#464-non-linear-subspace-topologies-deep-autoencoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.4 Non-Linear Subspace Topologies: Deep Autoencoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="46.4 Non-Linear Subspace Topologies: Deep Autoencoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-encoder-network-e_phi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Encoder Network (\(E_\phi\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-decoder-network-d_1_theta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Decoder Network (\(D_1_\theta\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#465-the-advanced-frontier-denoising-autoencoders-and-token-masking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.5 The Advanced Frontier: Denoising Autoencoders and Token Masking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="46.5 The Advanced Frontier: Denoising Autoencoders and Token Masking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-workhorse-of-modern-foundational-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Workhorse of Modern Foundational AI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-formula-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Formula Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Formula Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-complete-principal-component-calculus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Complete Principal Component Calculus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deep-non-linear-reconstruction-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deep Non-Linear Reconstruction Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#addendum-466-vector-norm-corrections-and-the-rank-deficiency-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Addendum 46.6: Vector Norm Corrections and the Rank-Deficiency Constraint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Addendum 46.6: Vector Norm Corrections and the Rank-Deficiency Constraint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-full-rank-identity-trap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Full-Rank Identity Trap
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#addendum-467-the-preview-framework-of-noise-contrastive-estimation-nce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Addendum 46.7: The Preview Framework of Noise Contrastive Estimation (NCE)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Addendum 46.7: The Preview Framework of Noise Contrastive Estimation (NCE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-philosophy-of-nce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Philosophy of NCE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dae-as-an-instance-of-contrastive-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DAE as an Instance of Contrastive Estimation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-46-implicit-latent-variable-models-linear-subspace-projections-pca-and-non-linear-manifold-autoencoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 46: Implicit Latent Variable Models, Linear Subspace Projections (PCA), and Non-Linear Manifold Autoencoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 46: Implicit Latent Variable Models, Linear Subspace Projections (PCA), and Non-Linear Manifold Autoencoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#461-the-information-theoretic-rationale-for-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.1 The Information-Theoretic Rationale for Compression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#462-linear-subspace-projections-principal-component-analysis-pca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.2 Linear Subspace Projections: Principal Component Analysis (PCA)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="46.2 Linear Subspace Projections: Principal Component Analysis (PCA)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#precise-dimensional-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precise Dimensional Calibration:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-variance-preservation-rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Variance Preservation Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#463-the-dual-interpretation-reconstruction-error-minimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.3 The Dual Interpretation: Reconstruction Error Minimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#464-non-linear-subspace-topologies-deep-autoencoders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.4 Non-Linear Subspace Topologies: Deep Autoencoders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="46.4 Non-Linear Subspace Topologies: Deep Autoencoders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-encoder-network-e_phi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Encoder Network (\(E_\phi\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-decoder-network-d_1_theta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Decoder Network (\(D_1_\theta\))
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#465-the-advanced-frontier-denoising-autoencoders-and-token-masking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        46.5 The Advanced Frontier: Denoising Autoencoders and Token Masking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="46.5 The Advanced Frontier: Denoising Autoencoders and Token Masking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-workhorse-of-modern-foundational-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Workhorse of Modern Foundational AI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-core-formula-reference-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Core Formula Reference Sheet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textbook Notes Core Formula Reference Sheet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-complete-principal-component-calculus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Complete Principal Component Calculus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deep-non-linear-reconstruction-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deep Non-Linear Reconstruction Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#addendum-466-vector-norm-corrections-and-the-rank-deficiency-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Addendum 46.6: Vector Norm Corrections and the Rank-Deficiency Constraint
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Addendum 46.6: Vector Norm Corrections and the Rank-Deficiency Constraint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-full-rank-identity-trap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Full-Rank Identity Trap
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#addendum-467-the-preview-framework-of-noise-contrastive-estimation-nce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Addendum 46.7: The Preview Framework of Noise Contrastive Estimation (NCE)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Addendum 46.7: The Preview Framework of Noise Contrastive Estimation (NCE)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-philosophy-of-nce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Philosophy of NCE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dae-as-an-instance-of-contrastive-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DAE as an Instance of Contrastive Estimation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-46-implicit-latent-variable-models-linear-subspace-projections-pca-and-non-linear-manifold-autoencoders">Chapter 46: Implicit Latent Variable Models, Linear Subspace Projections (PCA), and Non-Linear Manifold Autoencoders</h2>
+<hr />
+<h3 id="461-the-information-theoretic-rationale-for-compression">46.1 The Information-Theoretic Rationale for Compression</h3>
+<p>In Chapter 45, we analyzed explicit latent variable models, deriving the exact conditions under which a soft Gaussian Mixture Model (GMM) collapses into the hard spatial partitions of the K-Means clustering algorithm. We now expand our study of unsupervised topologies to examine <strong>Implicit Latent Variable Models</strong>.</p>
+<p>Under this framework, we do not start by imposing an explicit, pre-defined parametric probability density envelope. Instead, we structure our Empirical Risk Minimization (ERM) loss functions to discover an optimal coordinate transformation that compresses high-dimensional inputs down into a low-dimensional bottleneck space.</p>
+<p>To understand why this approach works, we must analyze the connection between data compression and machine intelligence. In modern deep learning, unsupervised models process vast amounts of unstructured data without human-annotated labels.</p>
+<p>According to advanced representation theory, <strong>lossy compression is the foundational driver of emergent semantic understanding.</strong></p>
+<p>Consider a practical scenario: suppose you are handed a large collection of digital images tracking human faces. Each raw image consists of thousands of individual pixels (<span class="arithmatex">\(\mathbb{R}^D\)</span>). If you task a network with compressing each high-dimensional pixel grid down into a tight bottleneck vector containing only <strong>10</strong> numbers (<span class="arithmatex">\(\mathbb{R}^10\)</span>), the model cannot simply memorize the data. The bottleneck is too narrow to store raw pixel values.</p>
+<p>To minimize its reconstruction error under this constraint, the optimization engine is forced to discover and exploit the underlying geometric rules—the <em>semantics</em>—of the data manifold:</p>
+<ul>
+<li>It identifies that human faces maintain strict bilateral symmetry.</li>
+<li>It tracks the relative spatial coordinates of eyes, noses, and mouths.</li>
+<li>It discards high-frequency background noise as useless information.</li>
+</ul>
+<p>By stripping away redundant pixel variations, the network distills the data down to its core structural tokens. This compression mechanism explains the performance of modern foundational models. By forcing an architecture to compress the vast knowledge of the internet into a finite parameter web (e.g., <strong>5 billion</strong> weights), the ERM loop transforms the network into a highly efficient semantic engine.</p>
+<hr />
+<h3 id="462-linear-subspace-projections-principal-component-analysis-pca">46.2 Linear Subspace Projections: Principal Component Analysis (PCA)</h3>
+<p>We begin our formal study of compression architectures by analyzing the simplest framework: a linear change of basis.</p>
+<p>Let us define an unconstrained raw data matrix <span class="arithmatex">\(\mathbf{X} \in \mathbb{R}^{N \times D}\)</span> that tracks <span class="arithmatex">\(N\)</span> independent observations across <span class="arithmatex">\(D\)</span> native features. Our objective is to discover a linear projection matrix <span class="arithmatex">\(\mathbf{W}\)</span> that maps our high-dimensional input vectors <span class="arithmatex">\(\vec{x}_i \in \mathbb{R}^{D \times 1}\)</span> down into a compressed latent coordinate vector <span class="arithmatex">\(\vec{z}_i\)</span> operating within a lower-dimensional subspace of width <span class="arithmatex">\(K\)</span> (where <span class="arithmatex">\(K \ll D\)</span>):</p>
+<div class="arithmatex">\[\vec{z}_i = \mathbf{W}\vec{x}_i\]</div>
+<h4 id="precise-dimensional-calibration">Precise Dimensional Calibration:</h4>
+<ul>
+<li><span class="arithmatex">\(\vec{x}_i \in \mathbb{R}^{D \times 1}\)</span>: The raw high-dimensional observation vector.</li>
+<li><span class="arithmatex">\(\mathbf{W} \in \mathbb{R}^{K \times D}\)</span>: The linear projection matrix driving the transformation.</li>
+<li><span class="arithmatex">\(\vec{z}_i \in \mathbb{R}^{K \times 1}\)</span>: The resulting compressed latent coordinate embedding vector.</li>
+</ul>
+<h4 id="the-variance-preservation-rationale">The Variance Preservation Rationale</h4>
+<p>As highlighted during the interactive session, attempting to minimize the raw variance of the projected data (<span class="arithmatex">\(\vec{z}_i\)</span>) is a degenerate path; the optimizer would simply lock all entries of <span class="arithmatex">\(\mathbf{W}\)</span> to absolute zero, flattening the entire dataset into a single point.</p>
+<p>To preserve the maximum amount of structural information during compression, our true objective must be completely inverted: <strong>we must discover a projection subspace that maximizes the variance of the projected coordinates.</strong> We seek a set of axes that preserves the maximum original spread of the data, ensuring that vital structural features are not erased during the transformation.</p>
+<p>Let us unroll the complete mathematical derivation of this optimization problem from absolute first principles. We calculate the empirical mean vector of our raw data:</p>
+<div class="arithmatex">\[\bar{\vec{x}} = \frac{1}{N}\sum_{i=1}^{N} \vec{x}_i \in \mathbb{R}^{D \times 1}\]</div>
+<p>We define the empirical <strong>Covariance Matrix (<span class="arithmatex">\(\mathbf{\Sigma} \in \mathbb{R}^{D \times D}\)</span>)</strong> of our input space as the averaged outer product of our centered data coordinates:</p>
+<div class="arithmatex">\[\mathbf{\Sigma} = \frac{1}{N}\sum_{i=1}^{N} (\vec{x}_i - \bar{\vec{x}})(\vec{x}_i - \bar{\vec{x}})^T\]</div>
+<p>Let us isolate a single, primary projection axis vector <span class="arithmatex">\(\vec{w} \in \mathbb{R}^{D \times 1}\)</span>. The mathematical variance of our data points after being projected onto this single axis is defined as:</p>
+<div class="arithmatex">\[\text{Var}(\vec{w}^T\vec{x}) = \frac{1}{N}\sum_{i=1}^{N} \left( \vec{w}^T\vec{x}_i - \vec{w}^T\bar{\vec{x}} \right)^2\]</div>
+<p>We factor out our directional vector <span class="arithmatex">\(\vec{w}\)</span> using standard linear algebra transpose rules:</p>
+<div class="arithmatex">\[\text{Var}(\vec{w}^T\vec{x}) = \frac{1}{N}\sum_{i=1}^{N} \vec{w}^T(\vec{x}_i - \bar{\vec{x}})(\vec{x}_i - \bar{\vec{x}})^T\vec{w} = \vec{w}^T \left[ \frac{1}{N}\sum_{i=1}^{N} (\vec{x}_i - \bar{\vec{x}})(\vec{x}_i - \bar{\vec{x}})^T \right] \vec{w}\]</div>
+<div class="arithmatex">\[\text{Var}(\vec{w}^T\vec{x}) = \vec{w}^T \mathbf{\Sigma} \vec{w}\]</div>
+<p>To prevent this maximization problem from exploding to infinity, we must constrain the magnitude of our directional vector, forcing it to remain a valid <strong>unit vector</strong> characterized by a norm of exactly <span class="arithmatex">\(1.0\)</span>:</p>
+<div class="arithmatex">\[\|\vec{w}\|_2^2 = \vec{w}^T\vec{w} = 1\]</div>
+<p>We combine our objective function and unit constraint into a single optimization ledger using a <strong>Lagrangian Multiplier (<span class="arithmatex">\(\lambda\)</span>)</strong>:</p>
+<div class="arithmatex">\[\mathcal{L}(\vec{w}, \,\, \lambda) = \vec{w}^T \mathbf{\Sigma} \vec{w} - \lambda \left( \vec{w}^T \vec{w} - 1 \right)\]</div>
+<p>To solve for the optimal axis direction, we take the partial derivative of this Lagrangian with respect to the vector <span class="arithmatex">\(\vec{w}\)</span> and set the expression to absolute zero:</p>
+<div class="arithmatex">\[\frac{\partial \mathcal{L}}{\partial \vec{w}} = 2\mathbf{\Sigma}\vec{w} - 2\lambda\vec{w} = \vec{0} \quad \implies \quad \mathbf{\Sigma}\vec{w} = \lambda\vec{w}\]</div>
+<p>Look at the beauty of this result. This equation is the exact definition of an <strong>Eigenvalue Problem (The Rayleigh Quotient solution)</strong>.</p>
+<p>To maximize our projected variance (<span class="arithmatex">\(\vec{w}^T\mathbf{\Sigma}\vec{w} = \vec{w}^T\lambda\vec{w} = \lambda\vec{w}^T\vec{w} = \lambda\)</span>), <strong>we must select the specific eigenvector of the covariance matrix <span class="arithmatex">\(\mathbf{\Sigma}\)</span> that corresponds to its largest eigenvalue (<span class="arithmatex">\(\lambda_{\max}\)</span>).</strong></p>
+<p>This foundational vector is called the first <strong>Principal Component</strong>. To construct a multi-dimensional compression matrix <span class="arithmatex">\(\mathbf{W} \in \mathbb{R}^{K \times D}\)</span>, we extract the top <span class="arithmatex">\(K\)</span> orthogonal eigenvectors of <span class="arithmatex">\(\mathbf{\Sigma}\)</span>, rank-ordering them in descending order according to their corresponding eigenvalues.</p>
+<hr />
+<h3 id="463-the-dual-interpretation-reconstruction-error-minimization">46.3 The Dual Interpretation: Reconstruction Error Minimization</h3>
+<p>The professor challenges the class to complete a vital homework derivation: <em>prove that maximizing the projected variance yields the exact same mathematical formulation as minimizing the geometric reconstruction error.</em></p>
+<p>Under this alternative dual framework, we do not evaluate data spread. Instead, we task the model with finding a low-rank matrix projection that minimizes the Euclidean distance between the original raw features and their reconstructed coordinates:</p>
+<div class="arithmatex">\[\mathbf{W}^* = \arg\min_{\mathbf{W}} \frac{1}{N}\sum_{i=1}^{N} \|\vec{x}_i - \mathbf{W}^T\mathbf{W}\vec{x}_i\|_2^2 \quad \text{such that} \quad \mathbf{W}\mathbf{W}^T = \mathbf{I}_K\]</div>
+<p>When you expand this norm squared using inner products, the data dimensions unroll into an identical covariance layout. Minimizing the reconstruction error forces the projection axes to align perfectly with the top eigenvectors of <span class="arithmatex">\(\mathbf{\Sigma}\)</span>.</p>
+<p>If you pre-select your bottleneck width to preserve a specific percentage of data variance (e.g., <strong>90%</strong> of the global eigenvalues' sum), PCA provides an optimal linear compression path.</p>
+<hr />
+<h3 id="464-non-linear-subspace-topologies-deep-autoencoders">46.4 Non-Linear Subspace Topologies: Deep Autoencoders</h3>
+<p>While PCA provides strong geometric guarantees, its architecture is limited by a hard constraint: <strong>it can only map data using linear transformations.</strong> If your dataset resides along a curved, non-linear manifold—such as a twisted three-dimensional wave or a complex image cluster—projecting it onto a flat linear hyperplane breaks the data topology, collapsing distinct features into overlapping zones.</p>
+<p>To capture non-linear structures, we generalize our change-of-basis equations by replacing the linear matrix <span class="arithmatex">\(\mathbf{W}\)</span> with a deeply nested <strong>Compositional Neural Network</strong>. This architecture is known as a <strong>Deep Autoencoder</strong>.</p>
+<p>An autoencoder splits its computational workload across two separate, sequential network pipelines:</p>
+<h4 id="1-the-encoder-network-e_phi">1. The Encoder Network (<span class="arithmatex">\(E_\phi\)</span>)</h4>
+<p>The encoder takes the raw high-dimensional feature coordinates <span class="arithmatex">\(\vec{x} \in \mathbb{R}^D\)</span> and passes them through a series of alternating linear projections and non-linear activation functions, compressing the inputs down into a narrow hidden bottleneck vector <span class="arithmatex">\(\vec{z}\)</span>:</p>
+<div class="arithmatex">\[\vec{z} = E_\phi(\vec{x}) \in \mathbb{R}^K \quad \text{where} \quad K \ll D\]</div>
+<h4 id="2-the-decoder-network-d_1_theta">2. The Decoder Network (<span class="arithmatex">\(D_1_\theta\)</span>)</h4>
+<p>The decoder takes this compact hidden token <span class="arithmatex">\(\vec{z}\)</span> and passes it through a matching inverted pipeline, attempting to reconstruct the original high-dimensional feature coordinates:</p>
+<div class="arithmatex">\[\hat{\vec{x}} = D_\theta(\vec{z}) \in \mathbb{R}^D\]</div>
+<p>To train this combined system in an entirely unsupervised manner, we define a non-probabilistic reconstruction loss ledger. If we ground our network in a Gaussian noise distribution over an underlying structural KL divergence pass, the optimization criteria collapses directly into a <strong>Mean Squared Error (MSE) Loss Function</strong>:</p>
+<div class="arithmatex">\[\mathcal{L}(\phi, \,\, \theta) = \frac{1}{N}\sum_{i=1}^{N} \|\vec{x}_i - \hat{\vec{x}}_i\|_2^2 = \frac{1}{N}\sum_{i=1}^{N} \|\vec{x}_i - D_\theta\left(E_\phi(\vec{x}_i)\right)\|_2^2\]</div>
+<p>We optimize the parameter parameters (<span class="arithmatex">\(\phi, \theta\)</span>) simultaneously using standard mini-batch backpropagation. Once the training error stabilizes, we discard the decoder network entirely. The trained encoder network <span class="arithmatex">\(E_\phi(\vec{x})\)</span> is preserved as a deterministic feature extractor.</p>
+<p>When a new sample enters the system, the encoder maps it directly to its compressed latent embedding coordinate <span class="arithmatex">\(\vec{z}\)</span>, providing an untangled, low-dimensional representation that can easily scale to support downstream tasks.</p>
+<hr />
+<h3 id="465-the-advanced-frontier-denoising-autoencoders-and-token-masking">46.5 The Advanced Frontier: Denoising Autoencoders and Token Masking</h3>
+<p>The professor concludes the module by analyzing the core operational mechanics that drive state-of-the-art industrial models.</p>
+<p>While a standard autoencoder can learn high-quality representations, an unconstrained network with a wide bottleneck can bypass semantic learning entirely by discovering an identity shortcut—simply passing the raw input coordinates straight to the output without compressing them.</p>
+<p>To prevent this failure mode and force the network to extract deep structural semantics, we deploy <strong>Denoising Autoencoders (DAE)</strong>.</p>
+<p>Before feeding our input data vector <span class="arithmatex">\(\vec{x}\)</span> into the encoder, we intentionally corrupt its coordinates by injecting a random noise perturbation vector <span class="arithmatex">\(\vec{\epsilon}\)</span>:</p>
+<div class="arithmatex">\[\tilde{\vec{x}} = \vec{x} + \vec{\epsilon}\]</div>
+<p>We then alter our optimization objective: <strong>the encoder-decoder pipeline is tasked with processing the corrupted vector <span class="arithmatex">\(\tilde{\vec{x}}\)</span>, but must reconstruct the pristine, original coordinates <span class="arithmatex">\(\vec{x}\)</span>:</strong></p>
+<div class="arithmatex">\[\mathcal{L}_{\text{DAE}}(\phi, \,\, \theta) = \frac{1}{N}\sum_{i=1}^{N} \|\vec{x}_i - D_\theta\left(E_\phi(\tilde{\vec{x}}_i)\right)\|_2^2\]</div>
+<p>This structure forces the network to learn the underlying manifold of the data distribution. To remove the injected noise and reconstruct the original coordinates cleanly, the encoder must learn to completely ignore random coordinate variations, forcing it to capture the stable, long-range semantic dependencies of the data space.</p>
+<h4 id="the-workhorse-of-modern-foundational-ai">The Workhorse of Modern Foundational AI</h4>
+<p>This denoising and reconstruction framework is the core engine behind modern large-scale model training. In large language pipelines, we apply this exact strategy over sequences of tokens using two standard variations:</p>
+<ul>
+<li><strong>Masked Autoencoding (BERT-Style):</strong> The data loader takes an incoming token string, randomly replaces a percentage of the words with a blank mask token, and tasks the network with reconstructing the missing words. To fill in the blanks, the model is forced to analyze the surrounding context, building a powerful semantic representation space.</li>
+<li><strong>Causal Auto-Regressive Masking (GPT-Style):</strong> A specialized variation where the mask is systematically locked to the final token position. The network is trained to continuously predict the next coordinate along the sequence timeline.</li>
+</ul>
+<p>By running these token-masking reconstruction passes over massive internet datasets across months of parallel GPU computation, the network optimizes its internal basis transformations, discovering the deep structural relationships that drive modern artificial intelligence.</p>
+<hr />
+<h2 id="textbook-notes-core-formula-reference-sheet">Textbook Notes Core Formula Reference Sheet</h2>
+<h3 id="the-complete-principal-component-calculus">The Complete Principal Component Calculus</h3>
+<div class="arithmatex">\[\text{Projected Subspace Coordinate: } \quad \vec{z}_i = \mathbf{W}\vec{x}_i \quad \text{where} \quad \mathbf{W} \in \mathbb{R}^{K \times D}\]</div>
+<div class="arithmatex">\[\text{Empirical Covariance Matrix: } \quad \mathbf{\Sigma} = \frac{1}{N}\sum_{i=1}^{N} (\vec{x}_i - \bar{\vec{x}})(\vec{x}_i - \bar{\vec{x}})^T \in \mathbb{R}^{D \times D}\]</div>
+<div class="arithmatex">\[\text{The Rayleigh Quotient Constraint: } \quad \mathbf{\Sigma}\vec{w} = \lambda\vec{w} \quad \implies \quad \vec{w}^* = \vec{e}_{\lambda_{\max}}\]</div>
+<hr />
+<h3 id="deep-non-linear-reconstruction-systems">Deep Non-Linear Reconstruction Systems</h3>
+<div class="arithmatex">\[\text{Autoencoder Reconstruction Target: } \quad \hat{\vec{x}} = D_\theta\left(E_\phi(\vec{x})\right) \in \mathbb{R}^D\]</div>
+<div class="arithmatex">\[\text{Standard Structural MSE Loss: } \quad \mathcal{L}(\phi, \,\, \theta) = \frac{1}{N}\sum_{i=1}^{N} \|\vec{x}_i - D_\theta\left(E_\phi(\vec{x}_i)\right)\|_2^2\]</div>
+<div class="arithmatex">\[\text{Denoising Manifold Objective: } \quad \mathcal{L}_{\text{DAE}}(\phi, \,\, \theta) = \frac{1}{N}\sum_{i=1}^{N} \|\vec{x}_i - D_\theta\left(E_\phi(\vec{x}_i + \vec{\epsilon})\right)\|_2^2\]</div>
+<p>Specifically, I left out the student-teacher exchange on <strong>Rank Deficiency</strong>, the correction regarding <strong>Vector Norm Notation</strong>, and the explicit conceptual bridge to <strong>Noise Contrastive Estimation (NCE)</strong> and <strong>SimCLR</strong>.</p>
+<p>Let’s correct that right now. Here is the official technical addendum to complete Chapter 46 flawlessly.</p>
+<hr />
+<h2 id="addendum-466-vector-norm-corrections-and-the-rank-deficiency-constraint">Addendum 46.6: Vector Norm Corrections and the Rank-Deficiency Constraint</h2>
+<p>During the blackboard derivation of the projected variance objective, a crucial notation correction occurred regarding the dimensional footprint of the compressed latent variable <span class="arithmatex">\(\vec{z}_i\)</span>.</p>
+<p>Because <span class="arithmatex">\(\vec{z}_i\)</span> is a multi-dimensional coordinate vector operating within the compressed subspace <span class="arithmatex">\(\mathbb{R}^K\)</span>, its variance cannot be evaluated using simple scalar squaring. The empirical variance calculation must strictly utilize the <strong>squared Euclidean <span class="arithmatex">\(L_2\)</span> norm</strong> of the centered vector coordinates:</p>
+<div class="arithmatex">\[\mathcal{L}(\mathbf{W}) = \frac{1}{N}\sum_{i=1}^{N} \|\vec{z}_i - \bar{\vec{z}}\|_2^2\]</div>
+<h3 id="the-full-rank-identity-trap">The Full-Rank Identity Trap</h3>
+<p>A student raised a vital structural question regarding this linear projection matrix <span class="arithmatex">\(\mathbf{W} \in \mathbb{R}^{K \times D}\)</span>: <em>If we allow the optimization engine to operate over a completely unconstrained, full-rank matrix space where <span class="arithmatex">\(K = D\)</span>, what prevents the model from failing?</em></p>
+<p>If <span class="arithmatex">\(\mathbf{W}\)</span> is full-rank (<span class="arithmatex">\(K = D\)</span>), both the variance maximization and reconstruction error minimization objectives encounter a trivial, non-informative solution:</p>
+<div class="arithmatex">\[\mathbf{W}^* = \mathbf{I}_D \quad \text{(The Identity Matrix)}\]</div>
+<p>If <span class="arithmatex">\(\mathbf{W}\)</span> evaluates to the identity matrix, the data maps back to itself completely unaltered. To prevent this identity trap, we must enforce a strict <strong>Rank-Deficiency Constraint</strong>:</p>
+<div class="arithmatex">\[\text{rank}(\mathbf{W}) = K &lt; D\]</div>
+<p>By structurally limiting the row space of <span class="arithmatex">\(\mathbf{W}\)</span> to a width of <span class="arithmatex">\(K\)</span>, we force the matrix to become rank-deficient. It can no longer act as an identity gate, forcing the optimization loop to isolate only the top <span class="arithmatex">\(K\)</span> most informative orthogonal eigenvectors of the global covariance matrix <span class="arithmatex">\(\mathbf{\Sigma}\)</span>.</p>
+<hr />
+<h2 id="addendum-467-the-preview-framework-of-noise-contrastive-estimation-nce">Addendum 46.7: The Preview Framework of Noise Contrastive Estimation (NCE)</h2>
+<p>At the close of the session, the professor contextualized Denoising Autoencoders within a highly advanced mathematical paradigm: <strong>Noise Contrastive Estimation (NCE)</strong>.</p>
+<p>When scaling generative models to massive vocabularies or high-dimensional pixel fields, calculating the exact marginal distribution <span class="arithmatex">\(P_{\vec{\theta}}(X)\)</span> via standard Maximum Likelihood Estimation becomes computationally impossible. This is because computing the normalizing denominator (the partition function) requires integrating over the entire infinite data space.</p>
+<blockquote>
+<h3 id="the-core-philosophy-of-nce">The Core Philosophy of NCE</h3>
+<p>Noise Contrastive Estimation completely bypasses this partition bottleneck by changing the nature of the task. Instead of training a model to predict an exact probability density profile, NCE frames unsupervised learning as a <strong>Discriminative Binary Classification Task</strong>.
+The network is fed two distinct streams of data coordinates: true samples pulled from the real data manifold <span class="arithmatex">\(P(X)\)</span>, and corrupted "noise" samples pulled from an artificial perturbation distribution <span class="arithmatex">\(Q(X)\)</span>. The model's objective is to classify whether each incoming sample is a real data point or an injected noise contrast.</p>
+</blockquote>
+<h3 id="dae-as-an-instance-of-contrastive-estimation">DAE as an Instance of Contrastive Estimation</h3>
+<p>A Denoising Autoencoder functions as an early, specialized realization of this contrastive logic. By taking a pristine vector <span class="arithmatex">\(\vec{x}\)</span>, corrupting it with noise to create <span class="arithmatex">\(\tilde{\vec{x}}\)</span>, and forcing the network to reconstruct the clean original coordinates, the model is implicitly learning to differentiate the structural data manifold from the noise space.</p>
+<p>This setup provides the direct mathematical bridge to modern <strong>Contrastive Self-Supervised Learning (SSL)</strong> techniques, such as the <strong>SimCLR</strong> framework used in advanced computer vision pipelines. Under an SSL paradigm, we do not require human labels. The network takes an un-labeled image, applies random geometric transformations (like crops or rotations) to create matching pairs, and uses an NCE-style loss function to force matching views close together in the continuous latent space while pushing un-related noise images far apart.</p>
+<p>This functional gradient sequence maps out the exact training loop behind modern Large Language Models (LLMs), where the network treats the subsequent word token along a timeline as the true target, and all alternate words in the dictionary as contrasting noise.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
