@@ -1,0 +1,2832 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture35/">
+      
+      
+        <link rel="next" href="../lecture37/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture36 - Probabilistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Probabilistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture36
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Probabilistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-30-the-primal-lagrangian-formulation-karush-kuhn-tucker-kkt-conditions-and-the-foundations-of-wolfe-duality-in-support-vector-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 30: The Primal Lagrangian Formulation, Karush-Kuhn-Tucker (KKT) Conditions, and the Foundations of Wolfe Duality in Support Vector Machines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 30: The Primal Lagrangian Formulation, Karush-Kuhn-Tucker (KKT) Conditions, and the Foundations of Wolfe Duality in Support Vector Machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#301-the-primal-constrained-optimization-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30.1 The Primal Constrained Optimization Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#302-constructing-the-primal-lagrangian-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30.2 Constructing the Primal Lagrangian Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="30.2 Constructing the Primal Lagrangian Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-and-operator-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable and Operator Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#303-the-karush-kuhn-tucker-kkt-optimality-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30.3 The Karush-Kuhn-Tucker (KKT) Optimality Conditions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="30.3 The Karush-Kuhn-Tucker (KKT) Optimality Conditions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-primal-stationarity-the-derivative-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Primal Stationarity (The Derivative Conditions)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-primal-feasibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Primal Feasibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-dual-feasibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Dual Feasibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-complementary-slackness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Complementary Slackness
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#304-the-framework-of-wolfe-duality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30.4 The Framework of Wolfe Duality
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-30-the-primal-lagrangian-formulation-karush-kuhn-tucker-kkt-conditions-and-the-foundations-of-wolfe-duality-in-support-vector-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 30: The Primal Lagrangian Formulation, Karush-Kuhn-Tucker (KKT) Conditions, and the Foundations of Wolfe Duality in Support Vector Machines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 30: The Primal Lagrangian Formulation, Karush-Kuhn-Tucker (KKT) Conditions, and the Foundations of Wolfe Duality in Support Vector Machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#301-the-primal-constrained-optimization-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30.1 The Primal Constrained Optimization Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#302-constructing-the-primal-lagrangian-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30.2 Constructing the Primal Lagrangian Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="30.2 Constructing the Primal Lagrangian Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#literal-variable-and-operator-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literal Variable and Operator Breakdown:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#303-the-karush-kuhn-tucker-kkt-optimality-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30.3 The Karush-Kuhn-Tucker (KKT) Optimality Conditions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="30.3 The Karush-Kuhn-Tucker (KKT) Optimality Conditions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-primal-stationarity-the-derivative-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Primal Stationarity (The Derivative Conditions)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-primal-feasibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Primal Feasibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-dual-feasibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Dual Feasibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-complementary-slackness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Complementary Slackness
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#304-the-framework-of-wolfe-duality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30.4 The Framework of Wolfe Duality
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-30-the-primal-lagrangian-formulation-karush-kuhn-tucker-kkt-conditions-and-the-foundations-of-wolfe-duality-in-support-vector-machines">Chapter 30: The Primal Lagrangian Formulation, Karush-Kuhn-Tucker (KKT) Conditions, and the Foundations of Wolfe Duality in Support Vector Machines</h2>
+<hr />
+<h3 id="301-the-primal-constrained-optimization-structure">30.1 The Primal Constrained Optimization Structure</h3>
+<p>In Chapter 29, we derived the geometric foundations of the Hard-Margin Support Vector Machine (SVM). We proved that maximizing the physical corridor width separating our parallel canonical boundary hyperplanes (<span class="arithmatex">\(\frac{2}{\|\vec{w}\|_2}\)</span>) requires solving a standard convex optimization problem bounded by linear inequality constraints:</p>
+<div class="arithmatex">\[\min_{\vec{w}, b} \frac{1}{2} \|\vec{w}\|_2^2 \quad \text{subject to} \quad y_i \left( \vec{w}^T \vec{x}_i + b \right) \geq 1 \quad \forall \,\, i = 1, 2, \dots, N\]</div>
+<p>The professor highlights a profound structural inversion that occurs when we transition from standard Empirical Risk Minimization (ERM) algorithms to this max-margin setup:</p>
+<ul>
+<li><strong>In Classical ERM:</strong> The objective function minimizes a loss computed over the data rows, while the regularization constraint is a function of the parameter weights (<span class="arithmatex">\(\Omega(\vec{\theta}) \leq K\)</span>).</li>
+<li><strong>In Max-Margin SVMs:</strong> The operational roles are swapped. The objective function is defined purely by the geometric length of the parameter weights (<span class="arithmatex">\(\frac{1}{2}\|\vec{w}\|_2^2\)</span>), while the constraints are dictated entirely by the physics of the training data rows and their class labels (<span class="arithmatex">\(y_i(\vec{w}^T\vec{x}_i + b) \geq 1\)</span>).</li>
+</ul>
+<p>Despite this structural inversion, the underlying optimization mechanics remain aligned. We can map this primal formulation back onto our standard regularized ERM framework under an explicit piece-wise loss metric known as the <strong>Hinge Loss Function</strong>:</p>
+<div class="arithmatex">\[L_{\text{Hinge}}(z) = \max(0, \,\, 1 - z)\]</div>
+<p>Under this lens, an SVM is mathematically equivalent to an ERM pipeline running a linear hypothesis class over a squared <span class="arithmatex">\(L_2\)</span> parameter penalty constraint, using Hinge loss to penalize any training instance that crosses into the margin corridor. Because this global optimization space is perfectly convex, we can bypass approximate first-order numerical gradient loops and solve for the absolute global parameters analytically using formal duality theory.</p>
+<hr />
+<h3 id="302-constructing-the-primal-lagrangian-function">30.2 Constructing the Primal Lagrangian Function</h3>
+<p>To solve this inequality-constrained problem with absolute precision, we convert our boundaries into an unconstrained optimization functional. We rewrite our linear inequality constraints to match standard convex programming layout (<span class="arithmatex">\(\text{Constraint}_i \leq 0\)</span>):</p>
+<div class="arithmatex">\[1 - y_i\left( \vec{w}^T \vec{x}_i + b \right) \leq 0 \quad \forall \,\, i = 1, 2, \dots, N\]</div>
+<p>We allocate an independent, non-negative scalar <strong>Lagrange Multiplier</strong> component (also denoted as a <em>dual variable</em>) to every single training instance row stored in our matrix. Let the vector of these multipliers be denoted as <span class="arithmatex">\(\vec{\mu} = [\mu_1, \mu_2, \dots, \mu_N]^T \in \mathbb{R}^N\)</span>.</p>
+<p>We assemble our global <strong>Primal Lagrangian Function</strong>, denoted as <span class="arithmatex">\(\mathcal{L}(\vec{w}, b, \vec{\mu})\)</span>:</p>
+<div class="arithmatex">\[\mathcal{L}(\vec{w}, b, \vec{\mu}) = \frac{1}{2} \vec{w}^T \vec{w} + \sum_{i=1}^{N} \mu_i \left[ 1 - y_i \left( \vec{w}^T \vec{x}_i + b \right) \right]\]</div>
+<h4 id="literal-variable-and-operator-breakdown">Literal Variable and Operator Breakdown:</h4>
+<ul>
+<li><strong><span class="arithmatex">\(\mathcal{L}(\vec{w}, b, \vec{\mu})\)</span></strong>: The scalar output value of the unified Lagrangian function, acting as a functional mapping across the primal parameter vector space and the dual multiplier vector space.</li>
+<li><strong><span class="arithmatex">\(\vec{w}\)</span></strong>: The trainable parameter weight vector of length <span class="arithmatex">\(D\)</span>, mapping the directional normal angle of the decision boundary.</li>
+<li><strong><span class="arithmatex">\(b\)</span></strong>: The standalone scalar intercept bias managing the hyperplane's perpendicular distance from the coordinate origin.</li>
+<li><strong><span class="arithmatex">\(\vec{\mu}\)</span></strong>: The non-negative vector of <span class="arithmatex">\(N\)</span> Lagrange multipliers ($ \mu_i \geq 0$).</li>
+<li><strong><span class="arithmatex">\(\frac{1}{2} \vec{w}^T \vec{w}\)</span></strong>: The squared <span class="arithmatex">\(L_2\)</span> norm of the parameter weights, acting as our core objective function to minimize the model's structural variance.</li>
+<li><strong><span class="arithmatex">\(\sum_{i=1}^{N}\)</span></strong>: The linear summation operator iterating across every independent constraint row inside the training folder from index <span class="arithmatex">\(i=1\)</span> to <span class="arithmatex">\(i=N\)</span>.</li>
+<li><strong><span class="arithmatex">\(1 - y_i(\vec{w}^T \vec{x}_i + b)\)</span></strong>: The explicit linear distance constraint evaluating the margin compliance of data vector <span class="arithmatex">\(\vec{x}_i\)</span> matching target label <span class="arithmatex">\(y_i\)</span>.</li>
+</ul>
+<hr />
+<h3 id="303-the-karush-kuhn-tucker-kkt-optimality-conditions">30.3 The Karush-Kuhn-Tucker (KKT) Optimality Conditions</h3>
+<p>Because our primal objective is perfectly convex and our constraints are linear, the system satisfies <strong>Slater's Condition</strong>, guaranteeing that the primal and dual solutions converge onto an identical coordinate point with zero duality gap. To isolate this unique global saddle point, our parameters must satisfy the complete system of <strong>Karush-Kuhn-Tucker (KKT) Conditions</strong>.</p>
+<h4 id="1-primal-stationarity-the-derivative-conditions">1. Primal Stationarity (The Derivative Conditions)</h4>
+<p>The partial derivatives of our Lagrangian function with respect to the primal variables <span class="arithmatex">\(\vec{w}\)</span> and <span class="arithmatex">\(b\)</span> must vanish completely at the global optimum.</p>
+<p>First, we evaluate the multi-axis vector derivative with respect to our weight parameters <span class="arithmatex">\(\vec{w}\)</span>:</p>
+<div class="arithmatex">\[\nabla_{\vec{w}} \mathcal{L}(\vec{w}, b, \vec{\mu}) = \vec{0} \implies \nabla_{\vec{w}} \left[ \frac{1}{2} \vec{w}^T \vec{w} \right] - \nabla_{\vec{w}} \left[ \sum_{i=1}^{N} \mu_i y_i \vec{w}^T \vec{x}_i \right] = \vec{0}\]</div>
+<div class="arithmatex">\[\vec{w}^* - \sum_{i=1}^{N} \mu_i y_i \vec{x}_i = \vec{0} \implies \vec{w}^* = \sum_{i=1}^{N} \mu_i y_i \vec{x}_i \quad \mathbf{(Eq. \,\, 30.1)}\]</div>
+<p>This provides an exceptional structural insight. At the global optimum, the ideal weight vector <span class="arithmatex">\(\vec{w}^*\)</span> is entirely expressed as a <strong>linear combination of the training data rows (<span class="arithmatex">\(\vec{x}_i\)</span>)</strong>, scaled by their labels (<span class="arithmatex">\(y_i\)</span>) and their optimal Lagrange multipliers (<span class="arithmatex">\(\mu_i\)</span>).</p>
+<p>Next, we evaluate the scalar derivative with respect to our intercept bias <span class="arithmatex">\(b\)</span>:</p>
+<div class="arithmatex">\[\frac{\partial \mathcal{L}}{\partial b} = 0 \implies \frac{\partial}{\partial b} \left[ \sum_{i=1}^{N} \mu_i - \sum_{i=1}^{N} \mu_i y_i \vec{w}^T \vec{x}_i - \sum_{i=1}^{N} \mu_i y_i b \right] = 0\]</div>
+<div class="arithmatex">\[-\sum_{i=1}^{N} \mu_i y_i = 0 \implies \sum_{i=1}^{N} \mu_i y_i = 0 \quad \mathbf{(Eq. \,\, 30.2)}\]</div>
+<p>This identity enforces a balancing constraint across our dual vector space: the sum of our optimal multipliers weighted by their respective binary labels must equal exactly zero.</p>
+<h4 id="2-primal-feasibility">2. Primal Feasibility</h4>
+<p>Every training instance must comply with the foundational classification safety boundaries:</p>
+<div class="arithmatex">\[1 - y_i \left( (\vec{w}^*)^T \vec{x}_i + b^* \right) \leq 0 \quad \forall \,\, i = 1, 2, \dots, N\]</div>
+<h4 id="3-dual-feasibility">3. Dual Feasibility</h4>
+<p>Every Lagrange multiplier must remain strictly non-negative:</p>
+<div class="arithmatex">\[\mu_i \geq 0 \quad \forall \,\, i = 1, 2, \dots, N\]</div>
+<h4 id="4-complementary-slackness">4. Complementary Slackness</h4>
+<p>The product of each Lagrange multiplier and its respective constraint function must equal exactly zero at the optimum:</p>
+<div class="arithmatex">\[\mu_i \left[ 1 - y_i \left( (\vec{w}^*)^T \vec{x}_i + b^* \right) \right] = 0 \quad \forall \,\, i = 1, 2, \dots, N\]</div>
+<p>This condition uncovers the exact mechanics of model sparsity. For every data instance in your folder, this product can only equal zero through one of two mathematical paths:</p>
+<ul>
+<li><strong>Path A (<span class="arithmatex">\(\mu_i = 0\)</span>):</strong> If a training data vector lands safely outside the corridor (<span class="arithmatex">\(y_i(\vec{w}^T\vec{x}_i + b) &gt; 1\)</span>), its multiplier is forced to be exactly zero. Looking back at <strong>Eq. 30.1</strong>, because <span class="arithmatex">\(\mu_i = 0\)</span>, this point is completely wiped out from the model's equations. It exerts zero influence over the final shape of the decision boundary.</li>
+<li><strong>Path B (<span class="arithmatex">\(\mu_i &gt; 0\)</span>):</strong> If a multiplier is strictly positive, the complementary constraint forces the bracketed term to be exactly zero: <span class="arithmatex">\(y_i(\vec{w}^T\vec{x}_i + b) = 1\)</span>. This means the data vector sits precisely on the edge of the margin corridor. These critical instances are our <strong>Support Vectors</strong>.</li>
+</ul>
+<p>We define the active Support Vector set <span class="arithmatex">\(S\)</span> as:</p>
+<div class="arithmatex">\[S \triangleq \{ \vec{x}_i \in D \mid \mu_i &gt; 0 \}\]</div>
+<p>The complete decision boundary is supported exclusively by this sparse subset of boundary points. If you delete any other data rows from your database folder, the parameters of your classifier will not budge by a single decimal point.</p>
+<hr />
+<h3 id="304-the-framework-of-wolfe-duality">30.4 The Framework of Wolfe Duality</h3>
+<p>To calculate our optimal weights, we must compute the values of our unknown Lagrange multipliers <span class="arithmatex">\(\vec{\mu}\)</span>. We achieve this by shifting our optimization problem from the primal domain (<span class="arithmatex">\(\vec{w}, b\)</span>) into the <strong>Dual Domain</strong> via a Wolfe Duality framework.</p>
+<p>We construct our <strong>Dual Objective Function</strong>, denoted as <span class="arithmatex">\(Q(\vec{\mu})\)</span>, by calculating the <strong>infimum</strong> (the greatest lower bound) of our primal Lagrangian evaluated across our primal parameters:</p>
+<div class="arithmatex">\[Q(\vec{\mu}) \triangleq \inf_{\vec{w}, b} \mathcal{L}(\vec{w}, b, \vec{\mu})\]</div>
+<blockquote>
+<p><strong>The Mathematical Distinction: Infimum vs. Minimum:</strong>
+The professor notes a key distinction in optimization terminology. A <strong>Minimum</strong> describes a lower bound value that is explicitly reached by a specific coordinate within a set. An <strong>Infimum</strong> represents the absolute greatest lower bound of a function over a domain, regardless of whether that boundary coordinate is explicitly achieved by an active point in the space.</p>
+</blockquote>
+<p>Because our Lagrangian function is smooth and convex with respect to <span class="arithmatex">\(\vec{w}\)</span> and <span class="arithmatex">\(b\)</span>, this infimum is exactly achieved at the stationarity coordinates derived in our first KKT condition.</p>
+<p>To construct the explicit formula for <span class="arithmatex">\(Q(\vec{\mu})\)</span>, we will take our stationarity equations (<span class="arithmatex">\(\vec{w}^* = \sum \mu_i y_i \vec{x}_i\)</span> and <span class="arithmatex">\(\sum \mu_i y_i = 0\)</span>) and substitute them directly back into our primal Lagrangian function, eliminating the primal variables entirely.</p>
+<p>Once <span class="arithmatex">\(Q(\vec{\mu})\)</span> is isolated, we execute our global <strong>Dual Optimization Problem</strong>:</p>
+<div class="arithmatex">\[\max_{\vec{\mu}} Q(\vec{\mu}) \quad \text{subject to} \quad \mu_i \geq 0 \quad \forall \,\, i=1,\dots,N \quad \text{and} \quad \sum_{i=1}^{N} \mu_i y_i = 0\]</div>
+<p>Because the primal problem was a minimization task, its dual representation is a maximization task. Moving into this dual domain grants us a massive architectural advantage: <strong>we have eliminated our complex structural parameters and rewritten our entire classification system as a function of Lagrange multipliers bounded by simple box constraints.</strong> Once our software backend evaluates this dual function using standard quadratic solvers to find <span class="arithmatex">\(\vec{\mu}^*\)</span>, we can instantly map the results back to our primal space to recover our optimal decision boundary parameters (<span class="arithmatex">\(\vec{w}^*, b^*\)</span>) with perfect numerical precision.</p>
+<hr />
+<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
+<blockquote>
+<p><strong>The Generalist's Theoretical Map:</strong>
+1. <strong>The Dual Role Swap:</strong> Support Vector Machines invert classical regularized ERM structures. The objective function optimizes parameter length (<span class="arithmatex">\(\frac{1}{2}\|\vec{w}\|_2^2\)</span>) while our training data rows function as a massive system of linear inequality constraints.
+2. <strong>The Primal Expansion Law:</strong> Applying the KKT stationarity condition proves that the optimal weight vector <span class="arithmatex">\(\vec{w}^*\)</span> is expressed entirely as a linear combination of training data vectors: <span class="arithmatex">\(\vec{w}^* = \sum \mu_i y_i \vec{x}_i\)</span>.
+3. <strong>The Complementary Slackness Filter:</strong> The KKT complementary slackness condition forces the Lagrange multipliers to drop to exactly zero for all instances residing safely outside the margin corridor. The decision boundary is anchored exclusively by a sparse subset of boundary coordinates known as Support Vectors (<span class="arithmatex">\(\mu_i &gt; 0\)</span>).</p>
+</blockquote>
+<hr />
+<p>Our primal Lagrangian formulation and KKT conditions are completely formalized. We have derived the stationarity vectors, isolated the sparsity filters of complementary slackness, and established the baseline requirements of Wolfe Duality.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

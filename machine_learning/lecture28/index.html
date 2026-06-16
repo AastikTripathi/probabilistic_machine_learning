@@ -1,0 +1,3116 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lecture27/">
+      
+      
+        <link rel="next" href="../lecture29/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lecture28 - Probabilistic Machine Learning</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Probabilistic Machine Learning
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lecture28
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Probabilistic Machine Learning
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Machine Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture03_2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture03 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture04_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture04 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture06_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture06 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture07_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture07 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture09_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture09 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture14
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture15
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17-2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture17_1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture17 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture19
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture20
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture21
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture22
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture23
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture24
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture25
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture26
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture27
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture28
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-19-generalized-linear-models-basis-transformations-and-the-evolution-of-feature-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 19: Generalized Linear Models, Basis Transformations, and the Evolution of Feature Representation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 19: Generalized Linear Models, Basis Transformations, and the Evolution of Feature Representation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#191-the-structural-limitation-of-naive-linearity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.1 The Structural Limitation of Naive Linearity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#192-the-feature-transformation-mapping-vecphivecx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.2 The Feature Transformation Mapping (\(\vec{\phi}(\vec{x})\))
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.2 The Feature Transformation Mapping (\(\vec{\phi}(\vec{x})\))">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-realization-of-linearity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Realization of Linearity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#193-the-matrix-formulation-of-generalized-linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.3 The Matrix Formulation of Generalized Linear Regression
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.3 The Matrix Formulation of Generalized Linear Regression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-construct-the-transformed-design-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Construct the Transformed Design Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-resolve-the-normal-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Resolve the Normal Equations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#194-classical-instantiations-polynomial-regression-and-fourier-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.4 Classical Instantiations: Polynomial Regression and Fourier Series
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.4 Classical Instantiations: Polynomial Regression and Fourier Series">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-polynomial-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Polynomial Regression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-fourier-series-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Fourier Series Expansion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#195-the-probabilistic-correspondence-heteroscedastic-gaussian-duality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.5 The Probabilistic Correspondence: Heteroscedastic Gaussian Duality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#196-the-historical-evolution-the-leap-to-deep-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.6 The Historical Evolution: The Leap to Deep Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.6 The Historical Evolution: The Leap to Deep Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-modern-neural-breakthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Modern Neural Breakthrough
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concrete-examples-in-modern-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concrete Examples in Modern Architectures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concrete Examples in Modern Architectures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-computer-vision-image-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Computer Vision (Image Classification)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-natural-language-processing-text-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Natural Language Processing (Text Ingestion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-tabular-engineering-complex-price-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Tabular Engineering (Complex Price Prediction)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-do-we-encounter-this-in-the-lecture-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Do We Encounter This in the Lecture Series?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture29
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture30
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture31
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture32
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture33
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture34
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture35
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture36
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture37
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture38
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture39
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture40
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture41
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture42/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture42
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture43/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture43
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture44/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture44
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture45/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture45
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture46/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture46
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture47/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture47
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture48/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture48
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture49/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture49
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture50/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture50
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture51/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture51
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture52/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture52
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture53/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture53
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture54/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture54
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture55/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture55
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture56/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture56
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture57/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture57
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture58/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture58
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture59/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture59
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture60/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture60
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture61/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture61
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture62/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture62
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture63/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture63
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture64
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lecture65/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lecture65
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-19-generalized-linear-models-basis-transformations-and-the-evolution-of-feature-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 19: Generalized Linear Models, Basis Transformations, and the Evolution of Feature Representation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 19: Generalized Linear Models, Basis Transformations, and the Evolution of Feature Representation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#191-the-structural-limitation-of-naive-linearity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.1 The Structural Limitation of Naive Linearity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#192-the-feature-transformation-mapping-vecphivecx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.2 The Feature Transformation Mapping (\(\vec{\phi}(\vec{x})\))
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.2 The Feature Transformation Mapping (\(\vec{\phi}(\vec{x})\))">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-core-realization-of-linearity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Realization of Linearity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#193-the-matrix-formulation-of-generalized-linear-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.3 The Matrix Formulation of Generalized Linear Regression
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.3 The Matrix Formulation of Generalized Linear Regression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-construct-the-transformed-design-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Construct the Transformed Design Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-resolve-the-normal-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Resolve the Normal Equations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#194-classical-instantiations-polynomial-regression-and-fourier-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.4 Classical Instantiations: Polynomial Regression and Fourier Series
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.4 Classical Instantiations: Polynomial Regression and Fourier Series">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-polynomial-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Polynomial Regression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-fourier-series-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Fourier Series Expansion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#195-the-probabilistic-correspondence-heteroscedastic-gaussian-duality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.5 The Probabilistic Correspondence: Heteroscedastic Gaussian Duality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#196-the-historical-evolution-the-leap-to-deep-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.6 The Historical Evolution: The Leap to Deep Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19.6 The Historical Evolution: The Leap to Deep Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-modern-neural-breakthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Modern Neural Breakthrough
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#textbook-notes-study-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textbook Notes Study Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concrete-examples-in-modern-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concrete Examples in Modern Architectures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concrete Examples in Modern Architectures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-computer-vision-image-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Computer Vision (Image Classification)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-natural-language-processing-text-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Natural Language Processing (Text Ingestion)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-tabular-engineering-complex-price-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Tabular Engineering (Complex Price Prediction)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-do-we-encounter-this-in-the-lecture-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Do We Encounter This in the Lecture Series?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+<h2 id="chapter-19-generalized-linear-models-basis-transformations-and-the-evolution-of-feature-representation">Chapter 19: Generalized Linear Models, Basis Transformations, and the Evolution of Feature Representation</h2>
+<hr />
+<h3 id="191-the-structural-limitation-of-naive-linearity">19.1 The Structural Limitation of Naive Linearity</h3>
+<p>In the previous chapter, we derived the closed-form solution for Ordinary Least Squares (OLS) under a naive linear assumption. We defined our hypothesis mapping function as a strict weighted combination of the raw input coordinates:</p>
+<div class="arithmatex">\[h_{\vec{\theta}}(\vec{x}) = \vec{\theta}^T \vec{x} = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + \dots + \theta_D x_D\]</div>
+<p>While this framework yields an elegant, direct matrix inversion via the Moore-Penrose pseudo-inverse, it faces a major physical constraint: <strong>the real universe is profoundly non-linear.</strong> If the true relationship between your input features and your targets curves quadratically, cubically, or sinusoidally, a naive linear model will suffer from severe structural bias. No matter how cleanly you invert your data matrices, a straight line cannot accurately fit a bending curve.</p>
+<pre><code>      [ Raw Feature Space: ℝᴰ ]                     [ Transformed Feature Space: ℝᴾ ]
+       Non-linear trajectories                        Perfect linear alignment
+       Impossible to fit with a hyperplane.           Solvable via OLS Normal Equations.
+                 |                                              ^
+                 |                                              |
+                 ------------------[ Φ(x) Transformation ]-------
+
+</code></pre>
+<p>To resolve this limitation without sacrificing the mathematical cleanliness of linear algebra, we introduce <strong>Generalized Linear Models</strong> via basis transformations. We demonstrate that we can model highly complex, twisting geometric curves while completely preserving our linear optimization pipeline.</p>
+<hr />
+<h3 id="192-the-feature-transformation-mapping-vecphivecx">19.2 The Feature Transformation Mapping (<span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span>)</h3>
+<p>The core operational trick of a generalized linear model is to separate the <strong>data space</strong> from the <strong>parameter space</strong>. Instead of forcing our model to be linear with respect to our raw features <span class="arithmatex">\(\vec{x}\)</span>, we apply a fixed, precomputed non-linear transformation function—denoted as <span class="arithmatex">\(\vec{\phi}(\cdot)\)</span>—to project our data into a completely different coordinate space before optimization begins.</p>
+<blockquote>
+<p><strong>Definition 19.1 (The Feature Transformation Mapping).</strong> Let <span class="arithmatex">\(\vec{x} \in \mathbb{R}^D\)</span> represent a raw input vector in a <span class="arithmatex">\(D\)</span>-dimensional data space. We define <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span> as a fixed, user-defined non-linear mapping function that projects our raw coordinates into a <span class="arithmatex">\(P\)</span>-dimensional feature space:
+$<span class="arithmatex">\(\vec{\phi}: \mathbb{R}^D \rightarrow \mathbb{R}^P\)</span>$</p>
+<div class="arithmatex">\[\vec{\phi}(\vec{x}) = \left[ \phi_1(\vec{x}), \,\, \phi_2(\vec{x}), \dots, \phi_P(\vec{x}) \right]^T\]</div>
+</blockquote>
+<p>Under this layout, each individual coordinate dimension <span class="arithmatex">\(\phi_j(\vec{x})\)</span> in our new space can be a complex function of one or more dimensions of our original data:</p>
+<ul>
+<li><strong>Single-Dimension Transformations:</strong> <span class="arithmatex">\(\phi_1(\vec{x}) = (x_1)^2\)</span> or <span class="arithmatex">\(\phi_2(\vec{x}) = (x_2)^3\)</span></li>
+<li><strong>Cross-Dimensional Interactions:</strong> <span class="arithmatex">\(\phi_3(\vec{x}) = (x_1)^2 \cdot (x_2)^6\)</span></li>
+</ul>
+<p>By pulling our raw data through this mapping matrix, our hypothesis function transforms into:</p>
+<div class="arithmatex">\[h_{\vec{\theta}}(\vec{x}) = \vec{\theta}^T \vec{\phi}(\vec{x}) = \theta_1 \phi_1(\vec{x}) + \theta_2 \phi_2(\vec{x}) + \dots + \theta_P \phi_P(\vec{x})\]</div>
+<h4 id="the-core-realization-of-linearity">The Core Realization of Linearity</h4>
+<p>Look closely at this new hypothesis equation. This function is undeniably <strong>non-linear with respect to the raw data space <span class="arithmatex">\(\mathbb{R}^D\)</span></strong>. However, it remains perfectly <strong>linear with respect to the parameter vector <span class="arithmatex">\(\vec{\theta}\)</span> inside the transformed feature space <span class="arithmatex">\(\mathbb{R}^P\)</span></strong>.</p>
+<p>Because the parameters interact with our transformed features through a simple inner product, our entire underlying optimization pipeline remains unchanged. We are still performing linear regression; we have simply changed the coordinates of the canvas we are drawing on.</p>
+<hr />
+<h3 id="193-the-matrix-formulation-of-generalized-linear-regression">19.3 The Matrix Formulation of Generalized Linear Regression</h3>
+<p>Because our optimization remains linear in the parameter space <span class="arithmatex">\(\mathbb{R}^P\)</span>, we can deploy the exact same closed-form matrix calculus we derived for Ordinary Least Squares in Chapter 18.</p>
+<h4 id="step-1-construct-the-transformed-design-matrix">Step 1: Construct the Transformed Design Matrix</h4>
+<p>We pass our entire training dataset of <span class="arithmatex">\(N\)</span> rows through our fixed transformation function <span class="arithmatex">\(\vec{\phi}(\cdot)\)</span>. We stack the resulting <span class="arithmatex">\(P\)</span>-dimensional row vectors horizontally to construct our new transformed <strong>Design Matrix</strong>, denoted as <span class="arithmatex">\(\mathbf{\Phi}\)</span>:</p>
+<div class="arithmatex">\[\mathbf{\Phi} = \begin{bmatrix} \vec{\phi}(\vec{x}_1)^T \\ \vec{\phi}(\vec{x}_2)^T \\ \vdots \\ \vec{\phi}(\vec{x}_N)^T \end{bmatrix} = \begin{bmatrix} \phi_1(\vec{x}_1) &amp; \phi_2(\vec{x}_1) &amp; \dots &amp; \phi_P(\vec{x}_1) \\ \phi_1(\vec{x}_2) &amp; \phi_2(\vec{x}_2) &amp; \dots &amp; \phi_P(\vec{x}_2) \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ \phi_1(\vec{x}_N) &amp; \phi_2(\vec{x}_N) &amp; \dots &amp; \phi_P(\vec{x}_N) \end{bmatrix} \in \mathbb{R}^{N \times P}\]</div>
+<h4 id="step-2-resolve-the-normal-equations">Step 2: Resolve the Normal Equations</h4>
+<p>We substitute this transformed design matrix directly into our Empirical Risk Minimization objective function using a standard squared error loss metric:</p>
+<div class="arithmatex">\[\vec{\theta}^* = \arg\min_{\vec{\theta}} \frac{1}{N} \|\mathbf{\Phi}\vec{\theta} - \vec{Y}\|_2^2\]</div>
+<p>Computing the vector gradient with respect to <span class="arithmatex">\(\vec{\theta}\)</span> and setting the result to zero yields the exact same system of Normal Equations, adapted to our <span class="arithmatex">\(P\)</span>-dimensional feature space:</p>
+<div class="arithmatex">\[\mathbf{\Phi}^T \mathbf{\Phi} \vec{\theta}^* = \mathbf{\Phi}^T \vec{Y}\]</div>
+<p>Assuming our transformed matrix product possesses full column rank, we isolate our optimal parameters using the exact same Moore-Penrose pseudo-inverse solution:</p>
+<div class="arithmatex">\[\vec{\theta}^* = \left( \mathbf{\Phi}^T \mathbf{\Phi} \right)^{-1} \mathbf{\Phi}^T \vec{Y}\]</div>
+<hr />
+<h3 id="194-classical-instantiations-polynomial-regression-and-fourier-series">19.4 Classical Instantiations: Polynomial Regression and Fourier Series</h3>
+<p>To see the flexibility of this framework, let us examine two classical applications where non-linear curves are linearized using fixed transformations.</p>
+<h4 id="1-polynomial-regression">1. Polynomial Regression</h4>
+<p>Consider a simple one-dimensional data environment where <span class="arithmatex">\(x \in \mathbb{R}^1\)</span> and <span class="arithmatex">\(y \in \mathbb{R}^1\)</span>. We choose a fixed polynomial kernel to map our data into a 3-dimensional feature space (<span class="arithmatex">\(P = 3\)</span>):</p>
+<div class="arithmatex">\[\vec{\phi}(x) = \left[ 1, \,\, x, \,\, x^2 \right]^T\]</div>
+<p>Our generalized linear hypothesis expands to:</p>
+<div class="arithmatex">\[h_{\vec{\theta}}(x) = \vec{\theta}^T \vec{\phi}(x) = \theta_0 + \theta_1 x + \theta_2 x^2\]</div>
+<p>This creates a bending quadratic parabola in your raw data plots. Yet, because the parameters <span class="arithmatex">\(\theta_j\)</span> are separated by addition, a computer can solve for the perfect curved fit instantly using basic matrix inversion.</p>
+<h4 id="2-fourier-series-expansion">2. Fourier Series Expansion</h4>
+<p>Suppose you are analyzing periodic or wave-based data patterns. You can define your fixed transformation function <span class="arithmatex">\(\vec{\phi}(\cdot)\)</span> to be a collection of sine and cosine wave functions:</p>
+<div class="arithmatex">\[\vec{\phi}(x) = \left[ 1, \,\, \sin(x), \,\, \cos(x), \,\, \sin(2x), \,\, \cos(2x), \dots \right]^T\]</div>
+<p>Optimizing this system using our OLS normal equations isolates the exact coefficients needed to reconstruct complex periodic trajectories. A classical Fourier series is simply an empirical risk minimization routine executing over a fixed sinusoidal coordinate manifold.</p>
+<hr />
+<h3 id="195-the-probabilistic-correspondence-heteroscedastic-gaussian-duality">19.5 The Probabilistic Correspondence: Heteroscedastic Gaussian Duality</h3>
+<p>The professor bridges our structural framework back to the rules of probability theory by proving that <strong>choosing an architectural kernel in the ERM world matches an explicit density assumption in the probabilistic world.</strong></p>
+<p>Consider a binary classification problem (<span class="arithmatex">\(Y \in \{0, 1\}\)</span>) where we build a Bayes Optimal Classifier by evaluating the posterior ratio of two continuous class-conditional densities, assuming both follow Multivariate Gaussian profiles:</p>
+<div class="arithmatex">\[p(\vec{x} \mid Y = 0) = \mathcal{N}\left(\vec{x}; \,\, \vec{\mu}_0, \,\, \Sigma_0\right) \quad \text{and} \quad p(\vec{x} \mid Y = 1) = \mathcal{N}\left(\vec{x}; \,\, \vec{\mu}_1, \,\, \Sigma_1\right)\]</div>
+<p>When we evaluate the decision boundary where the posterior probabilities balance perfectly, our algebraic equations record the difference between these two continuous quadratic forms.</p>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Statistical Covariance Parameter</th>
+<th>Geometric Shape of Decision Boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Homoscedastic Setup</strong></td>
+<td>Identical Covariance Matrices: <span class="arithmatex">\(\Sigma_0 = \Sigma_1\)</span></td>
+<td><strong>Linear Hyperplane.</strong> The quadratic matrix terms (<span class="arithmatex">\(x^2\)</span>) cancel out completely during subtraction, leaving a pure linear function of data.</td>
+</tr>
+<tr>
+<td><strong>Heteroscedastic Setup</strong></td>
+<td>Different Covariance Matrices: <span class="arithmatex">\(\Sigma_0 \neq \Sigma_1\)</span></td>
+<td><strong>Quadratic Surface.</strong> The quadratic matrix terms survive the subtraction, forcing the decision boundary to warp into a curve.</td>
+</tr>
+</tbody>
+</table>
+<p>This exposes the grand duality: <strong>If you choose to run a Generalized Linear Model with a quadratic feature transformation (<span class="arithmatex">\(\vec{\phi}(\vec{x}) = [x, x^2]^T\)</span>), you are implicitly making a foundational assumption that your class-conditional distributions are heteroscedastic Gaussians possessing entirely different spatial variances (<span class="arithmatex">\(\Sigma_0 \neq \Sigma_1\)</span>).</strong></p>
+<hr />
+<h3 id="196-the-historical-evolution-the-leap-to-deep-learning">19.6 The Historical Evolution: The Leap to Deep Learning</h3>
+<p>To close the lecture, the professor steps back to look at the history of machine learning engineering, outlining the core transition that separates the classical era from modern deep learning.</p>
+<pre><code>       [ The Classical Era: Manual Engineering ]              [ The Modern Era: Learnable Representations ]
+        Humans manually design a fixed feature vector Φ.      The transformation weights W are left free.
+        Examples: SIFT, Gabor Filters, Wavelets.             Optimized directly via backpropagation.
+                 |                                                      |
+                 v                                                      v
+        Limited by human domain insight.                     Universal feature representation.
+
+</code></pre>
+<p>In the pre-deep learning era, engineers never passed raw data vectors directly into their classifiers. If you wanted to analyze a speech signal or a digital image, you spent years designing a specialized feature transformation function <span class="arithmatex">\(\vec{\phi}(\cdot)\)</span> by hand.</p>
+<p>Scientists dedicated their entire careers to discovering robust hand-crafted feature extractors—resulting in famous historical transformations named after their creators, such as <strong>Gabor Filters</strong>, <strong>Fourier Transforms</strong>, <strong>SIFT features</strong>, and <strong>Wavelet expansions</strong>.</p>
+<p>The professor notes that this manual approach is inherently limited by human insight. We are forcing our data to pass through a rigid, human-designed bottleneck.</p>
+<h4 id="the-modern-neural-breakthrough">The Modern Neural Breakthrough</h4>
+<p>Modern deep learning completely flips this paradigm. Instead of forcing a human to engineer a fixed transformation function <span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span>, we treat the feature mapping components themselves as a massive collection of <strong>learnable parameter weights (<span class="arithmatex">\(\mathbf{W}\)</span>)</strong> left completely free inside the network:</p>
+<div class="arithmatex">\[h_{\vec{\theta}}(\vec{x}) = \vec{\theta}^T \vec{\phi}(\vec{x}; \,\, \mathbf{W})\]</div>
+<p>Instead of fixing the canvas, a neural network uses empirical risk minimization to optimize both the final linear decision weights <span class="arithmatex">\(\vec{\theta}\)</span> <em>and</em> the internal feature representation layers <span class="arithmatex">\(\mathbf{W}\)</span> simultaneously. The network looks at the raw data and automatically figures out how to warp, stretch, and transform the space until the categories become cleanly and linearly separable.</p>
+<hr />
+<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
+<blockquote>
+<p><strong>The Generalist's Theoretical Map:</strong>
+1. <strong>Generalized Linear Regression</strong> projects a raw data vector <span class="arithmatex">\(\vec{x} \in \mathbb{R}^D\)</span> into a non-linear feature space <span class="arithmatex">\(\vec{\phi}(\vec{x}) \in \mathbb{R}^P\)</span>. While the resulting model curves over our raw inputs, it remains perfectly linear with respect to its parameters <span class="arithmatex">\(\vec{\theta}\)</span>, allowing us to solve it using our standard OLS Normal Equations: <span class="arithmatex">\(\vec{\theta}^* = \left( \mathbf{\Phi}^T \mathbf{\Phi} \right)^{-1} \mathbf{\Phi}^T \vec{Y}\)</span>.
+2. <strong>The Covariance Duality:</strong> Slicing a space with a quadratic basis expansion is the exact mathematical equivalent of building a probabilistic Bayes classifier under the assumption that your classes follow Gaussian distributions with unequal covariances (<span class="arithmatex">\(\Sigma_0 \neq \Sigma_1\)</span>).
+3. <strong>The Representation Shift:</strong> Deep learning eliminates the need for manual, hand-crafted feature engineering (like SIFT or wavelets). A neural network uses optimization to learn the optimal feature transformation mapping (<span class="arithmatex">\(\vec{\phi}\)</span>) directly from raw data fields.</p>
+</blockquote>
+<hr />
+<p>Our exploration of generalized linear expansions is complete. We have mapped out basis transformations, derived the Normal Equations over feature spaces, and established how neural networks automate this entire process.</p>
+<p>As we prepare for the next lecture to dive explicitly into the empirical risk minimization mechanics of <strong>Classification Linearity</strong>, how does your architectural understanding of basis expansions help you visualize how a neural network's hidden layers reshape a chaotic cluster of raw coordinates into a clean, linearly separable manifold?</p>
+<p>To see exactly how this modern breakthrough operates, it helps to decouple the math into standard neural network architecture.</p>
+<p>In the equation <span class="arithmatex">\(h_{\vec{\theta}}(\vec{x}) = \vec{\theta}^T \vec{\phi}(\vec{x}; \,\, \mathbf{W})\)</span>:</p>
+<ul>
+<li><span class="arithmatex">\(\mathbf{W}\)</span> represents the weights of all the <strong>hidden layers</strong> (the learnable feature extractor backbone).</li>
+<li><span class="arithmatex">\(\vec{\phi}(\vec{x}; \,\, \mathbf{W})\)</span> is the representation vector output by the final hidden layer.</li>
+<li><span class="arithmatex">\(\vec{\theta}^T\)</span> represents the weights of the <strong>output layer</strong> (the standard linear classifier or regressor sitting on top).</li>
+</ul>
+<p>Here is how this looks in action across different domains, contrasting the classical "fixed" approach with the modern "learnable" breakthrough.</p>
+<hr />
+<h2 id="concrete-examples-in-modern-architectures">Concrete Examples in Modern Architectures</h2>
+<h3 id="1-computer-vision-image-classification">1. Computer Vision (Image Classification)</h3>
+<ul>
+<li><strong>The Classical Way (<span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span> is fixed):</strong> To classify an image of a lung X-ray, engineers manually wrote algorithms like SIFT or Gabor filters to extract edges, shadows, and textures. This turned the raw image pixels <span class="arithmatex">\(\vec{x}\)</span> into a fixed feature vector. A linear Support Vector Machine (<span class="arithmatex">\(\vec{\theta}\)</span>) was then trained on those static features. If the hand-crafted math missed a texture pattern, the model failed.</li>
+<li><strong>The Deep Learning Way (<span class="arithmatex">\(\vec{\phi}(\vec{x}; \mathbf{W})\)</span> is learned):</strong> You feed raw, un-engineered pixel arrays directly into a Convolutional Neural Network (like a ResNet).</li>
+<li>The convolutional kernels (<span class="arithmatex">\(\mathbf{W}\)</span>) start with completely random values.</li>
+<li>As the network trains via Empirical Risk Minimization, the early layers automatically figure out how to become edge detectors, and deeper layers combine those edges into complex shapes specifically optimized to spot anomalies in your dataset.</li>
+<li>The very last layer is just a simple linear layer (<span class="arithmatex">\(\vec{\theta}^T\)</span>) drawing a straight hyperplane through the highly optimized features that the hidden layers learned to extract.</li>
+</ul>
+<h3 id="2-natural-language-processing-text-ingestion">2. Natural Language Processing (Text Ingestion)</h3>
+<ul>
+<li><strong>The Classical Way (<span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span> is fixed):</strong> Sentences were passed through fixed mathematical frequency counters like TF-IDF or Bag-of-Words. The text was transformed into a sparse matrix mapping token counts, which was then fed into a linear Logistic Regression model. The model had no native grasp of syntax, word order, or context.</li>
+<li><strong>The Deep Learning Way (<span class="arithmatex">\(\vec{\phi}(\vec{x}; \mathbf{W})\)</span> is learned):</strong> Raw text token indices are fed into a Transformer network (like the backbone of an LLM).</li>
+<li>The Multi-Head Self-Attention matrices (<span class="arithmatex">\(\mathbf{W}\)</span>) are left entirely free.</li>
+<li>Through training on text bodies, these weights automatically learn how to project raw words into a dense continuous space where words with similar semantic meanings sit close together, and attention heads dynamically adjust based on context.</li>
+<li>The final classification head (<span class="arithmatex">\(\vec{\theta}^T\)</span>) simply runs a linear dot-product over this learned contextual embedding space to calculate the next-token probability.</li>
+</ul>
+<h3 id="3-tabular-engineering-complex-price-prediction">3. Tabular Engineering (Complex Price Prediction)</h3>
+<ul>
+<li><strong>The Classical Way (<span class="arithmatex">\(\vec{\phi}(\vec{x})\)</span> is fixed):</strong> If you wanted to predict a house's value based on raw inputs like <code>Latitude</code> and <code>Longitude</code>, a linear model would fail because geographic boundaries curve non-linearly. Engineers had to manually write cross-features (e.g., <code>Latitude × Longitude</code> or binning coordinates into localized polynomial zones) to force linear alignment.</li>
+<li><strong>The Deep Learning Way (<span class="arithmatex">\(\vec{\phi}(\vec{x}; \mathbf{W})\)</span> is learned):</strong> You feed the raw coordinates directly into a Multi-Layer Perceptron (MLP) with dense layers and non-linear activations (like ReLU). The hidden layer weights (<span class="arithmatex">\(\mathbf{W}\)</span>) compress, warp, and bend the coordinate grid internally, mapping it to a latent feature space where geographic pricing trends line up linearly for the final output layer (<span class="arithmatex">\(\vec{\theta}\)</span>) to evaluate.</li>
+</ul>
+<hr />
+<h2 id="when-do-we-encounter-this-in-the-lecture-series">When Do We Encounter This in the Lecture Series?</h2>
+<p>Based on the professor's explicit roadmap at the end of the transcript, <strong>we are scheduled to encounter this conceptual transition later in the course.</strong> Right now, the lecture series is moving strictly through the classical historical timeline:</p>
+<ol>
+<li><strong>Current Phase:</strong> Non-linear modeling via <em>fixed, precomputed</em> basis transformations (Polynomial regression, Fourier series expansions, hand-crafted kernels).</li>
+<li><strong>Next Phase:</strong> Returning to the Empirical Risk Minimization worldview to master <strong>Linear Models</strong> (Linear Regression, Generalized Linear Models).</li>
+<li><strong>Following Phase:</strong> Resolving the bias-variance trade-off using <strong>Regularization</strong> (L1/L2 penalties, which map directly back to the Bayesian MAP priors we derived).</li>
+<li><strong>The Culmination Phase:</strong> Transitioning into <strong>Neural Networks</strong>, where we officially unlock <span class="arithmatex">\(\mathbf{W}\)</span> and let the model optimize its own feature transformations directly from raw data fields.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
