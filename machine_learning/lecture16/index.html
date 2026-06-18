@@ -23,7 +23,7 @@
     
     
       
-        <title>Lecture16 - probailistic Machine Learning</title>
+        <title>Lecture16 - Probabilistic Machine Learning</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+        <a href="#chapter-14-foundations-of-parametric-density-estimationthe-multivariate-gaussian-mle-profile" class="md-skip">
           Skip to content
         </a>
       
@@ -80,7 +80,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -94,7 +94,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            probailistic Machine Learning
+            Probabilistic Machine Learning
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -178,13 +178,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    probailistic Machine Learning
+    Probabilistic Machine Learning
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -866,8 +866,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -909,8 +907,6 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
-  
-    
   
   
     <label class="md-nav__title" for="__toc">
@@ -1143,17 +1139,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#textbook-notes-study-guide" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Textbook Notes Study Guide
-      
-    </span>
-  </a>
   
 </li>
       
@@ -2618,8 +2603,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2854,17 +2837,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#textbook-notes-study-guide" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Textbook Notes Study Guide
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2882,9 +2854,9 @@
 
 
 
-<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+  <h1>Lecture16</h1>
+
 <h2 id="chapter-14-foundations-of-parametric-density-estimationthe-multivariate-gaussian-mle-profile">Chapter 14: Foundations of Parametric Density Estimation—The Multivariate Gaussian MLE Profile</h2>
-<hr />
 <h3 id="141-the-strategic-shift-from-philosophy-to-algorithm">14.1 The Strategic Shift: From Philosophy to Algorithm</h3>
 <p>We have officially completed our overarching philosophical exploration of machine learning theory. We have proved that whether we choose to view the field through the lens of <strong>Probabilistic Divergence Minimization</strong> or <strong>Empirical Risk Minimization (ERM)</strong>, both mathematical paths lead to the exact same destination: <strong>evaluating and estimating the shape of probability densities from empirical data.</strong></p>
 <p>To implement the absolute benchmark of classification performance—the <strong>Bayes Optimal Classifier</strong>—we require immediate access to the true class posterior distribution <span class="arithmatex">\(P(Y = c \mid \vec{X} = \vec{x})\)</span>. Because this distribution is locked away by nature, we must deploy Bayes' theorem to reconstruct it from things we <em>can</em> safely measure:</p>
@@ -2940,7 +2912,7 @@
 <div class="arithmatex">\[\sum_{i=1}^{N} \vec{v}_i - N\vec{\theta}^* = \vec{0}\]</div>
 <p>Isolating our optimal target parameter vector <span class="arithmatex">\(\vec{\theta}^*\)</span> yields the definitive closed-form equation:</p>
 <div class="arithmatex">\[N\vec{\theta}^* = \sum_{i=1}^{N} \vec{v}_i \implies \vec{\theta}^* = \frac{1}{N} \sum_{i=1}^{N} \vec{v}_i\]</div>
-<p>The proof is absolute. The sample mean is the unique, mathematically guaranteed optimal parameter vector that minimizes the Kullback-Leibler divergence to nature under a continuous Gaussian distribution assumption.</p>
+<p>The sample mean is the unique, mathematically guaranteed optimal parameter vector that minimizes the Kullback-Leibler divergence to nature under a continuous Gaussian distribution assumption.</p>
 <hr />
 <h2 id="144-exemplar-suite-10-architectural-applications-of-mean-parameter-vector-estimation">14.4 Exemplar Suite: 10 Architectural Applications of Mean Parameter Vector Estimation</h2>
 <p>To map the behavior of this closed-form multivariate vector estimator (<span class="arithmatex">\(\vec{\theta}^* = \frac{1}{N}\sum \vec{v}_i\)</span>), let us review ten diverse real-world engineering contexts where computing this exact mean profile serves as the core operational anchor.</p>
@@ -2995,16 +2967,8 @@
 <li><strong>Operational Execution:</strong> Computing the vector mean average isolates the neutral neural baseline configuration <span class="arithmatex">\(\vec{\theta}^*\)</span>, which is used as a zero-center reference to accurately detect intent spikes when a patient moves a robotic limb.</li>
 </ul>
 <hr />
-<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
-<blockquote>
-<p><strong>The Generalist's Mathematical Blueprint:</strong>
-1. <strong>The Class-Conditional Density (<span class="arithmatex">\(p(\vec{x} \mid Y = c)\)</span>)</strong> isolates the structural shape of your data features for a specific class label. It is the absolute core component needed to assemble a Bayes optimal decision boundary.
-2. <strong>The Analytical Loophole:</strong> When a density function's log-likelihood is smooth and convex, we do not need complex optimization code. We use matrix calculus to compute the exact gradient, set it to zero, and evaluate a closed-form solution.
-3. <strong>The Core Realization:</strong> Calculating a simple sample average is not an informal engineering shortcut. It is the mathematically exact, maximum likelihood parameter estimation vector derived directly from a multivariate Gaussian distribution space.</p>
-</blockquote>
-<p>The professor closes the lecture by introducing a massive structural pivot: <em>What happens when our data distribution cannot be modeled using a single, clean Gaussian bell curve?</em> If our data forms a complex, multi-peaked landscape, our log-likelihood equations lose their neat, convex properties, making them impossible to solve with simple closed-form calculus.</p>
+<p>Lets close this section by introducing a massive structural pivot: <em>What happens when our data distribution cannot be modeled using a single, clean Gaussian bell curve?</em> If our data forms a complex, multi-peaked landscape, our log-likelihood equations lose their neat, convex properties, making them impossible to solve with simple closed-form calculus.</p>
 <p>In the upcoming sessions, we will dive directly into advanced <strong>Estimation Theory</strong>, exploring the mechanics of <strong>Maximum A Posteriori (MAP)</strong> estimation to incorporate prior information, and uncovering the inner workings of the <strong>Expectation-Maximization (EM) Algorithm</strong> to model multi-peaked <strong>Gaussian Mixture Densities</strong> in the real world.</p>
-<p>To anchor this transition into advanced density models, how does your programming understanding of calculating an online, running database mean vector scale when your data streams contain multiple distinct, overlapping sub-populations?</p>
 
 
 

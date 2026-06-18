@@ -23,7 +23,7 @@
     
     
       
-        <title>Lecture14 - probailistic Machine Learning</title>
+        <title>Lecture14 - Probabilistic Machine Learning</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+        <a href="#chapter-12-the-risk-minimization-framework-empirical-surrogates-and-the-generalization-gap" class="md-skip">
           Skip to content
         </a>
       
@@ -80,7 +80,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -94,7 +94,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            probailistic Machine Learning
+            Probabilistic Machine Learning
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -178,13 +178,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    probailistic Machine Learning
+    Probabilistic Machine Learning
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -810,8 +810,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -853,8 +851,6 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
-  
-    
   
   
     <label class="md-nav__title" for="__toc">
@@ -1098,17 +1094,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#textbook-notes-study-guide" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Textbook Notes Study Guide
-      
-    </span>
-  </a>
   
 </li>
       
@@ -2629,8 +2614,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2876,17 +2859,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#textbook-notes-study-guide" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Textbook Notes Study Guide
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2904,7 +2876,8 @@
 
 
 
-<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+  <h1>Lecture14</h1>
+
 <h2 id="chapter-12-the-risk-minimization-framework-empirical-surrogates-and-the-generalization-gap">Chapter 12: The Risk Minimization Framework, Empirical Surrogates, and the Generalization Gap</h2>
 <hr />
 <h3 id="121-the-alternative-path-the-pure-risk-paradigm">12.1 The Alternative Path: The Pure Risk Paradigm</h3>
@@ -3065,17 +3038,8 @@ valleys caused by training sample noise.                 Requires uniform conver
 <div class="arithmatex">\[R(h) = \mathbb{E}_{(X,Y)}\left[ \mathbb{I}(h(X) \neq Y) \right]\]</div>
 <p>By utilizing the properties of expectations over indicator functions, we can rewrite this risk directly as a probability measure:</p>
 <div class="arithmatex">\[R(h) = P\left(h(X) \neq Y\right)\]</div>
-<p>This states that under a 0-1 loss framework, <strong>the True Risk is exactly equal to the global probability that your hypothesis function makes an incorrect prediction.</strong> The professor stops the lecture right here, leaving you with a fantastic cliffhanger. In the upcoming lecture, we will unleash multivariable integration across this exact equation to prove that the absolute minimizer of this true risk is directly governed by the true conditional probability distribution <span class="arithmatex">\(P(Y \mid X)\)</span>.</p>
+<p>This states that under a 0-1 loss framework, <strong>the True Risk is exactly equal to the global probability that your hypothesis function makes an incorrect prediction.</strong> </p>
 <hr />
-<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
-<blockquote>
-<p><strong>The Generalist's Theoretical Map:</strong>
-1. <strong>True Risk (<span class="arithmatex">\(R(h)\)</span>)</strong> is the continuous analytical expectation of error across the entire population universe: <span class="arithmatex">\(\mathbb{E}[L(h(X), Y)]\)</span>.
-2. <strong>Empirical Risk (<span class="arithmatex">\(\hat{R}_N(h)\)</span>)</strong> is the discrete sample average of error calculated strictly over your training data rows: <span class="arithmatex">\(\frac{1}{N}\sum L(h(\vec{x}_i), y_i)\)</span>.
-3. <strong>The Core Realization:</strong> Empirical Risk Minimization (ERM) is the practical algorithmic engine we run in code. However, to guarantee that our model generalizes to unseen data, we must design our hypothesis spaces (<span class="arithmatex">\(\mathcal{H}\)</span>) and sample sizes (<span class="arithmatex">\(N\)</span>) to tightly bound the generalization gap between our empirical results and true risk.</p>
-</blockquote>
-<p>The structural foundation of ERM is now fully secure. We have mapped out hypothesis spaces, loss architectures, population risk, and the core challenge of uniform convergence.</p>
-<p>As we prepare for the next lecture to complete the structural proof showing that the absolute minimizer of this true classification risk is the conditional mode of the probability space, how does viewing <strong>True Risk as the probability of misclassification (<span class="arithmatex">\(P(h(X) \neq Y)\)</span>)</strong> help you visualize the geometric boundary where your model must draw its decision line to minimize error?</p>
 
 
 

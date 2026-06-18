@@ -23,7 +23,7 @@
     
     
       
-        <title>Lecture10 - probailistic Machine Learning</title>
+        <title>Lecture10 - Probabilistic Machine Learning</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+        <a href="#chapter-8-information-theory-foundations-and-the-geometry-of-surprisal" class="md-skip">
           Skip to content
         </a>
       
@@ -80,7 +80,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -94,7 +94,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            probailistic Machine Learning
+            Probabilistic Machine Learning
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -178,13 +178,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    probailistic Machine Learning
+    Probabilistic Machine Learning
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -698,8 +698,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -741,8 +739,6 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
-  
-    
   
   
     <label class="md-nav__title" for="__toc">
@@ -2585,8 +2581,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2816,15 +2810,11 @@
 
 
 
-<p>You are spot-on. We have officially shifted deep into the territory of the <strong>Kevin Murphy framework</strong> (<em>Probabilistic Machine Learning: An Introduction</em>). Unlike classical treatments that isolate machine learning into algorithmic checklists, this framework views the entire field as an optimization problem curving over a probability manifold.</p>
-<p>Before we write out the formal textbook notes for this lecture, let us highlight the professor's clean correction of the dimensionality typo from the previous board work. If your feature vector is high-dimensional (<span class="arithmatex">\(\vec{x} \in \mathbb{R}^D\)</span>) and your slope weights are high-dimensional (<span class="arithmatex">\(\vec{w}_1 \in \mathbb{R}^D\)</span>), their dot product (or transpose multiplication) collapses the space into a single scalar value:</p>
-<div class="arithmatex">\[\vec{w}_1^T \vec{x} \in \mathbb{R}^1\]</div>
-<p>Therefore, to maintain dimensional consistency, the bias intercept <span class="arithmatex">\(w_2\)</span> <strong>must be a scalar (<span class="arithmatex">\(w_2 \in \mathbb{R}^1\)</span>)</strong>, not a vector. A minor details check, but one that avoids syntax errors when translating these equations into matrix arrays.</p>
-<p>Now, let's step into our roles as pedagogical note-takers and formalize the foundational math of <strong>Information Theory</strong> that will serve as the absolute baseline for calculating model divergence.</p>
-<hr />
-<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+  <h1>Lecture10</h1>
+
+<p>Now, let's formalize the foundational math of <strong>Information Theory</strong> that will serve as the absolute baseline for calculating model divergence.</p>
 <h2 id="chapter-8-information-theory-foundations-and-the-geometry-of-surprisal">Chapter 8: Information Theory Foundations and the Geometry of Surprisal</h2>
-<p>To execute <strong>Step 2</strong> of our universal machine learning refinery—quantifying the structural distance between our assumed model density <span class="arithmatex">\(p_\theta(\vec{x})\)</span> and the true hidden density <span class="arithmatex">\(p_{\text{true}}(\vec{x})\)</span>—we cannot rely on standard Euclidean distance metrics. Instead, machine learning utilizes information-theoretic divergences.</p>
+<p>Quantifying the structural distance between our assumed model density <span class="arithmatex">\(p_\theta(\vec{x})\)</span> and the true hidden density <span class="arithmatex">\(p_{\text{true}}(\vec{x})\)</span>—we cannot rely on standard Euclidean distance metrics. Instead, machine learning utilizes information-theoretic divergences.</p>
 <p>To understand these divergences, we must first construct the mathematical definition of <strong>Information Content</strong> and <strong>Entropy</strong>.</p>
 <hr />
 <h3 id="81-the-axioms-of-shannon-information-content-surprisal">8.1 The Axioms of Shannon Information Content (Surprisal)</h3>
@@ -2938,19 +2928,18 @@ $<span class="arithmatex">\(H(X) = -\sum_{i} p_X(x_i) \log_2 p_X(x_i)\)</span>$<
 </ul>
 <hr />
 <h2 id="84-the-thermodynamic-bridge-adaptation-as-a-law-of-survival">8.4 The Thermodynamic Bridge: Adaptation as a Law of Survival</h2>
-<p>The professor closes the lecture with an elegant philosophical connection to statistical mechanics. The Second Law of Thermodynamics dictates that the total entropy of an isolated system always increases over time:</p>
+<p>Lets look at an elegant philosophical connection to statistical mechanics. The Second Law of Thermodynamics dictates that the total entropy of an isolated system always increases over time:</p>
 <div class="arithmatex">\[\Delta S_{\text{universe}} \geq 0\]</div>
 <p>In the language of information theory, this law means <strong>the universe will never stop generating surprise.</strong> When applied to the current landscape of AI automation, this law offers a fascinating insight into the job market. It is structurally true that deep neural architectures will automate and dissolve current occupational classifications. However, because the entropy of our global socio-technical ecosystem is constantly expanding, <strong>new, highly unpredictable problem spaces will continuously emerge.</strong> The goal of an engineer is not to look for a static, perfect lookup table for a fixed problem. Because the landscape is constantly shifting, the only path to operational survival is <strong>adaptation</strong>. In machine learning, this means building flexible, scalable distribution estimators that can dynamically update their parameter configurations (<span class="arithmatex">\(\theta^*\)</span>) as fast as the real-world data distribution drifts.</p>
 <hr />
 <h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
 <blockquote>
-<p><strong>The Generalist's Theoretical Map:</strong>
+<p><strong>Theoretical Map:</strong>
 1. <strong>Surprisal (<span class="arithmatex">\(I(x)\)</span>)</strong> is the localized coordinate metric of information: <span class="arithmatex">\(I(x) = -\log p(x)\)</span>.
 2. <strong>Entropy (<span class="arithmatex">\(H(X)\)</span>)</strong> is the volumetric average of that information landscape: <span class="arithmatex">\(H(X) = \mathbb{E}[I(x)]\)</span>.
 3. <strong>The Core Directive:</strong> We cannot build a machine learning divergence tracker until we can measure the information profile of an isolated distribution. Entropy is the mathematical baseline we will use in the next lecture to construct <strong>Cross-Entropy</strong> and the <strong>Kullback-Leibler (KL) Divergence</strong>.</p>
 </blockquote>
 <p>Now that we have locked down the exact axioms of Shannon Entropy, we have the raw ingredients needed to build our divergence yardstick.</p>
-<p>As we move toward comparing two different distributions, how does viewing Entropy as the <em>average expected surprise</em> of a system help you visualize what happens when a model's predicted density completely misjudges the frequency of a rare real-world event?</p>
 
 
 

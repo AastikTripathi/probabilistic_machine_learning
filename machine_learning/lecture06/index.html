@@ -23,7 +23,7 @@
     
     
       
-        <title>Lecture06 - probailistic Machine Learning</title>
+        <title>Lecture06 - Probabilistic Machine Learning</title>
       
     
     
@@ -80,7 +80,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -94,7 +94,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            probailistic Machine Learning
+            Probabilistic Machine Learning
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -178,13 +178,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    probailistic Machine Learning
+    Probabilistic Machine Learning
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -866,10 +866,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#textbook-notes-study-guide" class="md-nav__link">
+  <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Textbook Notes Study Guide
+        Summary
       
     </span>
   </a>
@@ -3021,10 +3021,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#textbook-notes-study-guide" class="md-nav__link">
+  <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Textbook Notes Study Guide
+        Summary
       
     </span>
   </a>
@@ -3052,7 +3052,7 @@
 <h2 id="chapter-4-the-geometry-of-iid-spaces-and-the-grand-unification-of-machine-learning-paradigms">Chapter 4: The Geometry of I.I.D. Spaces and the Grand Unification of Machine Learning Paradigms</h2>
 <hr />
 <h3 id="41-deconstructing-the-iid-assumption-dual-viewpoints">4.1 Deconstructing the I.I.D. Assumption: Dual Viewpoints</h3>
-<p>When we write <span class="arithmatex">\(D \sim \text{i.i.d. } P(X)\)</span>, we are invoking the <strong>Independent and Identically Distributed (i.i.d.)</strong> core axiom of statistical estimation. The professor introduces an elegant mathematical duality in how an engineer can interpret a dataset containing <span class="arithmatex">\(N\)</span> individual <span class="arithmatex">\(D\)</span>-dimensional observations:</p>
+<p>When we write <span class="arithmatex">\(D \sim \text{i.i.d. } P(X)\)</span>, we are invoking the <strong>Independent and Identically Distributed (i.i.d.)</strong> core axiom of statistical estimation. Consequently you can observe this elegant mathematical duality in how an engineer can interpret a dataset containing <span class="arithmatex">\(N\)</span> individual <span class="arithmatex">\(D\)</span>-dimensional observations:</p>
 <pre><code>                            [ The Dataset Matrix (N × D) ]
                                           |
             -----------------------------------------------------------
@@ -3126,7 +3126,7 @@ under stationary conditions.                             {X_1, X_2, ..., X_N}, a
 </ul>
 <hr />
 <h3 id="43-the-grand-unification-of-machine-learning">4.3 The Grand Unification of Machine Learning</h3>
-<p>The professor strips away the traditional boundaries of AI marketing—such as supervised, unsupervised, and self-supervised learning—revealing that they are all pseudo-distinctions. Mathematically, <strong>all machine learning collapses into a single operational directive:</strong></p>
+<p>Let's strip away the traditional boundaries of AI marketing—such as supervised, unsupervised, and self-supervised learning—revealing that they are all pseudo-distinctions. Mathematically, <strong>all machine learning collapses into a single operational directive:</strong></p>
 <div class="arithmatex">\[\text{Given a Dataset } D \sim \text{i.i.d. } P(Z), \quad \text{Estimate the Distribution Function } P(Z)\]</div>
 <p>Every branch of machine learning simply represents a different slice or manipulation of this estimated distribution space.</p>
 <hr />
@@ -3199,11 +3199,10 @@ Isolate the Conditional:                 Model the Joint Space:                 
 </ul>
 <div class="arithmatex">\[\arg\max_{y} P(Y = y \mid X = x)\]</div>
 <hr />
-<h2 id="textbook-notes-study-guide">Textbook Notes Study Guide</h2>
-<p>To ensure your reference manual is structurally rock-solid for the next analytical transition into density calculus, commit this foundational code-to-math conversion framework to memory:</p>
+<h2 id="summary">Summary</h2>
 <blockquote>
 <p><strong>The Generalist's Operational Code:</strong>
-1. When a software architecture passes data through a layer, it is not performing magic; it is performing <strong>conditional coordinate projection</strong> over a high-dimensional push-forward measure.
+1. When a software architecture passes data through a layer,  it is performing <strong>conditional coordinate projection</strong> over a high-dimensional push-forward measure.
 2. <strong>The i.i.d. Assumption</strong> acts as a mathematical scissor: it allows us to decompose a complex joint probability over an entire dataset matrix into a clean, simple product of individual rows (<span class="arithmatex">\(\prod_{i=1}^N P(Z_i)\)</span>).
 3. The architectural difference between a classifier and a generative model is purely <strong>topological</strong>: a classifier models the localized slice (<span class="arithmatex">\(P(Y \mid X)\)</span>), whereas a generative model must learn to navigate and sample from the entire global volume (<span class="arithmatex">\(P(X, Y)\)</span>).</p>
 </blockquote>

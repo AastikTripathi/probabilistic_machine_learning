@@ -23,7 +23,7 @@
     
     
       
-        <title>Lecture15 - probailistic Machine Learning</title>
+        <title>Lecture15 - Probabilistic Machine Learning</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+        <a href="#chapter-12-the-bayes-optimal-classifier-and-the-spatial-calculus-of-minimal-risk" class="md-skip">
           Skip to content
         </a>
       
@@ -80,7 +80,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -94,7 +94,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            probailistic Machine Learning
+            Probabilistic Machine Learning
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -178,13 +178,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    probailistic Machine Learning
+    Probabilistic Machine Learning
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -838,8 +838,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -881,8 +879,6 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
-  
-    
   
   
     <label class="md-nav__title" for="__toc">
@@ -2568,8 +2564,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2782,7 +2776,8 @@
 
 
 
-<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
+  <h1>Lecture15</h1>
+
 <h2 id="chapter-12-the-bayes-optimal-classifier-and-the-spatial-calculus-of-minimal-risk">Chapter 12: The Bayes Optimal Classifier and the Spatial Calculus of Minimal Risk</h2>
 <hr />
 <h2 id="1-comprehensive-notation-glossary">1. Comprehensive Notation Glossary</h2>
@@ -2884,7 +2879,7 @@
 <div class="arithmatex">\[R(h) = P\left(h(\vec{X}) \neq Y\right)\]</div>
 <hr />
 <h2 id="3-defining-the-bayes-optimal-classifier-h_bvecx">3. Defining the Bayes Optimal Classifier (<span class="arithmatex">\(h_B(\vec{x})\)</span>)</h2>
-<p>The professor introduces the <strong>Bayes Classifier</strong> (<span class="arithmatex">\(h_B\)</span>) as a logical decision rule. If an engineer has access to the true background probability landscape of nature, the most rational prediction path at any specific coordinate <span class="arithmatex">\(\vec{x}\)</span> is to evaluate the conditional posterior profiles for both classes and select whichever class contains the dominant probability mass.</p>
+<p>Let's introduce the <strong>Bayes Classifier</strong> (<span class="arithmatex">\(h_B\)</span>) as a logical decision rule. If an engineer has access to the true background probability landscape of nature, the most rational prediction path at any specific coordinate <span class="arithmatex">\(\vec{x}\)</span> is to evaluate the conditional posterior profiles for both classes and select whichever class contains the dominant probability mass.</p>
 <div class="arithmatex">\[h_B(\vec{x}) \triangleq \begin{cases} 0 &amp; \text{if } P(Y=0 \mid \vec{X}=\vec{x}) &gt; P(Y=1 \mid \vec{X}=\vec{x}) \\ 1 &amp; \text{if } P(Y=1 \mid \vec{X}=\vec{x}) \geq P(Y=0 \mid \vec{X}=\vec{x}) \end{cases}\]</div>
 <p>Using the compact notation of optimization bounds, this entire piece-wise condition compresses into a single statement:</p>
 <div class="arithmatex">\[h_B(\vec{x}) = \arg\max_{c \in \{0, 1\}} P(Y=c \mid \vec{X}=\vec{x})\]</div>

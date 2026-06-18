@@ -23,7 +23,7 @@
     
     
       
-        <title>Lecture08 - probailistic Machine Learning</title>
+        <title>Lecture08 - Probabilistic Machine Learning</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mathematical-foundations-of-machine-learning" class="md-skip">
+        <a href="#61-from-distributions-cdf-to-densities-pdf" class="md-skip">
           Skip to content
         </a>
       
@@ -80,7 +80,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="probailistic Machine Learning" class="md-header__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-header__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -94,7 +94,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            probailistic Machine Learning
+            Probabilistic Machine Learning
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -178,13 +178,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="probailistic Machine Learning" class="md-nav__button md-logo" aria-label="probailistic Machine Learning" data-md-component="logo">
+    <a href="../.." title="Probabilistic Machine Learning" class="md-nav__button md-logo" aria-label="Probabilistic Machine Learning" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    probailistic Machine Learning
+    Probabilistic Machine Learning
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -614,8 +614,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -658,8 +656,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -668,27 +664,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#chapter-6-continuous-support-manifolds-probability-density-functions-and-the-likelihood-space" class="md-nav__link">
+  <a href="#61-from-distributions-cdf-to-densities-pdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Chapter 6: Continuous Support Manifolds, Probability Density Functions, and the Likelihood Space
+        6.1 From Distributions (CDF) to Densities (PDF)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Chapter 6: Continuous Support Manifolds, Probability Density Functions, and the Likelihood Space">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#61-the-mathematical-shift-from-distributions-cdf-to-densities-pdf" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6.1 The Mathematical Shift: From Distributions (CDF) to Densities (PDF)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6.1 The Mathematical Shift: From Distributions (CDF) to Densities (PDF)">
+    <nav class="md-nav" aria-label="6.1 From Distributions (CDF) to Densities (PDF)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -706,8 +690,8 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#62-the-core-axioms-of-density-spaces" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -717,8 +701,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#63-the-fundamental-trap-density-is-not-probability" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -731,10 +715,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-professors-uniform-counter-example" class="md-nav__link">
+  <a href="#counter-example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Professor’s Uniform Counter-Example
+        Counter-Example
       
     </span>
   </a>
@@ -749,11 +733,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -2613,8 +2592,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2623,27 +2600,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#chapter-6-continuous-support-manifolds-probability-density-functions-and-the-likelihood-space" class="md-nav__link">
+  <a href="#61-from-distributions-cdf-to-densities-pdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Chapter 6: Continuous Support Manifolds, Probability Density Functions, and the Likelihood Space
+        6.1 From Distributions (CDF) to Densities (PDF)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Chapter 6: Continuous Support Manifolds, Probability Density Functions, and the Likelihood Space">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#61-the-mathematical-shift-from-distributions-cdf-to-densities-pdf" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6.1 The Mathematical Shift: From Distributions (CDF) to Densities (PDF)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6.1 The Mathematical Shift: From Distributions (CDF) to Densities (PDF)">
+    <nav class="md-nav" aria-label="6.1 From Distributions (CDF) to Densities (PDF)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2661,8 +2626,8 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#62-the-core-axioms-of-density-spaces" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2672,8 +2637,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#63-the-fundamental-trap-density-is-not-probability" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2686,10 +2651,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-professors-uniform-counter-example" class="md-nav__link">
+  <a href="#counter-example" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Professor’s Uniform Counter-Example
+        Counter-Example
       
     </span>
   </a>
@@ -2704,11 +2669,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -2872,10 +2832,9 @@
 
 
 
-<h1 id="mathematical-foundations-of-machine-learning">Mathematical Foundations of Machine Learning</h1>
-<h2 id="chapter-6-continuous-support-manifolds-probability-density-functions-and-the-likelihood-space">Chapter 6: Continuous Support Manifolds, Probability Density Functions, and the Likelihood Space</h2>
-<hr />
-<h3 id="61-the-mathematical-shift-from-distributions-cdf-to-densities-pdf">6.1 The Mathematical Shift: From Distributions (CDF) to Densities (PDF)</h3>
+  <h1>Lecture08</h1>
+
+<h3 id="61-from-distributions-cdf-to-densities-pdf">6.1 From Distributions (CDF) to Densities (PDF)</h3>
 <p>Up to this point, our mathematical framework has relied on the <strong>Cumulative Distribution Function (CDF)</strong>, denoted as <span class="arithmatex">\(F_X(x)\)</span>, to translate abstract events into real numbers. While the CDF is mathematically robust and always guaranteed to exist, it is incredibly cumbersome to manipulate when training machine learning models.</p>
 <p>To make optimization, gradient descent, and parameter tuning tractably calculable, we transition from distribution functions to <strong>Probability Density Functions (PDFs)</strong>.</p>
 <blockquote>
@@ -2900,10 +2859,10 @@ $<span class="arithmatex">\(\int_{\mathbb{R}^D} p_X(\vec{x}) \, d\vec{x} = 1\)</
 <p>The total volume trapped beneath the multi-dimensional geometric surface of a density function must sum to exactly <span class="arithmatex">\(1\)</span>.</p>
 <hr />
 <h3 id="63-the-fundamental-trap-density-is-not-probability">6.3 The Fundamental Trap: Density Is Not Probability</h3>
-<p>The professor highlights the single most common pitfall in data science: <strong>Evaluating a continuous density function at a specific coordinate does <em>not</em> give you a probability.</strong></p>
+<p>Note that: <strong>Evaluating a continuous density function at a specific coordinate does <em>not</em> give you a probability.</strong></p>
 <div class="arithmatex">\[p_X(x) \neq P(X = x)\]</div>
 <p>For any continuous random variable, the exact probability of hitting an infinitely precise scalar coordinate is always zero (<span class="arithmatex">\(P(X = 4.23948...) = 0\)</span>). The scalar value returned when you plug an input vector into a density function <span class="arithmatex">\(p_X(\vec{x})\)</span> is a <strong>Likelihood Score</strong>, not a probability.</p>
-<h4 id="the-professors-uniform-counter-example">The Professor’s Uniform Counter-Example</h4>
+<h4 id="counter-example">Counter-Example</h4>
 <p>To prove that densities are not probabilities, consider a continuous uniform random variable <span class="arithmatex">\(X\)</span> bounded tightly on the fractional interval <span class="arithmatex">\([0, \,\, 0.5]\)</span>.</p>
 <p>[Image comparing a probability mass function with a continuous uniform probability density function exceeding 1]</p>
 <p>By the normalization axiom, the area under the density curve must equal <span class="arithmatex">\(1\)</span>. Because the width of the support interval is <span class="arithmatex">\(0.5\)</span>, the height of the density function must compensate:</p>
@@ -3018,10 +2977,8 @@ $<span class="arithmatex">\(\text{Optimize } \theta \quad \text{such that} \quad
 <li><strong>Discriminative Classification / Regression:</strong> You learn the parameters <span class="arithmatex">\(\theta\)</span> to isolate the <strong>Conditional Density Function</strong> <span class="arithmatex">\(p_{\theta}(y \mid \vec{x})\)</span>.</li>
 <li><strong>Generative Data Modeling:</strong> You learn the parameters <span class="arithmatex">\(\theta\)</span> to recover the full <strong>Joint Density Function</strong> <span class="arithmatex">\(p_{\theta}(\vec{x}, y)\)</span> or the <strong>Marginal Density Function</strong> <span class="arithmatex">\(p_{\theta}(\vec{x})\)</span>, unlocking the ability to synthesize brand-new coordinates from the estimated space.</li>
 </ol>
-<p>The professor closes the lecture with a massive cliffhanger: <em>How do we actually solve this non-trivial estimation problem in practice?</em> The upcoming lectures will officially introduce the <strong>Empirical Risk Minimization (ERM)</strong> framework—the practical algorithmic vehicle we use to turn these density equations into real-world, executable code.</p>
+<p><em>How do we actually solve this non-trivial estimation problem in practice?</em> The upcoming sections will officially introduce the <strong>Empirical Risk Minimization (ERM)</strong> framework—the practical algorithmic vehicle we use to turn these density equations into real-world, executable code.</p>
 <hr />
-<p>The shift from distributions to densities is now complete. The professor explicitly noted that the next step is looking at the actual <em>challenges</em> of machine learning and deploying the ERM framework to solve them.</p>
-<p>As we move toward the mechanics of optimization, how does the realization that a continuous model output is a <em>likelihood density</em> rather than a <em>discrete probability mass</em> impact your understanding of how neural networks calculate classification loss?</p>
 
 
 
